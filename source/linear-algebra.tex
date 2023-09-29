@@ -1,0 +1,70 @@
+\section{Linear Algebra}\label{sec:linear-algebra}
+
+\begin{remark}
+    We shall resume the following convention as in Section~\ref{sec:matrix-rings}:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(a\) a lowercase symbol denotes a generic element in a set;
+        \item \(\vec{a}\) an underlined symbol denotes a vector; and
+        \item \(\vb{A}\) a bold symbol (usually uppercase)
+            denotes a matrix or tensorial quantity.
+    \end{enumerate}
+\end{remark}
+
+\subsection{Basic Definitions}
+
+\begin{definition}
+    A left module over a ring \(R\) is a quadruple \(M,+,\cdot,\vec{0}\)
+    where \(\vec{0} \in M\) is a set equipped with addition \(+\)
+    with an identity \(\vec{0}\)
+    and scalar multiplication,
+    with the following four properties:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \((M,+,\vec{0})\) forms an abelian group;
+        \item scalar multiplication
+            \(\vfunc{\cdot}{R \times M}{M}{(\alpha,\vec{m})}{\alpha\vec{m}}\),
+            and in particular \(1\vec{m} = \vec{m}\);
+        \item \(\forall\{\alpha,\beta\} \in R,\, \forall\{\vec{m},\vec{n}\} \subset M\),
+            the distributive laws \((\alpha+\beta)(\vec{m}+\vec{n})
+            = \alpha\vec{m}+\alpha\vec{n}+\beta\vec{m}+\beta\vec{n}\) hold; and
+        \item associativity
+            \(\forall\{\alpha,\beta\} \subset R,\,\forall\vec{m} \in M\),
+            \((\alpha\beta)\vec{m} = \alpha(\beta\vec{m})\).
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    A vector space over a field \(F\) is similarly defined with \(R = F\).
+    It is a quadruple \(V,+,\cdot,\vec{0}\)
+    where \(\vec{0} \in V\) is a set equipped with addition \(+\)
+    with an identity \(\vec{0}\)
+    and scalar multiplication,
+    with the following four properties:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \((V,+,\vec{0})\) forms an abelian group;
+        \item scalar multiplication
+            \(\vfunc{\cdot}{F \times V}{M}{(\alpha,\vec{v})}{\alpha\vec{v}}\),
+            and in particular \(1\vec{v} = \vec{v}\);
+        \item \(\forall\{\alpha,\beta\} \in R,\, \forall\{\vec{u},\vec{v}\} \subset M\),
+            the distributive laws \((\alpha+\beta)(\vec{u}+\vec{v})
+            = \alpha\vec{u}+\alpha\vec{v}+\beta\vec{u}+\beta\vec{v}\) hold; and
+        \item associativity
+            \(\forall\{\alpha,\beta\} \subset R,\,\forall\vec{v} \in M\),
+            \((\alpha\beta)\vec{v} = \alpha(\beta\vec{v})\).
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    Suppose \(F\) is a field,
+    and \(F^X = \{\func{f}{X}{F}\}\) the set of all functions from \(X\) to \(F\).
+    When equipped with pointwise addition and multiplication,
+    this forms a vector space over \(F\).
+\end{proposition}
+\begin{proof}
+    Since addition and multiplication is pointwise,
+    all proofs essentially start with `for all \(x \in X\) \(f(x) \in F\)',
+    so distributive laws and associativity laws are inherited from \(F\).
+\end{proof}
+\begin{corollary}
+    \(F^n\) forms a vector space.
+\end{corollary}
+\begin{proof}
+    Simply consider \(X = \{0,1,\hdots,n-1\}\) an \(n\)-element set.
+\end{proof}
