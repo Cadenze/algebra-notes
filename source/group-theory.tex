@@ -1,0 +1,2236 @@
+\section{Groups}
+
+\subsection{Basic Definitions}
+
+\begin{definition}
+    A group is a triple \((G,\cdot,1)\),
+    where \(G \neq \emptyset\) is a set
+    equipped with a multiplicative operation \(\cdot\)
+    with an identity \(1\),
+    with these four properties:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item closure \(\func{\cdot}{G \cross G}{G}\);
+        \item associativity \(\forall \{a,b,c\} \subset G, (ab)c = a(bc)\);
+        \item identity \(\exists 1 \in G, \forall g \in G, 1g = g1 = g\); and
+        \item inverse \(\forall g \in G, \exists h \in G, gh = hg = 1\),
+            which we usually denote \(g^{-1} = h\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    If we think of groups as objects that we use
+    to describe actions that preserve symmetry,
+    these are exactly the four criteria that we require:
+    any composition of two actions must also be an action (closure),
+    you must be able to compose actions in any order (associativity),
+    the act of doing nothing preserves symmetry (identity),
+    and reversing an action also preserves symmetry (inverse).
+\end{remark}
+
+\begin{definition}
+    A monoid is a triple \((X,\cdot,1)\),
+    where \(X \neq \emptyset\) is a set
+    equipped with a multiplicative operation \(\cdot\)
+    with an identity \(1\),
+    with the first three properties of a group,
+    that is, closure, associativity, and identity.
+\end{definition}
+% \begin{definition}
+%     A monad is a triple \((X,\cdot,1)\)
+%     with the same hypotheses as a monoid,
+%     but with only closure and identity.
+% \end{definition}
+% \begin{definition}
+%     A semigroup is a double \((X,\cdot)\)
+%     with the same hypotheses,
+%     but only closure is guaranteed.
+% \end{definition}
+
+\begin{definition}
+    Suppose \(G\) is a group.
+    The order of an element \(g \in G\)
+    is the smallest positive integer \(n\)
+    such that \(g^n = 1\).
+    If no such \(n\) exists,
+    we say the order of \(g\) is infinite.
+    This is often denoted \(\abs{g} = \ord{g} = \#g = n\).
+\end{definition}
+\begin{definition}
+    The order of a group \(G\),
+    also the cardinality of a group,
+    is the number of elements in a group \(G\).
+    If \(G\) has infinitely many elements,
+    we say the order of \(G\) is infinite.
+    This is often denoted \(\abs{G} = \ord{G} = \#G\).
+\end{definition}
+
+\begin{definition}
+    A commutative group or an abelian group
+    is a group \(G\) with a commutative operation \(\cdot\),
+    that is, \(gh = hg\) for all \(\{g,h\} \subset G\).
+\end{definition}
+\begin{remark}
+    We sometimes denote abelian groups with additive notation,
+    where \((G,+,0)\) is a group.
+\end{remark}
+
+
+\subsection{Transformation Groups}
+
+\begin{definition}
+    Suppose we have a set \(X\).
+    \(G\) is a group of transformations on \(X\)
+    if all elements of \(G\) are bijective functions that map \(X \to X\),
+    with multiplication being function composition.
+\end{definition}
+\begin{remark}
+    It is worth remembering that \(X\) can be any set.
+    Sometimes \(X\) indeed carries more structure,
+    namely being a group \(X\),
+    but remember that a group is but a set of elements
+    with some additional rules.
+\end{remark}
+
+\begin{definition}
+    The rotations and reflections on an \(n\)-gon
+    trivially form a transformation group.
+    These are transformations on \(n\) vertices that preserve adjacency.
+    This is often denoted as \(D_n\),
+    the dihedral group of an \(n\)-gon.
+\end{definition}
+\begin{proposition}
+    \(D_n\) is a group of order \(\abs{D_n} = 2n\),
+    with elements
+    \begin{equation*}
+        D_n = \{1,\tau,\tau^2,\hdots,\tau^{n-1},
+        \sigma,\sigma\tau,\sigma\tau^2,\hdots,\sigma\tau^{n-1}\}
+    \end{equation*}
+    in which \(\tau^n = \sigma^2 = 1\)
+    and \(\sigma\tau = \tau^{-1}\sigma\).
+\end{proposition}
+\begin{proof}
+    We think of \(\tau\) as a rotation by \(2\pi/n\),
+    and \(\sigma\) as a reflection.
+
+    We prove that all such elements are distinct.
+    Clearly by definition,
+    all \(\tau^j\) are distinct when \(j \in [0,n-1]\).
+    Moreover, all \(\sigma\tau^j\) are distinct when \(j \in [0,n-1]\)
+    because if \(\sigma\tau^i = \sigma\tau^j\),
+    then \(\sigma^2\tau^i = \sigma^2\tau^j\),
+    which implies \(\tau^i = \tau^j\).
+    Lastly, if \(\sigma\tau^i = \tau^j\),
+    then \(\sigma\tau^i\tau^{-j} = \tau^j\tau^{-j} = 1\),
+    which would imply there is \(\sigma = \tau^{j-i}\),
+    a contradiction,
+    as reflections are not rotations.
+
+    With this, we also prove that all \(\sigma\tau^j\)
+    are reflections.
+\end{proof}
+
+\begin{definition}
+    A (group) homomorphism or a homomorphic function
+    is \(\func{\phi}{G_1}{G_2}\),
+    where \(G_1,G_2\) are groups,
+    with the properties that \(\phi(gh) = \phi(g)\phi(h)\),
+    and \(\phi(1)\) is the identity on \(G_2\).
+    \(\phi\) provides a correspondence
+    between the multiplication in \(G_1\) and \(G_2\).
+    We call the set of all homomorphisms between \(G_1\) and \(G_2\)
+    the hom-set \(\Hom(G_1,G_2)\).
+\end{definition}
+\begin{definition}
+    Injective homomorphisms are called monomorphisms.
+    Surjective homomorphisms are called epimorphisms.
+    And most importantly,
+    bijective homomorphisms are called isomorphisms.
+    Two groups \(G,H\) that are isomorphic to each other
+    are denoted \(G \cong H\).
+\end{definition}
+\begin{definition}
+    Isomorphisms that map \(G \to G\) are called automorphisms;
+    the set of all automorphisms of \(G\) is the automorphism group \(\Aut(G)\).
+    The homomorphism that map a group \(G \to \{1\}\)
+    by mapping all elements to \(1\)
+    is called the trivial homomorphism.
+\end{definition}
+
+\begin{theorem}[Cayley's Theorem]\label{thm:cayley}
+    Suppose \(G\) is a finite group.
+    Then we can find a set \(X\)
+    such that \(G\) can be represented
+    as a transformation group on \(X\).
+    More specifically,
+    we can find a transformation group \(H\) on \(X\)
+    such that \(G \cong H\).
+\end{theorem}
+\begin{proof}
+    We consider \(X = G\),
+    i.e.\ \(G\) potentially being isomorphic
+    to a group that transforms all elements of itself.
+
+    We first define a function \(\vfunc{\ell_a}{G}{G}{x}{ax}\),
+    which we choose some \(a\)
+    that multiply some element \(x \in G\) on the left.
+    This is clearly a permutation on \(G\),
+    i.e.\ it is a bijection \(G \to G\),
+    because if \(\ell_a(x) = \ell_a(y)\) for some \(\{x,y\} \subset G\)
+    hence \(ax = ay\), then \(a^{-1}ax = a^{-1}ay\), and \(x = y\),
+    which proves that this is an injection;
+    the pigeonhole principle proves that this is a surjection.
+
+    For every element \(g \in G\),
+    we can create a function \(\ell_g\).
+    We let \(H = \{\ell_g : g \in G\}\)
+    be the set of all such left permutations.
+    We claim that \(H\) is a group,
+    with function composition as multiplication,
+    and \(\ell_1\) being the identity.
+    We have closure because \(\ell_a\ell_b\)
+    will map \(x \mapsto bx \mapsto abx\),
+    which is equivalent to \(\ell_{ab}\).
+    Function composition is naturally associative,
+    so we get that for free.
+    The inverse mapping from \(ax \to x\)
+    is achieved by left multiplying by \(a^{-1}\),
+    which itself is equivalent to \(\ell_{a^{-1}}\).
+    Lastly, the identity works,
+    because \(\ell_a\ell_1\) maps \(x \mapsto 1x = x \mapsto ax\)
+    which is equivalent to \(\ell_a\),
+    and similarly with \(\ell_1\ell_a = \ell_a\).
+
+    We then want to prove that
+    the mapping from \(a \to \ell_a\) is an isomorphism.
+    Suppose \(\vfunc{\phi}{G}{H}{a}{\ell_a}\).
+    This is a homomorphism because
+    \begin{equation*}
+        \phi(ab) = \ell_{ab} = \ell_a\ell_b = \phi(a)\phi(b)
+    \end{equation*}
+    And by construction, this is a bijection,
+    because if \(\phi(a) = \phi(b)\),
+    then \(\ell_a = \ell_b\),
+    which implies \(ax = bx\) for all \(x \in G\),
+    and hence \(axx^{-1} = bxx^{-1}\),
+    so \(a = b\),
+    which gives us injectivity;
+    the pigeonhole principle again gives us surjectivity.
+
+    We have now found a transformation group \(H\)
+    that acts on a set \(G\),
+    and that \(G\) is isomorphic to the transformation group \(H\).
+\end{proof}
+\begin{remark}
+    One can repeat the entire proof with right multiplication instead,
+    it is equally valid.
+\end{remark}
+
+
+\subsection{Cyclic Groups}
+
+\begin{definition}
+    Suppose \(G\) is a group.
+    A subgroup \(H\) of \(G\) is a subset \(H \subseteq G\),
+    with \(1 \in H\), and properties of a group hold.
+    We call the group \(\{1\}\) the trivial subgroup.
+\end{definition}
+
+\begin{definition}
+    Suppose we have a group \(G\),
+    and some non-empty subset \(S \subseteq G\).
+    The subgroup generated by \(S\)
+    is the group of all elements that can be formed
+    by the products of elements in \(S\) and their inverses.
+    We denote it as
+    \(\langle S \rangle = \{\prod_i s_i : s_i \in S \lor s_i^{-1} \in S\}\).
+\end{definition}
+\begin{remark}
+    One can think of this as almost like how a vector space
+    spanned by a set of basis vectors.
+\end{remark}
+
+\begin{lemma}\label{lem:intersection-subgroup}
+    Suppose \(G\) is a group,
+    and \(H_i \subseteq G\) subgroups.
+    Then \(\bigcap_i H_i\) is also a subgroup of \(G\).
+\end{lemma}
+\begin{proof}
+    If \(\{a,b\} \subset \bigcap_i H_i\),
+    then \(\{a,b\} \subset H_i\) for all \(i\),
+    and hence \(ab \in H_i\),
+    which gives us closure \(ab \in \bigcap_i H_i\).
+
+    Associativity is inherited from \(G\).
+
+    The identity must be in each of \(H_i\),
+    so it must also be in \(\bigcap_i H_i\).
+
+    Lastly, if \(a \in \bigcap_i H_i\),
+    then \(a \in H_i\) for all \(i\),
+    so \(a^{-1} \in H_i\) for all \(i\),
+    so we have inverses as \(a^{-1} \in \bigcap_i H_i\).
+\end{proof}
+
+\begin{proposition}\label{prop:subset-generated-subgroup}
+    \(\langle S \rangle = \bigcap_i H_i\),
+    where \(H_i\) is any subgroup of \(G\) containing \(S\).
+\end{proposition}
+\begin{proof}
+    We first need to prove that
+    \(\bigcap_i H_i \subseteq \langle S \rangle\),
+    which it is sufficient to prove that \(\langle S \rangle\)
+    is any subgroup of \(G\) containing \(S\),
+    i.e.\ \(\langle S \rangle\) corresponds to some \(H_i\),
+    since the intersection must be contained in any \(H_i\).
+    It is trivial to see that \(1 \in \langle S \rangle\)
+    by choosing \(s_2 = s_1^{-1}\), which gives us \(1\).
+    Closure and associativity is inherited from \(G\),
+    so we need not prove anything.
+    Inverses exist since it is easy to check that
+    \({(s_1 s_2 \hdots s_n)}^{-1} = s_n^{-1} \hdots s_2^{-1} s_1^{-1}\).
+    Hence \(\langle S \rangle \subseteq G\) is a subgroup,
+    which must contain \(S\) by construction.
+
+    We then see that \(H_i \subseteq G\),
+    so every element of \(\langle S \rangle\) is in \(H_i\),
+    as it is closed under multiplication and inversion.
+    Hence we have \(\langle S \rangle \subseteq \bigcap_i H_i\),
+    and subsequently \(\langle S \rangle = \bigcap_i H_i\).
+\end{proof}
+
+\begin{definition}
+    Suppose we have a group \(G\),
+    and some element \(g \in G\).
+    The subgroup generated by one element,
+    otherwise known as the cyclic group generated by \(g\),
+    is denoted \(\langle g \rangle = \{g^n : n \in \bZ\}\).
+\end{definition}
+\begin{proposition}
+    Cyclic groups are abelian.
+\end{proposition}
+\begin{proof}
+    \(g\) will always commute with itself.
+\end{proof}
+
+\begin{theorem}
+    Cyclic groups of the same order (finite or infinite) are isomorphic.
+\end{theorem}
+\begin{proof}
+    Suppose we have a cyclic group \(\langle g \rangle\).
+    We first attempt to construct a homomorphism
+    \(\vfunc{\phi}{(\bZ,+,0)}{\langle g \rangle}{n}{g^n}\).
+    A quick proof shows us that it is indeed a homomorphism,
+    with \(\phi(0) = g^0 = 1\), and
+    \begin{equation*}
+        \phi(m+n) = g^{m+n} = g^m g^n = \phi(m)\phi(n)
+    \end{equation*}
+    We also see that this is surjective by construction,
+    but not necessarily injective,
+    if the order of \(g\) is finite.
+
+    We first consider the case of infinite order of \(g\).
+    Then it is clear that no two integers will map to the same element,
+    and hence \(\phi\) is injective, and therefore and isomorphism.
+    This proves the part where we claim that
+    all infinite cyclic groups are isomorphic,
+    and specifically with \((\bZ,+,0)\).
+
+    We now consider some \(g\) with order \(\abs{g} = d\).
+    Then clearly \(\phi(d) = \phi(0) = g^d = 1\),
+    which shows us that \(\phi\) is not injective.
+    We can however show that \(\{1,g,g^2,\hdots,g^{d-1}\}\)
+    are all distinct,
+    which proves that \((\bZ/d\bZ,+,0) \cong \langle g \rangle\).
+    We proceed by contradiction,
+    assuming that there exists some \(0 \leq i < j < d\)
+    such that \(g^i = g^j\).
+    But then we know \(g^{j-i} = g^j g^{-i} = g^i g^{-i} = 1\),
+    which tells us there exists some number \(j-i < d\)
+    such that \(g^{j-i} = 1\),
+    contradicting that \(\abs{g} = d\).
+    Hence all cyclic groups with order \(d\)
+    are isomorphic to \(\bZ/d\bZ,+,0\),
+    which in turn are isomorphic to each other.
+\end{proof}
+
+\begin{definition}
+    \(C_n\) is the cyclic group with order \(\abs{C_n} = n\).
+    It is also sometimes denoted \(C_n = Z_n = \bZ/n\bZ = \bZ/(n) = \bZ/n\).
+\end{definition}
+
+\begin{theorem}\label{thm:cyclic-subgroup}
+    Any subgroup of a cyclic group is cyclic.
+    In particular, if \(H \subseteq G\) a finite cyclic group,
+    \(\abs{H} \mid \abs{G}\).
+\end{theorem}
+\begin{proof}
+    Suppose \(G = \langle g \rangle\) is generated by this element.
+    Then all elements of \(H\) can be written as some power of \(g\).
+    We pick the smallest such integer \(s\) such that \(g^s \in H\).
+    We claim that \(H = \langle g^s \rangle\).
+    No matter what element we pick in \(H\),
+    we can write it as \(g^{s'}\).
+    Via long division, we write \(s' = qs + r\), with \(0 \leq r < s\),
+    so we know our element is
+    \(g^{s'} = g^{qs+r} = {(g^s)}^q g^r\).
+    Since \(g^s \in H\), by closure we have \({(g^s)}^q \in H\);
+    which gives us \(g^r = {\qty({(g^s)}^q)}^{-1} g^{s'} \in H\).
+    But if \(r \neq 0\),
+    we will have found a smaller integer than \(s\)
+    such that \(g^r \in H\),
+    which itself is a contradiction.
+    We are then forced to conclude that \(r = 0\),
+    so all elements in \(H\) must be written as
+    \(g^{s'} = g^{qs} = {(g^s)}^q \in \langle g^s \rangle\),
+    and hence \(H \subseteq \langle g^s \rangle\).
+    But obviously, \(g^s \in H\), so \({(g^s)}^q \in H\),
+    and we have \(\langle g^s \rangle \subseteq H\).
+    We then have our claim of equality \(H = \langle g^s \rangle\),
+    which is generated by a single element.
+
+    For the second part of the theorem,
+    it is sufficient to prove that \(\abs{g^s} \mid \abs{g}\).
+    Suppose \(\abs{g^s} = d\) and \(\abs{g} = n\).
+    Then we know that \(g^{sd} = 1\), which we apply long division on.
+    \(sd = qn + r\), with \(0 \leq r < n\),
+    so \(g^{sd} = g^{qn}g^r = {(g^n)}^q g^r = g^r = 1\),
+    which gives us \(r = 0\),
+    because \(r\) is smaller than the order of \(g\).
+    This tells us that \(sd \mid n\).
+    Now, we know that \(d\) is the smallest number
+    that we need to multiply \(s\) by to obtain a multiple of \(n\),
+    which tells us \(d\) is the product of
+    all the factors that \(n\) has,
+    but \(s\) has not (counted with multiplicity).
+    A simple decomposition of \(n = \gcd(s,n) \cdot n/\gcd(s,n)\)
+    tells us that the gcd must be the factors that \(n\) and \(s\) share,
+    so the other part must be the ones \(n\) has, but \(s\) has not,
+    meaning \(d = n/\gcd(s,n)\).
+    But by definition, these are factors of \(n\),
+    so \(d \mid n\).
+\end{proof}
+\begin{corollary}
+    \(\abs{g^s} = \abs{g}/\gcd(s,\abs{g})\).
+\end{corollary}
+\begin{remark}
+    The above theorem gives us the ability to
+    find the order of a given subgroup of a cyclic group.
+    But to do the reverse, given an order finding a subgroup,
+    each order might correspond to multiple generators,
+    which means we need to prove the next theorem.
+\end{remark}
+
+\begin{theorem}\label{thm:cyclic-subgroup-uniqueness}
+    Suppose \(G = \langle g \rangle\), with \(\abs{g} = n\).
+    Given that \(d \mid n\), the subgroup of order \(d\) is unique.
+\end{theorem}
+\begin{proof}
+    Let \(s = n/d\).
+    We first see that \(H = \langle g^s \rangle\)
+    is one such subgroup of order \(d\),
+    since the corollary gives us
+    \(\abs{H} = n/\gcd(n/d,n) = n/\gcd(n/d) = d\).
+
+    Now suppose we have another subgroup \(H' \subseteq G\)
+    with order \(d\).
+    Then from the \hyperref[thm:cyclic-subgroup]{above theorem},
+    we know that \(H' = \langle g^{s'} \rangle\) is cyclic.
+    By the corollary, we get
+    \begin{equation*}
+        d = \frac{n}{\gcd(n,s')} \implies s = \frac{n}{d} = \gcd(n,s')
+    \end{equation*}
+    with \(s \mid s'\) by definition of gcd.
+    Hence \(s'\) is a multiple of \(s\),
+    so \(g^{s'} \in H\), and therefore \(H' \subseteq H\).
+    But as the orders are the same,
+    the pigeonhole principle gives us \(H' = H\).
+\end{proof}
+
+\begin{theorem}
+    Suppose \(g\) and \(h\) commute (\(gh = hg\)),
+    with \(m = \abs{g}\), \(n = \abs{h}\),
+    \(m,n\) coprime (\(\gcd(m,n) = 1\)).
+    Then \(\abs{gh} = mn = \abs{g}\abs{h}\).
+\end{theorem}
+\begin{proof}
+    Let \(d = \abs{gh}\).
+    We first notice that
+    \({(gh)}^{mn} = g^{mn}h^{mn} = {(g^m)}^n{(h^n)}^m = 1\),
+    so \(d \mid mn\).
+
+    Now we claim that \(mn\) is minimal.
+    Suppose we have a \(0 < d < mn\) such that \({(gh)}^d = g^d h^d = 1\),
+    so we know that \(g^d = h^{-d}\).
+    Since their orders are coprime,
+    unless one of the groups is \(\{1\}\),
+    they are not subgroups of each other,
+    so we have \(1 = g^d = h^{-d}\),
+    and \(m \mid d\) and \(n \mid d\).
+    But then \(d\) must be some multiple of \(\lcm(m,n) = mn\),
+    which is impossible within the range \(0 < d < mn\).
+    Hence \(d = mn\).
+\end{proof}
+\begin{remark}
+    In general, \(g\) and \(h\) will not commute,
+    so it is impossble to relate \(\abs{gh}\) to \(\abs{g}\abs{h}\),
+    since you would have to understand the groups
+    \(\langle g \rangle\) and \(\langle h \rangle\) together.
+\end{remark}
+
+
+\subsection{Permutations}
+
+\begin{definition}
+    Let \(X = \bN_n = \{1,2,3,\hdots,n\}\)
+    a set (any set) of \(n\) elements.
+    We call a bijective function \(\func{\sigma}{X}{X}\) a permutation.
+\end{definition}
+\begin{proposition}\label{prop:symmetric-group}
+    The set of all possible permutations,
+    with function composition as multiplication
+    and the identity mapping as the identity,
+    forms a group of order \(n!\).
+\end{proposition}
+\begin{proof}
+    It is easy to see that the composition of two bijections
+    is also a bijection,
+    which gives us closure.
+    We inherit associativity from function composition,
+    and the identity mapping works as intended
+    on both the left and the right side.
+    Lastly, the inverse of a bijection
+    must also be a bijection.
+
+    To count all the ways we can construct such permutations,
+    we see that for any given \(\sigma\),
+    there are \(n\) possible elements that we can map \(1\) to,
+    and after that choice is taken,
+    \(n-1\) possible elements that we can map \(2\) to,
+    and so forth until there is only one choice
+    for what we can map \(n\) to.
+    This gives us a total of \(n(n-1)\hdots(2)(1) = n!\) choices.
+\end{proof}
+\begin{definition}
+    It is clear that the groups of permutations
+    of any two sets of \(n\) items
+    are isomorphic to each other.
+    We call this group \(S_n\),
+    the symmetric group of \(n\) elements.
+\end{definition}
+
+\begin{definition}
+    We can write elements of \(S_n\) as disjoint cycles
+    \((a_1 a_2 \hdots a_p) \hdots (b_1 b_2 \hdots b_q)\)
+    where this permutation will map \(a_1 \mapsto a_2\),
+    \(a_2 \mapsto a_3\), and so on until \(a_p \to a_1\),
+    repeating this process for every cycle.
+    We will often omit cycles of length 1.
+\end{definition}
+\begin{remark}
+    It is worth noting that disjoint cycles commute.
+\end{remark}
+
+\begin{definition}
+    We call \(\tau = (ab)\) a cycle of two elements
+    a flip or a transposition.
+\end{definition}
+\begin{lemma}[Breaking the cycle]\label{lem:breaking-cycles-sn}
+    Suppose \(\rho = (a c_1 \hdots c_m b d_1 \hdots d_n)\)
+    is a cycle of length \(m+n+2\).
+    Then \(\rho = (ab)(a c_1 \hdots c_m)(b d_1 \hdots d_n)\).
+\end{lemma}
+\begin{proof}
+    This is equivalent to proving that
+    \((ab)\rho = (a c_1 \hdots c_m)(b d_1 \hdots d_n)\).
+    We can see that \(\rho\) maps the following way,
+    so \((ab)\rho\) must simply swap all occurrences of \(a\) with \(b\)
+    in the results, and vice versa.
+    \begin{equation*}
+        \rho = \begin{cases}
+            a \mapsto c_1 \\
+            c_i \mapsto c_{i+1} & i < m \\
+            c_m \mapsto b \\
+            b \mapsto d_1 \\
+            d_j \mapsto d_{j+1} & j < n \\
+            d_n \mapsto a
+        \end{cases} \qquad
+        (ab)\rho = \begin{cases}
+            a \mapsto c_1 \\
+            c_i \mapsto c_{i+1} & i < m \\
+            c_m \mapsto a \\
+            b \mapsto d_1 \\
+            d_j \mapsto d_{j+1} & j < n \\
+            d_n \mapsto b
+        \end{cases}
+    \end{equation*}
+\end{proof}
+\begin{theorem}\label{thm:sn-product-transpositions}
+    Any \(\sigma \in S_n\) is a non-unique product of transpositions.
+\end{theorem}
+\begin{proof}
+    We write \(\sigma = \gamma_1\hdots\gamma_n\) as disjoint cycles.
+    We now decompose each of \(\gamma_i\).
+    First suppose \(\gamma_i\) is a transposition already.
+    Then there is no need to do anything.
+
+    Now suppose \(\gamma_i = (abc)\) is of length 3.
+    Then by our \hyperref[lem:breaking-cycles-sn]{lemma above},
+    \(\gamma_i = (ac)(ab)(c) = (ac)(ab)\)
+    and we have a product of transpositions.
+
+    Then suppose \(\gamma_i = (abcd)\) is of length 4.
+    By our \hyperref[lem:breaking-cycles-sn]{lemma above},
+    \(\gamma_i = (ac)(ab)(cd)\)
+    and we have a product of transpositions.
+
+    Applying the induction step,
+    assume that \(\gamma_i = (a b c_1 \hdots c_n)\) is a cycle of \(n+2\),
+    and the case of cycles of length \(n\) is already proven.
+    Then we know by our lemma \(\gamma_i = (ac_1)(ab)(c_1 \hdots c_n)\),
+    so we have two transpositions and a cycle of length \(n\),
+    which by the inductive hypothesis can be decomposed into transpositions.
+
+    This representation is not unique,
+    since if \(\sigma = \tau_1\hdots\tau_n\),
+    and \(\tau'\) is another transposition,
+    we can write \(\sigma = \tau'{\tau'}^{-1}\tau_1\hdots\tau_n
+    = \tau'\tau'\tau_1\hdots\tau_n\)
+    a different representation.
+\end{proof}
+
+\begin{proposition}\label{prop:sn-conjugation}
+    Suppose \(\sigma \in S_n\).
+    Then \(\sigma(n_1 n_2 \hdots n_d)\sigma^{-1}
+    = (\sigma(n_1) \sigma(n_2) \hdots \sigma(n_d))\).
+\end{proposition}
+\begin{proof}
+    Since all \(\sigma\) can be written a a product of transpositions
+    (Theorem~\ref{thm:sn-product-transpositions}),
+    it is sufficient to consider \(\tau(n_1 n_2 \hdots n_d)\tau^{-1}\).
+    Suppose we have \((ab)\rho(ab)\),
+    and \(\rho = (ac_1 \hdots c_m bd_1 \hdots d_n)\)
+    Then we have
+    \begin{equation*}
+        (ab) = \begin{cases}
+            a \mapsto b \\
+            c_i \mapsto c_i \\
+            b \mapsto a \\
+            d_j \mapsto d_j
+        \end{cases} \qquad
+        \rho(ab) = \begin{cases}
+            a \mapsto d_1 \\
+            c_i \mapsto c_{i+1} & i < m \\
+            c_m \mapsto b
+            b \mapsto c_1 \\
+            d_j \mapsto d_{j+1} & j < n\\
+            d_n \mapsto a
+        \end{cases}
+    \end{equation*}
+    which in cycle notation is
+    \(\rho(ab) = (ad_1 \hdots d_n)(bc_1 \hdots c_m)\),
+    and if we \hyperref[lem:breaking-cycles-sn]{break the cycle}
+    we get \((ab)\rho(ab) = (ad_1 \hdots d_n bc_1 \hdots c_m)\)
+    which is exactly as desired, swapping the positions of \(a\) and \(b\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(\sigma = \gamma_1\gamma_2\hdots\gamma_n\)
+    is a permutation written in disjoint cycle notation,
+    with \(\gamma_i\) having length \(d_i\).
+    Then we define the sign of the permutation as
+    \begin{equation*}
+        \sgn(\sigma) = {(-1)}^{\sum_{i=1}^n (d_i-1)}
+        = \prod_{i=1}^n {(-1)}^{(d_i-1)}
+    \end{equation*}
+    If \(\sgn(\sigma) = 1\), \(\sigma\) is called even;
+    conversely, if \(\sgn(\sigma) = -1\), \(\sigma\) is called odd.
+\end{definition}
+\begin{remark}
+    It is worth noting that cycles of odd length are even,
+    and cycles of even length are odd.
+    Then cycles of length 1 (identity) are even,
+    so it does not change sign.
+\end{remark}
+
+\pagebreak
+
+\begin{proposition}
+    Suppose \(\tau = (ab)\) is a transposition, and \(\sigma \in S_n\).
+    Then \(\sgn(\tau\sigma) = -\sgn(\sigma)\).
+\end{proposition}
+\begin{proof}
+    We write \(\sigma = \gamma_1\hdots\gamma_r\) as disjoint cycles,
+    inclding 1-cycles.
+    We first consider the case that \(a,b\) are in the same cycle,
+    so without loss of generality let \(a,b\) be in \(\gamma_1\),
+    which has length \(m+n+2\).
+    Then we have, by the lemma
+    \begin{gather*}
+        \tau\sigma
+        = (ab)(ac_1 \hdots c_m bd_1 \hdots d_n)\gamma_2\hdots\gamma_r
+        = (ac_1 \hdots c_m)(bd_1 \hdots d_n)\gamma_2\hdots\gamma_r \\
+        \sgn(\tau\sigma)
+        = {(-1)}^m{(-1)}^n \prod_{i=2}^r {(-1)}^{(d_i-1)}
+        = {(-1)}^{m+n} \prod_{i=2}^r {(-1)}^{(d_i-1)}
+        = -{(-1)}^{m+n+1} \prod_{i=2}^r {(-1)}^{(d_i-1)}
+        = -\sgn(\sigma)
+    \end{gather*}
+
+    Now consider the case that \(a,b\) are in different cycles,
+    so without loss of generality
+    let \(a\) be in \(\gamma_1\) of length \(m+1\),
+    and \(b\) be in \(\gamma_2\) of length \(n+1\).
+    By the lemma again
+    \begin{gather*}
+        \tau\sigma
+        = (ab)(ac_1 \hdots c_m)(bd_1 \hdots d_n)\gamma_3\hdots\gamma_r
+        = (ac_1 \hdots c_m bd_1 \hdots d_n)\gamma_3\hdots\gamma_r \\
+        \sgn(\tau\sigma)
+        = {(-1)}^{m+n+1} \prod_{i=3}^r {(-1)}^{(d_i-1)}
+        = -{(-1)}^{m+n} \prod_{i=3}^r {(-1)}^{(d_i-1)}
+        = -{(-1)}^m{(-1)}^n \prod_{i=2}^r {(-1)}^{(d_i-1)}
+        = -\sgn(\sigma)
+    \end{gather*}
+\end{proof}
+\begin{corollary}\label{cor:sgn-transposition}
+    Suppose \(\sigma = \tau_1\tau_2\cdots\tau_k\)
+    written as a product of transpositions.
+    Then \(\sgn(\sigma) = {(-1)}^k\).
+\end{corollary}
+\begin{proof}
+    \(\sgn(\sigma) = \sgn(\tau_1\tau_2\cdots\tau_k)
+    = (-1)\sgn(\tau_2\cdots\tau_k)
+    = \cdots = {(-1)}^{k-1}\sgn(\tau_k)
+    = {(-1)}^k\)
+\end{proof}
+\begin{remark}
+    Since the sign of a permutation is either odd or even,
+    this tells us that the number of transpositions might not be unique,
+    but whether there are an odd or even number of them
+    is inherent to each permutation.
+\end{remark}
+
+\begin{theorem}\label{thm:sgn-mult}
+    \(\sgn(\sigma_1\sigma_2) = \sgn(\sigma_1)\sgn(\sigma_2)\).
+\end{theorem}
+\begin{proof}
+    Suppose \(\sigma_1 = \tau_1\hdots\tau_m\),
+    and \(\sigma_2 = \tau'_1\hdots\tau'_n\).
+    Then by the \hyperref[cor:sgn-transposition]{corollary above},
+    \begin{align*}
+        \sgn(\sigma_1\sigma_2)
+        &= \sgn(\tau_1\hdots\tau_m\tau'_1\hdots\tau'_n)
+        = {(-1)}^{m+n}
+        = {(-1)}^m{(-1)}^n \\
+        &= \sgn(\tau_1\hdots\tau_m)\sgn(\tau'_1\hdots\tau'_m)
+        = \sgn(\sigma_1)\sgn(\sigma_2)
+    \end{align*}
+\end{proof}
+\begin{corollary}
+    The even permutations form a subgroup of \(S_n\).
+\end{corollary}
+\begin{proof}
+    Suppose \(\sigma_1,\sigma_2\) are both even,
+    Then since \(\sgn(\sigma_1) = \sgn(\sigma_2) = 1\),
+    we have \(\sgn(\sigma_1\sigma_2) = \sgn(\sigma_1)\sgn(\sigma_2) = 1\).
+    We have closure.
+
+    The identity is also even,
+    because \(\sgn(\sigma) = \sgn(1\sigma) = \sgn(1)\sgn(\sigma)\),
+    which gives us \(\sgn(1) = 1\), an even permutation.
+
+    Lastly, if \(\sigma\) is even,
+    then \(\sigma^{-1}\) is too,
+    because if \(\sigma = 1\),
+    then \(1 = \sgn(1) = \sgn(\sigma\sigma^{-1})
+    = \sgn(\sigma)\sgn(\sigma^{-1}) = \sgn(\sigma^{-1})\).
+\end{proof}
+\begin{definition}
+    We call the subgroup of even permutations of \(S_n\)
+    the alternating group of \(n\) elements,
+    usually denoted as \(A_n\).
+\end{definition}
+
+
+\subsection{Cosets}\label{sec:cosets}
+
+\begin{proposition}
+    Suppose \(G\) is a transformation group of some set \(X\).
+    For any \(\{x,y\} \subset X\),
+    if we define a relation \(x \sim y\) to be
+    when there exists some \(g \in G\)
+    such that \(g(x) = y\),
+    such a relation is an equivalence relation.
+\end{proposition}
+\begin{proof}
+    This is reflexive because \(1 \in G\),
+    and \(1(x) = x\), so \(x \sim x\).
+    This is symmetric because suppose \(x \sim y\),
+    then there exists some \(g \in G\) such that \(g(x) = y\);
+    it is easy to see that then \(g^{-1}(y) = x\),
+    so we have \(y \sim x\).
+    This is transitive because if \(x \sim y\) and \(y \sim z\),
+    then there exists \(g(x) = y\) and \(h(y) = z\),
+    and since \(hg \in G\), \((hg)(x) = h(y) = z\),
+    so \(x \sim z\).
+\end{proof}
+\begin{definition}
+    We call the equivalence class of \(x \in X\) the orbit of \(x\),
+    which is often denoted as \(\orb(x) = Gx = \{g(x) : g \in G\}\).
+    If this is the entire set,
+    i.e.\ there exists some \(x \in X\)
+    (and therefore all \(x \in X\) by Theorem~\ref{thm:equiv-class-partition})
+    such that \(Gx = X\),
+    we call \(G\) a transitive transformation group.
+\end{definition}
+
+\begin{proposition}
+    Suppose \(G\) is a group, and \(H \subseteq G\) some subgroup.
+    For any \(\{g_1,g_2\} \subset G\),
+    if we define a relation \(g_1 \sim g_2\) to be
+    when there exists some \(h \in H\) such that \(g_2 = g_1h\),
+    such a relation is an equivalence relation.
+\end{proposition}
+\begin{proof}
+    This is reflexive because \(1 \in H\),
+    and \(g_1 = g_1 1\), so \(g_1 \sim g_1\).
+    This is symmetric because suppose \(g_1 \sim g_2\),
+    then there exists \(h \in H\) such that \(g_2 = g_1 h\);
+    it is easy to see that \(g_1 = g_2 h^{-1}\), so we have \(g_2 \sim g_1\).
+    This is transitive because if \(g_1 \sim g_2\) and \(g_2 \sim g_3\),
+    then there exists \(h_1\) and \(h_2\) such that
+    \(g_2 = g_1 h_1\) and \(g_3 = g_2 h_2\),
+    so \(g_3 = g_1 h_1 h_2\),
+    and hence \(g_1 \sim g_3\).
+\end{proof}
+\begin{definition}
+    We call the equivalence class of \(g \in G\) a left coset of \(H\) in \(G\),
+    which is denoted \(gH = \{gh : h \in H\}\).
+    We can similarly define a right coset of \(H\) in \(G\),
+    which is denoted \(Hg = \{hg : h \in H\}\).
+\end{definition}
+\begin{definition}
+    The set of all left cosets is denoted \(G/H\),
+    while the set of all right cosets is denoted \(H \backslash G\).
+\end{definition}
+\begin{definition}
+    The number of left cosets is called the index of \(H\) in \(G\)
+    and is denoted \(\abs{G/H} = [G:H]\).
+\end{definition}
+
+\begin{lemma}\label{lem:order-coset}
+    Suppose \(G\) a group, and \(H \subseteq G\) some subgroup.
+    Then for any \(g \in G\),
+    the cosets are the same size,
+    and in particular \(\abs{gH} = \abs{H}\).
+\end{lemma}
+\begin{proof}
+    We write the left multiplication function
+    \(\vfunc{\ell_g}{H}{gH}{h}{gh}\).
+    We can show that it is injective,
+    because if \(gh_1 = gh_2\),
+    then \(g^{-1}gh_1 = g^{-1}gh_2\),
+    so \(h_1 = h_2\).
+    We can also show that it is surjective,
+    because for every element \(gh \in gH\),
+    clearly \(h \mapsto gh\) and \(h \in H\) by definition.
+    Hence \(\ell_g\) is a bijection,
+    which shows that \(\abs{H} = \abs{gH}\).
+\end{proof}
+\begin{theorem}[Lagrange's Theorem]\label{thm:lagrange}
+    For some finite group \(G\), and \(H \subseteq G\) any subgroup,
+    \(\abs{G} = \abs{H}[G:H]\).
+\end{theorem}
+\begin{proof}
+    By definition, there are a total of \([G:H]\) cosets,
+    and the subgroup itself is a coset \(H = 1H\).
+    Since cosets are equivalence classes,
+    they partition \(G\),
+    so the order of \(G\) must be the sum of the orders of the cosets.
+    But we also know that all the cosets are the of size \(\abs{H}\)
+    from the \hyperref[lem:order-coset]{lemma above},
+    so we have \(\abs{G} = \abs{H}[G:H]\).
+\end{proof}
+\begin{corollary}\label{cor:prime-order-subgroup}
+    Suppose \(\abs{G} = p\) some prime order.
+    Then if \(H \subseteq G\) is a subgroup,
+    either \(H = \{1\}\) or \(H = G\),
+    and in the second case,
+    \(H\) is generated by any element \(g \in G\) when \(g \neq 1\).
+\end{corollary}
+\begin{proof}
+    Since from the \hyperref[thm:lagrange]{theorem above}
+    we have \(\abs{H}\mid\abs{G}\),
+    \(\abs{H}\) is either 1 or \(p\).
+    If \(\abs{H} = 1\), since all groups must have the identity,
+    \(H = \{1\}\).
+
+    On the other hand, if \(\abs{H} = p\),
+    then it must be the whole group, so \(H = G\).
+    Now pick any \(g \in G\).
+    We know that \(\langle g \rangle \subseteq G\) is a subgroup,
+    and if \(g \neq 1\),
+    we cannot have \(\langle g \rangle = \{1\}\),
+    so we are forced to conclude otherwise,
+    and we have \(\langle g \rangle = G\).
+\end{proof}
+\begin{corollary}\label{cor:order-element-group}
+    Suppose \(G\) is a finite group, with \(g \in G\).
+    If \(n = \abs{G}\), then \(g^n = 1\).
+\end{corollary}
+\begin{proof}
+    Suppose \(\abs{g} = m\), so \(g^m = 1\).
+    By the \hyperref[thm:lagrange]{theorem above},
+    we know that \(m \mid n\),
+    so there exists some \(r \in \bN\) such that \(n = mr\).
+    Hence \(g^n = g^{mr} = {(g^m)}^r = 1^r = 1\).
+\end{proof}
+\begin{corollary}
+    \(\abs{A_n} = n!/2\).
+\end{corollary}
+\begin{proof}
+    The even and odd permutations form two cosets in \(S_n\),
+    since multiplying by even permutations
+    (and hence by elements of \(A_n\)) do not change sign
+    by Theorem~\ref{thm:sgn-mult}.
+    Then we have \(\abs{S_n} = \abs{A_n}[S_n:A_n]\),
+    so \(\abs{A_n} = \abs{S_n}/2 = n!/2\).
+\end{proof}
+
+
+\subsection{Normal Subgroups}
+
+\begin{definition}
+    Suppose \(G\) is a group, and \(H \subseteq G\) some subgroup.
+    \(H\) is a normal subgroup of \(G\)
+    if for all \(g \in G\) and \(h \in H\),
+    \(ghg^{-1} \in H\).
+    We often denote this as \(H \lhd G\).
+\end{definition}
+\begin{theorem}
+    If \(H \lhd G\),
+    then the set of left cosets \(G/H\) forms a group,
+    and in particular, there exists a epimorphism
+    from \(G\) to \(G/H\).
+\end{theorem}
+\begin{proof}
+    We attempt to write a function \(\vfunc{\phi}{G}{G/H}{g}{gH}\)
+    that maps every element into its coset.
+    By definition, this is a surjective mapping,
+    since every coset must have some element,
+    and those elements must be in \(G\).
+
+    We also see that every coset must be represented by some element,
+    so in the following, let \(g'_i \in G\) represent the coset \(g_i H\);
+    by definition of a coset we have \(g_i = g'_i h_i\) for some \(h_i \in H\).
+    A simple proof of the homomorphism shows that
+    \(\phi(g_1g_2) = (g_1 g_2)H\) which is the coset of \(g_1 g_2\),
+    and \(\phi(g_1)\phi(g_2) = (g_1 H)(g_2 H)\)
+    which is the coset of the representatives \(g'_1 g'_2\).
+    For them to be in the same coset,
+    we see \(g_1 g_2 = g'_1 h_1 g'_2 h_2
+    = g'_1 g'_2 ({(g'_2)}^{-1} h_1 g'_2) h_2\)
+    needs to be written in the form \(gH\),
+    so we want \({(g'_2)}^{-1} h_1 g'_2 \in H\)
+    for every possible \(g'_2 \in G\) and \(h_1 \in H\).
+    But this is exactly the condition that normal subgroups provide,
+    and hence there exists an epimorphism from \(G\) to \(G/H\),
+    which shows that \(G/H\) forms a group,
+    inheriting the identity as the coset of \(1 \in G\),
+    and the multiplication itself from \(G\).
+\end{proof}
+\begin{definition}
+    Suppose \(G\) some group, and \(H \lhd G\).
+    We call \(G/H\) the quotient group of \(G\) by \(H\).
+\end{definition}
+
+\begin{proposition}\label{prop:abelian-subgroup-normal}
+    Subgroups of abelian groups must be normal.
+\end{proposition}
+\begin{proof}
+    Suppose \(G\) is our abelian group,
+    and \(H \subseteq G\) our subgroup.
+    Then for all \(g \in G\) and \(h \in H\),
+    we realize that both \(g,h\) are elements of \(G\),
+    and hence will commute,
+    so we have \(ghg^{-1} = gg^{-1}h = h \in H\),
+    and hence \(H \lhd G\).
+\end{proof}
+
+\begin{theorem}\label{thm:equal-coset-normal}
+    \(H \lhd G\) is a normal subgroup if and only if
+    the left and right cosets are identical, that is,
+    \(gH = Hg\) for all \(g \in G\).
+\end{theorem}
+\begin{proof}
+    In the forward direction,
+    assuming a normal subgroup,
+    by definition we have for all \(g \in G\) and \(h \in H\),,
+    \(ghg^{-1} \in H\),
+    which tells us that there exists some \(h' \in H\)
+    such that \(ghg^{-1} = h'\).
+    When we right-multiply by \(g\) on both sides,
+    we get \(gh = h'g\).
+    This tells us that for all elements \(g \in G\) and \(h \in H\)
+    \(gh \in Hg\), so we get \(gH \subseteq Hg\).
+    Similarly, we can left-multiply by \(g^{-1}\) on both sides,
+    and get \(hg^{-1} = g^{-1}h'\),
+    which tells us for all \(g \in G\) and \(h \in H\),
+    \(hg \in gH\), so we get \(Hg \subseteq gH\).
+    Combining these two statements, we get \(gH = Hg\).
+
+    In the reverse direction,
+    assuming that left and right cosets are equal,
+    we reverse the argument to see that
+    for all \(g \in G\) and \(h \in H\),
+    \(gh \in Hg\), so there exists some \(h' \in H\)
+    such that \(gh = h'g\), which implies \(ghg^{-1} = h' \in H\).
+\end{proof}
+
+\begin{remark}
+    It is good to remind ourselves that
+    \(gH \subseteq G\), cosets are subsets of the whole group;
+    but \(gH \in G/H\), these are now elements of the quotient group.
+\end{remark}
+
+
+\subsection{Homomorphisms and Isomorphisms}
+
+% \begin{proposition}
+%     Suppose \(\func{\phi}{G_1}{G_2}\) is a homomorphism between groups,
+%     not necessarily injective nor surjective.
+%     The image of \(G_1\) under \(\phi\) is a subgroup of \(G_2\),
+%     that is, \(\phi(G_1) \subseteq G_2\) forms a subgroup.
+% \end{proposition}
+
+% \begin{lemma}
+%     Suppose we have a homomorphism \(\func{\phi}{G_1}{G_2}\).
+%     The preimage of the identity is a normal subgroup,
+%     that is, \(\phi^{-1}(1_{G_2}) \lhd G_1\).
+% \end{lemma}
+
+\begin{definition}
+    Suppose we have a group homomorphism \(\func{\phi}{G}{H}\).
+    We call the preimage of the identity \(\phi^{-1}(1)\)
+    the kernel of \(\phi\),
+    sometimes denoted \(\ker(\phi) = \{g \in G : \phi(g) = 1\}\).
+\end{definition}
+
+\begin{theorem}[Universal Property of Quotient Groups]\label{thm:univ-prop-quotient-group}
+    Let \(G,H\) be groups,
+    and \(N \lhd G\) be a normal subgroup.
+    Suppose \(\func{\pi}{G}{G/N}\) is the quotient homomorphism
+    and \(\func{\phi}{G}{H}\) is any group homomorphism
+    with \(N \subseteq \ker(\phi)\).
+    Then there exists a unique group homomorphism
+    \(\func{\bar{\phi}}{G/N}{H}\) such that \(\phi = \bar{\phi}\circ\pi\).
+
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            G \arrow{r}{\phi} \arrow{d}{\pi} & H \\
+            G/N \arrow{ru}[swap]{\exists! \bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{theorem}
+\begin{proof}
+    This universal property asserts that
+    both the existence and and the uniqueness of \(\bar{\phi}\),
+    which needs to be proven separately.
+    We will write our proof in reverse order,
+    first proving the uniqueness assuming existence,
+    and then proving existence without any assumptions.
+
+    Suppose \(\phi = \bar{\phi}\circ\pi = \bar{\phi}'\circ\pi\).
+    Since \(N \subseteq \ker(\phi)\),
+    all elements \(n \in N\) obey \(\phi(n) = 1\).
+    Knowing that all elements in \(G\) belong to some coset \(gN\),
+    all \(g' \in gN\) maps to
+    \(\phi(g') = \phi(gn) = \phi(g)\phi(n) = \phi(g)\),
+    which tells us the image of each coset
+    is a single element \(\phi(gN) = \{\phi(g)\}\).
+    Now, seeing that \(\pi\) maps \(g' \mapsto gN\),
+    its coset, by definition of a quotient mapping
+    if \(\bar{\phi} \neq \bar{\phi}'\),
+    there must be one such coset \(gN\)
+    that \(\bar{\phi}(gN) \neq \bar{\phi}'(gN)\) disagrees on.
+    However, this is a contradiction,
+    because for all \(g' \in gN \subseteq G\),
+    \(\bar{\phi}'(gN) = \bar{\phi}'(\pi(g')) = \phi(g')
+    = \bar{\phi}(\pi(g')) = \bar{\phi}(gN)\),
+    contradicting with our assumed inequality above.
+    Hence we have established uniqueness of \(\bar{\phi}\).
+
+    We will now prove existence by constructing such a homomorphism.
+    Let \(\vfunc{\bar{\phi}}{G/N}{H}{gN}{\phi(g)}\),
+    mapping all cosets \(gN\) to the function output
+    of its coset representative.
+    Suppose some arbitrary element \(g' \in gN \subseteq G\)
+    in an arbitrary coset.
+    Then we know that there exists \(n \in N\) such that \(g' = gn\),
+    which allows us to conclude that
+    \begin{equation*}
+        \phi(g') = \phi(gn) = \phi(g)\phi(n) = \phi(g)
+        = \bar{\phi}(gN) = \bar{\phi}(\pi(g'))
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    Logically speaking,
+    the existence part is proven before the uniqueness part
+    in the sense that one requires existence to prove uniqueness.
+    However, it is convenient to write universal property proofs
+    in the reverse order
+    because during the proof of uniqueness,
+    we often demonstrate criteria that must be followed
+    by our unique function \(\bar{\phi}\),
+    which greatly helps us in deciding how to construct \(\bar{\phi}\)
+    during the proof of existence.
+\end{remark}
+
+\begin{remark}
+    Jacobson here groups all the statements below into something
+    known as the Fundamental Theorem of Homomorphisms of Groups
+    and the Isomorphism Theorems.
+    % which concerns only with the image of \(G\),
+    % which is a subset of \(H\).
+    We will group the theorems differently,
+    following the convention as given in Rotman and Dummit \& Foote,
+    and with the correspondence theorem denoted the Fourth Isomorphism Theorem.
+    Nevertheless, armed with the universal property,
+    these are much easier to prove now.
+\end{remark}
+% \begin{corollary}[Fundamental Homomorphism Theorem for Groups]
+%     Suppose \(\func{\phi}{G}{H}\) is a group homomorphism,
+%     and \(N = \ker(\phi)\).
+%     Then there exists a unique isomorphism
+%     that makes the image \(\phi(G) \cong G/N\).
+% \end{corollary}
+% \begin{proof}
+%     We want to prove that for all \(g \in \phi^{-1}(x)\)
+%     we have \(\phi^{-1}(x) = gH\) being the coset.
+%     Suppose we have \(\phi(g_1) = \phi(g_2) = x\)
+%     mapping to the same element.
+%     Then we see that \(\phi(g_1^{-1} g_2) = \phi(g_1)^{-1}\phi(g_2)
+%     = x^{-1}x = 1\).
+%     This implies that \(g_1^{-1} g_2 \in H\) inside the kernel,
+%     so that there exists \(h \in H\) such that \(h = g_1^{-1}g_2\),
+%     and therefore \(g_1 h = g_2\),
+%     telling us that they are in the same coset,
+%     \(g_2 \in g_1 H\), implying that \(\phi^{-1}(x) \subseteq gH\).
+% \end{proof}
+
+\begin{theorem}[First Isomorphism Theorem for Groups]\label{thm:iso-1-group}
+    Suppose \(\func{\phi}{G}{H}\) is a group homomorphism,
+    and \(N = \ker(\phi)\).
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(N \lhd G\), the kernel is a normal subgroup;
+        \item \(\phi(G) \subseteq H\), the image is a subgroup; and
+        \item \(\phi(G) \cong G/N\),
+            the image is uniquely isomorphic to the quotient group.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We first prove that the preimage of the identity
+    forms a subgroup of \(H\).
+    Suppose \(\{g_1,g_2\} \subset \phi^{-1}(1)\).
+    Then we know \(\phi(g_1) = \phi(g_2) = 1\),
+    which gives us closure with \(\phi(g_1 g_2) = \phi(g_1)\phi(g_2) = 1\).
+    Associativity is inherited from the multiplication of \(G_1\),
+    while the identity by definition must obey \(\phi(1) = 1\).
+    Lastly we have \(1 = \phi(1) = \phi(g_1 g_1^{-1})
+    = \phi(g_1)\phi(g_1^{-1})\),
+    which forces us to conclude that \(g_1^{-1} \in \phi^{-1}(1)\),
+    giving us an inverse.
+    Hence \(\phi^{-1}(1)\) is a group.
+
+    Now to prove that this is a normal subgroup,
+    suppose we have some arbitrary element \(g \in G\),
+    and \(h \in \phi^{-1}(1)\).
+    We see that \(\phi(ghg^{-1}) = \phi(g)\phi(h)\phi(g^{-1})
+    = \phi(g)\phi(g^{-1}) = \phi(gg^{-1}) = \phi(1) = 1\),
+    which implies \(ghg^{-1} \in \phi^{-1}(1)\),
+    exactly the definition of a normal subgroup,
+    which proves statement (a).
+
+    \medskip
+
+    If \(\{\phi(x),\phi(y)\} \subset \phi(G)\),
+    then \(\phi(x)\phi(y) = \phi(xy) \in \phi(G)\),
+    and thus we have closure.
+    Then \(\phi(1_G) \in \phi(G)\)
+    which must be the identity by definition of a homomorphism.
+    Associativity is obtained for free
+    when we equate the multiplicative operation
+    between \(G\) and \(\phi(G)\).
+    Lastly the inverse must be given by
+    \(1_H = \phi(1_G) = \phi(xx^{-1}) = \phi(x)\phi(x^{-1})\).
+    Hence \(\phi(G)\) forms a subgroup of \(H\),
+    which proves statement (b).
+
+    \medskip
+
+    By the \hyperref[thm:univ-prop-quotient-group]{universal property},
+    there exists a unique homomorphism \(\func{\bar{\phi}}{G/N}{\phi(G)}\)
+    such that \(\phi = \bar{\phi}\circ\pi\),
+    where \(\pi\) is the quotient homomorphism.
+    Since by definition, \(\phi\) is a surjective mapping
+    from \(G\) to its image \(\phi(G)\),
+    \(\bar{\phi}\) must also be a surjection.
+
+    Again taking the same definition for \(\bar{\phi}\)
+    as in the universal property,
+    \(\vfunc{\bar{\phi}}{G/N}{\phi(G)}{gN}{\phi(g)}\),
+    suppose we have two cosets \(g_1 N\) and \(g_2 N\).
+    such that \(\bar{\phi}(g_1 N) = \bar{\phi}(g_2 N)\),
+    giving us \(\phi(g_1) = \bar{\phi}(\pi(g_1)) = \bar{\phi}(g_1 N)
+    = \bar{\phi}(g_2 N) = \bar{\phi}(\pi(g_2)) = \phi(g_2)\)
+    But then we have \(1 = \phi(g_1){\phi(g_2)}^{-1} = \phi(g_1 g_2^{-1})\),
+    implying that \(g_1 g_2^{-1} \in N\), the kernel.
+    Hence we have \(g_1 \in g_2 N\),
+    which gives us \(g_1 N \subseteq g_2 N\),
+    so without loss of generality, \(g_2 N \subseteq g_1 N\),
+    giving us \(g_1 N = g_2 N\), the cosets must be equal.
+    This proves injectivity.
+
+    Combining surjection and injection
+    gives us our required bijective homomorphism,
+    which is an isomorphism,
+    proving statement (c).
+\end{proof}
+
+\begin{definition}
+    Suppose \(G\) is a group,
+    and \(S,T \subseteq G\) some subgroups.
+    We define the product to be \(ST = \{st : s \in S, t \in T\}\).
+\end{definition}
+
+\begin{theorem}[Second Isomorphism Theorem for Groups]\label{thm:iso-2-group}
+    Suppose \(G\) is a group,
+    \(S \subseteq G\) some subgroup,
+    and \(N \lhd G\) a normal subgroup.
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(SN \subseteq G\), the product is a subgroup;
+        \item \(N \lhd SN\),
+            the normal subgroup is also normal to the product;
+        \item \(S \cap N \lhd S\),
+            the intersection is normal to the subset; and
+        \item \(SN/N \cong S/(S \cap N)\),
+            these two quotients are isomorphic.
+    \end{enumerate}
+    %
+    % This is represented by the following commutative diagram:
+    % \begin{center}
+    %     \begin{tikzcd}
+    %
+    %         % G \arrow{r}{\phi} \arrow{d}{\pi} & H \\
+    %         % G/N \arrow{ru}[swap]{\exists! \bar{\phi}}
+    %     \end{tikzcd}
+    % \end{center}
+\end{theorem}
+\begin{proof}
+    We can see that for all \(s_i n_i \in SN\),
+    \(s_1 n_1 s_2 n_2 = s_1 s_2 s_2^{-1} n_1 s_2 n_2 \in SN\),
+    since \(s_2^{-1} n_1 s_2 \in N\) by definition of normal,
+    and we have closure.
+    Associativity is inherited from \(G\),
+    and the identity \(1\) is in both \(S\) and \(N\).
+    Lastly, \({(sn)}^{-1} = n^{-1}s^{-1} = s^{-1}sn^{-1}s^{-1} \in SN\),
+    since \(sn^{-1}s^{-1} \in SN\) by definiton of normal,
+    which gives us inverse.
+    Therefore \(SN \subseteq G\) forms a group,
+    giving us statement (a).
+
+    \medskip
+
+    Now, clearly \(N \subseteq SN\),
+    because every element \(n \in N\) multiplied by \(1 \in S\)
+    gives us an element of \(SN\).
+    To prove normality,
+    we need to prove that for all \(s \in S\) and \(n_i \in N\),
+    \(sn_1 n_2 {(sn_1)}^{-1} \in N\).
+    This is easy because \(sn_1 n_2 {(sn_1)}^{-1}
+    = s(n_1 n_2 n_1^{-1})s^{-1} \in N\)
+    by definition of \(N \lhd G\).
+    Hence \(N \lhd SN\), proving statement (b).
+
+    \medskip
+
+    Also, clearly \(S \cap N \subseteq S\),
+    because by definition \(g \in S \cap N\)
+    implies \(g \in S\) (and \(g \in N\)).
+    Now it is sufficient to prove that
+    for all \(g \in S \cap N\) and \(s \in S\),
+    \(sgs^{-1} \in S \cap N\).
+    It is clear that since both \(g,s\) are elements of \(S\),
+    \(sgs^{-1} \in S\).
+    Then since \(g \in N\), and \(s \in S \subseteq G\),
+    we have \(sgs^{-1} \in N\) since \(N \lhd G\).
+    Hence \(sgs^{-1} \in S \cap N\),
+    so we have \(S \cap N \lhd S\),
+    proving statement (c).
+
+    \medskip
+
+    We now attempt to construct a homomorphism
+    \(\vfunc{\phi}{S}{SN/N}{s}{sN}\).
+    % \(\vfunc{\phi}{SN/N}{S/(S \cap N)}{sN}{s(S \cap N)}\).
+    % Obviously the kernel is \(\ker(\phi) = N\),
+    % because to map to 1, \(s = 1\),
+    % which implies \(sn = n \in N\);
+    % conversely, when \(s \neq 1\), then \(sn \notin N\),
+    % and \(\phi(sn) = \phi(s) = s \neq 1\).
+    We demonstrate that this is a valid homomorphism,
+    by showing that
+    \begin{equation*}
+        \phi(s_1 s_2) = (s_1 s_2)N = (s_1 N)(s_2 N) = \phi(s_1)\phi(s_2)
+    \end{equation*}
+    since \(s_1,s_2\) are elements of \(G\),
+    so same logic as the quotient subgroup epimorphism applies.
+
+    We now want to show that \(\phi\) is surjective.
+    The elements \(sn \in SN\) must belong in some coset \(snN\),
+    which we can see is equivalent to \(sN\).
+    By definition, \(\phi\) maps \(s \mapsto sN\),
+    so every coset is covered by \(\phi\),
+    and therefore it is an epimorphism.
+
+    We can then demonstrate that \(\ker(\phi) = S \cap N\).
+    We can see that if \(g \in S \cap N\),
+    then \(g \in N\), so \(\phi(g) = gN = N\),
+    which gives us \(S \cap N \subseteq \ker(\phi)\).
+    On the other hand, if \(g \in \ker(\phi)\),
+    then \(\phi(g) = gN \subseteq N\),
+    which requires \(g \in N\),
+    giving us \(\ker(\phi) \subseteq S \cap N\).
+    Hence \(\ker(\phi) = S \cap N\).
+
+    Lastly, we can apply the
+    \hyperref[thm:iso-1-group]{first isomorphism theorem},
+    and prove that there exists a unique isomorphism
+    between \(S/(S \cap N) \cong SN/N\).
+\end{proof}
+
+\begin{theorem}[Third Isomorphism Theorem for Groups]\label{thm:iso-3-group}
+    Suppose \(G\) is a group, \(N \lhd G\) a normal subgroup.
+    Then:
+    % Then we have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(K\) is a subgroup such that \(N \subseteq K \subseteq G\),
+            then \(K/N \subseteq G/N\) is a subgroup;
+        \item a subgroup of \(G/N\) must be of the form \(K/N\)
+            such that \(K\) is a subgroup with \(N \subseteq K \subseteq G\);
+        \item if \(K\) is a normal subgroup such that \(N \subseteq K \subseteq G\),
+            then \(K/N \lhd G/N\) is a normal subgroup;
+        \item a normal subgroup of \(G/N\) must be of the form \(K/N\)
+            where \(K \lhd G\) is a normal subgroup with \(N \subseteq K \subseteq G\); and
+        \item if \(K \lhd G\) is a normal subgroup such that \(N \subseteq K \subseteq G\),
+            then \((G/N)/(K/N) \cong G/K\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We first have to prove that \(N \lhd K\),
+    which is obvious because by definition of normality,
+    for all \(n \in N\) and \(g \in G\),
+    \(gng^{-1} \in N\), which can be restricted to \(g \in K \subseteq G\).
+    % We will first demonstrate that \(N \lhd K\).
+    % For some \(k \in K \subseteq G\) and \(n \in N\),
+    % \(knk^{-1} \in N\) by normality of \(N\) in \(G\),
+    % since we can treat \(k\) as elements of \(G\).
+    % Hence all three \(G/N, K/N, G/K\) are valid quotient groups.
+
+    It is now easy to see that
+    with the quotient homomorphism \(\func{\pi}{G}{G/N}\),
+    the image of the subgroup \(\pi(K) = K/N\),
+    so by the \hyperref[thm:iso-1-group]{first isomorphism theorem}
+    \(K/N\) forms a subgroup.
+    This proves statement (a).
+
+    % Secondly, we can see that \(K/N \lhd G/N\),
+    % because for some arbitrary cosets \(kN \in K/N\) and \(gN \in G/N\),
+    % there are \(n_i \in N\)
+    % such that the coset representatives \(k' = kn_1\) and \(g' = gn_2\),
+    % \((gN)(kN){(gN)}^{-1} = (NgkN)\)
+
+    \medskip
+
+    Suppose \(K' \subseteq G/N\) is a subgroup.
+    We can look at the preimage \(\pi^{-1}(K')\),
+    which since \(1 \in K'\), we have \(K' \supseteq \ker(\pi) = N\).
+    Notice that the preimage of a group is still a group:
+    suppose \(\func{\phi}{G'}{H'}\) is a homomorphism,
+    since \(\{x,y\}\subseteq\phi^{-1}(H')\)
+    implies \(\phi(xy) = \phi(x)\phi(y) \in H'\) (closure),
+    \(1 \in \ker(\phi) \subseteq \phi^{-1}(H')\) (identity),
+    associativity inherited from \(G'\),
+    and \(x \in \pi^{-1}(H')\)
+    implies \({\pi(x)}^{-1} = \pi(x^{-1}) \in H'\) (inverse).
+    This proves statement (b).
+
+    \medskip
+
+    It is now sufficient to prove the normality condition.
+    % If we have \(k \in K\) and \(g \in G\) such that \(gkg^{-1} \in K\),
+    % then under the quotient homomorphism \(\func{\pi}{G}{G/N}\)
+    % \(\pi(gkg^{-1}) = \pi(g)\pi(k)\pi(g)^{-1}\)
+    \(K \lhd G\) tells us that for all \(g \in G\), \(gKg^{-1} \subseteq K\),
+    which under mapping is \(\pi(gKg^{-1}) = \pi(g)\pi(K){\pi(g)}^{-1}\).
+    Notice that by Theorem~\ref{thm:equal-coset-normal},
+    \(\pi(g)\pi(K) = \pi(K)\pi(g)\),
+    which allows us to cancel out the \(g\) and its inverse,
+    letting us conclude that \(\pi(gKg^{-1}) \subseteq \pi(K)\),
+    giving us \(\pi(K) = K/N \lhd G/N\).
+    This proves statement (c).
+
+    \medskip
+
+    Similarly, assume \(K' \lhd G/N\);
+    then for all \(x \in G/N\), \(xK'x^{-1} \subseteq K'\).
+    No matter what element \(g \in G\), \(k \in \pi^{-1}(K')\) we choose,
+    we have \(\pi(gkg^{-1}) = \pi(g)\pi(k){\pi(g)}^{-1} \in K'\)
+    by definition of normality in \(G/N\),
+    so \(ghg^{-1} \in \pi^{-1}(K')\),
+    and the preimage is normal.
+    This proves statement (d).
+
+    \medskip
+    
+    We can now attempt to construct a homomorphism
+    \(\vfunc{\phi}{G/N}{G/K}{gN}{gK}\).
+    % We demonstrate that this is a valid homomorphism, as
+    % first by showing that all elements in the same \(N\)-coset
+    % will be mapped to the same \(K\)-coset;
+    % observe that if \(g' = gn\),
+    % then \(\phi(g'N) = g'K = gnK = gK = \phi(gN)\)
+    % since \(n \in N \subseteq K\).
+    % Moreover, we have
+    % \begin{equation*}
+    %     \phi(g_1 g_2 N) = g_1 g_2 K = (g_1 g_2 K)K = (K g_1 g_2)K
+    %     = (g_1 K)(g_2 K) = \phi(g_1 N)\phi(g_2 N)
+    % \end{equation*}
+    This is valid because
+    by the \hyperref[thm:univ-prop-quotient-group]{universal property},
+    we have \(\func{\pi}{G}{G/N}\) and \(\func{\eta}{G}{G/K}\),
+    so there is a unique homomorphism that makes \(\eta = \phi\circ\pi\).
+    We can also show that this is surjective,
+    since the \(K\)-cosets partition \(G\),
+    so each \(K\)-coset must have some element \(gK\)
+    that represents it,
+    and clearly this element \(gN\) in the \(N\)-cosets
+    must get sent to it,
+    alongside all other elements in that \(N\)-coset.
+
+    We claim the kernel is \(\ker(\phi) = K/N\).
+    % To see this, first observe \(kN \in K/N\)
+    % must get mapped to \(\phi(kN) = kK = K\),
+    % which is the coset of the identity,
+    % giving us \(K/N \in \ker(\phi)\).
+    % For the reverse argument,
+    % for the image to be the identity coset \(K\),
+    % the element \(g\) must belong in \(K\),
+    % which means the kernel must be the cosets of the elements in \(K\),
+    % otherwise written as \(\ker(\phi) \subseteq K/N\).
+    % This proves our claim.
+    Observe that \(\ker(\eta) = K\) and \(\ker(\pi) = N\),
+    so \(\phi\) must map all the \(N\)-cosets
+    that are represented by elements of \(K\) into \(1\).
+
+    Lastly, we invoke the \hyperref[thm:iso-1-group]{first isomorphism theorem},
+    which gives us \(\ker(\phi) = K/N \lhd G/N\),
+    making our quotient \((G/N)/(K/N)\) valid;
+    and also that \((G/N)/\ker(\phi) = (G/N)/(K/N) \cong G/K\),
+    proving statement (e).
+\end{proof}
+
+\begin{theorem}[Fourth Isomorphism Theorem for Groups]\label{thm:iso-4-group}
+    Suppose \(G\) is a group,
+    \(N \lhd G\) some normal subgroup,
+    and \(\vfunc{\pi}{G}{G/N}{g}{gN}\) the quotient homomorphism.
+    Then \(\pi\) is a bijection
+    between the subgroups of \(G/N\)
+    and the subgroups of \(G\) containing \(N\);
+    and is also a bijection between normal subgroups of \(G/N\)
+    and normal subgroups of \(G\) containing \(N\).
+\end{theorem}
+\begin{proof}
+    % We can split this theorem into 4 statments:
+    % first that subgroups of \(G\)
+    % First suppose \(KN \subseteq H \subseteq G\) for some subgroup \(H\);
+    % then clearly \(\pi(H) \subseteq G/N\) is a subgroup.
+    % Now suppose \(H' \subseteq G/N\) is a subgroup;
+    % since \(1 \in H'\), the preimage \(\pi^{-1}(H')\) must contain \(N\),
+    % and notice that the preimage of a group under homomorphism is still a group,
+    % elements of \(H'\) must be cosets \(hN\),
+    % where \(h \in H \subseteq G\) forms a group
+    This is merely a corollary of
+    the \hyperref[thm:iso-3-group]{third isomorphism theorem}.
+    Statements (a) and (b) prove the correspondence between subgroups,
+    while statements (c) and (d)
+    prove the correspondence between normal subgroups.
+
+    % Then suppose \(N \lhd H \lhd G\) for some normal subgroup \(H\);
+    % this tells us that for all \(g \in G\), \(gHg^{-1} \subseteq H\),
+    % which under mapping is \(\pi(gHg^{-1}) = \pi(g)\pi(H){\pi(g)}^{-1}\).
+    % Notice that \(\pi(g)\pi(H) = \pi(H)\pi(g)\),
+    % which allows us to cancel out the \(g\) and its inverse,
+    % letting us conclude that \(\pi(gHg^{-1}) \subseteq \pi(H)\),
+    % giving us \(\pi(H) \lhd G/N\).
+    % Now in the other direction, 
+
+    % Lastly, we wish to prove that \(G/H \cong (G/N)/\pi(H)\).
+    % But this is exactly the conclusion of
+    % the \hyperref[thm:iso-3-group]{third isomorphism theorem}.
+\end{proof}
+
+
+\subsection{Action on Sets}
+
+\begin{definition}
+    Suppose \(X\) is a set of \(n\) elements.
+    The group of all possible permutations
+    (guaranteed by Proposition~\ref{prop:symmetric-group})
+    is denoted \(S_X\),
+    which is of course isomorphic to \(S_n\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(G\) a group, and \(X\) some set.
+    The action of \(G\) on \(X\) is a homomorphism \(\func{\phi}{G}{S_X}\).
+\end{definition}
+\begin{remark}
+    Notice that by \hyperref[thm:cayley]{Cayley's theorem},
+    every finite group is a transformation group on itself.
+    With this knowledge,
+    we can formally say that we can let \(G\) act on itself
+    by left multiplication,
+    where the homomorphism is \(\vfunc{\phi}{G}{S_G}{g}{\ell_g}\),
+    and \(\vfunc{\ell_g}{G}{G}{\alpha}{g\alpha}\).
+    Beware that when considering actions,
+    the homomorphism \(\phi(g)\) outputs a function
+    on the set \(X\) that we are acting on,
+    so in general \(\phi(g)(x) = \phi_g(x)\) are both valid notation,
+    the former focusing on that we have a homomorphism \(\phi(g)\),
+    and the latter focusing on that we have a function \(\phi_g\).
+\end{remark}
+
+\begin{proposition}[Action by Conjugation]
+    Suppose \(G\) is a group.
+    \(G\) can act on itself by conjugation,
+    that is, \(\vfunc{\phi}{G}{S_G}{g}{\gamma_g}\)
+    where \(\vfunc{\gamma_g}{G}{G}{\alpha}{g \alpha g^{-1}}\).
+\end{proposition}
+\begin{proof}
+    We need to first prove that \(\gamma_g\) is a bijection.
+    Suppose \(\{\alpha,\beta\} \subset G\),
+    \(g \alpha g^{-1} = g \beta g^{-1}\);
+    then \(\alpha = g^{-1}g \alpha g^{-1}g
+    = g^{-1}g \beta g^{-1}g = \beta\),
+    which implies \(\gamma_g\) is an injection.
+    Now, clearly, for every element \(x \in G\),
+    we can map \(\gamma_g(g^{-1}xg) = gg^{-1}xgg^{-1} = x\),
+    which implies \(\gamma_g\) is a surjection.
+    Hence \(\gamma_g\) is a bijection.
+
+    We now then prove that \(\phi\) is a homomorphism.
+    Clearly \(\gamma_1\) is the identity mapping
+    \(\alpha \mapsto 1\alpha 1^{-1} = \alpha\).
+    \begin{equation*}
+        \gamma_{gh}(\alpha) = (gh)\alpha{(gh)}^{-1}
+        = g h\alpha h^{-1}g^{-1} = \gamma_g(h \alpha h^{-1})
+        = \gamma_g(\gamma_h(\alpha))
+    \end{equation*}
+    We have showed that
+    \(\phi(gh) = \gamma_{gh} = \gamma_g \circ \gamma_h = \phi(g)\phi(h)\),
+    which proves homomorphism.
+\end{proof}
+
+\begin{definition}
+    Suppose \(G\) is a group that acts on some set \(X\)
+    via the homomorphism \(\func{\phi}{G}{S_X}\).
+    The stabilizer of some element \(x \in X\)
+    is the set of all actions that fix \(x\),
+    \(\stab(x) = \{g \in G : \phi_g(x) = x\}\).
+\end{definition}
+\begin{proposition}\label{prop:stabilizer-subgroup}
+    The stabilizer \(\stab(x)\) is a subgroup of \(G\).
+\end{proposition}
+\begin{proof}
+    Suppose our action is \(\vfunc{\phi}{G}{S_G}{g}{\phi_g}\),
+    where \(\func{\phi_g}{G}{G}\) is a permutation.
+    Then the stabilizer is a set of all \(g\)
+    such that \(\phi_g(x) = x\).
+    Suppose \(\phi_g(x) = \phi_h(x) = x\);
+    then \(\phi_{gh}(x) = \phi_g(x)\phi_h(x) = x\),
+    so the stabilizer is closed under multiplication.
+    Associativity is given to us for free with function composition,
+    and \(\phi_1(x) = x\) is trivially the identity mapping.
+    Lastly if \(\phi_g(x) = x\), we know that
+    \(x = \phi_1(x) = \phi_g(x)\phi_{g^{-1}}(x) = \phi_{g^{-1}}(x)\)
+    which gives us an inverse.
+\end{proof}
+
+\begin{definition}
+    Suppose \(G\) is a group
+    and \(x \in G\) some element in the group.
+    The centralizer of the element
+    is the set of all elements in \(G\) that commute with it,
+    \(\Centralizer(x) = \{g \in G : gx = xg\}\).
+    Similarly, the centralizer of a subset \(S \subseteq G\)
+    is the set of all elements in \(G\)
+    that commute with every element in \(S\),
+    \(\Centralizer(S) = \Centralizer_G(S)
+    = \{g \in G : \forall x \in S, gx = xg\}\).
+\end{definition}
+\begin{proposition}\label{prop:centralizer-stabilizer}
+    Suppose \(G\) acts on itself by conjugation.
+    Then for any \(x \in G\), \(\Centralizer(x) = \stab(x)\).
+\end{proposition}
+\begin{proof}
+    \(\stab(x) = \{g \in G : \gamma_g(x) = x\}
+    = \{g \in G : gxg^{-1} = x\} = \{g \in G : gx = xg\}
+    = \Centralizer(x)\).
+\end{proof}
+\begin{corollary}\label{cor:centralizer-subgroup}
+    The centralizer \(\Centralizer(S) \subseteq G\) is a subgroup.
+\end{corollary}
+\begin{proof}
+    We first observe that
+    \(\Centralizer(S) = \bigcap_{s \in S} \Centralizer(s)\),
+    because it should include all elements
+    that commute with every element of \(S\).
+    Then we know from the
+    \hyperref[prop:centralizer-stabilizer]{proposition above}
+    that \(\Centralizer(s) = \stab(s)\),
+    which are subgroups by Proposition~\ref{prop:stabilizer-subgroup}.
+    Lastly, from Lemma~\ref{lem:intersection-subgroup} we know
+    the intersection of subgroups is a subgroup.
+\end{proof}
+
+\begin{definition}
+    We sometimes call the centralizer of the entire group \(\Centralizer(G)\)
+    the center of the group \(\Centre(G)\).
+    It consists of the elements that commute with everything in the group.
+\end{definition}
+\begin{proposition}z
+    Suppose \(G\) acts on itself by conjugation.
+    Then the kernel of the homomorphism is the centralizer of the group,
+    \(\ker(\phi) = \Centre(G)\).
+\end{proposition}
+\begin{proof}
+    \(\ker(\phi) = \{g \in G : \phi(g) = 1\}
+    = \{g \in G : \gamma_g = \gamma_1\}
+    = \{g \in G : \forall x \in G, gxg^{-1} = x\}
+    = \Centre(G)\).
+\end{proof}
+\begin{remark}
+    The centralizer tells us what and how many elements of \(G\)
+    commute with everything,
+    so in a sense, self-action by conjugation
+    allows us to `measure' the noncommutativity of \(G\).
+\end{remark}
+
+\begin{definition}
+    Suppose \(G\) is a group
+    and \(S \subseteq G\) some subset of the group.
+    The normalizer of the subset
+    is the set of elements that fix \(S\) under conjugation,
+    i.e.\ conjugation by the normalizer sends elements of \(S\)
+    to (potentially other) elements of \(S\).
+    This is denoted \(\Normalizer(S) = \Normalizer_G(S)
+    = \{g \in G : gSg^{-1} = S\}\).
+\end{definition}
+\begin{proposition}\label{prop:normalizer-subgroup}
+    The normalizer \(\Normalizer(S) \subseteq G\) is a subgroup.
+\end{proposition}
+\begin{proof}
+    We clearly have closure with
+    \((gh)S{(gh)}^{-1} = ghSh^{-1}g^{-1} = gSg^{-1} = S\).
+    Associativity and identity is given to us,
+    as per usual, for free.
+    Since \(gSg^{-1} = S\),
+    then \(S = g^{-1}gSg^{-1}g = g^{-1}Sg\),
+    and we get inverse.
+\end{proof}
+
+\begin{remark}
+    Recall from the definition of cosets and orbits
+    in Section~\ref{sec:cosets}
+    that the actions of \(G\) form orbits,
+    which are equivalence classes demonstrating that
+    there exists an action \(g \in G\)
+    such that \(\phi_g(x) = y\)
+    for all \(\{x,y\} \subset X\) in the same orbit.
+    If we allows \(G\) to act on itself,
+    these now define equivalence classes on \(G\) itself,
+    which allow us to deduce facts about subgroups of \(G\).
+    In particular, under self-action,
+    the set of orbits \(G/{\sim}\) partition \(G\).
+\end{remark}
+\begin{definition}
+    Suppose \(G\) acts on a set \(X\) by conjugation.
+    The orbits of \(X\) are equivalence classes,
+    which we call conjugacy classes,
+    sometimes denoted \([x] = \{\gamma_g(x) = gxg^{-1} : g \in G\}\).
+\end{definition}
+
+\pagebreak
+
+\begin{definition}
+    Suppose \(G\) acts on two sets \(X\) and \(Y\)
+    via \(\vfunc{\phi}{G}{S_X}{g}{\phi_g}\)
+    and \(\vfunc{\psi}{G}{S_Y}{g}{\psi_g}\) respectively.
+    We say \(X\) is equivalent to \(Y\) under \(G\)-action
+    if there exists a bijection \(\func{f}{X}{Y}\)
+    such that \(f(\phi_g(x)) = \psi_g(f(x))\)
+    for all \(x \in X\) and \(g \in G\).
+
+    This can be summarized by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X \arrow{r}{f} \arrow{d}{\phi_g} & Y \arrow{d}{\psi_g} \\
+            X \arrow{r}{f} & Y
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+\begin{lemma}\label{lem:transitive-orbit-subgroup}
+    Suppose \(G\) acts on \(X\) transitively (there is only one orbit).
+    Then there exists a subgroup \(H \subseteq G\)
+    such that \(X\) is equivalent to \(G/H\).
+\end{lemma}
+\begin{proof}
+    Suppose the action of \(G\) on \(X\)
+    is \(\vfunc{\phi}{G}{S_X}{g}{\phi_g}\).
+    To prove such an equivalence,
+    first we have to construct \(H\).
+    Choosing some arbitrary \(x \in X\),
+    let us find its stabilizer \(H = \stab(x) = \{g \in G : \phi_g(x) = x\}\),
+    which by Proposition~\ref{prop:stabilizer-subgroup} we know is a subgroup.
+    % We claim that \(H \lhd G\).
+    % If \(\phi_h(x) = x\),
+    % we see that \(\phi_{ghg^{-1}} = \phi_g\phi_h\phi_{g^{-1}}\),
+    % so we have \(\phi_{ghg^{-1}}(\phi_g(x)) = \phi_g(x)\),
+    % which stabilizes some arbitrary element \(\phi_g(x)\),
+    % and hence fixes all elements \(x \in X\) as \(\phi_g\) is a bijection,
+    % giving us normality.
+
+    Now, suppose \(G\) acts on \(G/H\) by left multiplication,
+    so that we have \(\vfunc{\psi}{G}{S_{G/H}}{g}{\ell_g}\),
+    where \(\vfunc{\ell_g}{G/H}{G/H}{rH}{grH}\).
+    Note that \(G/H\) here is not a quotient group,
+    but rather the set of all left cosets.
+    We claim that the function \(\vfunc{f}{X}{G/H}{\phi_g(x)}{gH}\)
+    forms a bijection.
+    We first see that this is a completely valid definition,
+    because the action is transitive, so \(\phi_g(x)\) covers all of \(X\).
+    We then have to check that if \(\phi_{g_1}(x) = \phi_{g_2}(x)\),
+    \(g_1H = g_2H\);
+    this is obvious because \(\phi_{g_2}^{-1}\circ\phi_{g_1}(x) = x\),
+    and \(g_2^{-1} g_1 \in H\), so \(g_2 \in g_1 H\),
+    and without loss of generality we also have \(g_1 \in g_2 H\).
+    \(f\) is injective because if \(g_1 H = g_2 H\),
+    then \((g_2^{-1}g_1)H = H\),
+    so \(\phi_{g_2^{-1}g_1}(x) = \phi_{g_2}^{-1}\circ\phi_{g_1}(x) = x\),
+    and hence \(\phi_{g_1}(x) = \phi_{g_2}(x)\).
+    \(f\) is surjective also because for every \(gH\),
+    at least \(gx\) will map to it.
+    Therefore, \(f\) is a bijection.
+
+    We will now check the equivalence under multiplication.
+    For some arbitrary \(r \in G\),
+    and hence some arbitrary \(\phi_r(x) \in X\),
+    \begin{equation*}
+        \ell_g(f(\phi_r(x))) = \ell_g(rH) = grH
+        = f(\phi_{gr}(x)) = f(\phi_g(\phi_r(x)))
+    \end{equation*}
+    We can conclude that there is equivalency between \(X\) and \(G/H\).
+\end{proof}
+\begin{corollary}[Orbit-Stabilizer Theorem]\label{cor:orbit-stabilizer}
+    Suppose \(G\) is a group that acts on a finite set \(X\).
+    Let \(x \in X\) denote an arbitrary element.
+    Then we have an equivalence between the size of the orbit of \(x\)
+    and the index of the stabilizer in \(G\),
+    that is, \(\abs{\orb(x)} = [G:\stab(x)]\).
+\end{corollary}
+\begin{proof}
+    We shall restrict the action on \(G\) on \(X\)
+    to only acting onto the subset \(\orb(x) \subseteq X\).
+    This new action is now by definition transitive.
+    The \hyperref[lem:transitive-orbit-subgroup]{lemma above}
+    asserts an equivalence between \(\orb(x)\) and \(G/\stab(x)\),
+    that is, a bijection between elements of these two sets.
+    Hence we can equate the cardinality of these two sets.
+\end{proof}
+\begin{corollary}\label{cor:transitive-cardinality}
+    If \(G\) acts on \(X\) transitively,
+    then \(\abs{X} \mid \abs{G}\).
+\end{corollary}
+\begin{proof}
+    From the \hyperref[lem:transitive-orbit-subgroup]{lemma above},
+    since there is a bijection between \(X\) and \(G/H\)
+    we know that \(\abs{X} = \abs{G/H}\).
+    But \hyperref[thm:lagrange]{Lagrange's theorem}
+    guarantees that the number of cosets is \(\abs{G/H} = [G:H] \mid \abs{G}\).
+\end{proof}
+
+\begin{theorem}[Class Equation]\label{thm:class-equation}
+    Suppose \(G\) acts on \(X\).
+    Then \(\abs{X} = \sum_i \abs{X_i} = \sum_i \abs{G/H_i}\),
+    where \(H_i \subseteq G\) subgroups,
+    and hence \(\abs{G/H_i} \mid \abs{G}\).
+\end{theorem}
+\begin{proof}
+    Suppose the orbits of \(X\) are disjoint sets \(X_i\).
+    Then if we restrict to any subset \(X_i \subseteq X\),
+    \(G\) acts on \(X_i\) transitively.
+    By the \hyperref[lem:transitive-orbit-subgroup]{lemma above},
+    \(X_i\) is equivalent to \(G/H_i\),
+    so \(\abs{X_i} = \abs{G/H_i}\).
+    Now, since orbits partition \(X\),
+    \(\abs{X} = \sum \abs{X_i}\).
+\end{proof}
+\begin{corollary}
+    \(\abs{G} = \abs{\Centre(G)} + \sum_i n_i\)
+    where \(n_i \mid \abs{G}\).
+\end{corollary}
+\begin{proof}
+    Let \(G\) act on itself by conjugation.
+    For the elements \(x \in G\) that get fixed by conjugation,
+    i.e.\ they commute with all \(g \in G\),
+    their orbits (conjugacy classes) are a single element
+    \([x] = \{\gamma_g(x) = gxg^{-1} : g \in G\} = [x] = \{x\}\).
+    Together, all these elements form the center \(\Centre(G)\).
+
+    Then all other conjugacy classes (with more than one element)
+    are equivalent to \(G/H_i\)
+    by the \hyperref[thm:class-equation]{class equation},
+    which are divisors of \(\abs{G}\).
+\end{proof}
+
+\begin{theorem}\label{thm:pr-nontrivial-center}
+    Suppose \(G\) is a finite group,
+    with order \(\abs{G} = p^r\) where \(p\) is prime.
+    Then \(G\) has a nontrivial center,
+    that is, \(\Centre(G) \neq \{1\}\).
+\end{theorem}
+\begin{proof}
+    Suppose we have a trivial center.
+    Then the \hyperref[thm:class-equation]{class equation} tells us that
+    \(p^r = 1 + \sum_i p^{r_i}\),
+    since the order is \(\abs{G} = p^r\), \(\abs{\Centre(G)} = 1\),
+    and all divisors of \(p^r\) must be some power of \(p\),
+    with \(r_i \neq 0\), as those orbits cannot be trivial.
+    But clearly the left side is a multiple of \(p\),
+    and the right side has a multiple of \(p\) plus 1,
+    which is a contradiction.
+\end{proof}
+\begin{corollary}\label{cor:p2-abelian}
+    Suppose \(G\) is a group with order \(\abs{G} = p^2\),
+    where \(p\) is prime.
+    Then \(G\) is abelian.
+\end{corollary}
+\begin{proof}
+    We know from the \hyperref[thm:class-equation]{theorem above}
+    that it has a nontrivial center (\(\abs{\Centre(G)} \neq 1\)),
+    so if the order of some element is \(p^2\),
+    then it generates the entire group, and it must be cyclic (abelian).
+    % But since the center is a subgroup
+    % (Corollary~\ref{cor:centralizer-subgroup}),
+    % its order must divide \(\abs{G} = p^2\) (Theorem~\ref{thm:lagrange}),
+    % i.e.\ \(\abs{\Centre(G)} = p\) or \(p^2\).
+
+    % Suppose, by way of contradiction, that \(\abs{\Centre(G)} = p\).
+    % Then we can clearly see that all elements in their orbits
+    Now suppose there are no elements of order \(p^2\);
+    then all elements other than the identity must have order \(p\),
+    which implies the center must also be a subgroup
+    (Corollary~\ref{cor:centralizer-subgroup})
+    that is cyclic with order \(p\) (Theorem~\ref{thm:lagrange}).
+    % Let \(H = \Centre(G)\).
+    % We write down the number of cosets that we get,
+    % that is, \([G:H] = \abs{G}/\abs{H} = p^2/p = p\).
+    Let \(\Centre(G) = \langle g \rangle\), where \(\abs{g} = p\).
+    Clearly there is another element \(k \in G\), but \(k \neq g^r\)
+    such that \(\abs{k} = p\).
+    If \(gk = kg\), then a simple counting argument gives us
+    \(\langle g,k \rangle\) a group of order \(p^2\),
+    since every element can be written in the form \(g^i k^j\),
+    \(i,j\) each having \(p\) choices each.
+    If on the other hand, \(gk \neq kg\),
+    then \(\langle g,k \rangle\) must include
+    all previously mentioned \(p^2\) elements, and also \(kg\),
+    which implies \(\abs{\langle g,k \rangle} > p^2\),
+    and contradicts the fact that \(\langle g,k \rangle \subseteq G\).
+    Hence \(gk = kg\),
+    and any power of \(g\) commutes with any power of \(k\),
+    so all elements of \(G\) commute with each other.
+\end{proof}
+
+\begin{theorem}
+    Conjugacy classes in \(S_n\) are the cycle types;
+    same cycle types are in the same conjugacy class,
+    and different cycle types are in different conjugacy classes.
+\end{theorem}
+\begin{proof}
+    Suppose we have a \(d\)-cycle \((n_1 n_2 \hdots n_d)\).
+    We know that for all \(g \in S_n\), \(n_i \in \{1,\hdots,n\}\),
+    any \(g(n_1 n_2 \hdots n_d)g^{-1} = (g(n_1) g(n_2) \hdots g(n_d))\)
+    by Proposition~\ref{prop:sn-conjugation}.
+    This is also a \(d\)-cycle.
+    As all elements of \(S_n\) are disjoint cycles,
+    all such disjoint cycle types must only ever map to their own cycle type
+    under conjugation.
+\end{proof}
+\begin{remark}
+    In general it is difficult to determine
+    exactly the conjugacy classes of a group.
+\end{remark}
+
+
+\subsection{Sylow's Theorems}
+
+\begin{theorem}[Cauchy's Theorem]\label{thm:cauchy}
+    Suppose \(G\) is a finite abelian group,
+    and there is some prime \(p \mid \abs{G}\)
+    that divides the order of the group.
+    Then there exists an element \(g \in G\) of order \(\abs{g} = p\).
+\end{theorem}
+\begin{proof}
+    We first consider the base case where \(\abs{G} = p\).
+    By Corollary~\ref{cor:prime-order-subgroup},
+    we know that there exists a subgroup \(\langle g \rangle \subseteq G\)
+    where \(g \in G\) is any arbitrary element \(g \neq 1\).
+
+    We now proceed by strong induction on the order of the group.
+    Suppose \(\abs{G} = mp\), where \(m \in \bN\),
+    and that for all \(k < m\) Cauchy's Theorem for order \(kp\) is proven.
+    Let us arbitrarily pick some \(x \neq 1\), \(x \in G\).
+    Suppose the order of this element is some \(\abs{x} = n\).
+    If \(p \mid n\), then Theorem~\ref{thm:cyclic-subgroup-uniqueness}
+    guarantees us that there exists a subgroup
+    \(\langle x^m \rangle \subseteq \langle x \rangle\)
+    with order \(\abs{x^m} = p\).
+    If \(p \nmid n\), then we can construct a subgroup \(G/\langle x \rangle\)
+    (\(\langle x \rangle\) guaranteed to be normal
+    by Proposition~\ref{prop:abelian-subgroup-normal}),
+    which by \hyperref[thm:lagrange]{Lagrange's theorem}
+    has order \(\abs{G/\langle x \rangle} = \abs{G}/\abs{x} = mp/n\),
+    and \hyperref[lem:euclid]{Euclid's lemma} tells us \(p \mid mp/n\).
+    Then clearly \(m/n \in \bN\), specifically \(m/n < m\),
+    so the induction hypothesis applies.
+\end{proof}
+
+\begin{theorem}[Sylow's First Theorem]\label{thm:sylow-1}
+    Suppose \(G\) a finite group, \(p\) a prime number,
+    and that the order is \(\abs{G} = Np^s\),
+    with \(\gcd(N,p) = 1\) coprime
+    (that is, \(p^s\) is the largest power of \(p\) that divides \(\abs{G}\)).
+    Then for all \(0 \leq t \leq s\),
+    \(G\) contains a subgroup of order \(p^t\).
+\end{theorem}
+\begin{proof}
+    We first consider the case where \(G\) is abelian.
+    % The most simple case is when \(\abs{G} = Np\);
+    % there trivially exists a subgroup \(\{1\}\) of order 1,
+    % and by \hyperref[thm:cauchy]{Cauchy's theorem}
+    % there exists a subgroup \(\langle g \rangle\) of order \(p\).
+    Trivially, \(G\) itself is a subgroup of order \(\abs{G} = Np^s\),
+    which we will use as our base case.
+
+    We now suppose, by way of weak induction,
+    that we have a subgroup \(H_k\) of order \(\abs{H_k} = Np^k\)
+    (for \(k \geq 1\)).
+    We wish to prove that a subgroup \(H_{k-1}\)
+    of order \(\abs{H_{k-1}} = Np^{k-1}\) exists.
+    By \hyperref[thm:cauchy]{Cauchy's theorem},
+    we can find an \(x_k \in H_k\) of order \(\abs{x_k} = p\).
+    Proposition~\ref{prop:abelian-subgroup-normal}
+    tells us that \(\langle x_k \rangle \lhd H_k\),
+    so \(H_k/\langle x_k \rangle\) is a subgroup,
+    with \hyperref[thm:lagrange]{Lagrange's theorem} telling us
+    its order is \(\abs{H_k/\langle x_k \rangle}
+    = \abs{H_k}/\abs{x_k} = Np^k/p = Np^{k-1}\).
+    This allows us to conclude that there are subgroups of \(G\)
+    with orders \(Np^r\) where \(0 \leq r \leq s\).
+
+    Again invoking Proposition~\ref{prop:abelian-subgroup-normal},
+    \(H_{s-t} \lhd G\) for all \(0 \leq t \leq s\).
+    Hence \(G/H_{s-t}\) is a subgroup,
+    with its order determined by \hyperref[thm:lagrange]{Lagrange's theorem}
+    to be \(\abs{G/H_{s-t}} = \abs{G}/\abs{H_{s-t}}
+    = (Np^s)/(Np^{s-t}) = p^t\).
+
+    \medskip
+
+    Now consider the case where \(G\) is not abelian.
+    Then clearly there are elements that do not commute,
+    so \(\Centre(G) \subsetneq G\).
+    We can write down the \hyperref[thm:class-equation]{class equation}
+    \(\abs{G} = \abs{\Centre(G)} + \sum_i [G:H_i]\),
+    where there is at least one \(i\) in the summation.
+
+    We can first prove the simplest case when \(\abs{G} = p^s\).
+    It suffices to consider \(G\) not abelian,
+    since the abelian case is already proven above.
+    The center of the group \(\Centre(G)\)
+    is a subgroup (Corollary~\ref{cor:centralizer-subgroup}),
+    so its order must divide the order of the whole group
+    (\(\abs{\Centre(G)} \mid \abs{G} = p^s\),
+    \hyperref[thm:lagrange]{Lagrange's theorem}),
+    which implies \(p \mid \abs{\Centre(G)}\).
+    Then \hyperref[thm:cauchy]{Cauchy's theorem} tells us that
+    we can find an element \(x \in \Centre(G) \subsetneq G\)
+    such that \(\abs{x} = p\).
+    Proceeding similarly to the induction in the abelian case,
+    we see that \(\langle x \rangle \lhd \Centre(G)\)
+    (Proposition~\ref{prop:abelian-subgroup-normal}),
+    and in fact \(\langle x \rangle \lhd G\),
+    simply because \(g \in \Centre(G)\),
+    and will commute with every element of \(G\)
+    (\(gx^r g^{-1} = x^r gg^{-1} = x^r \in \langle x \rangle\)).
+    Hence \(G/\langle x \rangle\) is a subgroup
+    with order \(\abs{G}/\abs{x} = p^{s-1}\)
+    (\hyperref[thm:lagrange]{Lagrange}).
+    Recursively applying this process on the quotient group
+    generates subgroups of order \(1,p,p^2,\hdots,p^s\).
+
+    Let us then go back to the general case of \(\abs{G} = Np^s\).
+    We shall additionally assume, by way of strong induction,
+    that any group of order \(mp^s\), where \(m < N\)
+    has subgroups of order \(1,p,p^2,\hdots,p^s\).
+    Suppose there exists a subgroup \(H_i\) in the class equation
+    such that \(p^s \mid \abs{H_i}\).
+    Then clearly \(\abs{H_i} = mp^s\), \(m < N\),
+    so the induction hypothesis immediately gives our desired result.
+
+    Suppose otherwise, when \(p^s \nmid \abs{H_i}\);
+    we can then see that \(p \mid [G:H_i]\) for all \(i\),
+    since \hyperref[thm:lagrange]{Lagrange's theorem}
+    guarantees \(Np^s = \abs{G} = \abs{H_i}[G:H_i]\),
+    and our supposition tells us that the prime factorization of \(\abs{H_i}\)
+    includes at most \(p^{s-1}\),
+    and therefore \([G:H_i]\) prime factorizes to include at least one \(p\).
+    Then every term in the summation inside the class equation
+    is divisible by \(p\),
+    and the left side is \(Np^s\), which also is divisible by \(p\),
+    so the remaining term,
+    the centralizer must also be \(p \mid \abs{\Centre(G)}\).
+    But this condition means we can follow the proof
+    as in the previous paragraph;
+    given some group \(H_k\) of order \(Np^k\),
+    we can find an element \(x_k\) of order \(p\)
+    such that \(H_{k-1} = H_k/\langle x_k \rangle\)
+    is a group of order \(\abs{H_{k-1}} = Np^{k-1}\).
+    The natural quotient homomorphism \(\func{\pi_k}{H_k}{H_{k-1}}\)
+    has a kernel of order \(p\).
+    It is then possible to construct a chain of homomorphisms
+    \(\pi_{s-r}\circ\pi_{s-r+1}\circ\cdots\circ\pi_s\),
+    which has a kernel of order \(p^r\);
+    and as we know
+    from the \hyperref[thm:iso-1-group]{first isomorphism theorem}
+    the kernel is a group,
+    which gets us our desired result.
+\end{proof}
+\begin{remark}
+    This theorem does not hold for order \(d^s\) when \(d\) is not prime.
+\end{remark}
+\begin{corollary}[Cauchy's Theorem]
+    Suppose \(G\) is a finite group, abelian or not,
+    and there is a some prime \(p \mid \abs{G}\)
+    that divides the order of the group.
+    Then there exists an element \(g \in G\) of order \(\abs{g} = p\).
+\end{corollary}
+\begin{proof}
+    Special case of the \hyperref[thm:sylow-1]{theorem above},
+    with \(t = 1\).
+\end{proof}
+
+\begin{definition}
+    A group with prime power order,
+    that is, \(\abs{G} = p^r\) for some \(r \in \bN\),
+    is called a \(p\)-group.
+\end{definition}
+\begin{corollary}
+    There exists subgroups of all possible orders
+    that divide the order of a \(p\)-group.
+\end{corollary}
+\begin{proof}
+    The order of a \(p\)-group is \(p^s\),
+    so the \hyperref[thm:sylow-1]{theorem above} applies.
+\end{proof}
+
+\begin{definition}
+    Suppose \(G\) is a finite group with order \(Np^s\), \(\gcd(N,p) = 1\).
+    A subgroup of order \(p^s\) (maximal prime power order)
+    is often called a Sylow \(p\)-subgroup of \(G\),
+    and less often called a \(p\)-Sylow subgroup of \(G\).
+\end{definition}
+\begin{lemma}\label{lem:prime-power-sylow-subgroup}
+    Suppose \(G\) is a finite group with \(\abs{G} = Np^s\), \(\gcd(N,p) = 1\),
+    with \(P \subseteq G\) a Sylow \(p\)-subgroup.
+    If \(K \subseteq \Normalizer(P)\) a subgroup, and \(\abs{K} = p^t\),
+    then \(K \subseteq P \subseteq \Normalizer(P)\).
+\end{lemma}
+\begin{proof}
+    By definition of a normalizer, if \(g \in \Normalizer(P)\),
+    we have \(gPg^{-1} \subseteq P\), so \(P \lhd \Normalizer(P)\).
+
+    Since \(P \subseteq \Normalizer(P) \subseteq G\),
+    \hyperref[thm:lagrange]{Lagrange's theorem} gives us
+    \(\Normalizer(P) = mp^s\), \(m \mid N\).
+    We form a quotient group \(\Normalizer(P)/P\),
+    which has an order \(mp^s/p^s = m\), which is coprime to \(p\)
+    since \(N\) is already coprime to \(p\).
+    The natural quotient homomorphism is
+    \(\func{\pi}{\Normalizer(P)}{\Normalizer(P)/P}\).
+    We now inspect the image \(\pi(K)\),
+    which by the \hyperref[thm:iso-1-group]{first isomorphism theorem}
+    is a subgroup of \(\Normalizer(P)/P\).
+
+    Now, as elements of \(k \in K\) have \(k^{p^t} = 1\)
+    by Corollary~\ref{cor:order-element-group},
+    under the homomorphism we should have \({\pi(k)}^{p^t} = 1\),
+    so the order \(\abs{\pi(k)} \mid p^t\).
+    But the order also \(\abs{\pi(k)} \mid m\),
+    because it should divide the order of the codomain group;
+    since \(m,p\) coprime, \(m,p^t\) also coprime,
+    so the order must be \(\abs{\pi(k)} = 1\),
+    and therefore the image must be \(\pi(K) = \{1\}\).
+    Hence we can conclude that \(K \subseteq \ker(\pi) = P\).
+\end{proof}
+\begin{theorem}[Sylow's Second Theorem]\label{thm:sylow-2}
+    Suppose \(G\) is a finite group, \(p\) a prime number,
+    and that the order is \(\abs{G} = Np^s\), with \(\gcd(N,p) = 1\).
+    Let us denote \(P\) and \(P'\) as arbitrary Sylow \(p\)-subgroups.
+    Then the following will hold:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item Any two Sylow \(p\)-subgroups are conjugate,
+            that is, if \(\abs{P} = \abs{P'} = p^s\),
+            then there exists a \(g \in G\) such that \(gPg^{-1} = P'\);
+        \item Let the number of Sylow \(p\)-subgroups be \(n\),
+            then \(n \mid [G:P] = N\) and \(n \equiv 1 \pmod{p}\); and
+        \item If \(K \subseteq G\) is a subgroup
+            with order \(\abs{K} = p^t\), \(0 \leq t \leq s\),
+            then \(K \subseteq P\) a subgroup of a Sylow \(p\)-subgroup.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Let \(\Pi\) be the set of all Sylow \(p\)-subgroups,
+    that is, the set of all subgroups of order \(p^s\).
+    By \hyperref[thm:sylow-1]{Sylow's first theorem},
+    this set is not empty \(\Pi \neq \emptyset\).
+    Allow us to let \(G\) act on \(\Pi\) by conjugation.
+
+    % To prove the first statement,
+    Let us fix a singular Sylow subgroup \(P \in \Pi\).
+    We can clearly see that the stabilizer here is also the normalizer,
+    since \(\Normalizer(P) = \stab(P) = \{g \in G : gPg^{-1} = P\}\).
+    Then the \hyperref[cor:orbit-stabilizer]{orbit-stabilizer theorem}
+    gives us that \(\abs{\orb_G(P)} = \abs{G}/\abs{\Normalizer(P)}\).
+    By Proposition~\ref{prop:normalizer-subgroup}
+    and Lemma~\ref{lem:prime-power-sylow-subgroup}
+    we know that \(P \subseteq \Normalizer(P) \subseteq G\),
+    so \hyperref[thm:lagrange]{Lagrange's theorem} tells us
+    \(p^s \mid \abs{\Normalizer(P)}\),
+    and \(\abs{\Normalizer(P)} \mid Np^s\),
+    and hence we can write \(\abs{\Normalizer(P)} = mp^s\)
+    where \(m \mid N\).
+    If we now were to assume that statement (a) is true,
+    then \(G\)-conjugation on \(\Pi\) is transitive,
+    so \(\orb_G(P) = X\), and we have \(\abs{X} = (Np^s)/(mp^s) = N/m\),
+    and therefore the number of Sylow \(p\)-subgroups
+    is \(\abs{X} \mid N\),
+    proving the first part of statement (b).
+
+    The orbit of \(P\) under \(G\)-conjugation is a set of groups,
+    which we will denote \(\Sigma = \orb_G(P) \subseteq \Pi\) below.
+    Restricting our action such that \(P\) acts on \(\Sigma\) by conjugation,
+    by closure of group multiplication,
+    we can see that any \(g \in P\) gives us \(gPg^{-1} = P\),
+    so the orbit of \(P\) under \(P\)-conjugation is
+    \(\orb_P(P) = \{P\} \subseteq \Sigma\),
+    which must only contain itself.
+    The \hyperref[thm:class-equation]{class equation} now tells us that
+    \(\abs{\Sigma} = \abs{\orb_P(P)} + \sum_i \abs{\orb_P(X_i)}\),
+    where \(X_i \subseteq \Sigma\),
+    and \(\abs{\orb_P(P)} = 1\) as seen above.
+
+    From our assumptions, we know that the terms in the summation
+    must divide the order \(\abs{P}\), so they must be powers of \(p\),
+    that is, \(\orb_P(X_i) = p^r\), \(r \geq 0\).
+    We claim that the order of those are at least \(p\),
+    that is, \(\orb_P(X_i) = p^r\) where \(r \geq 1\).
+    Suppose, by way of contradiction,
+    that there exists some other \(P' \in \Sigma\), \(P' \neq P\)
+    such that \(\orb_P(P') = \{P'\}\).
+    Then going back to the definition of an orbit,
+    we have for all \(g \in P\), \(gP'g^{-1} = P'\),
+    which implies \(g \in \Normalizer(P')\),
+    i.e.\ \(P \subseteq \Normalizer(P')\).
+    As \(\abs{P} = p^s\),
+    we can invoke the \hyperref[lem:prime-power-sylow-subgroup]{above lemma}
+    and conclude that \(P \subseteq P' \subseteq \Normalizer(P')\).
+    In particular, since \(\abs{P} = \abs{P'}\),
+    we can see that \(P = P'\),
+    which contradicts our premise,
+    implying that the orbits \(\abs{\orb_P(X_i)} > 1\).
+    This allows us to say that all terms in the summation
+    must be divisible by \(p\),
+    allowing us to write the class equation as
+    \(\abs{\Sigma} = 1 + \sum_i r_i p \equiv 1 \pmod{p}\);
+    again, if we assume statement (a) is true,
+    then \(\abs{\Pi} = \abs{\Sigma}\),
+    which gives us \(\abs{\Pi} \equiv 1 \pmod{p}\),
+    proving the second part of statement (b).
+
+    Going back to statement (a),
+    it is sufficient to prove that
+    there exists only one orbit under conjugation.
+    Suppose, by way of contradiction,
+    that there is some Sylow \(p\)-subgroup \(Q \in (\Pi-\Sigma)\).
+    Then we will restrict the action by conjugation
+    such that \(Q\) acts on \(\Sigma\).
+    Following a similar argument as \(P'\) in the previous paragraph,
+    we know each individual \(Q\)-orbit has order \(p^r\), \(r \geq 0\).
+    We again claim that each orbit is at least order \(p\).
+    If not, there exists some \(Q' \in \Sigma\)
+    such that \(\orb_{Q}(Q') = \{Q'\}\),
+    which implies for all \(g \in Q\), \(gQ'g^{-1} = Q'\),
+    giving us \(g \in \Normalizer(Q')\),
+    and hence \(Q \subseteq \Normalizer(Q')\).
+    Invoking the \hyperref[lem:prime-power-sylow-subgroup]{above lemma},
+    we get \(Q \subseteq Q' \subseteq \Normalizer(Q')\),
+    which since \(\abs{Q} = \abs{Q'}\), we have \(Q = Q'\),
+    contradicting the fact that \(Q' \in \Sigma\),
+    but \(Q \notin \Sigma\).
+    Hence we are forced to conclude that all \(Q\)-orbits
+    have cardinalities that are multiples of \(p\),
+    implying \(p \mid \abs{\Sigma}\).
+    But that itself contradicts the class equation
+    \(\abs{\Sigma} = 1 + \sum_i r_i p \equiv 1 \pmod{p}\),
+    which tells us \(p \nmid \abs{\Sigma}\).
+    Therefore we are forced to conclude that \(Q\) does not exist,
+    and \(\Pi-\Sigma = \emptyset\).
+    There is only one \(G\)-orbit,
+    so \(G\) acts by conjugation
+    on the set of Sylow \(p\)-subgroups transitively,
+    which implies we can send any two \(\{P,P'\} \subset \Pi\)
+    to each other via conjugation, \(gPg^{-1} = P'\) for some \(g \in G\).
+    This proves statement (a).
+
+    Armed with statements (a) and (b),
+    we now let \(K\) act on \(\Pi\) via conjugation.
+    The \hyperref[thm:class-equation]{class equation} tells us that
+    \(\abs{\Pi} = \sum_i \abs{X_i}\),
+    where the orbits \(X_i\)
+    must have orders \(\abs{X_i} \mid \abs{K} = p^t\),
+    so all orbits are powers of \(p\).
+    But statement (b) tells us that \(\abs{\Pi} \equiv 1 \pmod{p}\),
+    so there must be at least one \(K\)-orbit that is of size 1.
+    Suppose \(P \in \Pi\) has \(\abs{\orb_K(P)} = 1\).
+    Then we see that for all \(k \in K\), \(kPk^{-1} = P\),
+    so \(k \in \Normalizer(P)\), and \(K \subseteq \Normalizer(P)\).
+    We can use the \hyperref[lem:prime-power-sylow-subgroup]{lemma above}
+    one last time
+    to see that \(K \subseteq P \subseteq \Normalizer(P)\).
+    This proves statement (c).
+\end{proof}

@@ -1,0 +1,282 @@
+\section{Prerequisite Material}
+
+\begin{remark}
+    There is a huge amount of prerequisite material that is needed,
+    and it is never possible to study algebra independently of other subjects.
+    We need skills like doing proofs
+    by induction, contradiction, and contraposition,
+    and we also need a basic understanding of numbers in general,
+    and perhaps a good deal of geometric intuition would be nice;
+    occasionally some proofs might also involve a non-trivial amount of analysis.
+    But we need a starting point,
+    and for me that starting point
+    is the material that perhaps was never formally covered in Science One math
+    and second year linear algebra and calculus,
+    or maybe was a topic that was last taught in high school.
+\end{remark}
+
+\subsection{Relations}
+
+\begin{definition}
+    A relation is a denotion on two elements of a set \(X\).
+    More specifically,
+    if a relation \(R \subset X \cross X\),
+    then we write \(aRb\) if \((a,b) \in R\).
+\end{definition}
+
+\begin{definition}
+    An equivalence relation \(\sim\)
+    is a relation that has three properties:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item reflexive \(\forall x \in X, x \sim x\);
+        \item symmetric \(\forall x,y \in X, x \sim y \implies y \sim x\); and
+        \item transitive \(\forall x,y,z \in X,
+            x \sim y \land y \sim z \implies x \sim z\).
+    \end{enumerate}
+    We say \(x\) is relatied to \(y\) if \(x \sim y\).
+\end{definition}
+
+\begin{definition}
+    Suppose we have an equivalence relation \(\sim\).
+    The equivalence class of \(x \in X\) is
+    \([x] = \{y \in X : y \sim x\}\).
+\end{definition}
+\begin{lemma}
+    An element is in its own equivalence class; \(x \in [x]\).
+\end{lemma}
+\begin{proof}
+    By reflexivity.
+\end{proof}
+\begin{theorem}
+    \(x \sim y \iff [x] = [y]\);
+    two related elements must have the same equivalence class.
+\end{theorem}
+\begin{proof}
+    If \(x \sim y\),
+    then \([x]\) consists of all elements \(z\) that are related to \(x\),
+    so \(z \sim x\), and transitivity gives us \(z \sim y\),
+    so \(z \in [y]\), and hence \([x] \subset [y]\).
+    Reversing the argument gives us \([y] \subset [x]\),
+    so \([x] = [y]\).
+
+    If \([x] = [y]\), then \(y \in [x]\),
+    so by definition \(y \sim x\).
+\end{proof}
+\begin{corollary}
+    For all elements \(\{x,y\} \in X\),
+    either \([x] = [y]\) or \([x] \cap [y] = \emptyset\).
+\end{corollary}
+\begin{proof}
+    Suppose \([x] \cap [y] \neq \emptyset\).
+    Then there exists some element \(z \in [x]\) and \(z \in [y]\).
+    But then \(z \sim x\) and \(z \sim y\),
+    so \(x \sim y\) by transitivity,
+    which by our theorem gives \([x] = [y]\).
+\end{proof}
+
+\begin{theorem}\label{thm:equiv-class-partition}
+    The set of equivalence classes \(X/{\sim}\) partition \(X\).
+\end{theorem}
+\begin{proof}
+    From the lemma,
+    each element must belong in an equivalence class.
+    The above corollary tells us equivalence classes do not overlap.
+\end{proof}
+
+\subsection{Functions}
+
+\begin{definition}
+    A function \(f\) that maps elements in \(A\) to \(B\)
+    is denoted \(\func{f}{A}{B}\).
+    \(A\) is the domain, and \(B\) is the codomain.
+    The range \(f(A)\) is the set of all possible outputs of the function,
+    namely \(f(A) = \{b \in B : \exists a \in A, f(a) = b\}\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(A' \subset A\) and \(B' \subset B\).
+    The image of \(A'\) is the set of all possible outputs
+    given elements in \(A'\),
+    denoted \(f(A') = \{f(a) \in B : a \in A'\}\).
+    The preimage of \(B'\) is the set of all possible inputs
+    that result in an element in \(B'\),
+    denoted \(f^{-1}(B') = \{x \in A : f(x) \in B'\}\).
+\end{definition}
+
+\begin{definition}
+    A function is 1-to-1 or injective
+    when each point in the range (or codomain)
+    only corresponds to (at most) one point in the domain.
+    That is, \(\forall x,y \in A, f(x) = f(y) \implies x = y\).
+\end{definition}
+\begin{definition}
+    A function is onto or surjective
+    when every point in the codomain
+    corresponds to at least one point in the domain,
+    i.e.\ the codomain is the range.
+    That is, \(\forall y \in B, \exists x \in A, f(x) = y\).
+\end{definition}
+\begin{definition}
+    A function is bijective if it is both injective and surjective.
+\end{definition}
+
+% \newpage
+
+\begin{theorem}[Pigeonhole Principle]
+    Suppose two finite sets \(A,B\) have the same cardinality
+    \(\abs{A} = \abs{B}\).
+    Then \(\func{f}{A}{B}\) is injective
+    if and only if it is surjective.
+\end{theorem}
+\begin{proof}
+    Suppose \(f\) is injective but not surjective.
+    Then if \(\abs{A} = n\),
+    then there are \(n\) elements in \(B\) that are in the range.
+    Lack of surjectivity implies that
+    there exists at least one element that is not in the range.
+    Hence \(\abs{B} > n\), which is a contradiction.
+
+    Suppose \(f\) is surjective but not injective.
+    Then if \(\abs{B} = n\),
+    then there are at least \(n\) elements in \(A\).
+    But no injectivity implies there must be some two elements
+    \(x,y \in A\) that map to the same point \(f(x) = f(y)\),
+    which so forces us to conclude \(\abs{A} \geq n+1\),
+    which is a contradiction.
+\end{proof}
+
+\begin{theorem}\label{thm:composite-injection}
+    Suppose \(f = f_n \circ f_{n-1} \circ \cdots \circ f_2 \circ f_1\).
+    If \(f\) is injective, then \(f_1\) is injective.
+\end{theorem}
+\begin{proof}
+    % Without loss of generality, let \(f = f_2 \circ f_1\).
+    Suppose, by way of contradiction, that \(f_1\) is not injective.
+    Then there exists \(x,y\) in the domain of \(f_1\)
+    such that \(f_1(x) = f_1(y)\).
+    But that implies \(f(x) = f(y)\),
+    which contradicts that \(f\) is injective.
+\end{proof}
+\begin{theorem}\label{thm:composite-surjective}
+    Suppose \(f = f_n \circ f_{n-1} \circ \cdots \circ f_2 \circ f_1\).
+    If \(f\) is surjective, then \(f_n\) is surjective.
+\end{theorem}
+\begin{proof}
+    % Without loss of generality, let \(f = f_2 \circ f_1\).
+    Suppose, by way of contradiction, that \(f_n\) is not surjective.
+    Then there exists \(y\) in the codomain of \(f_n\)
+    such that for all \(x\) in the domain of \(f_n\),
+    \(f_n(x) \neq y\).
+    But then there exists \(y\) in the codomain of \(f\)
+    such that \(f(x) \neq y\),
+    which contradicts that \(f\) is surjective.
+\end{proof}
+
+\subsection{Integers}
+
+\begin{definition}
+    Suppose we have integers \(a,b\).
+    The greatest common denominator, or gcd
+    is the largest integer \(n\) such that \(n \mid a\) and \(n \mid b\).
+    This is often denoted \(\gcd(a,b)\) or simply \((a,b)\).
+    The least common multiple, or lcm
+    is the smallest integer \(m\) such that \(a \mid m\) and \(b \mid m\).
+    This is often denoted \(\lcm(a,b)\) or simply \([a,b]\).
+\end{definition}
+
+\begin{theorem}[Euclid's Lemma]\label{lem:euclid}
+    Suppose we have prime \(p\) and integers \(a,b\).
+    If \(p \mid ab\), then \(p \mid a\) or \(p \mid b\).
+\end{theorem}
+\begin{proof}
+    Suppose \(p \nmid a\).
+    Since \(p \mid ab\),
+    there exists an integer \(q\) such that \(pq = ab\).
+
+    We first prove the base case,
+    supposing that \(ab = 2\).
+    Then the only prime that divides it is 2,
+    and we know that \(a = 1\) and \(b = 2\),
+    so clearly \(p \mid b\).
+
+    Now proceeding by induction,
+    suppose that all values smaller than \(ab\) are proven.
+    If \(p < a\),
+    then \(pq - pb = ab - pb\),
+    which gives us \(p(q-b) = (a-p)b\),
+    i.e.\ \(p \mid (a-p)b\).
+    Notice that \(p \nmid a-p\),
+    and that \((a-p)b < ab\),
+    so Euclid's lemma holds by the induction hypothesis.
+    If \(p > a\),
+    then \(pb - npq = pb - nab\),
+    which gives us \(p(b-nq) = (p-na)b\),
+    i.e.\ \(p \mid (p-na)b\).
+    Notice that \(p \nmid p-a\),
+    and that there exists an \(n\) such that \((p-na)b < ab\),
+    which completes our proof.
+\end{proof}
+\begin{remark}
+    This is essentially how the Euclidean algorithm for finding gcd works.
+    We know that by subtracting off the other number,
+    the gcd does not change,
+    which allows us to reduce the problem to a smaller case.
+\end{remark}
+
+\begin{theorem}[B\'{e}zout's Identity]\label{thm:bezout}
+    Suppose \(\gcd(a,b) = d\).
+    Then there exists \(m,n \in \bZ\) such that \(ma + nb = d\).
+    Moreover, for any \(p,q \in \bZ\)
+    we have \(d \mid pa + qb\).
+\end{theorem}
+\begin{proof}
+    Without loss of generality, let \(a \leq b\).
+    If \(a = b\), then clearly \(d = a = b\) which is in our desired form.
+    If not, then since we know that we can find some \(b - na \leq a\),
+    which reduces the case down to a smaller number
+    while always keeping the numbers that we are taking the gcd of
+    in the form \(ma + nb\).
+    Eventually, \(d\) must equal one of these numbers.
+
+    Then we write \(pa + qb = (p-m)a + (q-n)b + ma + nb
+    = (p-m)a + (q-n)b + d\).
+    Since \(d \mid a\) and \(d \mid b\),
+    we have our desired result.
+\end{proof}
+\begin{remark}
+    One might use B\'{e}zout's identity to prove Euclid's lemma,
+    but both proofs essentially come from the Euclidean algorithm.
+\end{remark}
+
+\begin{theorem}[Fundamental Theorem of Arithmetic]
+    Every integer greater than 1 factors uniquely into a product of primes.
+    That is, we can write any integer \(n > 1\) as
+    \begin{equation*}
+        n = \prod_{i=1}^k p_i^{n_i}
+    \end{equation*}
+    where \(p_i\) are distinct primes.
+\end{theorem}
+\begin{proof}
+    We first prove such a prime factorization exists.
+    We can see that 2 is prime.
+    Proceeding by induction, assume all integers between 2 and \(n\)
+    have a prime decomposition.
+    If \(n\) is prime, we are done.
+    If \(n\) is not prime,
+    then it must be represented by \(n = ab\),
+    where \(a,b\) must both be smaller,
+    and by the inductive hypothesis,
+    have prime decompositions.
+
+    Now we prove that prime factorization is unique.
+    Assume the contrary,
+    and let \(n\) be the smallest such integer without unique factorization.
+    Then we write \(n = \prod_{i=1}^k p_i = \prod_{i=1}^{k'} q_i\),
+    two distinct factorizations.
+    By Euclid's lemma we see that \(p_1\) divides some \(q_i\),
+    which without loss of generality say this is \(q_1\).
+    Then \(p_1 = q_1\).
+    So \(n/p_1 = \prod_{i=2}^k p_i = \prod_{i=2}^{k'} q_i\)
+    is also an integer without unique factorization,
+    which contradicts our assumption that \(n\) is the smallest.
+\end{proof}

@@ -1,0 +1,160 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+
+% Standard mathematical typesetting packages
+\usepackage{amsfonts, amsthm, amsmath, amssymb}
+\usepackage{mathtools}  % Extension to amsmath
+
+% Symbol and utility packages
+\usepackage{cancel}
+\usepackage[mathscr]{euscript}
+% \usepackage[nointegrals]{wasysym}
+\usepackage{bbm}
+\usepackage[normalem]{ulem}
+
+% Styling
+\usepackage{fancyhdr}
+\usepackage{environ}
+\usepackage{systeme}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+
+% Extras
+\usepackage[italicdiff]{physics}    % Lots of useful shortcuts and macros
+\usepackage{tikz-cd}                % For drawing commutative diagrams easily
+\usepackage{color, xcolor}          % Add some colour to life
+\usepackage{microtype}              % Minature font tweaks
+\usepackage{comment}
+\usepackage{xparse}
+\usepackage{mdframed}
+\usepackage[shortlabels]{enumitem}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{bm, harpoon}
+% \usepackage{epigraph}
+
+
+% Vector style
+% \renewcommand{\vec}[1]{\mathbf{\ensuremath{#1}}} % bold type vector
+\renewcommand{\vec}[1]{\underline{\ensuremath{#1}}} % underline type vector
+% \renewcommand{\vec}[1]{\bm{{\overrightharp{\ensuremath{#1}}}}} % arrow type vector
+% \newcommand{\bhat}[1]{\bm{\mathbf{\hat{#1}}}}
+
+% Matrices and Vectors
+\newcommand{\twomatrix}[4]{\begin{bmatrix}
+    #1 & #2 \\ #3 & #4
+\end{bmatrix}}
+\newcommand{\twovector}[2]{\begin{bmatrix}
+    #1 \\ #2
+\end{bmatrix}}
+\newcommand{\threevector}[3]{\begin{bmatrix}
+    #1 \\ #2 \\ #3
+\end{bmatrix}}
+
+\newcommand{\proj}[2]{\vec{#1}_{\vec{#2}}}
+
+% Beautifying some symbols
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\div}{\divisionsymbol}
+% \newcommand{\normalsg}{\mathrel{\triangleleft}}
+
+% Common shortcuts
+\def\mbb#1{\mathbb{#1}}
+\def\mfk#1{\mathfrak{#1}}
+\def\mca#1{\mathcal{#1}}
+
+\def\bN{\mbb{N}}
+\def\bC{\mbb{C}}
+\def\bR{\mbb{R}}
+\def\bQ{\mbb{Q}}
+\def\bZ{\mbb{Z}}
+\def\bH{\mbb{H}}
+\def\L{\mathcal{L}}
+\def\H{\mathcal{H}}
+
+% Common notation
+\DeclareMathOperator{\Hom}{Hom}         % set of homomorphisms
+\DeclareMathOperator{\End}{End}         % set of endomorphisms
+\DeclareMathOperator{\Aut}{Aut}         % set of automorphisms
+
+\DeclareMathOperator{\ord}{ord}         % order (of a group)
+\DeclareMathOperator{\lcm}{lcm}         % least common multiple (of two numbers)
+\DeclareMathOperator{\sgn}{sgn}         % sign function
+\DeclareMathOperator{\stab}{stab}       % stabilizer (of a group)
+\DeclareMathOperator{\orb}{orb}         % orbit (of an action)
+\DeclareMathOperator{\Centralizer}{C}   % centralizer (of a set)
+\DeclareMathOperator{\Centre}{Z}        % centre (of a group)
+\DeclareMathOperator{\Normalizer}{N}    % normalizer (of a set)
+
+\DeclareMathOperator{\adj}{adj}         % adjugate (matrix)
+\DeclareMathOperator{\id}{id}           % identity mapping
+
+% Sometimes helpful macros
+\newcommand{\func}[3]{#1\colon#2\to#3}
+\newcommand{\vfunc}[5]{\func{#1}{#2}{#3},\;#4\mapsto#5}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\abrac}[1]{\left\langle#1\right\rangle}
+
+% Some standard theorem definitions
+\newcounter{t}
+\counterwithin{t}{subsection}
+
+\theoremstyle{definition}
+\newtheorem{theorem}[t]{Theorem}
+\newtheorem{proposition}[t]{Proposition}
+\newtheorem{lemma}[t]{Lemma}
+\newtheorem{corollary}[t]{Corollary}
+
+\newtheorem{definition}[t]{Definition}
+\newtheorem{remark}[t]{Remark}
+
+% Define proof environment
+\renewenvironment{proof}[1][]{
+    \textit{Proof. #1}
+}{\medbreak}
+
+% Problem and Solution environment
+\newenvironment{problem}[2][Problem]
+    { \begin{mdframed}[backgroundcolor=gray!20] \textbf{#1 #2} \\}
+    {  \end{mdframed}}
+
+\newenvironment{solution}{\textbf{Solution}}{\bigbreak}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\pagestyle{fancy}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Fill in the appropriate information below
+\lhead{Boris Li}
+\rhead{Algebra}
+\chead{\textbf{Notes}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\include{source/front-matter}
+
+\tableofcontents
+
+\setcounter{section}{-1}
+
+\include{source/220-review}
+
+\include{source/group-theory}
+
+\include{source/rings}
+
+% \include{source/linear-algebra}
+
+\end{document}
