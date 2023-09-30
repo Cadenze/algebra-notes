@@ -2434,7 +2434,45 @@
     This completes the proof for uniqueness.
 \end{proof}
 
-\begin{theorem}[Eisenstein's criterion]
+\begin{theorem}[Eisenstein's criterion]\label{thm:eisenstein-criterion}
+    Suppose \(R\) is an integral domain, \(P \subseteq R\) some prime ideal.
+    Let \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in R[x]\)
+    be a polynomial.
+    If the coefficients
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(a_i \in P\) for all \(0 \leq i \leq n-1\),
+            all coefficients but the leading term in the ideal;
+        \item \(a_n \notin P\) leading term not in the ideal; and
+        \item \(a_0 \notin P^2\) constant term not in the square,
+    \end{enumerate}
+    then \(f(x)\) is irreducible in \(R[x]\).
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction, that \(f(x)\) is reducible in \(R[x]\).
+    Then we can write \(f(x) = g(x)h(x)\), and we shall denote
+    \begin{equation*}
+        g(x) = c_k x^k + c_{k-1}x^{k-1} + \cdots + c_1 x + c_0 \qquad
+        h(x) = d_\ell x^\ell + d_{\ell-1}x^{\ell-1} + \cdots + d_1 x + d_0
+    \end{equation*}
+    By condition (a) \& (c),
+    only one of \(c_0\) and \(d_0\) is in \(P\),
+    so without loss of generality let \(c_0 \in P\) and \(d_0 \notin P\).
+
+    We claim that this implies \(c_i \in P\) for all \(0 \leq i \leq k\).
+    We already have our base case \(c_i \in P\) from above,
+    so by way of strong induction,
+    suppose \(c_0,c_1,\hdots,c_{i-1} \in P\).
+    Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i \in P\)
+    by condition (a),
+    and every term in the sum except for the first term is in \(P\) by assumption,
+    as \(d_0 \notin P\), we must have \(c_i \in P\).
+
+    But \(c_k \in P\) implies \(a_n = c_k d_\ell \in P\),
+    which contradicts condition (b).
+    Hence \(f(x)\) is irreducible in \(R[x]\).
+\end{proof}
+
+\begin{corollary}[Eisenstein's criterion over integers]
     Suppose we have a polynomial with integer coefficients
     \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in \bZ[x]\).
     If there exists a prime \(p\) such that
@@ -2445,28 +2483,32 @@
         \item \(p^2 \nmid a_0\) the square does not divide the constant term,
     \end{enumerate}
     then \(f(x)\) is irreducible in \(\bQ[x]\).
-\end{theorem}
+\end{corollary}
 \begin{proof}
-    Suppose, by way of contradiction,
-    that \(f(x)\) is reducible in \(\bQ[x]\).
-    Then we can write \(f(x) = g(x)h(x)\),
-    and we shall denote
-    \begin{equation*}
-        g(x) = c_k x^k + c_{k-1}x^{k-1} + \cdots + c_1 x + c_0 \qquad
-        h(x) = d_\ell x^\ell + d_{\ell-1}x^{\ell-1} + \cdots + d_1 x + d_0
-    \end{equation*}
-    By condition (a) \& (c),
-    only one of \(c_0\) and \(d_0\) are divisible by \(p\),
-    so without loss of generality let \(p \mid c_0\), \(p \nmid d_0\).
-
-    We claim that this implies \(p \mid c_i\) for all \(0 \leq i \leq k\).
-    We already have our base case \(p \mid c_0\) from above,
-    so by way of strong induction, suppose \(p \mid c_0,c_1,\hdots,c_{i-1}\).
-    Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i\),
-    and every term in the sum except for the first term is divisible by \(p\),
-    \(p \nmid d_0\), so \(p \mid c_i\).
-
-    But \(p \mid c_i\) implies \(p \mid a_n = c_k d_\ell\),
-    so this contradicts condition (b).
-    Hence \(f(x)\) is irreducible in \(\bQ[x]\).
+    % Suppose, by way of contradiction,
+    % that \(f(x)\) is reducible in \(\bQ[x]\).
+    % Then we can write \(f(x) = g(x)h(x)\),
+    % and we shall denote
+    % \begin{equation*}
+    %     g(x) = c_k x^k + c_{k-1}x^{k-1} + \cdots + c_1 x + c_0 \qquad
+    %     h(x) = d_\ell x^\ell + d_{\ell-1}x^{\ell-1} + \cdots + d_1 x + d_0
+    % \end{equation*}
+    % By condition (a) \& (c),
+    % only one of \(c_0\) and \(d_0\) are divisible by \(p\),
+    % so without loss of generality let \(p \mid c_0\), \(p \nmid d_0\).
+    %
+    % We claim that this implies \(p \mid c_i\) for all \(0 \leq i \leq k\).
+    % We already have our base case \(p \mid c_0\) from above,
+    % so by way of strong induction, suppose \(p \mid c_0,c_1,\hdots,c_{i-1}\).
+    % Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i\),
+    % and every term in the sum except for the first term is divisible by \(p\),
+    % \(p \nmid d_0\), so \(p \mid c_i\).
+    %
+    % But \(p \mid c_i\) implies \(p \mid a_n = c_k d_\ell\),
+    % so this contradicts condition (b).
+    % Hence \(f(x)\) is irreducible in \(\bQ[x]\).
+    By the \hyperref[thm:eisenstein-criterion]{theorem above}
+    we get irreducibility in \(\bZ[x]\);
+    by Lemma~\ref{lem:polynomial-primitive-irreducible},
+    we get irreducibility in \(\bQ[x]\).
 \end{proof}
