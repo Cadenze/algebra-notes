@@ -136,7 +136,7 @@
     If the multiplicative monoid \((R^\star,\cdot,1)\) is commutative,
     then \(R\) is a commutative ring.
 \end{definition}
-\begin{proposition}[Binomial Theorem]
+\begin{proposition}[Binomial Theorem]\label{prop:binom}
     In any commutative ring (and therefore a field),
     \({(x+y)}^n = \sum_{r=0}^n \binom{n}{r} x^r y^{n-r}\),
     where \(\binom{n}{r}\) is the usual binomial coefficient
@@ -2472,7 +2472,7 @@
     Hence \(f(x)\) is irreducible in \(R[x]\).
 \end{proof}
 
-\begin{corollary}[Eisenstein's criterion over integers]
+\begin{corollary}[Eisenstein's criterion over integers]\label{cor:eisenstein-criterion}
     Suppose we have a polynomial with integer coefficients
     \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in \bZ[x]\).
     If there exists a prime \(p\) such that
@@ -2511,4 +2511,24 @@
     we get irreducibility in \(\bZ[x]\);
     by Lemma~\ref{lem:polynomial-primitive-irreducible},
     we get irreducibility in \(\bQ[x]\).
+\end{proof}
+
+\begin{corollary}[Irreducibility of the cyclotomic]
+    Let \(p\) be prime.
+    The cyclotomic polynomial \(\Phi_p(x) = \sum_{i=0}^{p-1} x^i \in \bZ[x]\)
+    is irreducible in \(\bQ[x]\).
+\end{corollary}
+\begin{proof}
+    It is sufficient to prove that \(\Phi_p(y+1)\)
+    as a polynomial of \(y\) is irreducible.
+    By the \hyperref[prop:binom]{binomial theorem}
+    \begin{equation*}
+        \Phi_p(y+1) = {(y+1)}^{p-1} + {(y+1)}^{p-2} + \cdots + 1 
+        = \sum_{i=0}^{p-1} \binom{p}{i} y^{p-1-i}
+    \end{equation*}
+    Note that by definition of the binomial coefficient,
+    only the leading term \(\binom{p}{0} = 1\) is not divisible by \(p\),
+    and the constant term \(\binom{p}{p-1} = p\) is not divisible by \(p^2\),
+    so by \hyperref[cor:eisenstein-criterion]{Eisenstein's criterion},
+    it is irreducible.
 \end{proof}
