@@ -1128,6 +1128,14 @@
         \item \(\phi(G) \cong G/N\),
             the image is uniquely isomorphic to the quotient group.
     \end{enumerate}
+
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            G \arrow{rd}{\phi} \arrow{d}{\pi} & H \\
+            G/N \arrow{r}{\cong} & \phi(G) \arrow[dash]{u}
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     We first prove that the preimage of the identity
@@ -1218,15 +1226,18 @@
         \item \(SN/N \cong S/(S \cap N)\),
             these two quotients are isomorphic.
     \end{enumerate}
-    %
-    % This is represented by the following commutative diagram:
-    % \begin{center}
-    %     \begin{tikzcd}
-    %
-    %         % G \arrow{r}{\phi} \arrow{d}{\pi} & H \\
-    %         % G/N \arrow{ru}[swap]{\exists! \bar{\phi}}
-    %     \end{tikzcd}
-    % \end{center}
+    
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            G \arrow[dash]{d} \\
+            SN \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
+            SN/N \arrow[leftrightarrow]{rd}{\cong} \\
+            N \arrow[dash]{rd} & S \arrow{r}{\pi'} \arrow[dash]{d} &
+            S/(S \cap N) \\
+            & S \cap N
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     We can see that for all \(s_i n_i \in SN\),
@@ -1327,6 +1338,21 @@
         \item if \(K \lhd G\) is a normal subgroup such that \(N \subseteq K \subseteq G\),
             then \((G/N)/(K/N) \cong G/K\).
     \end{enumerate}
+
+    This is represented by the following commutative diagrams:
+    \begin{center}
+        \begin{tikzcd}
+            G \arrow[dash]{d} \arrow{r} & G/N \arrow[dash]{d} \\
+            % & G \arrow{d}{\pi'} \arrow{r}{\pi} & G/N \arrow{d}{\pi'} \\
+            K \arrow{r} & K/N % & K \arrow{r}{\pi} & K/N
+        \end{tikzcd} \qquad
+        \begin{tikzcd}
+            G \arrow{r} \arrow{d} \arrow{rd} &
+            G/K \arrow[leftrightarrow]{rd}{\cong} \\
+            K \arrow{rd} & G/N \arrow{r} \arrow{d} & (G/N)/(K/N) \\
+            & K/N
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     We first have to prove that \(N \lhd K\),
@@ -1673,7 +1699,7 @@
     sometimes denoted \([x] = \{\gamma_g(x) = gxg^{-1} : g \in G\}\).
 \end{definition}
 
-\pagebreak
+% \pagebreak
 
 \begin{definition}
     Suppose \(G\) acts on two sets \(X\) and \(Y\)
@@ -1885,6 +1911,7 @@
     exactly the conjugacy classes of a group.
 \end{remark}
 
+\pagebreak
 
 \subsection{Sylow's Theorems}
 
