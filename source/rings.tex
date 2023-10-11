@@ -812,7 +812,7 @@
 \begin{remark}
     The isomorphism theorems work in a lot of algebraic structures
     (formally, it works in any universal algebra).
-    We will number them the same way we did as for groups.
+    We will number them \hyperref[rmk:iso-numbering]{the same way as we did for groups}.
 \end{remark}
 
 \begin{theorem}[Universal Property of Quotient Rings]\label{thm:univ-prop-quotient-ring}
@@ -876,6 +876,14 @@
         \item \(\phi(R) \cong R/I\),
             the image is uniquely isomorphic to the quotient ring.
     \end{enumerate}
+
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            R \arrow{rd}{\phi} \arrow{d}{\pi} & S \\
+            R/I \arrow{r}{\cong} & \phi(R) \arrow[dash]{u}
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     By the simple fact that \(\phi\) is also an additive group homomorphism,
@@ -922,6 +930,18 @@
         \item \((S+I)/I \cong S/(S \cap I)\),
             these two quotients are isomorphic.
     \end{enumerate}
+
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            R \arrow[dash]{d} \\
+            S+I \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
+            (S+I)/I \arrow[leftrightarrow]{rd}{\cong} \\
+            I \arrow[dash]{rd} & S \arrow{r}{\pi'} \arrow[dash]{d} &
+            S/(S \cap I) \\
+            & S \cap I
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     By the \hyperref[thm:iso-2-group]{second group isomorphism theorem},
@@ -965,7 +985,6 @@
     This proves statement (c).
 
     \medskip
-    \pagebreak
 
     By statements (c) \& (d), these two quotients are well-formed.
     We now attempt to construct a homomorphism
@@ -1015,6 +1034,21 @@
         \item if \(J \lhd R\) is an ideal such that \(I \subseteq J \subseteq R\),
             then \((R/I)/(J/I) \cong R/J\).
     \end{enumerate}
+
+    This is represented by the following commutative diagrams:
+    \begin{center}
+        \begin{tikzcd}
+            R \arrow[dash]{d} \arrow{r} & R/I \arrow[dash]{d} \\
+            % & G \arrow{d}{\pi'} \arrow{r}{\pi} & G/N \arrow{d}{\pi'} \\
+            S \arrow{r} & S/I % & K \arrow{r}{\pi} & K/N
+        \end{tikzcd} \qquad
+        \begin{tikzcd}
+            R \arrow{r} \arrow{d} \arrow{rd} &
+            R/J \arrow[leftrightarrow]{rd}{\cong} \\
+            J \arrow{rd} & R/I \arrow{r} \arrow{d} & (R/I)/(J/I) \\
+            & J/I
+        \end{tikzcd}
+    \end{center}
 \end{theorem}
 \begin{proof}
     We first have to prove that \(I \lhd S\),
@@ -1970,8 +2004,6 @@
     already in \(f\),
     and we can choose that as our leading term.
 
-    \pagebreak
-
     We then construct \(g = ap_1^{k_1-k_2}p_2^{k_2-k_3} \hdots
     p_{n-1}^{k_{n-1}-k_n}p_n^{k_n}\),
     which by the \hyperref[lem:leading-term-sym-polynomial]{second lemma above}
@@ -2237,8 +2269,6 @@
     and every infinite chain of ideals are only proper up to a finite \(r\).
     There are no infinite chain of proper ideals.
 
-    \pagebreak
-
     Now we prove the primeness condition.
     Suppose \(p\) is irreducible, \(p \mid ab\) and \(p \nmid a\).
     \(p\) irreducible means \((p)\) is maximal
@@ -2402,6 +2432,7 @@
     and the factorization of \(f_1\).
 
     \medskip
+    \pagebreak
 
     We then prove the factorization is unique up to multiplication by units.
     We first consider \(f(x) \in R[x]\) primitive.
