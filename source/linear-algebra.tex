@@ -68,3 +68,62 @@
 \begin{proof}
     Simply consider \(X = \{0,1,\hdots,n-1\}\) an \(n\)-element set.
 \end{proof}
+
+\begin{definition}
+    For any sequence of vectors \({\{\vec{v}_i\}}_{i=1}^r\),
+    finite summation is recursively defined as
+    \begin{equation*}
+        \sum_{i=1}^0 \vec{v}_i = \vec{0} \qquad
+        \sum_{i=1}^{r+1} \vec{v}_i = \vec{v}_{r+i} + \sum_{i=1}^r \vec{v}_i \qquad
+        \sum_{i=m}^n \vec{v}_i = \sum_{i=1}^n \vec{v}_i - \sum_{i=1}^{m-1} \vec{v}_i
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Suppose \(V\) is a vector space over \(F\)
+    (not necessarily finite-dimensional),
+    and \(S \subseteq V\) some subset.
+    Then
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item a vector \(\vec{v} \in V\) (linearly) depends on \(S\)
+            if there are finite sets \(\exists {\{\vec{w}_i\}}_{i=1}^r \subset V\),
+            \(\exists {\{a_i\}}_{i=1}^r \subset F\),
+            such that it can written as a linear combination
+            \(\sum_{i=1}^r a_i \vec{w}_i\);
+        \item the span (or the \(F\)-span), denoted \(\Span(S)\) or \(\Span_F(S)\),
+            is the set of all vectors in \(V\) that depend on \(S\);
+        \item \(S\) is (linearly) dependent if \(\exists \vec{v} \in S\)
+            such that \(\vec{v}\) depends on \(S \setminus \{\vec{v}\}\),
+            and it is (linearly) independent otherwise; and
+        \item \(S\) forms a basis of \(V\)
+            if \(S\) is (linearly) independent and \(V = \Span(S)\).
+    \end{enumerate}
+\end{definition}
+\begin{lemma}\label{lem:intersection-subspace}
+    Suppose \(V\) a vector space, and \(W_i \subseteq V\) subspaces.
+    Then \(\bigcap_i W_i\) is also a subspace of \(V\).
+\end{lemma}
+\begin{proof}
+    Apply Lemma~\ref{lem:intersection-subgroup} twice
+    exactly like Lemma~\ref{lem:intersection-subring}.
+\end{proof}
+\begin{proposition}\label{prop:subset-generated-subspace}
+    \(\Span(S) = \bigcap_{S \subset W \subset V} W\)
+    where \(W\) is a subspace of \(V\).
+\end{proposition}
+\begin{proof}
+    Apply Proposition~\ref{prop:subset-generated-subgroup} twice
+    exactly like Proposition~\ref{prop:subset-generated-subring}.
+\end{proof}
+
+\begin{lemma}
+    \(S\) is dependent if and only if 
+    there are distinct \({\{\vec{v}_i\}}_{i=1}^r \subset S\)
+    and coefficients \({\{a_i\}}_{i=1}^r \subset F\) that are not all 0
+    such that \(\sum_{i=1}^r a_i \vec{v}_i = \vec{0}\).
+\end{lemma}
+\begin{proof}
+    \begin{equation*}
+        \vec{v} = \sum_{i=1}^r a_i \vec{v}_i
+        \iff \vec{0} = -\vec{v} + \sum_{i=1}^r a_i \vec{v}_i
+    \end{equation*}
+\end{proof}
