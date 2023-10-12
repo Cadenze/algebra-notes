@@ -2372,7 +2372,7 @@
     \(\gamma'/\gamma = u\) is a unit.
 \end{proof}
 
-\begin{lemma}[Gauss' Lemma]\label{lem:gauss}
+\begin{lemma}[Gauss' Lemma for primitivity]\label{lem:gauss-primitive}
     Suppose \(R\) is a UFD.\@
     If \(\{f,g\} \subset R[x]\) are both primitive,
     then \(fg\) is also primitive.
@@ -2392,7 +2392,7 @@
     But as \(T[x]\) is a domain, either \(\pi(f) = (p)\) or \(\pi(g) = (p)\),
     which says either \(f\) or \(g\) is not primitive.
 \end{proof}
-\begin{lemma}\label{lem:polynomial-primitive-irreducible}
+\begin{lemma}[Gauss' Lemma for irreducibility]\label{lem:gauss-irreducible}
     Suppose \(R\) is a UFD, and \(F\) its field of fractions.
     If \(f(x) \in R[x]\) is primitive and irreducible,
     then \(f(x) \in F[x]\) is irreducible.
@@ -2446,7 +2446,7 @@
     Suppose we also have another factorization into irreducibles
     \(f(x) = q_1' q_2' \hdots q_m'\), \(\deg q_i' > 0\).
     Since \(q_i\) and \(q_i'\) are all primitive,
-    by Lemma~\ref{lem:polynomial-primitive-irreducible}
+    by \hyperref[lem:gauss-irreducible]{Gauss' lemma}
     they are also irreducible in \(F[x]\).
     We have shown earlier in Corollary~\ref{cor:field-polynomial-pid}
     that \(F[x]\) is a PID,
@@ -2540,7 +2540,7 @@
     % Hence \(f(x)\) is irreducible in \(\bQ[x]\).
     By the \hyperref[thm:eisenstein-criterion]{theorem above}
     we get irreducibility in \(\bZ[x]\);
-    by Lemma~\ref{lem:polynomial-primitive-irreducible},
+    by \hyperref[lem:gauss-irreducible]{Gauss' lemma},
     we get irreducibility in \(\bQ[x]\).
 \end{proof}
 
