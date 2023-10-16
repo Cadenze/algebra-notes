@@ -70,6 +70,12 @@
 \end{proof}
 
 \begin{definition}
+    Suppose \((V,+,\cdot,0,1)\) is a vector space.
+    Then \(W\) is a subspace if \(W \subseteq V\)
+    and its additive and multiplicative groups form subgroups.
+\end{definition}
+
+\begin{definition}
     For any sequence of vectors \({\{\vec{v}_i\}}_{i=1}^r\),
     finite summation is recursively defined as
     \begin{equation*}
@@ -78,6 +84,7 @@
         \sum_{i=m}^n \vec{v}_i = \sum_{i=1}^n \vec{v}_i - \sum_{i=1}^{m-1} \vec{v}_i
     \end{equation*}
 \end{definition}
+
 \begin{definition}
     Suppose \(V\) is a vector space over \(F\)
     (not necessarily finite-dimensional),
@@ -126,4 +133,20 @@
         \vec{v} = \sum_{i=1}^r a_i \vec{v}_i
         \iff \vec{0} = -\vec{v} + \sum_{i=1}^r a_i \vec{v}_i
     \end{equation*}
+\end{proof}
+
+\begin{definition}
+    Suppose \(U,V\) are vector spaces, and \(\func{f}{U}{V}\) a function.
+    \(f\) is linear if \(f(a\vec{u}+\vec{v}) = af(\vec{u}) + f(\vec{v})\),
+    i.e.\ it preserves both operations.
+\end{definition}
+\begin{definition}
+    Vector space homomorphisms are linear maps.
+\end{definition}
+\begin{proposition}
+    \(\End(V) = \Hom(V,V)\) endomorphisms of a vector space
+    has both a ring structure and a vector space structure.
+\end{proposition}
+\begin{proof}
+    
 \end{proof}
