@@ -116,6 +116,18 @@
     applying the \hyperref[thm:finite-extension-stack]{theorem above}.
 \end{proof}
 
+\begin{theorem}\label{thm:field-hom-injective}
+    Every field homomorphism is injective.
+\end{theorem}
+\begin{proof}
+    Suppose \(\func{\phi}{F}{K}\) is a field homomorphism.
+    By way of contradiction, suppose \(\phi\) is not injective.
+    Then there exists \(a,b \in F\) such that \(\phi(a) = \phi(b)\) and \(a \neq b\).
+    But that tells us \(f(a-b) = 0 = f(0)\), and in particular,
+    since \(a-b \neq 0\), \(f(a-b)f({(a-b)}^{-1}) = f(1) = 1\).
+    But that implies \(0f({(a-b)}^{-1}) = 1\) which is a contradiction.
+\end{proof}
+
 
 \subsection{Algebraic Extensions}
 
@@ -337,8 +349,161 @@
     and then apply the \hyperref[thm:field-extension-gain-root]{theorem above}.
 \end{proof}
 
+\begin{definition}
+    Suppose \(L_1/F\) and \(L_2/F\) are field extensions,
+    where \(L_1,L_2 \subseteq L\).
+    The composite extension \(L_1 \cdot L_2\)
+    is the smallest field extension of \(F\) in \(L\)
+    that contains both \(L_1\) and \(L_2\).
+\end{definition}
+
+\begin{definition}
+    A polynomial \(f(x) \in F[x]\) splits over an extension \(K/F\)
+    if \(f(x) \in K[x]\) can be written as a product of linear polynomials,
+    i.e.\ all roots exist in \(K\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(K/F\) is an extension.
+    An automorphism of \(K\) is a field automorphism \(\sigma \in \Aut(L)\)
+    that is bijective;
+    an \(F\)-automorphism is a field automorphism \(\sigma \in \Aut_F(L)\),
+    with the additional condition that it is the identity when restricted to \(F\),
+    \(\sigma\vert_F = \id_F\).
+\end{definition}
+\begin{lemma}
+    Suppose \(K/F\) is an extension,
+    and \(\sigma \in \Aut_F(K)\) an \(F\)-automorphism.
+    If \(a \in K\) is an element with a minimal polynomial \(\min_F(a) = f(x)\),
+    then \(\sigma(a)\) is also a root of \(f(x)\).
+\end{lemma}
+\begin{proof}
+    By definition \(a\) is a root of \(f(x)\), so \(f(a) = 0\).
+    But \(\sigma(f(a)) = \sigma(0) = 0\),
+    and notice that \(\sigma(f(x)) = f(x)\),
+    since the coefficients are in \(F\) so they remain unchanged under \(\sigma\),
+    so \(f(\sigma(a)) = 0\).
+\end{proof}
+
+\begin{definition}
+    The splitting field of a polynomial \(f(x) \in F[X]\) over \(F\)
+    is a field \(K\) such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f(x)\) splits completely over \(K\);
+        \item \(K \supseteq F\); and
+        \item if \(K'\) satisfies the previous two conditions,
+            then \(K' \supseteq K\).
+    \end{enumerate}
+\end{definition}
+\begin{proposition}[Existence of Splitting Fields]\label{prop:splitting-field-existence}
+    For any \(f(x) \in F[x]\), its splitting field exists.
+\end{proposition}
+\begin{proof}
+    Without loss of generality suppose \(f(x)\) irreducible and monic.
+    By Theorem~\ref{thm:field-extension-gain-root},
+    we can find a field extension \(F_1/F\)
+    such that \(f(x) = (x-a_1)f_1(x) \in F_1[x]\).
+    Iterate on \(f_i(x)\) until \(f(x)\) is comprised of linear factors.
+\end{proof}
+\begin{corollary}
+    Let \(f(x) \in F[x]\) be a polynomial of degree \(n\).
+    Then there exists an extension \(K/F\) with degree \([K:F] \leq n!\)
+    such that \(F\) splits completely over \(K\).
+\end{corollary}
+\begin{proof}
+    Same proof as \hyperref[prop:splitting-field-existence]{proposition above},
+    but notice that \([F_1:F] \leq n\),
+    and then induct on \(n\), since \(\deg f_1(x) \leq n-1\).
+\end{proof}
+
+% \begin{definition}
+%     Suppose \(F\) is a field.
+%     An algebraic closure \(\overline{F}\) is a field that
+%     every polynomial \(f(x) \in F[x]\) splits completely over \(\overline{F}\),
+%     and every element is algebraic over \(F\).
+% \end{definition}
+\begin{lemma}
+    Suppose \(F\) is a field.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item The only algebraic extension of \(F\) is itself;
+        \item The only finite extension of \(F\) is itself;
+        \item If \(K/F\) is an extension,
+            then \(F\) is the set of \(F\)-algebraic elements in \(K\);
+        \item Every \(f(x) \in F[x]\) splits over \(F\); and
+        \item Every \(f(x) \in F[x]\) has a root in \(F\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (a) implies (b) is the contrapositive of Corollary~\ref{cor:algebraic-finite-extension}.
+
+    (b) implies (c) because if there exists another \(F\)-algebraic element \(a \in K-F\),
+    then there is a finite extension \(F(a)/F\).
+
+    (c) implies (d) since if \(f(x) \in F[x]\) and \(a\) is a root,
+    then \(a\) is algebraic over \(F\), and must be in \(F\).
+    Induct on order of \(f\).
+
+    (d) implies (e) trivially true.
+
+    (e) implies (d) simply by induction on degree of \(f\).
+
+    (d) implies (a) since if there are other algebraic extensions,
+    then that means there is some polynomial that does not have a root in \(F\).
+\end{proof}
+\begin{definition}
+    \(F\) is algebraically closed if it satisfies any of the conditions above.
+\end{definition}
+% \begin{proposition}
+%     Algebraic closures are algebraically closed.
+% \end{proposition}
+% \begin{proof}
+%     It is sufficient to prove that \(\overline{\overline{F}} = \overline{F}\).
+%     Suppose \(p(x) \in \overline{F}[x]\) is a polynomial
+%     and let \(a\) be a root of \(p(x)\).
+%     Let \(f(x) = \min_{\overline{F}}(a)\) be the minimal polynomial.
+% \end{proof}
+
+\begin{definition}
+    If \(K\) is an algebraic extension of \(F\) and is algebraically closed,
+    then \(K\) is an algebraic closure of \(F\).
+\end{definition}
+\begin{theorem}[Existence of Algebraic Closures]
+    Suppose \(F\) is a field.
+    Then there exists an algebraically closed field \(K \supseteq F\).
+\end{theorem}
+\begin{proof}
+    We first attempt to construct an extension \(F_1/F\)
+    such that every polynomial \(f(x) \in F[x]\) of degree at least 1
+    has at least one root.
+    For every \(f(x) \in F[x]\) let us assign an arbitrary letter
+    (some unique indeterminate) \(X_f\),
+    and let \(S\) be the set of all \(X_f\).
+    We can get a bijection between \(S\) and \(F[x] - F\).
+    We now get a multivariate polynomial ring \(F[S]\).
+
+    We now wish to show that the ideal \(I\) generated by all \(f(X_f)\)
+    is not the unit ideal \((1) = F[S]\).
+    Suppose, by way of contradiction, that \(I = (1) = F[S]\).
+    % TODO: see alg closed in 422
+\end{proof}
+\begin{corollary}
+    Suppose \(F\) is a field,
+    then there exists an algebraic extension \(F^\text{alg}/F\)
+    that is algebraically closed.
+\end{corollary}
+\begin{proof}
+    % TODO: see alg closed in 422
+\end{proof}
+
 
 \subsection{Separability}
+
+\begin{definition}
+    An (irreducible) polynomial \(f(x) \in F[x]\) of degree \(n\)
+    is separable if \(f(x)\) has \(n\) distinct roots in its splitting field,
+    or equivalently, if its irreducible factors are distinct and separable.
+\end{definition}
 
 
 \subsection{Finite Fields and Inseparability}
