@@ -6,3 +6,269 @@
     \((F,+,0)\) and \((F^\star,\cdot,1)\) are both abelian groups,
     and multiplication distributes over addition.
 \end{remark}
+\begin{remark}
+    Fields are commutative rings,
+    so theorems in Section~\ref{sec:rings} will entirely hold,
+    and we will be using those theorems throughout.
+\end{remark}
+\begin{remark}
+    Much of our foundation will come from extending any integral domain \(R\)
+    (in particular \(\bZ\))
+    to its field of fractions \(F\) (in particular \(\bQ\)).
+\end{remark}
+
+
+\subsection{Field Extensions}
+
+\begin{definition}
+    Suppose \(F\) is a field, and \(F[x]\) its polynomial ring.
+    Corollary~\ref{cor:field-polynomial-pid} tells us that
+    \(F[x]\) is a domain,
+    and hence we can construct its field of fractions,
+    which we denote \(F(X) = \{\frac{f(x)}{g(x)} : f,g \in F[x], g \neq 0\}\).
+    This is often called the transcendental extension of \(F\),
+    or the univariate function field over \(F\).
+\end{definition}
+
+\begin{remark}
+    Recall that if \(R\) is a commutative ring,
+    \(P\) a prime ideal, and \(M\) a maximal ideal,
+    then \(R/P\) \hyperref[prop:prime-quotient-domain]{is an integral domain}
+    and \(R/M\) \hyperref[cor:maximal-quotient-field]{is a field}.
+    But when \(F\) a field,
+    \hyperref[prop:pid-maximal-is-prime]{prime ideals and maximal ideals are the same thing}.
+\end{remark}
+
+\begin{definition}
+    Suppose \(F\) is a field.
+    A field extension \(K/F\) is a field \(K \supseteq F\).
+    We say \(F\) is a subfield of \(K\),
+    where \(F\) is a base field, and \(K\) is an over field of \(F\).
+
+    In commutative diagrams, we often denote this as
+    \begin{center}
+        \begin{tikzcd}
+            K \arrow[dash]{d} \\ F
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{proposition}
+    Suppose \(K/F\) a field extension.
+    \(K\) can be characterized as a vector space over \(F\).
+\end{proposition}
+\begin{proof}
+    Let \(k,\ell \in K\), and \(\lambda \in F\).
+    Trivially by field addition \(k + \ell \in K\),
+    and \(\lambda \in F \subseteq K\),
+    so by field multiplication we have \(\lambda k \in K\).
+    Moreover, distributivity holds because of
+    \(\lambda(k+\ell) = \lambda k + \lambda \ell\)
+    due to distributivity in \(K\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(K/F\) field extension.
+    We call \(K/F\) finite or \(K\) is a finite extension of \(F\)
+    if \(K\) is a finite-dimensional vector space over \(F\).
+    If \(K/F\) finite, the degree of \(K/F\),
+    denoted \([K:F] = \dim_F K\)
+    is the dimension of \(K\) as an \(F\)-space.
+\end{definition}
+\begin{theorem}\label{thm:finite-extension-stack}
+    Suppose \(K/F\) and \(L/K\) are finite field extensions.
+    Then \(L/F\) is a finite extension,
+    and in particular, \([L:F] = [L:K][K:F]\).
+\end{theorem}
+\begin{proof}
+    Since \(K/F\) finite, let \({\{a_i\}}_{i=1}^m\) be a basis for \(K/F\),
+    so \([K:F] = m\).
+    For every \(a \in K\), we can write \(a = \sum_{i=1}^m \lambda_i a_i\)
+    for some \(\lambda_i \in F\).
+    Similarly since \(L/K\) finite,
+    let \({\{b_j\}}_{j=1}^n\) be a basis for \(L/K\), so \([L:K] = n\).
+    For every \(b \in L\), we can write \(b = \sum_{j=1}^n \mu_j b_j\)
+    for some \(\mu_j \in K\).
+    But then we have a linear combination of \(mn\) elements
+    \begin{equation*}
+        b = \sum_{j=1}^n \mu_j b_j
+        = \sum_{j=1}^n \qty(\sum_{i=1}^m \lambda_{ij} a_i) b_j
+        = \sum_{i,j=1}^{m,n} \lambda_{ij} (a_i b_j)
+    \end{equation*}
+    It suffices to check that \({{\{a_i b_j\}}_{i=1}^m}_{j=1}^n\) forms a basis.
+    Suppose that
+    \begin{equation*}
+        0 = \sum_{i,j=1}^{m,n} \lambda_{ij} (a_i b_j)
+        = \sum_{j=1}^n \qty(\sum_{i=1}^m \lambda_{ij} a_i) b_j
+    \end{equation*}
+    But by linear independence of \(b_j\),
+    for each individual \(j\), \(\sum_{i=1}^m \lambda_{ij} a_i = 0\),
+    and by linear independence of \(a_i\),
+    for all \(i\), \(\lambda_{ij} = 0\).
+    This proves linear independence.
+\end{proof}
+\begin{corollary}
+    Finiteness is a property that is stackable,
+    and degree of extension is multiplicative.
+\end{corollary}
+\begin{proof}
+    Merely proceed by induction on the tower of field extensions,
+    applying the \hyperref[thm:finite-extension-stack]{theorem above}.
+\end{proof}
+
+
+\subsection{Algebraic Extensions}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension, and \(a \in K\) some element.
+    We call \(a\) algebraic over \(F\)
+    if there exists a (monic) polynomial \(f(x) \in F[x]\) such that \(f(a) = 0\).
+    If \(a \in K\) is not algebraic over \(F\),
+    we call \(a\) transcendental over \(F\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(a \in K\) is algebraic over \(F\).
+    The minimal polynomial of \(a\) over \(F\),
+    either denoted \(\min_F(a)\) or \(\min(a;F)\)
+    is the irreducible polynomial \(f(x) \in F[x]\)
+    with the lowest degree such that \(f(a) = 0\).
+\end{definition}
+\begin{proposition}
+    A monic minimal polynomial exists and is unique for every algebraic \(a \in K\).
+\end{proposition}
+\begin{proof}
+    By definition there must be some polynomial that it satisfies.
+    If it is reducible, reduce it into irreducible components,
+    and \(a\) must satisfy one of those irreducible components.
+    It is unique since if another monic polynomial \(g(x)\) satisfies our conditions,
+    \((g-f)(x)\) also satisfies our conditions,
+    and since they are the same degree, \(\deg(g-f) < \deg f\) violates minimality.
+\end{proof}
+\begin{definition}
+    Suppose \(a \in K\) is algebraic over \(F\).
+    We define the degree of \(a\) to be the degree of its minimal polynomial,
+    \(\deg a = \deg \min_F(a)\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension.
+    If all elements \(a \in K\) are algebraic over \(F\),
+    we call \(K/F\) an algebraic extension.
+\end{definition}
+\begin{definition}
+    Suppose \(K/F\) is an extension, and \(a \in K\) some element.
+    \(F(a) \subseteq K\) is the smallest subfield that contains \(F\)
+    and all elements \(\lambda = \sum_i \ell_i a^i\) for some \(\ell_i \in F\).
+\end{definition}
+\begin{proposition}
+    \(F(a)\) is the field of fractions of \(F[a]\).
+\end{proposition}
+\begin{proof}
+    By definition of a field of fractions,
+    \(F(a)\) is the smallest field that contains \(F[a]\).
+\end{proof}
+\begin{theorem}\label{thm:algebraic-finite-extension}
+    Suppose \(K/F\) is a field extension, and \(a \in K\) some element.
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(a\) is algebraic over \(F\);
+        \item \(F(a)\) is a finite extension of \(F\); and
+        \item \(F[a] = F(a)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    We first prove that (a) implies (c).
+    Since \(a\) is algebraic, there is some minimal polynomial
+    \(a^n + \lambda_1 a^{n-1} + \cdots + \lambda_n = 0\) for \(\lambda_i \in F\).
+    But we can rewrite the above as
+    \begin{equation*}
+        -\lambda_n = a^n + \lambda_1 a^{n-1} + \cdots + \lambda_{n-1}a
+        = a(a^{n-1} + \lambda_1 a^{n-2} + \cdots + \lambda_{n-1})
+    \end{equation*}
+    and clearly \(\lambda_n \neq 0\),
+    since otherwise \(a^{n-1} + \lambda_1 a^{n-2} + \cdots + \lambda_{n-1}\)
+    would be a minimal polynomial of degree less than \(n\),
+    violating minimality of the original polynomial.
+    Hence we have a polynomial expression for the inverse
+    \begin{equation*}
+        a^{-1} = -\frac{1}{\lambda_n}
+        (a^{n-1} + \lambda_1 a^{n-2} + \cdots + \lambda_{n-1})
+    \end{equation*}
+    so \(F(a) \subseteq F[a]\).
+    \(F[a] \subseteq F(a)\) by definition
+    and we have equality.
+    
+    We now prove that (c) implies (b).
+    For any \(i \geq 0\), \(a^{n+i}\) is in the \(F\)-span of \({\{a^j\}}_{j=0}^{n-1}\).
+    and since we write elements in \(F(a) = F[a]\)
+    as linear combinations of powers of \(a\),
+    the degree of those elements must be at most \(n\),
+    hence \([F(a):F]\) is finite.
+
+    Lastly we prove that (b) implies (a).
+    Suppose \(F(a)\) is a finite extension.
+    Then \({\{a^i\}}_{i=0}^\infty \subseteq F(a)\) is a linearly dependent set.
+    We shall find the smallest \(ell\) such that
+    \({\{a^i\}}_{i=0}^\ell\) is a linearly dependent set.
+    By linear dependence we will have
+    \(\lambda_0 + \lambda_1 a + \cdots + \lambda_\ell a^\ell = 0\)
+    for some \(\lambda_i \in F\), \(\lambda_\ell \neq 0\).
+    Hence we have found a degree \(\ell\) polynomial that \(a\) satisfies,
+    and \(a\) must be algebraic.
+\end{proof}
+
+
+
+% \begin{theorem}
+%     Suppose \(K/F\) is a field extension.
+%     The set of all \(F\)-algebraic elements in \(K\)
+%     form a subfield of \(K\) containing \(F\).
+% \end{theorem}
+% \begin{proof}
+%     Let \(a,b \in K\) be algebraic over \(F\).
+%     Then \([F(a):F],[F(b):F]\) are finite by the
+%     \hyperref[thm:algebraic-finite-extension]{previous theorem}.
+%     Let \(F_1 = F(a) \subseteq K\).
+%     Then again, \([F_1(b):F]\) is also finite by Theorem~\ref{thm:finite-extension-stack}.
+%     This process is repeatable for finitely many elements.
+%     From this we can see that \(F(a)(b) = F(a,b)\).
+
+%     % It is now sufficient to prove that \(\)
+%     Now suppose \(S \subseteq K\) is a subset,
+%     and let \(F(S)\) be the smallest subfield of \(K\) containing \(F\) and \(S\).
+% \end{proof}
+
+\subsection{Splitting Fields}
+
+\begin{theorem}\label{thm:field-extension-gain-root}
+    Suppose \(f(x) \in F[x]\) is an irreducible polynomial of degree at least 2,
+    There exists an extension \(K/F\) such that \(f(x)\) has roots in \(K\).
+\end{theorem}
+\begin{proof}
+    Let \(I = (f(x)) \subseteq F[x]\) be a maximal ideal,
+    since \(f(x)\) is irreducible by Theorem~\ref{thm:ideal-divisibility}.
+    Then we have a field \(K = F[x]/I \supseteq F\)
+    by Corollary~\ref{cor:maximal-quotient-field},
+    with degree \([K:F] = \deg f\) which we will say is \(n\).
+    This induces a morphism \(\func{\pi\circ\iota}{F}{K}\)
+    where \(\func{\iota}{F}{F[x]}\) is the inclusion of \(F\) into its polynomial ring,
+    and \(\func{\pi}{F[x]}{K}\) is the quotient by \(I\),
+    both of them ring homomorphisms.
+    We can see that \(\pi\circ\iota\) is a field homomorphism,
+    since elements in \(F\) within \(F[x]\) will not get collapsed by \(I\)
+    as their degrees are always 1.
+    Now see that \(\pi(f(x)) = \overline{f(x)} = 0\) in \(K\),
+    so \(f(\bar{x}) = 0\), and \(\pi\) maps \(x \mapsto \bar{x}\),
+    so \(\bar{x}\) is a root in \(K\),
+    and \(K = \langle 1, x, \hdots, x^{n-1} \rangle\).
+\end{proof}
+\begin{corollary}
+    If \(f(x) \in F[x]\) has degree \(n\),
+    then there exists a field extension \(K/F\)
+    with \([K:F] \leq n\) such that \(f(x)\) acquires a root.
+\end{corollary}
+\begin{proof}
+    Split \(f(x)\) into irreducible components
+    and then apply the \hyperref[thm:field-extension-gain-root]{theorem above}.
+\end{proof}
