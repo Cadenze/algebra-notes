@@ -148,5 +148,51 @@
     has both a ring structure and a vector space structure.
 \end{proposition}
 \begin{proof}
-    
+    Let \(\func{0}{V}{V}\) map every vector to \(\vec{0}\),
+    and \(\func{1}{V}{V}\) be the identity map.
+    Clearly if \(\func{f,g}{V}{V}\),
+    \(af(\vec{x}) = f(a\vec{x})\) by the fact that it is a linear map,
+    and addition is defined the obvious way.
+    If we define ring multiplication as function composition,
+    then by linearity we have distributivity.
+\end{proof}
+
+
+\subsection{Direct Sum}
+
+\begin{definition}
+    Suppose \(U,V\) are \(F\)-spaces.
+    The external direct sum \(U \oplus V\)
+    is a vector space \(U \times V\)
+    equipped with coordinate-wise operations.
+\end{definition}
+\begin{lemma}
+    \(U \oplus V\) indeed forms a vector space.
+\end{lemma}
+\begin{proof}
+    The additive groups is a direct sum of (abelian) groups,
+    which is (abelian) group.
+    Check scalar multiplication by
+    \begin{equation*}
+        (ab)(\vec{u},\vec{v}) = ((ab)\vec{u},(ab)\vec{v})
+        = (a(b\vec{u}),a(b\vec{v})) = a(b\vec{u},b\vec{v})
+        = a(b(\vec{u},\vec{v}))
+    \end{equation*}
+\end{proof}
+\begin{lemma}
+    \(\dim_F(U \oplus V) = \dim_F U + \dim_F V\).
+\end{lemma}
+\begin{proof}
+    Suppose \(B_U \subset U\) and \(B_V \subset V\) be bases.
+    Let \(B = {\{(\vec{u},\vec{0})\}}_{\vec{u} \in B_U} \sqcup
+    {\{(\vec{0},\vec{v})\}}_{\vec{v} \in B_V}\) be a disjoint union.
+    We wish to prove that this forms a basis.
+    \begin{equation*}
+        \sum_i a_i(\vec{u}_i,\vec{0}) + \sum_j b_j(\vec{0},\vec{v}_j)
+        = (\vec{0},\vec{0})
+    \end{equation*}
+    invokes linear independence by each of \(U\) and \(V\),
+    so all \(a_i\) and \(b_j\) are zero.
+    Then clearly \(B\) spans \((\vec{u},\vec{v})\)
+    simply by span of \(B_U\) and \(B_V\).
 \end{proof}
