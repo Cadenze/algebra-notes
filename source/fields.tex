@@ -496,6 +496,38 @@
     % TODO: see alg closed in 422
 \end{proof}
 
+\begin{proposition}
+    Suppose \(\func{\sigma}{F}{L}\) is a field homomorphism,
+    where \(L = \overline{L}\) iss algebraically closed.
+    Let \(\alpha\) be algebraic over \(F\),
+    \(p(x) = \min_F(a) = \sum_{i=0}^n a_i x^i\) a monic minimal polynomial,
+    and \(\sigma(p)(x) = \sum_{i=0}^n \sigma(a_i)x^i\) its image.
+    Then given a homomorphism \(\func{\tau}{F(\alpha)}{L}\)
+    that is an extension of \(\sigma\) (\(\tau\vert_F = \sigma\)),
+    the evaluation map \(\tau \mapsto \tau(\alpha)\)
+    is a bijection between homomorphisms extending \(\sigma\)
+    (\(\{\tau\in\Hom(F(\alpha),L): \tau\vert_F = \sigma\}\))
+    and the roots of the image polynomial in \(L\)
+    (\(\{\beta \in L : \sigma(p)(\beta) = 0\}\)).
+\end{proposition}
+\begin{proof}
+    Let \(\func{\tau}{F(\alpha)}{L}\) extending \(\sigma\).
+    Then \(\tau(p(\alpha)) = \sigma(p)(\tau(\alpha)) = 0\)
+    since \(p(\alpha) = 0\).
+    % TODO
+\end{proof}
+
+\begin{theorem}[Uniqueness of Splitting Fields]
+    Suppose \(p(x) \in E[x]\) an irreducible polynomial,
+    and \(K\) is a splitting field of \(p(x) \in E[x]\).
+    Suppose \(\func{\phi}{E}{F}\) is a field isomorphism,
+    and \(L\) is a splitting field of \(\phi(p)(x) \in F[x]\).
+    Then \(\phi\) extends to an isomorphism \(\func{\sigma}{K}{L}\)
+    where \(\sigma\vert_E = \phi\).
+    In particular, splitting fields of \(p(x) \in F[x]\) over \(F\)
+    are \(F\)-isomorphic.
+\end{theorem}
+
 
 \subsection{Separability}
 
@@ -504,6 +536,68 @@
     is separable if \(f(x)\) has \(n\) distinct roots in its splitting field,
     or equivalently, if its irreducible factors are distinct and separable.
 \end{definition}
+\begin{proposition}\label{prop:derivative-inseparability}
+    \(f(x) \in F[x]\) is inseparable
+    if and only if \(f\) and \(f'\) share a root.
+\end{proposition}
+\begin{proof}
+    Suppose \(f(x)\) is separable.
+    Then we can write, in its splitting field,
+    that \(f(x) = \prod_i (x-r_i)\) for all distinct \(r_i\).
+    By the product rule,
+    \(f'(x)\) has one term that is missing \(x-r_i\),
+    and all other terms contain \(x-r_i\),
+    Let us inspect \(f'(r_i)\).
+    All the terms that contain \(r_i\) will evaluate to 0,
+    while the term that has \(r_i\) missing will evaluate to nonzero.
+    Hence \(0 = f(r_i) \neq f'(r_i)\).
+
+    Now suppose \(f(x)\) is inseparable.
+    Then there is some root \(r\) that has multiplicity \(m > 1\),
+    so we write in a splitting field \(f(x) = {(x-r)}^m g(x)\).
+    The formal derivative is then \(f'(x) = m{(x-r)}^{m-1} g(x) + {(x-r)}^m g'(x)\).
+    Hence \(f(r) = f'(r) = 0\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(f(x) \in F[x]\) is a (monic) polynomial,
+    and over a splitting field is written as
+    \(f(x) = \prod_{i=1}^k {(x-r_i)}^{m_i}\)
+    where \(r_i\) are all distinct and \(m_i \geq 1\).
+    The multiplicity of a root \(r_i\) is \(m_i\).
+    We call \(r_i\) a simple root if \(m_i = 1\),
+    and we say \(f(x)\) has repeated roots if there exists \(i\)
+    such that \(m_i > 1\).
+\end{definition}
+
+\begin{remark}
+    Historically the resultant is very important in determining separability,
+    but in modern times the discriminant is more often used.
+    Nevertheless, we shall include it here for sake of completeness.
+\end{remark}
+\begin{definition}
+    Suppose \(f(x),g(x) \in F[x]\) are polynomials;
+    \(f(x) = \sum_{i=0}^n a_i x^{n-i}\) and \(g(x) = \sum_{j=0}^m b_j x^{m-j}\),
+    and the leading terms are nonzero.
+    The resultant of \(f\) and \(g\) is
+    \(\mathcal{R}(f,g) = a_0^m b_0^n \prod_{i,j} (\alpha_i - \beta_j)\)
+    where \(\alpha_i\) are the roots of \(f\),
+    and \(\beta_j\) are the roots of \(g\).
+\end{definition}
+\begin{lemma}\label{lem:resultant-zero}
+    \(\mathcal{R}(f,g) = 0\) if and only if \(f\) and \(g\) share a root.
+\end{lemma}
+\begin{proof}
+    If they share a root then one of the terms in the product is 0.
+\end{proof}
+\begin{corollary}
+    \(f\) is inseparable if and only if \(\mathcal{R}(f,f') = 0\).
+\end{corollary}
+\begin{proof}
+    \(f\) and \(f'\) sharing a root is equivalent to
+    the resultant being zero by the \hyperref[lem:resultant-zero]{lemma above}.
+    Then apply Proposition~\ref{prop:derivative-inseparability}.
+\end{proof}
 
 
 \subsection{Finite Fields and Inseparability}
