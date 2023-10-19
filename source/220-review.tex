@@ -15,6 +15,7 @@
     or maybe was a topic that was last taught in high school.
 \end{remark}
 
+
 \subsection{Relations}
 
 \begin{definition}
@@ -33,7 +34,7 @@
         \item transitive \(\forall x,y,z \in X,
             x \sim y \land y \sim z \implies x \sim z\).
     \end{enumerate}
-    We say \(x\) is relatied to \(y\) if \(x \sim y\).
+    We say \(x\) is related to \(y\) if \(x \sim y\).
 \end{definition}
 
 \begin{definition}
@@ -82,6 +83,51 @@
     each element must belong in an equivalence class.
     The above corollary tells us equivalence classes do not overlap.
 \end{proof}
+
+
+\subsection{Sets}
+
+\begin{axiom}[Axiom of Choice]\label{ax:choice}
+    Suppose we have a collection of nonempty sets \({\{S_i\}}_{i \in I}\)
+    and \(I\) an index set;
+    it is possible to form a set \({\{x_i\}}_{i \in I}\)
+    such that \(x_i \in S_i\).
+    In other words,
+    we can choose an element from every set
+    no matter how many sets we have.
+\end{axiom}
+
+\begin{definition}
+    A partial order relation \(\leq\) is a relation that has three properties:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item reflexive \(x \leq x\);
+        \item antisymmetric \(x \leq y \land y \leq x \implies x = y\); and
+        \item transitive \(x \leq y \land y \leq z \implies x \leq z\).
+    \end{enumerate}
+    Note that there possibly exists elements
+    that are neither \(x \leq y\) or \(x \geq y\).
+\end{definition}
+\begin{definition}
+    A partially ordered set, or a poset,
+    is a tuple \((S,\leq)\),
+    such that \(S\) is a set,
+    and \(\leq\) is a partial order relation.
+    A totally ordered set is a poset \((S,\leq)\)
+    with the additional condition that every pair of element \(x,y\) is comparable,
+    so it can be \(x \leq y\) or \(x \geq y\) (or both).
+\end{definition}
+\begin{definition}
+    A chain is a subset of a poset \((S,\leq)\)
+    such that under the same order, the subset is totally ordered.
+\end{definition}
+\begin{lemma}[Zorn's Lemma]
+    A partially ordered set containing an upper bound for every chain
+    must contain at least one maximal element.
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+
 
 \subsection{Functions}
 
@@ -171,6 +217,7 @@
     such that \(f(x) \neq y\),
     which contradicts that \(f\) is surjective.
 \end{proof}
+
 
 \subsection{Integers}
 
