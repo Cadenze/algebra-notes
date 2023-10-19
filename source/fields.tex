@@ -570,6 +570,8 @@
     such that \(m_i > 1\).
 \end{definition}
 
+\subsubsection*{Resultant and Determinant}
+
 \begin{remark}
     Historically the resultant is very important in determining separability,
     but in modern times the discriminant is more often used.
@@ -580,7 +582,9 @@
     \(f(x) = \sum_{i=0}^n a_i x^{n-i}\) and \(g(x) = \sum_{j=0}^m b_j x^{m-j}\),
     and the leading terms are nonzero.
     The resultant of \(f\) and \(g\) is
-    \(\mathcal{R}(f,g) = a_0^m b_0^n \prod_{i,j} (\alpha_i - \beta_j)\)
+    \begin{equation*}
+        \mathcal{R}(f,g) = a_0^m b_0^n \prod_{i,j} (\alpha_i - \beta_j)
+    \end{equation*}
     where \(\alpha_i\) are the roots of \(f\),
     and \(\beta_j\) are the roots of \(g\).
 \end{definition}
@@ -597,6 +601,173 @@
     \(f\) and \(f'\) sharing a root is equivalent to
     the resultant being zero by the \hyperref[lem:resultant-zero]{lemma above}.
     Then apply Proposition~\ref{prop:derivative-inseparability}.
+\end{proof}
+\begin{remark}
+    If \(f(x) = \prod_i (x-\alpha_i)\) and \(g(x) = \prod_j (x-\beta_j)\) are monic,
+    then \(\prod_i g(\alpha_i) = {(-1)}^{mn} f(\beta) = \mathcal{R}(f,g)\).
+    Also notice that the resultant is closely related to the Vandermonde determinant.
+    \begin{equation*}
+        \mathcal{R}(f,g) = \det
+        \begin{bmatrix}
+            a_0 & a_1 & \cdots & a_n \\
+            & a_0 & a_1 & \cdots & a_n \\
+            & & \ddots & & & \ddots \\
+            & & & a_0 & a_1 & \cdots & a_n \\
+            b_0 & b_1 & \cdots & b_m \\
+            & b_0 & b_1 & \cdots & b_m \\
+            & & \ddots & & & \ddots \\
+            & & & b_0 & b_1 & \cdots & b_m
+        \end{bmatrix}
+    \end{equation*}
+    where you have \(m\) rows of \(a_i\) and \(n\) rows of \(b_i\),
+    resulting in a \((m+n)\times(m+n)\) matrix.
+\end{remark}
+
+\begin{definition}
+    Suppose \(f(x) \in F[x]\) is a polynomial.
+    The discriminant is
+    \begin{equation*}
+        \mathcal{D}(f) = a_0^{2n-2} {(-1)}^{n(n-1)/2}
+        \prod_{i \neq j} (\alpha_i - \alpha_j)
+        = a_0^{2n-2} \prod_{i<j} {(\alpha_i - \alpha_j)}^2
+    \end{equation*}
+    where \(\alpha_i\) are roots.
+\end{definition}
+\begin{proposition}
+    \(\mathcal{R}(f,f') = {(-1)}^{n(n-1)/2} a_0 \mathcal{D}(f)\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Separable Extensions}
+
+\begin{definition}
+    Suppose \(F\) is a field, and \(a\) algebraic over \(F\).
+    \(a\) is a separable element if \(\min_F(a)\) is separable.
+\end{definition}
+\begin{definition}
+    Suppose \(E/F\) is an algebraic extension.
+    \(E/F\) is a separable extension if every \(a \in E\) is separable.
+\end{definition}
+
+\begin{lemma}
+    Let \(f(x) = \min_F(a) \in F[x]\).
+    \(f(x)\) is separable if and only if \((f,f') = 1\) are coprime.
+\end{lemma}
+\begin{proof}
+    Let \(f(x)\) is separable.
+    By way of contradiction,
+    suppose \(g(x) \in F[x]\) is a monic irreducible polynomial of degree \(d\),
+    where \(g \mid f\) and \(g \mid f'\).
+    Let us write \(f(x) = g(x)h(x)\)
+    Without loss of generality we may assume \((g,h) = 1\) are also coprime,
+    since if they share factors, then send all those factors to \(g\),
+    and that does not change irreducibility.
+    But then \(f'(x) = g'(x)h(x) + h'(x)g(x)\),
+    which implies that \(g(x) \mid g'(x)\)
+    since \(g \mid h'g\), \(g \mid g'h\), and \(g \nmid h\).
+    But that is not possible, since \(g'\) must have a lower degree that \(g\).
+    Hence \((f,f') = 1\) are coprime.
+
+    Now suppose \((f,f') = 1\).
+    Notice they cannot share a root in the splitting field in this case,
+    which by Proposition~\ref{prop:derivative-inseparability}
+    means \(f(x)\) is separable.
+\end{proof}
+
+\begin{definition}
+    Suppose \(E/F\) is an extension,
+    and \(\func{\sigma}{F}{L}\) an embedding of fields.
+    We denote the set of all homomorphisms \(\func{\sigma^\ast}{E}{L}\)
+    extending \(\sigma\), that is, \(\sigma^\ast\vert_F = \sigma\) as
+    \(S_\sigma = \{\sigma^\ast\in\Hom(E,L) : \sigma^\ast\vert_F = \sigma\}\).
+\end{definition}
+\begin{theorem}
+    Suppose \(E = F(\alpha)\) is an algebraic extension of \(F\),
+    \(L = \overline{L}\) is an algebraically closed field extension of \(F\),
+    % \(E = F(\alpha)\) is an algebraic extension of \(F\),
+    and \(p(x) = \min_F(\alpha) \in F[x]\) is the minimal polynomial.
+    If \(\func{\sigma}{F}{L}\) is an embedding,
+    % that is, \(\sigma\vert_F = \id\).
+    then \(\abs{S_\sigma}\),
+    the number of embeddings of \(E\) into \(L\) extending \(\sigma\)
+    is the number of distinct roots of \(\sigma(p)(x)\).
+    In particular, \(\abs{S_\sigma} = [E:F]\)
+    if and only if \(E/F\) is separable.
+\end{theorem}
+\begin{proof}
+    % TODO: separability 1
+\end{proof}
+
+\begin{proposition}
+    Suppose \(E/F\) is an algebraic extension,
+    \(L = \overline{L}\) algebraically closed,
+    and \(\func{\sigma}{F}{L}\) an embedding of fields,
+    Then there exists an embedding \(\func{\tau}{E}{L}\) that extends \(\sigma\),
+    i.e.\ \(\tau\vert_F = \sigma\).
+    If \(E\) is an algebraic closure of \(F\),
+    and \(L\) is the algebraic closure of \(\sigma(F)\),
+    then \(\tau\) is an isomorphism.
+\end{proposition}
+\begin{proof}
+    % TODO: separability 1
+\end{proof}
+\begin{proposition}
+    Suppose \(E/F\) is a finite extension,
+    \(L = \overline{L}\) is algebraically closed,
+    and \(\func{\sigma}{F}{L}\) an embedding of fields.
+    % If \(E/F\) is a finite extension,
+    There are at most \([E:F]\) different embeddings extending \(\sigma\),
+    % extending \(\func{\sigma}{F}{L}\),
+    % for \(L = \overline{L}\) algebraically closed.
+    % That is, if \(S_\sigma = \{\sigma^\ast\in\Hom(E,L) : \sigma^\ast\vert_F = \sigma\}\),
+    that is, \(\abs{S_\sigma} \leq [E:F]\).
+\end{proposition}
+\begin{proof}
+    % TODO: separability 2
+\end{proof}
+\begin{proposition}
+    Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
+    If \(L/F\) is separable, then \(L/E\) and \(E/F\) are separable.
+\end{proposition}
+\begin{proof}
+    % TODO: separability 2
+\end{proof}
+\begin{theorem}
+    Suppose \(E/F\) is a finite extension,
+    \(L = \overline{L}\) algebraically closed,
+    and \(\func{\sigma}{F}{L}\) an embedding of fields.
+    Then \(\abs{S_\sigma}\),
+    the number of distinct embeddings of \(E\) into \(L\) extending \(\sigma\)
+    is exactly \([E:F]\) if and only if \(E/F\) is separable.
+\end{theorem}
+\begin{proof}
+    % TODO: separability 2
+\end{proof}
+
+\begin{theorem}[Transitivity of Separable Extensions]
+    Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
+    If \(E/F\) and \(L/E\) are both separable,
+    then \(L/F\) is separable.
+\end{theorem}
+\begin{proof}
+    % TODO: separability 2
+\end{proof}
+
+\subsubsection*{Simple Extensions}
+
+\begin{definition}
+    Suppose \(E/F\) is an extension.
+    \(E/F\) is simple (algebraic)
+    if \(E = F(\alpha)\) (for \(\alpha\) algebraic over \(F\)).
+\end{definition}
+\begin{theorem}[Primitive Element Theorem]
+    Suppose \(E/F\) is a finite separable extension.
+    Then \(E/F\) is simple.
+\end{theorem}
+\begin{proof}
+    % TODO: wikipedia
 \end{proof}
 
 
