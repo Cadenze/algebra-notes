@@ -683,7 +683,7 @@
     extending \(\sigma\), that is, \(\sigma^\ast\vert_F = \sigma\) as
     \(S_\sigma = \{\sigma^\ast\in\Hom(E,L) : \sigma^\ast\vert_F = \sigma\}\).
 \end{definition}
-\begin{theorem}
+\begin{theorem}\label{thm:simple-extension-hom-count}
     Suppose \(E = F(\alpha)\) is an algebraic extension of \(F\),
     \(L = \overline{L}\) is an algebraically closed field extension of \(F\),
     % \(E = F(\alpha)\) is an algebraic extension of \(F\),
@@ -700,7 +700,7 @@
     % TODO: separability 1
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:algebraic-extension-hom}
     Suppose \(E/F\) is an algebraic extension,
     \(L = \overline{L}\) algebraically closed,
     and \(\func{\sigma}{F}{L}\) an embedding of fields,
@@ -713,7 +713,7 @@
 \begin{proof}
     % TODO: separability 1
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:algebraic-extension-hom-count-bound}
     Suppose \(E/F\) is a finite extension,
     \(L = \overline{L}\) is algebraically closed,
     and \(\func{\sigma}{F}{L}\) an embedding of fields.
@@ -727,14 +727,14 @@
 \begin{proof}
     % TODO: separability 2
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:intermediate-field-separable}
     Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
     If \(L/F\) is separable, then \(L/E\) and \(E/F\) are separable.
 \end{proposition}
 \begin{proof}
     % TODO: separability 2
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:algebraic-extension-hom-count}
     Suppose \(E/F\) is a finite extension,
     \(L = \overline{L}\) algebraically closed,
     and \(\func{\sigma}{F}{L}\) an embedding of fields.
@@ -746,7 +746,7 @@
     % TODO: separability 2
 \end{proof}
 
-\begin{theorem}[Transitivity of Separable Extensions]
+\begin{theorem}[Transitivity of Separable Extensions]\label{thm:separable-transitive}
     Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
     If \(E/F\) and \(L/E\) are both separable,
     then \(L/F\) is separable.
@@ -755,12 +755,69 @@
     % TODO: separability 2
 \end{proof}
 
+\subsubsection*{Separable Degree}
+
+\begin{definition}
+    Suppose \(E/F\) is a finite extension,
+    \(L = \overline{L}\) algebraically closed,
+    and \(\func{\sigma}{F}{L}\) an embedding of fields.
+    We call the number of embeddings of \(E\) to \(L\) extending \(\sigma\)
+    the separable degree of \(E/F\),
+    denoted \({[E:F]}_s = \abs{S_\sigma}\).
+\end{definition}
+\begin{corollary}
+    Suppose \(E/F\) is a finite extension.
+    Then \({[E:F]}_s \leq [E:F]\).
+\end{corollary}
+\begin{proof}
+    Restatement of Proposition~\ref{thm:algebraic-extension-hom-count}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(E/F\) an extension.
+    The separable closure of \(F\) in \(E\) is \(F_s\),
+    the field of all elements in \(E\) that are separable over \(F\).
+\end{definition}
+\begin{proposition}\label{prop:separable-degree}
+    Suppose \(E/F\) an extension.
+    The separable degree is \([F_s:F] = {[E:F]}_s\).
+\end{proposition}
+\begin{proof}
+    % TODO: inseparability
+\end{proof}
+\begin{corollary}
+    Suppose \(E/F\) a finite extension.
+    Then \({[E:F]}_s \mid [E:F]\).
+\end{corollary}
+\begin{proof}
+    Since \(F \subseteq F_s \subseteq E\) a tower of field extensions,
+    \([E:F] = [E:F_s][F_s:F]\) by Theorem~\ref{thm:finite-extension-stack}.
+    By \hyperref[prop:separable-degree]{proposition above}
+    \([F_s:F] = {[E:F]}_s\), which divides \([E:F]\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(E/F\) a finite extension,
+    and \(F_s\) the separable closure.
+    Then the degree of inseparability is \({[E:F]}_{pi} = [E:F_s]\).
+    Hence by definition \([E:F] = {[E:F]}_{pi}{[E:F]}_s\).
+\end{definition}
+\begin{proposition}
+    Suppose \(F \subseteq L \subseteq E\) is a tower of finite extensions.
+    Then \({[E:F]}_{pi} = {[E:L]}_{pi}{[L:F]}_{pi}\)
+    and \({[E:F]}_s = {[E:L]}_s{[L:F]}_s\).
+\end{proposition}
+\begin{proof}
+    % TODO: inseparability
+\end{proof}
+
 \subsubsection*{Simple Extensions}
 
 \begin{definition}
     Suppose \(E/F\) is an extension.
     \(E/F\) is simple (algebraic)
     if \(E = F(\alpha)\) (for \(\alpha\) algebraic over \(F\)).
+    We call \(\alpha\) a primitive element of \(E/F\).
 \end{definition}
 \begin{theorem}[Primitive Element Theorem]
     Suppose \(E/F\) is a finite separable extension.
@@ -792,7 +849,7 @@
     Suppose \(F\) is a field with characteristic \(p\).
     The Frobenius homomorphism is the map \(\vfunc{\Phi}{F}{F}{x}{x^p}\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:frobenius-hom}
     The Frobenius homomorphism is an endomorphism,
     and is an automorphism if the field is finite.
 \end{proposition}
@@ -808,5 +865,109 @@
     it is also surjective,
     which proves automorphism.
 \end{proof}
+\begin{corollary}
+    Any nonzero element \(a \in \mathbb{F}_p^\star\) is a \(p\)th power.
+\end{corollary}
+\begin{proof}
+    Simple restatement of the \hyperref[prop:frobenius-hom]{proposition above}.
+\end{proof}
+
+\begin{proposition}\label{prop:separable-power-polynomial}
+    Suppose \(F\) is a field of characteristic \(p\),
+    and \(f(x) \in F[x]\) an irreducible polynomial.
+    Then there exists some \(g(x) \in F[x]\) irreducible and separable
+    such that \(f(x) = g(x^{p^m})\) for some unique \(m \geq 0\).
+\end{proposition}
+\begin{proof}
+    % TODO: inseparability
+\end{proof}
+\begin{definition}
+    We call the degree of \(g\) the inseparable degree of \(f(x)\),
+    and \(p^m\) the separable degree of \(f(x)\).
+\end{definition}
+\begin{proposition}
+    Suppose \(E = F(\alpha)\) is an extension of \(F\),
+    and \(f(x) = \min_F(\alpha)\).
+    Then the definitions of separable and inseparable degrees
+    for the polynomial and the field coincide,
+    that is, \({[E:F]}_s\) is the separable degree of \(f(x)\),
+    and \({[E:F]}_{pi}\) is the inseparable degree of \(f(x)\).
+\end{proposition}
+\begin{proof}
+    % TODO: inseparable
+\end{proof}
+
+\begin{proposition}
+    Suppose \(F\) is a field.
+    Then all roots of \(f(x)\) have the same multiplicity.
+    In particular,
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(F\) has characteristic 0, the multiplicity is 1; and
+        \item if \(F\) has characteristic \(p\),
+            the multiplicity is \(p^n\) for some \(n \in \bN\)
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    If \(F\) has characteristic 0,
+    we know that the only irreducible polynomials are linear ones.
+    They clearly have one root of multiplicity 1.
+
+    Now consider the case of characteristic \(p\).
+    Let \(\{\alpha,\beta\}\subset\overline{F}\) be roots of \(f(x)\).
+    Consider the extensions \(F(\alpha)\) and \(F(\beta)\),
+    and the homomorphism \(\vfunc{\sigma}{F(\alpha)}{F(\beta)}{\alpha}{\beta}\)
+    where \(\sigma\vert_F = \id\).
+    By Proposition~\ref{prop:algebraic-extension-hom},
+    we can extend \(\sigma\) to \(\tau\in\Aut(\overline{F})\).
+    Let \(f(x) = {(x-\alpha)}^m h(x) \in \overline{F}[x]\), \(h(\alpha) \neq 0\).
+    Then \(f(x) = \tau(f)(x) = {(x-\beta)}^m \tau(h)(x)\).
+    Therefore multiplicity of \(\alpha\) at most the multiplicity of \(\beta\).
+    But this argument is symmetric,
+    so the multiplicity of \(\alpha\) is also at least multiplicity of \(\beta\).
+    Hence the multiplicities are equal.
+
+    Now suppose \(f(x)\) irreducible.
+    Note that from Proposition~\ref{prop:separable-power-polynomial}
+    we can find \(g(x) \in F[x]\) such that \(f(x) = g(x^{p^m})\).
+    If \(a\) is a root of \(f(x)\), then \(a^{p^m}\) is a root of \(g(x)\),
+    and hence \(a\) has multiplicity \(p^m\)
+    since \(x^{p^m} - a^{p^m} = {(x-a)}^{p^m}\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(F\) is a field with characteristic \(p\),
+    and \(E/F\) an algebraic extension.
+    An element \(\alpha \in E\) is purely inseparable
+    if \(\min_F(\alpha)\) has only one distinct root.
+    % if there exists some \(k \geq 1\) such that \(a^{p^k} \in F\).
+\end{definition}
+\begin{definition}
+    Suppose \(E/F\) an algebraic extension.
+    \(E/F\) is purely inseparable
+    if all elements in \(E\) are purely inseparable over \(F\).
+\end{definition}
+\begin{lemma}
+    Suppose \(F\) is a field with characteristic \(p\).
+    If \(\alpha\) is algebraic over \(F\),
+    then \(\alpha\) is purely inseparable over \(F\)
+    if and only if \(\alpha^{p^n} \in F\) for some \(n\).
+    In this case, \(\min_F(\alpha) = {(x-\alpha)}^{p^n}\).
+\end{lemma}
+\begin{proof}
+    % TODO: inseparable
+\end{proof}
+
+\begin{theorem}
+    Suppose \(K/F\) is an algebraic extension.
+    If \(K\) is both separable and purely inseparable,
+    then \(K = F\).
+\end{theorem}
+\begin{proof}
+    % TODO: inseparable
+\end{proof}
 
 % TODO: existence and uniqueness of finite fields
+
+% TODO: separable and inseparable closures
+
+\subsection{Perfect Fields and Normal Extensions}
