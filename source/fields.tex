@@ -772,3 +772,41 @@
 
 
 \subsection{Finite Fields and Inseparability}
+
+\begin{remark}
+    Recall from Theorem~\ref{thm:field-unique-prime-char}
+    that fields come in 2 flavours,
+    either characteristic 0 or prime \(p\).
+\end{remark}
+
+\begin{proposition}
+    Let \(F = \mathbb{F}_p\).
+    Suppose \(E/F\) is a finite extension where \([E:F] = n\).
+    Then \(\abs{E} = p^n\).
+\end{proposition}
+\begin{proof}
+    Conclusion is obvious when we view \(E\) as an \(F\)-space.
+\end{proof}
+
+\begin{definition}
+    Suppose \(F\) is a field with characteristic \(p\).
+    The Frobenius homomorphism is the map \(\vfunc{\Phi}{F}{F}{x}{x^p}\).
+\end{definition}
+\begin{proposition}
+    The Frobenius homomorphism is an endomorphism,
+    and is an automorphism if the field is finite.
+\end{proposition}
+\begin{proof}
+    \begin{gather*}
+        \Phi(x+y) = {(x+y)}^p = x^p + y^p = \Phi(x) + \Phi(y)
+        \Phi(xy) = {(xy)}^p = x^p y^p = \Phi(x)\Phi(y)
+    \end{gather*}
+    This proves endomorphism.
+    But field homomorphisms are always injective
+    by Theorem~\ref{thm:field-hom-injective},
+    and so by the \hyperref[thm:pigeonhole]{pigeonhole principle}
+    it is also surjective,
+    which proves automorphism.
+\end{proof}
+
+% TODO: existence and uniqueness of finite fields
