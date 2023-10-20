@@ -120,12 +120,32 @@
     A chain is a subset of a poset \((S,\leq)\)
     such that under the same order, the subset is totally ordered.
 \end{definition}
-\begin{lemma}[Zorn's Lemma]
+\begin{axiom}[Zorn's Lemma]\label{ax:zorn}
     A partially ordered set containing an upper bound for every chain
     must contain at least one maximal element.
-\end{lemma}
+\end{axiom}
+
+\begin{axiom}[Well-Ordering Principle]\label{ax:well-order}
+    Suppose \(S \neq \emptyset\) is a set.
+    There exists a well ordering on \(S\),
+    i.e.\ there exists a total order \(\leq\)
+    such that every nonempty subset \(A \subseteq S\)
+    has a smallest element \(a \in A\) where \(a \leq b\) for all \(b \in A\).
+\end{axiom}
+
+\begin{theorem}
+    The above three axioms
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item the \hyperref[ax:choice]{axiom of choice};
+        \item \hyperref[ax:zorn]{Zorn's lemma}; and
+        \item the \hyperref[ax:well-order]{well-ordering principle}
+    \end{enumerate}
+    are equivalent in Zermelo-Fraenkel set theory,
+    and are independent from any other ZF axiom.
+\end{theorem}
 \begin{proof}
-    % TODO
+    This is a result in set theory, and hence we shall omit the proof,
+    and use the result as is.
 \end{proof}
 
 
