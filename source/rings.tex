@@ -229,7 +229,19 @@
     forms a ring.
 \end{proposition}
 \begin{proof}
-    
+    Suppose \(a,b,c \in \End(G)\).
+    If we define \((a+b+c)(g) = a(g)+b(g)+c(g)\),
+    then additive axioms immediately follow.
+    Now let use define addition as function composition.
+    Associativity immediately follows,
+    and the identity homomorphism is obvious 1.
+    Left distributivity can be seen by
+    \begin{equation*}
+        (a\circ(b+c))(g) = a(b(g)+c(g))
+        = (a \circ b)(g) + (a \circ c)(g)
+        = ((a \circ b) + (a \circ c))(g)
+    \end{equation*}
+    Right distributivity follows similarly.
 \end{proof}
 
 
@@ -248,7 +260,7 @@
     in that case, these notations are merely the way the author thinks of them.
 \end{remark}
 
-\pagebreak
+% \pagebreak
 
 \begin{proposition}
     Suppose \(R\) is a ring.

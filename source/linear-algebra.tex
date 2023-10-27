@@ -160,6 +160,33 @@
 
 \subsection{Direct Sum}
 
+\begin{definition}[Universal Property of Direct Sum]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
+    We call \(\bigoplus_{i \in I} V_i\) the direct sum of vector spaces if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exist embeddings \(\func{\iota_i}{V_i}{\bigoplus_{i \in I} V_i}\); and
+        \item for any vector space \(X\),
+            if \(\func{\phi_i}{V_i}{X}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{\bigoplus_{i \in I} V_i}{X}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
+    \end{enumerate}
+
+    This can be represented by the logical statement
+    \begin{equation*}
+        \forall X\in\mathbf{Vect},\;
+        \forall i \in I,\; \forall \phi_i\in\Hom(V_i,X),\;
+        \exists! \phi\in\Hom\qty(\bigoplus_{i \in I} V_i,X),\;
+        \phi_i = \bar{\phi}\circ\iota_i
+    \end{equation*}
+    and the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            V_i \arrow{r}{\phi_i} \arrow{d}{\iota_i} & X \\
+            \bigoplus_{i \in I} V_i \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
 % \begin{definition}
 %     Suppose \(U,V\) are \(F\)-spaces.
 %     The external direct sum \(U \oplus V\)
@@ -196,3 +223,7 @@
 %     Then clearly \(B\) spans \((\vec{u},\vec{v})\)
 %     simply by span of \(B_U\) and \(B_V\).
 % \end{proof}
+
+\begin{theorem}[Existence and Uniqueness of Direct Sum]
+    
+\end{theorem}
