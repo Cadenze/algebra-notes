@@ -352,7 +352,8 @@
 \begin{definition}
     Suppose \(L_1/F\) and \(L_2/F\) are field extensions,
     where \(L_1,L_2 \subseteq L\).
-    The composite extension \(L_1 \cdot L_2\)
+    The composite extension or the compositum,
+    denoted \(L_1 \cdot L_2\) or \(L_1 L_2\),
     is the smallest field extension of \(F\) in \(L\)
     that contains both \(L_1\) and \(L_2\).
 \end{definition}
@@ -828,7 +829,7 @@
 \end{proof}
 
 
-\subsection{Finite Fields and Inseparability}
+\subsection{Inseparability}
 
 \begin{remark}
     Recall from Theorem~\ref{thm:field-unique-prime-char}
@@ -966,8 +967,144 @@
     % TODO: inseparable
 \end{proof}
 
-% TODO: existence and uniqueness of finite fields
-
 % TODO: separable and inseparable closures
 
 \subsection{Perfect Fields and Normal Extensions}
+
+\subsubsection*{Perfect Fields}
+
+\begin{definition}
+    Suppose \(F\) is a field.
+    \(F\) is perfect if every algebraic extension of \(F\) is separable.
+\end{definition}
+\begin{proposition}
+    Suppose \(F\) is a field with characteristic \(p\).
+    \(F\) is perfect if and only if \(F^p = F\),
+    i.e.\ the Frobenius endomorphism \(\vfunc{\Phi_p}{F}{F}{x}{x^p}\) is bijective.
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{proposition}
+    Algebraically closed fields are perfect.
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    Finite fields are perfect.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{lemma}
+    Suppose \(F\) is a field with characteristic \(p\).
+    If \(a \in F - F^p\), then \(x^p - a\) is irreducible and inseparable.
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    Suppose \(F\) is a field with characteristic \(p\).
+    If \(a \in F^p\), then \(x^p - a\) is reducible.
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{proposition}
+    Suppose \(p\) is a prime,
+    and \(x^p - 1\) splits completely over a field \(K\).
+    Let \(L/K\) be an extension, with \(a \in L\) an algebraic element over \(K\),
+    and the prime \(p \nmid [K(a):K]\) does not divide the degree of the extension.
+    Then \(K(a) = K(a^p)\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    A field \(K\) is perfect
+    if and only if its characteristic is 0,
+    or if its characteristic is \(p\) and \(K^p = K\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Normal Extensions}
+
+\begin{definition}
+    Suppose \(K/F\) is an algebraic extension.
+    \(K/F\) is normal if \(f(x) \in F[x]\) irreducible over \(F\)
+    and has a root in \(K\) implies \(f(x)\) splits completely in \(K\).
+\end{definition}
+\begin{remark}
+    In general, normality is not a transitive property,
+    meaning that it does not stack.
+\end{remark}
+
+\begin{theorem}
+    Suppose \(F \subseteq K \subseteq L\) is a tower of extensions.
+    If \(L/F\) is normal, then \(L/K\) is normal.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{lemma}
+    Suppose \(F \subseteq E_i \subseteq E\) are two towers of extensions with \(i \in \{1,2\}\).
+    If \(E_1/F\) and \(E_2/F\) are normal,
+    then \((E_1 \cdot E_2)/F\) and \((E_1 \cap E_2)/F\) are normal.
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    Suppose \(F\) is a field, and \(K/F\) is an algebraic extension.
+    Let \(I\) be some index set, and \(i \in I\),
+    with \(F \subseteq E_i \subseteq K\) are intermediate extensions
+    such that \(E_i/F\) is normal.
+    Then \(\bigcap_{i \in I} E_i\) is a normal extension of \(F\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    Suppose \(K/F\) is a normal extension,
+    and \(K_\text{sep}\) denotes the separable closure of \(F\) in \(K\).
+    Then \(F \subseteq K_\text{sep} \subseteq K\) is a tower of normal extensions.
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{proposition}
+    Let \(F \subseteq K \subseteq L\) be a tower of field extensions.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(K/F\) is normal, and \(\tau \in \Aut_F(L)\) is an \(F\)-automorphism,
+            then \(\tau\vert_K \in \Aut_F(K)\).
+        \item If \(L/F\) is normal, then any \(\sigma \in \Hom_F(K,L)\)
+            extends to and \(F\)-automorphism over \(L\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{theorem}
+    Suppose \(E/F\) is an algebraic extension, with \(E \subseteq \overline{F}\).
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item Every \(\sigma\in\Hom_F(E,\overline{F})\) is also \(\sigma\in\Aut_F(E)\);
+        \item \(E\) is a splitting field of a family of polynomials in \(F[x]\); and
+        \item \(E/F\) is normal.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsection{Finite Fields}
+
+% TODO: existence and uniqueness of finite fields
