@@ -187,43 +187,94 @@
     \end{center}
 \end{definition}
 
-% \begin{definition}
-%     Suppose \(U,V\) are \(F\)-spaces.
-%     The external direct sum \(U \oplus V\)
-%     is a vector space \(U \times V\)
-%     equipped with coordinate-wise operations.
-% \end{definition}
-% \begin{lemma}
-%     \(U \oplus V\) indeed forms a vector space.
-% \end{lemma}
-% \begin{proof}
-%     The additive groups is a direct sum of (abelian) groups,
-%     which is (abelian) group.
-%     Check scalar multiplication by
-%     \begin{equation*}
-%         (ab)(\vec{u},\vec{v}) = ((ab)\vec{u},(ab)\vec{v})
-%         = (a(b\vec{u}),a(b\vec{v})) = a(b\vec{u},b\vec{v})
-%         = a(b(\vec{u},\vec{v}))
-%     \end{equation*}
-% \end{proof}
-% \begin{lemma}
-%     \(\dim_F(U \oplus V) = \dim_F U + \dim_F V\).
-% \end{lemma}
-% \begin{proof}
-%     Suppose \(B_U \subset U\) and \(B_V \subset V\) be bases.
-%     Let \(B = {\{(\vec{u},\vec{0})\}}_{\vec{u} \in B_U} \sqcup
-%     {\{(\vec{0},\vec{v})\}}_{\vec{v} \in B_V}\) be a disjoint union.
-%     We wish to prove that this forms a basis.
-%     \begin{equation*}
-%         \sum_i a_i(\vec{u}_i,\vec{0}) + \sum_j b_j(\vec{0},\vec{v}_j)
-%         = (\vec{0},\vec{0})
-%     \end{equation*}
-%     invokes linear independence by each of \(U\) and \(V\),
-%     so all \(a_i\) and \(b_j\) are zero.
-%     Then clearly \(B\) spans \((\vec{u},\vec{v})\)
-%     simply by span of \(B_U\) and \(B_V\).
-% \end{proof}
+\begin{definition}
+    Suppose \(U,V\) are \(F\)-spaces.
+    The external direct sum \(U \oplus V\)
+    is a vector space \(U \times V\)
+    equipped with coordinate-wise operations.
+\end{definition}
+\begin{lemma}
+    \(U \oplus V\) indeed forms a vector space.
+\end{lemma}
+\begin{proof}
+    The additive groups is a direct sum of (abelian) groups,
+    which is (abelian) group.
+    Check scalar multiplication by
+    \begin{equation*}
+        (ab)(\vec{u},\vec{v}) = ((ab)\vec{u},(ab)\vec{v})
+        = (a(b\vec{u}),a(b\vec{v})) = a(b\vec{u},b\vec{v})
+        = a(b(\vec{u},\vec{v}))
+    \end{equation*}
+\end{proof}
+\begin{lemma}
+    \(\dim_F(U \oplus V) = \dim_F U + \dim_F V\).
+\end{lemma}
+\begin{proof}
+    Suppose \(B_U \subset U\) and \(B_V \subset V\) be bases.
+    Let \(B = {\{(\vec{u},\vec{0})\}}_{\vec{u} \in B_U} \sqcup
+    {\{(\vec{0},\vec{v})\}}_{\vec{v} \in B_V}\) be a disjoint union.
+    We wish to prove that this forms a basis.
+    \begin{equation*}
+        \sum_i a_i(\vec{u}_i,\vec{0}) + \sum_j b_j(\vec{0},\vec{v}_j)
+        = (\vec{0},\vec{0})
+    \end{equation*}
+    invokes linear independence by each of \(U\) and \(V\),
+    so all \(a_i\) and \(b_j\) are zero.
+    Then clearly \(B\) spans \((\vec{u},\vec{v})\)
+    simply by span of \(B_U\) and \(B_V\).
+\end{proof}
 
-\begin{theorem}[Existence and Uniqueness of Direct Sum]
-    
+\begin{theorem}[Uniqueness of Direct Sum]
+    The direct sum of vector spaces is associative and commutative up to isomorphism.
 \end{theorem}
+\begin{proof}
+    \begin{center}
+        \begin{tikzcd}
+            V_i \arrow{r}{\iota_i'} \arrow{d}{\iota_i} &
+            \bigoplus_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            \bigoplus_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+            % F' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+            %     [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            % F \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+            %     [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    It is obvious from the universal property that
+    the unique inclusions do not get affected by order or bracketing.
+    Hence \(\bar{\phi}^{-1} = \bar{\phi}'\),
+    and we have isomorphism.
+\end{proof}
+
+
+\subsection{Direct Product}
+
+\begin{definition}[Universal Property of Direct Product]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
+    We call \(\prod_{i \in I} V_i\) the direct product of vector spaces if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_i}{\prod_{i \in I} V_i}{V_i}\); and
+        \item for any vector space \(X\), if \(\func{\phi_i}{X}{V_i}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{X}{\prod_{i \in I} V_i}\)
+            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
+    \end{enumerate}
+
+    This can be represented by the logical statement
+    \begin{equation*}
+        \forall X \in \mathbf{Vect},\;
+        \forall i \in I,\;
+        \forall \phi_i \in \Hom(X,V_i),\;
+        \exists! \phi \in \Hom\qty(X,\prod_{i \in I} V_i),\;
+        \phi_i = \pi_i \circ \bar{\phi}
+    \end{equation*}
+    and the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            V_i & X \arrow{l}[swap]{\phi_i}%
+                \arrow[dashrightarrow]{ld}{\exists! \bar{\phi}} \\
+            \bigoplus_{i \in I} V_i \arrow{u}[swap]{\pi_i}
+                % \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
