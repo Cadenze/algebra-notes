@@ -278,3 +278,68 @@
         \end{tikzcd}
     \end{center}
 \end{definition}
+
+\begin{theorem}[Uniqueness of Direct Product]
+    The direct product of vector spaces is associative and commutative up to isomorphism.
+\end{theorem}
+\begin{proof}
+    \begin{center}
+        \begin{tikzcd}
+            V_i & %
+                % \arrow[dashrightarrow]{ld}{\exists! \bar{\phi}} \\
+            % \prod_{i \in I} V_i \
+            \prod_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \arrow{l}[swap]{\pi_i'} \\
+            \prod_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}} \arrow{u}[swap]{\pi_i}
+        \end{tikzcd}
+    \end{center}
+    Again, from the universal property,
+    the unique projections do not get affected by order or bracketing.
+    Hence we have an isomorphism between direct products.
+\end{proof}
+
+\begin{theorem}
+    Suppose \({\{V_i\}}_{i=1}^n\) is a finite family of vector spaces.
+    Then the direct sum and direct product of finitely many vector spaces are isomorphic.
+    \begin{equation*}
+        \bigoplus_{i=1}^n V_i \cong \prod_{i=1}^n V_i
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    The following projections and inclusions clearly give a surjection
+    from the direct product to the direct sum.
+    \begin{center}
+        \begin{tikzcd}
+            \prod_{i=1}^n V_i \arrow{r}{\pi_i} &
+            V_i \arrow{r}{\iota_i} &
+            \bigoplus_{i=1}^n V_i
+        \end{tikzcd}
+    \end{center}
+    It suffices to prove that this is also injective.
+    But the \hyperref[thm:pigeonhole]{pigeonhole principle}
+    gives us that a surjection of finitely many vector spaces
+    must also be an injection.
+\end{proof}
+
+\begin{remark}
+    In infinite indices,
+    the direct sum is a smaller space than the direct product.
+    Choosing canonical coordinates,
+    the direct sum can only have finite support with respect to its basis,
+    but the direct product can have infinite support.
+\end{remark}
+
+
+\subsection{Quotient}
+
+\begin{proposition}[Universal Property of Quotients]
+    Suppose \(V\) is a vector space, and \(U \subseteq V\) is a subspace,
+    and \(\func{\pi}{V}{U}\) is the quotient map as groups.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\pi\) is a linear map, and there exists a unique vector space structure on \(V/U\);
+        \item For any vector space \(Z\), if we have \(f \in \Hom(V,Z)\) and \(\ker(f) \supseteq U\),
+            then there exists a unique linear map \(\bar{f} \in \Hom(V/U,Z)\)
+            such that \(\bar{f} \circ g = f\).
+    \end{enumerate}
+\end{proposition}
