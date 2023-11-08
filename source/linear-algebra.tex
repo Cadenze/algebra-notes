@@ -352,5 +352,44 @@
     \end{center}
 \end{proposition}
 \begin{proof}
-    
+    Suppose \(\vec{x} \in V/U\).
+    If \(\vec{x} = \vec{v} + U + \vec{v}' + U\),
+    then we can see that \(a\vec{v}-a\vec{v}' = a(\vec{v}-\vec{v}') \in U\),
+    which allows us to conclude that \(\pi(a\vec{v}) = \pi(a\vec{v}') = a\pi(\vec{v})\)
+    is well-defined.
+    The additive axioms are clearly satisfied,
+    so it suffices to check distributivity.
+    \begin{equation*}
+        \pi(a\vec{v}+a\vec{w}) = a\pi(\vec{v}) + a\pi(\vec{w})
+        = a\pi(\vec{v} +\vec{w})
+    \end{equation*}
 \end{proof}
+
+\begin{theorem}[First Isomorphism Theorem for Vector Spaces]\label{thm:iso-1-vsp}
+    Suppose \(\func{\phi}{V}{W}\) is a vector space homomorphism,
+    and \(U = \ker(\phi)\).
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(U \subseteq V\), the kernel is a subspace;
+        \item \(\phi(V) \subseteq W\), the image is a subspace; and
+        \item \(\phi(V) \cong V/W\), the image is uniquely isomorphic to the quotient subspace.
+    \end{enumerate}
+\end{theorem}
+\begin{theorem}[Third and Fourth Isomorphism Theorems for Vector Spaces]\label{thm:iso-3-vsp}\label{thm:iso-4-vsp}
+    Suppose \(V\) is a vector space, \(U \subseteq V\) some subspace,
+    and \(\func{\pi}{V}{V/U}\) is the quotient homomorphism.
+    Then \(\pi\) is a bijection between the subspaces of \(V/U\)
+    and the subspaces of \(V\) containing \(U\).
+    In particular, if \(W\) is one such intermediate subspace,
+    then \((V/U)/(W/U) \cong V/W\).
+\end{theorem}
+\begin{remark}
+    Observe that vector spaces are modules over fields,
+    so these isomorphism theorems are direct consequences of
+    \hyperref[thm:iso-1-module]{isomorphism theorems on modules},
+    which we will give a treatment in Section~\ref{sec:categories}.
+    However, as the reader might be observed
+    from the proofs of the isomorphism theorems
+    for \hyperref[thm:iso-1-group]{groups} and \hyperref[thm:iso-1-ring]{rings},
+    the direct proof of these theorems follow the exact same line of reasoning.
+\end{remark}
