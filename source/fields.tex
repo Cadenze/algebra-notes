@@ -53,7 +53,7 @@
     \end{center}
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:field-extension-vsp}
     Suppose \(K/F\) a field extension.
     \(K\) can be characterized as a vector space over \(F\).
 \end{proposition}
@@ -518,7 +518,7 @@
     % TODO
 \end{proof}
 
-\begin{theorem}[Uniqueness of Splitting Fields]
+\begin{theorem}[Uniqueness of Splitting Fields]\label{thm:uniqueness-splitting-field}
     Suppose \(p(x) \in E[x]\) an irreducible polynomial,
     and \(K\) is a splitting field of \(p(x) \in E[x]\).
     Suppose \(\func{\phi}{E}{F}\) is a field isomorphism,
@@ -820,7 +820,7 @@
     if \(E = F(\alpha)\) (for \(\alpha\) algebraic over \(F\)).
     We call \(\alpha\) a primitive element of \(E/F\).
 \end{definition}
-\begin{theorem}[Primitive Element Theorem]
+\begin{theorem}[Primitive Element Theorem]\label{thm:primitive-element}
     Suppose \(E/F\) is a finite separable extension.
     Then \(E/F\) is simple.
 \end{theorem}
@@ -837,8 +837,8 @@
     either characteristic 0 or prime \(p\).
 \end{remark}
 
-\begin{proposition}
-    Let \(F = \mathbb{F}_p\).
+\begin{proposition}\label{prop:finite-extension-finite-field}
+    Let \(F = \bF_p\).
     Suppose \(E/F\) is a finite extension where \([E:F] = n\).
     Then \(\abs{E} = p^n\).
 \end{proposition}
@@ -867,7 +867,7 @@
     which proves automorphism.
 \end{proof}
 \begin{corollary}
-    Any nonzero element \(a \in \mathbb{F}_p^\star\) is a \(p\)th power.
+    Any nonzero element \(a \in \bF_p^\star\) is a \(p\)th power.
 \end{corollary}
 \begin{proof}
     Simple restatement of the \hyperref[prop:frobenius-hom]{proposition above}.
@@ -947,7 +947,7 @@
     \(E/F\) is purely inseparable
     if all elements in \(E\) are purely inseparable over \(F\).
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:purely-inseparable-power}
     Suppose \(F\) is a field with characteristic \(p\).
     If \(\alpha\) is algebraic over \(F\),
     then \(\alpha\) is purely inseparable over \(F\)
@@ -960,14 +960,39 @@
 
 \begin{theorem}
     Suppose \(K/F\) is an algebraic extension.
-    If \(K\) is both separable and purely inseparable,
-    then \(K = F\).
+    If \(\alpha \in K\) is both separable and purely inseparable,
+    then \(\alpha = F\).
 \end{theorem}
 \begin{proof}
     % TODO: inseparable
 \end{proof}
+\begin{theorem}
+    If \(K/F\) is purely inseparable, then \(K/F\) is normal.
+    If \(K/F\) is purely inseparable, finite, and \(F\) has characteristic \(p\),
+    then \([K:F] = p^n\) for some \(n\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    Suppose \(X\) a set, and \(K = F(X)\),
+    with alll \(\alpha \in X\) purely inseparable.
+    Then \(K\) is purely inseparable.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    Suppose \(F \subseteq L \subseteq K\) are a tower of extensions.
+    \(K/F\) is purely inseparable if and only if
+    \(K/L\) and \(L/F\) are purely inseparable.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
 
 % TODO: separable and inseparable closures
+
 
 \subsection{Perfect Fields and Normal Extensions}
 
@@ -1092,7 +1117,7 @@
     % TODO
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:normal-extension-equivalence}
     Suppose \(E/F\) is an algebraic extension, with \(E \subseteq \overline{F}\).
     The following are equivalent:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -1105,6 +1130,162 @@
     % TODO
 \end{proof}
 
+
 \subsection{Finite Fields}
 
-% TODO: existence and uniqueness of finite fields
+\begin{proposition}[Existence of Finite Fields]\label{prop:existence-finite-fields}
+    Any finite field must be of order \(p^n\) for some prime \(p\),
+    and such fields exists for all \(n \in \bN\).
+\end{proposition}
+\begin{proof}
+    Suppose \(F\) is a finite field of characteristic \(p\).
+    Treating \(F\) as an additive group, \(1 \in F\), \(p \mid \abs{F}\).
+    Suppose, by way of contradiction,
+    that there exists another prime \(q \neq p\) such that \(q \mid \abs{F}\).
+    Then by \hyperref[thm:cayley]{Cauchy's theorem},
+    there exists \(x \in F\) with order \(q\) so \(qx = 0\).
+    By \hyperref[thm:bezout]{B\'ezout's identity},
+    there exists some \(a,b\) such that \(ap + bq = 1\).
+    Hence \(x = (ap+bq)x = a(px) + b(qx) = 0\),
+    which is contradiction as \(0\) does not have order \(q\).
+
+    We can then apply Proposition~\ref{prop:finite-extension-finite-field}
+    and simply have \(\bF_p(x)\), with \(x^n \in 1\) to be our finite field.
+\end{proof}
+
+\begin{lemma}\label{lem:finite-mult-group-cyclic}
+    Suppose \(K\) is a field,
+    and \(G \subseteq K^\ast\) a finite subgroup of the multiplicative group.
+    Then \(G\) is cyclic.
+\end{lemma}
+\begin{proof}
+    Let \(\abs{G} = n\), and \(m = \exp(G)\).
+    By \hyperref[cor:order-element-group]{Lagrange's theorem}, \(m \mid n\).
+    If \(g \in G\), then \(g^m = 1\), so each element of \(G\) is a root of \(x^m - 1\).
+    This polynomial has at most \(m\) roots on \(K\),
+    which implies all the elements of \(G\) are roots of \(x^m - 1\), so \(n \leq m\).
+    Hence we have \(\exp(G) = \abs{G}\) so \(G\) is cyclic.
+\end{proof}
+\begin{corollary}
+    If \(K/F\) is an extension of finite fields,
+    then \(K\) is a simple extension of \(F\).
+\end{corollary}
+\begin{proof}
+    Consider \(\abs{K} = p^n\), so \(\abs{K^\ast} = p^n - 1\).
+    If \(a \in K^\ast\), then \(a^{p^{n-1}} = 1\).
+    Hence \(a^{p^n} = a\) for all \(a \in K\).
+    \(K\) is then the splitting field of \(x^{p^n}-x\) over \(\bF_p\),
+    and is normal over \(\bF_p\) by Theorem~\ref{thm:normal-extension-equivalence}.
+    The \hyperref[prop:derivative-inseparability]{derivative test} yields separability.
+
+    Conlcude from the \hyperref[thm:primitive-element]{primitive element theorem}
+    and the \hyperref[lem:finite-mult-group-cyclic]{lemma above},
+    since cyclic groups have a single generator.
+\end{proof}
+\begin{remark}
+    In fact the primitive element
+    does not have to be a generator of the multiplicative group.
+\end{remark}
+\begin{corollary}[Uniqueness of Finite Fields]\label{cor:uniqueness-finite-field}
+    Finite fields of the same cardinality are unique up to isomorphism.
+\end{corollary}
+\begin{proof}
+    Any two fields of order \(p^n\) are splitting fields over \(\bF_p\) of \(x^{p^n} - x\).
+    Conclude by \hyperref[thm:uniqueness-splitting-field]{uniqueness of splitting fields}.
+\end{proof}
+
+\begin{lemma}\label{lem:finite-field-quotient}
+    The finite field \(\bF_{p^n}\) is expressible as \(\bF_p[x]/(f)\)
+    for some \(f(x) \in \bF_p[x]\) of degree \(n\).
+\end{lemma}
+\begin{proof}
+    Since Lemma~\ref{lem:finite-mult-group-cyclic}
+    tells us that \(\bF_{p^n}^\ast\) is cyclic,
+    we pick \(\theta \in \bF_{p^n}\) to generate it.
+    Hence \(\theta\) generates \(\bF_{p^n}\) over \(\bF_p\),
+    and it will satisfy some irreducible polynomial \(f \in \bF_p[x]\).
+    Then the evaluation map \(\vfunc{\phi}{\bF_p[x]}{\bF_{p^n}}{x}{\theta}\)
+    induces an isomorphism \(\bF_p[x]/(f) \cong \bF_{p^n}\),
+    since \(\deg f = n\).
+\end{proof}
+\begin{corollary}
+    Suppose \(F\) is a finite field,
+    and \(f(x) \in F[x]\) is a monic irreducible polynomial of degree \(n\).
+    Then if \(a\) is a root of \(f\) in an extension of \(F\),
+    then \(F(a)\) is the splitting field of \(f\).
+    Consequently, if \(K\) is a splitting field of \(f\),
+    then \([K:F] = n\).
+    If \(\abs{F} = q\), then the roots are \(a^{q^r}\) for \(r \geq 1\).
+\end{corollary}
+\begin{proof}
+    Let \(K\) be a splitting field of \(f\).
+    If \(a \in K\) is a root,
+    then \(F(a)\) is an extension of \(F\) of degree \(n\).
+    By irreducibility \(f(x) = \min_F(a)\),
+    and the minimal polynomial splits in \(F(a)\).
+    Hence \(K = F(a)\) is degree \(n\).
+
+    Lastly, we see that \(\min_F(a) = {(x-a)}^{p^n}\)
+    by Lemma~\ref{lem:purely-inseparable-power},
+    and clearly \(a^q - a = 0\).
+\end{proof}
+
+\begin{proposition}
+    For some prime \(p\) and \(n,m \in \bN\),
+    \(m \mid n \iff \bF_{p^m} \subseteq \bF_{p^n}\).
+\end{proposition}
+\begin{proof}
+    \(\bF_{p^m}\) is the set of roots of \(x^{p^m} - x\)
+    by the \hyperref[cor:uniqueness-finite-field]{uniqueness of finite fields}
+    in some algebraic closure \(\overline{\bF}_p\).
+    Note that if \(m \mid n\), then \(n = dm\), so
+    \begin{equation*}
+        x^{p^n} = x^{p^{dm}} = {(x^{p^{(d-1)m}})}^{p^m} = x^{p^{(d-1)m}}
+        = \cdots = x^{p^m} = x
+    \end{equation*}
+    so \(x\) is a root of \(x^{p^n} - x\), and \(x \in \bF_{p^n}\).
+
+    Conversely, suppose \(\bF_{p^m} \subseteq \bF_{p^n}\).
+    Then \(\bF_{p^n}\) can be treated as a \(\bF_{p^m}\)-vector space of dimension \(d\),
+    by Proposition~\ref{prop:field-extension-vsp}.
+    Hence \(p^n = \abs{\bF_{p^n}} = \abs{\bF_{p^m}}^d = {(p^m)}^d = p^{md}\),
+    and \(m \mid n\).
+\end{proof}
+
+\begin{proposition}
+    Let \(n \in \bN\).
+    Then \(x^{p^n} - x\) factors over \(\bF_p\)
+    into the product of all monic irreducible polynomials over \(\bF_p\)
+    of degree \(m\), where \(m \mid n\).
+\end{proposition}
+\begin{proof}
+    % TODO: finite fields
+\end{proof}
+
+\begin{lemma}
+    Let \(f \in \bF_q[x]\) be an irreducible polynomial over some finite field \(\bF_q\),
+    and let \(\alpha\) be a root of \(f\) in some extension.
+    Then, for a polynomial \(h \in \bF_q[x]\),
+    \(h(\alpha) = 0\) if and only if \(f \mid h\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    Let \(f \in \bF_q[x]\) be an irreducible polynomial of degree \(m\).
+    Then \(f \mid x^{q^n} - x\) if and only if \(m \mid n\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{corollary}
+    If \(N_q(d)\) is the number of monic irreducible polynomials
+    in \(\bF_q[x]\) of degree \(d\), then
+    \begin{equation*}
+        q^n = \sum_{d \mid n} d N_q(d) \qquad \forall n \in \bN
+    \end{equation*}
+    where we are summing over all positive \(d \mid n\).
+\end{corollary}
+\begin{proof}
+    % TODO
+\end{proof}
