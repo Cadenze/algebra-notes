@@ -62,6 +62,11 @@
     we say the order of \(G\) is infinite.
     This is often denoted \(\abs{G} = \ord{G} = \#G\).
 \end{definition}
+\begin{definition}
+    The exponent of a group \(G\)
+    is \(\exp(G) = \lcm\{\abs{g}: g \in G\}\),
+    the least common multiple of the orders of all elements of \(G\).
+\end{definition}
 
 \begin{definition}
     A commutative group or an abelian group
@@ -177,7 +182,7 @@
     because if \(\ell_a(x) = \ell_a(y)\) for some \(\{x,y\} \subset G\)
     hence \(ax = ay\), then \(a^{-1}ax = a^{-1}ay\), and \(x = y\),
     which proves that this is an injection;
-    the pigeonhole principle proves that this is a surjection.
+    the \hyperref[thm:pigeonhole]{pigeonhole principle} proves that this is a surjection.
 
     For every element \(g \in G\),
     we can create a function \(\ell_g\).
@@ -213,7 +218,7 @@
     and hence \(axx^{-1} = bxx^{-1}\),
     so \(a = b\),
     which gives us injectivity;
-    the pigeonhole principle again gives us surjectivity.
+    the \hyperref[thm:pigeonhole]{pigeonhole principle} again gives us surjectivity.
 
     We have now found a transformation group \(H\)
     that acts on a set \(G\),
@@ -442,7 +447,7 @@
     Hence \(s'\) is a multiple of \(s\),
     so \(g^{s'} \in H\), and therefore \(H' \subseteq H\).
     But as the orders are the same,
-    the pigeonhole principle gives us \(H' = H\).
+    the \hyperref[thm:pigeonhole]{pigeonhole principle} gives us \(H' = H\).
 \end{proof}
 
 \begin{theorem}
