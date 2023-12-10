@@ -604,9 +604,7 @@
     Then apply Proposition~\ref{prop:derivative-inseparability}.
 \end{proof}
 \begin{remark}
-    If \(f(x) = \prod_i (x-\alpha_i)\) and \(g(x) = \prod_j (x-\beta_j)\) are monic,
-    then \(\prod_i g(\alpha_i) = {(-1)}^{mn} f(\beta) = \mathcal{R}(f,g)\).
-    Also notice that the resultant is closely related to the Vandermonde determinant.
+    Notice that the resultant is closely related to the Vandermonde determinant.
     \begin{equation*}
         \mathcal{R}(f,g) = \det
         \begin{bmatrix}
@@ -624,6 +622,31 @@
     resulting in a \((m+n)\times(m+n)\) matrix.
 \end{remark}
 
+\begin{proposition}\label{prop:resultant-eval}
+    Suppose \(f(x) = \sum_{i=0}^n a_i x^{n-i}\) and \(g(x) = \sum_{j=0}^m b_j x^{m-j}\).
+    If \(f\) has roots \({\{\alpha_i\}}_{i=1}^n\)
+    and \(g\) has roots \({\{\beta_j\}}_{j=1}^m\), then
+    \begin{equation*}
+        \mca{R}_{m,n}(f,g) = a_0^m \prod_{i=1}^n g(\alpha_i)
+        = {(-1)}^{mn} b_0^n \prod_{j=1}^m f(\beta_j)
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    First assume \(\deg f = n\) and \(\deg g = m\).
+    The base case of \(n = m = 0\) is obvious and there is nothing to prove.
+    Let us proceed by way of strong induction,
+    and assume this formula holds for all values smaller than \(n+m\).
+    Observe from the Vandermonde determinant
+    that we are simply performing row operations,
+    so we have \(\mca{R}(f,g) = \mca{R}(f,r) = a_0^m \prod_{i=1}^n r(\alpha_i)\)
+    as desired,
+    treating \(r\) as a \(m\)-degree polynomial.
+\end{proof}
+\begin{remark}
+    Note that the first part of the formula works when \(\deg g \leq m\),
+    and similarly, the second part of the formula works when \(\deg f \leq n\).
+\end{remark}
+
 \begin{definition}
     Suppose \(f(x) \in F[x]\) is a polynomial.
     The discriminant is
@@ -635,10 +658,23 @@
     where \(\alpha_i\) are roots.
 \end{definition}
 \begin{proposition}
-    \(\mathcal{R}(f,f') = {(-1)}^{n(n-1)/2} a_0 \mathcal{D}(f)\).
+    \(\mathcal{R}(f,f') = {(-1)}^{n(n-1)/2} a_0^{-1} \mathcal{D}(f)\).
 \end{proposition}
 \begin{proof}
-    % TODO
+    In some splitting field of \(f\),
+    suppose we have the roots \({\{\alpha_i\}}_{i=1}^n\).
+    Then we have \(f(x) = a_0 \prod_{i=1}^n (x-\alpha_i)\),
+    and thus \(f'(x) = a_0 \sum_{i=1}^n \prod_{j \neq i} (x-\alpha_j)\)
+    by the product rule.
+    Hence \(f'(\alpha_i) = a_0 \prod_{j \neq i} (\alpha_j - \alpha_i)\),
+    since all other terms disappear due to some \(\alpha_i - \alpha_i\) inside.
+    By Proposition~\ref{prop:resultant-eval},
+    \begin{equation*}
+        \mca{R}(f,f') = a_0^{n-1} \prod_{i=1}^n f'(\alpha_i)
+        = a_0^{n+(n-1)} \prod_{i=1}^n \prod_{j \neq i} (\alpha_j - \alpha_i)
+        = a_0^{2n-1} \prod_{j \neq i} (\alpha_j - \alpha_i)
+        = a_0^{-1} {(-1)}^{n(n-1)/2} \mca{D}(f)
+    \end{equation*}
 \end{proof}
 
 \subsubsection*{Separable Extensions}
