@@ -762,3 +762,159 @@
 
 
 \subsection{Cubic and Quartic Polynomials}
+
+\subsubsection*{Cubic Polynomials}
+
+\begin{definition}
+    The depressed cubic is a cubic polynomial without the square term,
+    \(f(x) = x^3 + px + q\).
+\end{definition}
+\begin{proposition}
+    The discriminant of the depressed cubic is \(\mca{D}(f) = -4p^3 - 27q^2\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}[Galois Groups of Cubics]
+    Suppose a cubic \(f(x) \in F[x]\) is irreducible and separable
+    in a field \(F\) with characteristic not 2 or 3.
+    Let \(K\) be the splitting field of \(f(x)\).
+    The classification of Galois groups are:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Gal(K/F) = S_3 \iff \mca{D} \notin {(F^\ast)}^2\); and
+        \item \(\Gal(K/F) = A_3 \iff \mca{D} \in {(F^\ast)}^2\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{lemma}
+    A general cubic \(f(x) = x^3 + ax^2 + bx + c\)
+    can be transformed into a depressed cubic
+    via a translation \(x \mapsto x-\frac{a}{3}\).
+    In particular,
+    \begin{equation*}
+        p = \frac{1}{3}(3b-a^2), \quad
+        q = \frac{1}{27}(2a^3-9ab+27c)
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{proposition}
+    The discriminant of the general cubic is
+    \(\mca{D}(f) = a^2b^2 - 4b^3 - 4a^3c - 27c^2 + 18abc\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}[Cardano's Formula]
+    The roots to the depressed cubic \(f(x) = x^3 + px + q\)
+    \begin{equation*}
+        \frac{A+B}{3},\quad
+        \frac{\zeta^2 A + \zeta B}{3},\quad
+        \frac{\zeta A + \zeta^2 B}{3}
+    \end{equation*}
+    where
+    \begin{equation*}
+        \zeta = e^{2\pi i/3}, \quad
+        A = \pqty{-\frac{27}{2}q + \frac{3}{2}\sqrt{-3\mca{D}}}^{1/3}, \quad
+        B = \pqty{-\frac{27}{2}q - \frac{3}{2}\sqrt{-3\mca{D}}}^{1/3}
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Quartic Polynomials}
+
+\begin{definition}
+    Suppose \(f(x) = x^4 + ax^3 + bx^2 + cx + d \in F[x]\) is a general quartic.
+    Lagrange's resolvent is defined as
+    \(g(x) = x^3 - bx^2 + (ac-4d)x + (4bd-a^2d-c^2)\).
+\end{definition}
+\begin{proposition}
+    Suppose \({\{\alpha_i\}}_{i=1}^4\) are the roots of a general quartic \(f(x)\).
+    Then the roots of the resolvent \(g(x)\) are
+    \begin{equation*}
+        \beta_1 = \alpha_1\alpha_2 + \alpha_3\alpha_4,\quad
+        \beta_2 = \alpha_1\alpha_3 + \alpha_2\alpha_4,\quad
+        \beta_3 = \alpha_1\alpha_4 + \alpha_2\alpha_3
+    \end{equation*}
+\end{proposition}
+
+\begin{definition}
+    The depressed quartic is a quartic polynomial without the cubic term,
+    \(f(x) = x^4 + px^2 + qx + r\).
+\end{definition}
+\begin{corollary}
+    The resolvent to the depressed quartic is
+    \(g(x) = x^3 - px^2 - 4rx + (4pr-q^2)\).
+\end{corollary}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    A general quartic can be transformed into a depressed quartic
+    via a translation \(x \mapsto x-\frac{a}{4}\).
+    In particular,
+    \begin{equation*}
+        p = \frac{1}{8}(8b-3a^2), \quad
+        q = \frac{1}{8}(a^3-4ab+8c), \quad
+        r = \frac{1}{256}(-3a^4+256d-64ac+16a^2b)
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{proposition}
+    The discriminant of a quartic is the discriminant of its resolvent cubic.
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}[Galois Groups of Quartics]
+    Suppose a depressed quartic \(f(x) \in F[x]\) is irreducible
+    in a field \(F\) with characteristic not 2 or 3.
+    Let \(g(x)\) be its resolvent cubic.
+    The classification of Galois groups are:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Gal(f) = S_4 \iff g(x)\) irreducible in \(F\) and \(\mca{D} \notin {(F^\ast)}^2\);
+        \item \(\Gal(f) = A_4 \iff g(x)\) irreducible in \(F\) and \(\mca{D} \in {(F^\ast)}^2\);
+        \item \(\Gal(f) = V_4 \iff g(x)\) splits completely in \(F\);
+        \item \(\Gal(f) = Z_4 \iff g(x)\) has one root \(s \in F\),
+            and \(x^2 + s\) and \(x^2 + (s-p) + r\) both split in \(F(\sqrt{\mca{D}})\); and
+        \item \(\Gal(f) = D_4 \iff g(x)\) has one root \(s \in F\),
+            and at least one of \(x^2 + s\) and \(x^2 + (s-p) + r\) irreducible in \(F(\sqrt{\mca{D}})\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    The roots to a depressed cubic \({\{\alpha_i\}}_{i=1}^4\)
+    can be expressed in terms of the roots of the resolvent cubic \({\{\beta_j\}}_{j=1}^3\).
+    \begin{align*}
+        2\alpha_1 &= + \sqrt{-\beta_1} + \sqrt{-\beta_2} + \sqrt{-\beta_3} \\
+        2\alpha_2 &= + \sqrt{-\beta_1} - \sqrt{-\beta_2} - \sqrt{-\beta_3} \\
+        2\alpha_3 &= -\sqrt{-\beta_1} + \sqrt{-\beta_2} - \sqrt{-\beta_3} \\
+        2\alpha_4 &= -\sqrt{-\beta_1} - \sqrt{-\beta_2} + \sqrt{-\beta_3}
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Other Polynomials}
+
+\begin{theorem}
+    Suppose \(f(x) \in \bQ[x]\) be irreducible of prime degree \(p\),
+    with all but two roots in \(\bR\).
+    Then \(\Gal(f) = S_p\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+% TODO: quintics in the form x^5 + ax + b and x^5 + ax^2 + b
