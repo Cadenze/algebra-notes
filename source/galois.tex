@@ -416,7 +416,7 @@
 \end{proof}
 
 
-\subsection{Cyclic Extensions}
+\subsection{Abelian Extensions}
 
 \begin{definition}
     Suppose \(K/F\) is finite Galois.
@@ -475,6 +475,20 @@
     Obvious.
 \end{proof}
 
+\begin{proposition}
+    Let \(F\) be a field of characteristic \(p > 0\).
+    There does not exist primitive \(np\)th root of unity \(\zeta \in F\)
+    for all \(n \in \bN\).
+\end{proposition}
+\begin{proof}
+    \(\zeta\) is an \(np\)th root of unity,
+    so \(\zeta^{np} - 1 = 0\).
+    But in characteristic \(p\) we have
+    \({(\zeta^n)}^p - 1^p = {(\zeta^n - 1)}^p = 0\),
+    which allows us to conclude that \(\zeta\) is an \(n\)th root of unity.
+    In that case, \(\zeta\) clearly cannot be a primitive \(np\)th root of unity.
+\end{proof}
+
 \begin{definition}
     The \(n\)th cyclotomic polynomial is
     \(\Phi_n(x) = \prod_{\text{primitive}\;\zeta\in\mu_n} (x-\zeta)\).
@@ -525,6 +539,77 @@
     The splitting field of \(x^n - 1\) over \(F\)
     is called a cyclotomic extension of order \(n\) over \(F\).
 \end{definition}
+
+
+\subsubsection*{Cyclic Extensions}
+
+\begin{proposition}
+    Suppose \(F\) is a field of characteristic \(p\),
+    and consider the additive homomorphism \(\vfunc{\eta}{F}{F}{a}{a^p-a}\).
+    We have\(\ker\eta = \bF_p\), and \(\eta^{-1}(a) = \{b+i : 0 \leq i \leq p-1\}\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}[Artin-Schreier Extensions]
+    Suppose \(K/F\) is a cyclic Galois extension of degree \(p\),
+    and \(F\) is a field of characteristic \(p\).
+    Then we have the following:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(K = F(a)\) where \(a\) is a root of \(x^p-x-b\) for some \(b \in F\).
+        \item If \(a \in F - \eta^{-1}(F)\), then \(f(x) = x^p-x-a\) is irreducible,
+            and a splitting field of \(f(x)\) is cyclic of degree \(p\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Abelian Extensions}
+
+\begin{lemma}
+    Suppose a prime \(p \nmid n\) and \(m \mid n\), \(m \neq n\).
+    Then \(\Phi_n(x)\) and \(x^m - 1\) cannot have a common root modulo \(p\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}
+    Suppose \(n \in \bN\).
+    Then there are infinitely many primes congruent to \(1 \pmod{n}\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{proposition}
+    Suppose \(\gcd(a,b) = 1\).
+    Let \(K = \bQ(\zeta_a)\) and \(L = \bQ(\zeta_b)\).
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(KL = \bQ(\zeta_{ab})\);
+        \item \(K \cap L = \bQ\); and
+        \item \(\Gal(\bQ(\zeta_{ab})/\bQ) \cong \Gal(\bQ(\zeta_a)/\bQ) \times \Gal(\bQ(\zeta_b)/\bQ)\).
+    \end{enumerate}
+    In particular, if \(n = \prod_{i=1}^k p_i^{a_i}\) is the prime factorization,
+    then \(\bQ(\zeta_n)\) is the compositum of \(\bQ(\zeta_{p_i^{a_i}})\),
+    and the Galois group is the direct product of the prime-powered \(\zeta\) Galois groups.
+    \begin{equation*}
+        \Gal(\bQ(\zeta_n)/\bQ) \cong \prod_{i=1}^k \Gal(\bQ(\zeta_{p_i^{a_i}})/\bQ)
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{theorem}
+    Every finite abelian group \(G\) is isomorphic to \(\Gal(K/\bQ)\)
+    for some Galois extension \(K/\bQ\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
 \begin{theorem}[Kronecker-Weber Theorem]
     Any abelian extension of \(\bQ\)
     is a subextension of a cyclotomic extension.
@@ -535,15 +620,145 @@
     }
 \end{proof}
 
-\subsubsection*{Cyclic Extensions}
-
-
-
-
-\subsection{Radical and Kummer Extensions}
-
 
 \subsection{Solvable Extensions}
+
+\subsubsection*{Radical Extensions}
+
+\begin{definition}
+    \(K/F\) is a simple radical extension if \(K = F(a)\)
+    where \(a^n \in F\) for some \(n \in \bN\).
+    \(K/F\) is a radical extension if there exists a chain of field extensions
+    \begin{equation*}
+        F = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_n = K
+    \end{equation*}
+    of sequential radical extensions.
+\end{definition}
+\begin{definition}
+    Polynomial \(f(x) \in F[x]\) is solvable by radicals
+    if the splitting field of \(f(x)\) is contained in a radical extension.
+\end{definition}
+\begin{proposition}
+    Suppose \(E/F\) is a separable radical extension.
+    Suppose \(L \supseteq E\) is the smallest Galois extension of \(F\),
+    so that \(L \subseteq \overline{F}\).
+    Then \(L\) is a radical extension of \(F\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{definition}
+    The smallest Galois extension is called a Galois closure.
+\end{definition}
+
+\begin{lemma}
+    Suppose \(F \subseteq L \subseteq M\) is a tower of extensions,
+    with \(M/F\) Galois and \(L/F\) separable.
+    Then the compositum of all conjugate fields of \(L\) in \(M\)
+    is the Galois closure of \(L/F\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{lemma}
+    Suppose \(F \subseteq L \subseteq M\) is a tower of extensions.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(L/F\) and \(M/L\) radical, then \(M/F\) radical.
+        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1\) radical,
+            then \(K_1K_2/K_2\) is radical.
+        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1,K_2\) radical,
+            then \(K_1K_2/F\) is radical.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Kummer Extensions}
+
+\begin{proposition}
+    Suppose \(K\) is a field
+    that contains a primitive \(n\)th root of unity \(\zeta = \zeta_n\),
+    with \(n \geq 2\).
+    Suppose \(a \in K\), and adjoin a root of \(f(x) = x^n - a \in F[x]\)
+    to form \(L/K\).
+    Then \(L/K\) is Galois, and if \(G = \Gal(L/K)\),
+    the map \(G \to \mu_n(K)\) via \(\sigma \mapsto \sigma(a^{1/n}/a^{1/n})\)
+    is an injective group homomorphism.
+    \(G\) is cyclic, and \(\abs{G} \mid n\).
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{lemma}
+    Suppose \(L/K\) is a Galois extension with Galois group \(Z_n\).
+    If \(n\) is coprime to the characteristic of \(K\),
+    and \(K\) contains \(\zeta = \zeta_n\),
+    then \(L = K(z)\) with \(z^n \in K\).
+\end{lemma}
+\begin{proof}
+    % TODO: kummer
+\end{proof}
+\begin{proposition}
+    Suppose \(K\) is a field containing \(\zeta_n\),
+    and \(L/K\) an extension such that \(L = K(\alpha)\) with \(\alpha^n = a \in K\).
+    Then we have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(L/K\) is cyclic;
+        \item the degree \(m = [L:K]\) is the order of image of \(a\) in \(K^\ast/{(K^\ast)}^n\); and
+        \item there exists \(b \in K\) such that \(\min_K(\alpha) = x^m - b\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsubsection*{Solvable Extensions}
+
+\begin{lemma}
+    Suppose \(L/F\) Galois and \(\zeta = \zeta_m\) is a primitive \(m\)th root of unity.
+    Then \(L(\zeta)/F\) and \(L(\zeta)/F(\zeta)\) are also Galois.
+    Furthermore, the following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Gal(L/F)\) solvable;
+        \item \(\Gal(L(\zeta)/F)\) solvable; and
+        \item \(\Gal(L(\zeta)/F(\zeta))\) solvable.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{theorem}
+    Suppose \(F\) is a field of characteristic 0.
+    If \(f(x) \in F[x]\) is solvable by radicals,
+    then \(\Gal(f)\) is a solvable group.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{theorem}[Galois]
+    Suppose \(F\) is a field of characteristic 0,
+    and \(f(x) \in F[x]\).
+    If \(\Gal(f)\) is solvable, then \(f(x)\) is solvable by radicals.
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{corollary}
+    Cubics and quartics over \(\bQ[x]\) are solvable by radicals.
+\end{corollary}
+\begin{proof}
+    \(S_3\) and \(S_4\) are solvable.
+\end{proof}
+\begin{corollary}
+    The general equation for degree \(n\) is insolvable for \(n \geq 5\).
+\end{corollary}
+\begin{proof}
+    \(A_n\) simple for \(n \geq 5\).
+\end{proof}
 
 
 \subsection{Cubic and Quartic Polynomials}
