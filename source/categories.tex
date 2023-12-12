@@ -20,8 +20,68 @@
     \end{enumerate}
 \end{definition}
 
+\begin{definition}
+    A morphism \(f \in \Hom(X,Y)\) is an isomorphism
+    if it has an inverse \(g \in \Hom(Y,X)\)
+    such that \(f \circ g = \id_Y\) and \(g \circ f = \id_X\).
+\end{definition}
+\begin{definition}
+    A morphism \(f \in \Hom(X,X)\) that maps to itself is called an endomorphism.
+    The collection of endomorphisms is \(\End(X) = \Hom(X,X)\).
+\end{definition}
+\begin{definition}
+    A morphism \(f \in \Aut(X)\) if it is both an isomorphism and an endomorphism.
+\end{definition}
+
+\begin{definition}
+    A category \(\mca{C}\) is small
+    if \(\Ob(\mca{C})\) and \(\Mor(\mca{C})\) both form sets.
+    A category is large otherwise.
+\end{definition}
+
+\begin{proposition}
+    The category \(\mathbf{Set}\) consisting of all sets and set maps form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Grp}\) consisting of all groups and group homomorphisms
+    form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Ab}\) consisting of all abelian groups
+    and group homomorphisms between them form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Ring}\) consisting of all rings and ring homomorphisms
+    form a category.
+\end{proposition}
+
+\begin{theorem}
+    Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
+    Then \(\Aut(X)\) forms a group.
+\end{theorem}
+\begin{proof}
+    First off, if \(f,g \in \Aut(X)\),
+    then \(f \circ g \in \Aut(X)\),
+    since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
+    Associativity and identity is given for free.
+    By definition, the inverse exists since they are isomorphisms.
+\end{proof}
+
 
 \subsection{Duality}
+
+\begin{remark}
+    Since morphisms are directed,
+    the notion of duality is to reverse such morphisms
+    and see whether they make sense.
+\end{remark}
+
+\begin{definition}
+    A universal property is a property
+    that characterizes an object up to isomorphism.
+    This is often stated as given some objects and morphisms,
+    there exists a (unique) morphism to some desired object that we want to define.
+\end{definition}
 
 
 \subsection{Products}
@@ -39,3 +99,6 @@
 
 
 \subsection{Universal Algebra}
+
+
+\subsection{Categorical Constructions}
