@@ -2,6 +2,25 @@
 
 \subsection{Basic Definitions}
 
+\begin{definition}
+    A category \(\mca{C}\) is a collection of objects \(\Ob(\mca{C})\)
+    alongisde a collection of morphisms \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
+    where
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\forall f \in \Mor(\mca{C}),\; \exists X,Y \in \Mor(\mca{C}),\; \func{f}{X}{Y}\),
+            a morphism is a mapping from a source object to a target object;
+            we define the collection of morphisms from \(X\) to \(Y\)
+            as \(\Hom(X,Y) = \{f\in\Mor(\mca{C}) \mid \func{f}{X}{Y}\}\);
+        \item \(\forall f \in \Hom(X,Y),\; \forall g \in \Hom(Y,Z),\; g \circ f \in \Hom(X,Z)\),
+            the composition is a morphism;
+        \item \(\forall f,g,h \in \Mor(\mca{C}),\; (f \circ g) \circ h = f \circ (g \circ h)\),
+            morphisms are associative; and
+        \item \(\forall X \in \Ob(\mca{C}),\; \exists \id_X \in \Hom(X,X),\; \id_X \circ g = g,\; f \circ \id_X = f\)
+            the identity morphism exists.
+    \end{enumerate}
+\end{definition}
+
+
 \subsection{Direct Sum}
 
 \subsection{Direct Product}
