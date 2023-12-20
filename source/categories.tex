@@ -338,10 +338,101 @@
 
 \subsubsection*{Direct Limit}
 
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
+    and the index set \(I\) is ordered with the relation \(\leq\).
+    A direct system over \(I\) is when \(i \leq j\),
+    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f_{ii} = \id_{X_i}\); and
+        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
+            X_j \arrow{r}[swap]{f_{jk}} & X_k
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
+    The direct limit of this system is an object \(\dirlim X_i\)
+    that satisfies the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
+            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
+        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
+            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
+            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
+            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
+            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
 \subsubsection*{Inverse Limit}
+
+\begin{remark}
+    The inverse system and inverse limit
+    is dual to the direct system and direct limit.
+\end{remark}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
+    and the index set \(I\) is ordered with the relation \(\leq\).
+    An inverse system over \(I\) is when \(i \leq j\),
+    let \(\func{f_{ij}}{X_j}{X_i}\) be a homomorphism such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f_{ii} = \id_{X_i}\); and
+        \item \(f_{ik} = f_{ij} \circ f_{jk}\) for all \(i \leq j \leq k\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X_i & X_j \arrow{l}{f_{ij}} &
+            X_k \arrow{l}{f_{jk}} \arrow[bend right]{ll}[swap]{f_{ik}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is an inverse system.
+    The inverse limit of this system is an object \(\invlim X_i\)
+    that satisfies the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_i}{\invlim X_i}{X_i}\)
+            such that for all \(i \leq j\), \(\pi_i = f_{ij}\circ\pi_j\); and
+        \item for any object \(Z\), if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms
+            such that for all \(i \leq j\), \(\phi_i = f_{ij}\circ\phi_j\),
+            then there exists a unique \(\func{\bar{\phi}}{Z}{\invlim X_i}\)
+            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j}
+            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & \invlim X_i \arrow{dl}{\pi_i} \arrow{dr}[swap]{\pi_j} \\
+            X_i && X_j \arrow{ll}{f_{ij}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
 
 
 \subsection{Universal Algebra}
 
 
-\subsection{Categorical Constructions}
+% \subsection{Categorical Constructions}
