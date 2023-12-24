@@ -162,7 +162,8 @@
 
 \begin{definition}[Universal Property of Direct Sum]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
-    We call \(\bigoplus_{i \in I} V_i\) the direct sum of vector spaces if
+    The direct sum of vector spaces \(\bigoplus_{i \in I} V_i\)
+    is the categorical coproduct of vector spaces, that is,
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item there exist embeddings \(\func{\iota_i}{V_i}{\bigoplus_{i \in I} V_i}\); and
         \item for any vector space \(X\),
@@ -252,7 +253,8 @@
 
 \begin{definition}[Universal Property of Direct Product]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
-    We call \(\prod_{i \in I} V_i\) the direct product of vector spaces if
+    The direct product of vector spaces \(\prod_{i \in I} V_i\)
+    is the categorical product of vector spaces, that is,
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item there exists projections \(\func{\pi_i}{\prod_{i \in I} V_i}{V_i}\); and
         \item for any vector space \(X\), if \(\func{\phi_i}{X}{V_i}\) are homomorphisms,
@@ -393,6 +395,7 @@
     for \hyperref[thm:iso-1-group]{groups} and \hyperref[thm:iso-1-ring]{rings},
     the direct proof of these theorems follow the exact same line of reasoning.
 \end{remark}
+% EDIT WHEN UNIVERSAL ALGEBRA WRITTEN
 
 
 \subsection{Duality}
@@ -401,5 +404,41 @@
     Suppose \(V\) is an \(F\)-vector space.
     The dual vector space is \(V' = \Hom_F(V,F)\)
     the set of all homomorphisms into the base field.
+    In some other fields of math the dual is sometimes denoted \(V^\ast\).
 \end{definition}
+\begin{lemma}
+    Suppose \(W\) and \(V\) are \(F\)-vector spaces. Then
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(W^V\) is a vector space under coordinate-wise operations; and
+        \item \(\Hom_F(W,V) \subseteq W^V\) is a subspace.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \(W^V = \prod_{\vb{v} \in V} W\),
+    which by the universal property of the direct product is a vector space.
 
+    The homomorphisms are clearly a subset,
+    so it suffices to prove that it is a vector space.
+    The zero morphism is trivially linear,
+    so we show that if \(f,g\) are linear,
+    \begin{align*}
+        (af+g)(b\vb{u}+\vb{v}) &= af(b\vb{u}+\vb{v}) + g(b\vb{u}+\vb{v})
+        = baf(\vb{u}) + af(\vb{v}) + bg(\vb{u}) + g(\vb{v}) \\
+        &= b(af(\vb{u}) + g(\vb{u})) + af(\vb{v}) + g(\vb{v})
+        = b(af+g)(\vb{u}) + (af+g)(\vb{v})
+    \end{align*}
+\end{proof}
+\begin{proposition}
+    \({(V/U)}' = \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
+\end{proposition}
+\begin{proof}
+    Suppose \(\phi \in {(V/U)}'\).
+    Then we can extend this to \(\phi\circ\pi\),
+    which since it factors through \(V/U\),
+    the kernel contains \(U\),
+    so \({(V/U)}' \subseteq \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
+    On the other hand, if \(\phi\vert_U = \vb{0}\),
+    by the universal property of quotients,
+    we can find a corresponding morphism \(V/U \to F\),
+    i.e.\ in \({(V/U)}'\).
+\end{proof}
