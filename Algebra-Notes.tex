@@ -1,6 +1,5 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Preamble
-\documentclass{article}
+\documentclass{book}
 \usepackage[margin=1in]{geometry}
 
 % Standard mathematical typesetting packages
@@ -32,15 +31,10 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{indentfirst}
 \usepackage{hyperref}
-\usepackage{bm, harpoon}
-% \usepackage{epigraph}
-
+\usepackage{bm}
 
 % Vector style
-% \renewcommand{\vec}[1]{\mathbf{\ensuremath{#1}}} % bold type vector
 \renewcommand{\vec}[1]{\underline{\ensuremath{#1}}} % underline type vector
-% \renewcommand{\vec}[1]{\bm{{\overrightharp{\ensuremath{#1}}}}} % arrow type vector
-% \newcommand{\bhat}[1]{\bm{\mathbf{\hat{#1}}}}
 
 % Matrices and Vectors
 \newcommand{\twomatrix}[4]{\begin{bmatrix}
@@ -53,12 +47,9 @@
     #1 \\ #2 \\ #3
 \end{bmatrix}}
 
-\newcommand{\proj}[2]{\vec{#1}_{\vec{#2}}}
-
 % Beautifying some symbols
 \renewcommand{\emptyset}{\varnothing}
 \renewcommand{\div}{\divisionsymbol}
-% \newcommand{\normalsg}{\mathrel{\triangleleft}}
 
 % Common shortcuts
 \newcommand{\mbb}[1]{\mathbb{#1}}
@@ -107,7 +98,7 @@
 
 % Some standard theorem definitions
 \newcounter{t}
-\counterwithin{t}{subsection}
+\counterwithin{t}{section}
 
 \theoremstyle{definition}
 \newtheorem{theorem}[t]{Theorem}
@@ -124,13 +115,6 @@
     \textit{Proof. #1}
 }{\medbreak}
 
-% Problem and Solution environment
-\newenvironment{problem}[2][Problem]
-    { \begin{mdframed}[backgroundcolor=gray!20] \textbf{#1 #2} \\}
-    {  \end{mdframed}}
-
-\newenvironment{solution}{\textbf{Solution}}{\bigbreak}
-
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -143,33 +127,36 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Fill in the appropriate information below
-\lhead{Boris Li}
-\rhead{Algebra}
-\chead{\textbf{Notes}}
+% \lhead{Boris Li}
+% \rhead{Algebra}
+% \chead{\textbf{Notes}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \begin{document}
+
+\frontmatter
 
 \include{source/front-matter}
 
 \tableofcontents
 
-\setcounter{section}{-1}
+\setcounter{chapter}{-1}
+
+\mainmatter
 
 \include{source/220-review}
 
-\part{Simple Constructions}
+\part{Constructions}
+\include{source/categories}
 \include{source/group-theory}
 \include{source/rings}
-
-\part{Linear Algebraic Constructions}
-\include{source/categories}
 \include{source/linear-algebra}
 \include{source/modules}
 
 \part{Theory of Equations}
 \include{source/fields}
 \include{source/galois}
+
+\backmatter
 
 \end{document}

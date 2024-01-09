@@ -1,6 +1,6 @@
-\section{Rings}\label{sec:rings}
+\chapter{Rings}\label{sec:rings}
 
-\subsection{Basic Definitions}
+\section{Basic Definitions}
 
 \begin{definition}
     A ring is a quintuple \((R,+,\cdot,0,1)\),
@@ -245,7 +245,7 @@
 \end{proof}
 
 
-\subsection{Matrix Rings}\label{sec:matrix-rings}
+\section{Matrix Rings}\label{sec:matrix-rings}
 
 \begin{remark}
     We shall establish the following convention in this section:
@@ -385,7 +385,7 @@
 \begin{remark}
     We shall discuss the determinant,
     especially with how it is algorithmically defined,
-    further in Section~\ref{sec:linear-algebra} for linear algebra.
+    further in Chapter~\ref{sec:linear-algebra} for linear algebra.
 \end{remark}
 
 \begin{definition}
@@ -504,7 +504,7 @@
 \end{proof}
 
 
-\subsection{Quaternions}
+\section{Quaternions}
 
 \begin{lemma}
     There exists solutions to polynomial equations with real-valued coefficients
@@ -633,7 +633,7 @@
 \end{definition}
 
 
-\subsection{Ideals}
+\section{Ideals}
 
 \begin{definition}
     A ring homomorphism is a function \(\func{\phi}{R}{S}\),
@@ -840,7 +840,7 @@
 \end{proof}
 
 
-\subsection{Homomorphisms and Isomorphisms}
+\section{Homomorphisms and Isomorphisms}
 
 \begin{remark}
     The isomorphism theorems work in a lot of algebraic structures
@@ -1172,7 +1172,7 @@
 \end{proof}
 
 
-\subsection{Field of Fractions}
+\section{Field of Fractions}
 
 \begin{definition}
     Suppose \(R\) is a ring,
@@ -1378,7 +1378,7 @@
 \end{remark}
 
 
-\subsection{Polynomial Rings}
+\section{Polynomial Rings}
 
 \begin{definition}
     For some commutative ring \(R\),
@@ -1397,7 +1397,7 @@
 \end{remark}
 \begin{remark}
     We shall again explore more of the direct sum
-    in Section~\ref{sec:linear-algebra} for linear algebra.
+    in Chapter~\ref{sec:linear-algebra} for linear algebra.
 \end{remark}
 \begin{proposition}
     \(R[x]\) forms a ring with addition
@@ -1837,7 +1837,7 @@
     and recursively use this construction to build all the roots of \(f(x)\).
 \end{remark}
 
-\subsubsection*{Polynomial Functions}
+\subsection*{Polynomial Functions}
 
 \begin{definition}
     Given some polynomial \(f(x) \in F[x]\),
@@ -1905,7 +1905,7 @@
     gives us a criteria for where zeros can be found.
 \end{remark}
 
-\subsubsection*{Symmetric Polynomials}
+\subsection*{Symmetric Polynomials}
 
 \begin{definition}
     Suppose \(R\) is a commutative ring (and more often, a field).
@@ -2086,9 +2086,9 @@
 \end{proof}
 
 
-\subsection{Factorial Rings}\label{sec:factorial-rings}
+\section{Factorial Rings}\label{sec:factorial-rings}
 
-\subsubsection*{Unique Factorization Domains}
+\subsection*{Unique Factorization Domains}
 
 \begin{definition}
     Suppose \(R\) is a commutative integral domain.
@@ -2278,7 +2278,7 @@
     and hence \(p \nmid ab\).
 \end{proof}
 
-\subsubsection*{Principal Ideal Domains}
+\subsection*{Principal Ideal Domains}
 
 \begin{remark}
     Recall from earlier that principal ideal domains (PID)
@@ -2383,7 +2383,7 @@
     and Theorem~\ref{thm:pid-ufd}.
 \end{proof}
 
-\subsubsection*{Polynomials over UFDs}
+\subsection*{Polynomials over UFDs}
 
 \begin{definition}
     Suppose \(R\) is a UFD, and \(f(x) \in R[x]\) a polynomial.
@@ -2488,7 +2488,6 @@
     and the factorization of \(f_1\).
 
     \medskip
-    \pagebreak
 
     We then prove the factorization is unique up to multiplication by units.
     We first consider \(f(x) \in R[x]\) primitive.
