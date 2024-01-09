@@ -158,7 +158,9 @@
 \end{proof}
 
 
-\section{Direct Sum}
+\section{General Constructions}
+
+\subsection*{Direct Sum}
 
 \begin{definition}[Universal Property of Direct Sum]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
@@ -249,7 +251,7 @@
 \end{proof}
 
 
-\section{Direct Product}
+\subsection*{Direct Product}
 
 \begin{definition}[Universal Property of Direct Product]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
@@ -333,7 +335,7 @@
 \end{remark}
 
 
-\section{Quotient}
+\subsection*{Quotient}
 
 \begin{proposition}[Universal Property of Quotients]
     Suppose \(V\) is a vector space, and \(U \subseteq V\) is a subspace,
@@ -414,7 +416,7 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    \(W^V = \prod_{\vb{v} \in V} W\),
+    \(W^V = \prod_{\vec{v} \in V} W\),
     which by the universal property of the direct product is a vector space.
 
     The homomorphisms are clearly a subset,
@@ -422,26 +424,102 @@
     The zero morphism is trivially linear,
     so we show that if \(f,g\) are linear,
     \begin{align*}
-        (af+g)(b\vb{u}+\vb{v}) &= af(b\vb{u}+\vb{v}) + g(b\vb{u}+\vb{v})
-        = baf(\vb{u}) + af(\vb{v}) + bg(\vb{u}) + g(\vb{v}) \\
-        &= b(af(\vb{u}) + g(\vb{u})) + af(\vb{v}) + g(\vb{v})
-        = b(af+g)(\vb{u}) + (af+g)(\vb{v})
+        (af+g)(b\vec{u}+\vec{v}) &= af(b\vec{u}+\vec{v}) + g(b\vec{u}+\vec{v})
+        = baf(\vec{u}) + af(\vec{v}) + bg(\vec{u}) + g(\vec{v}) \\
+        &= b(af(\vec{u}) + g(\vec{u})) + af(\vec{v}) + g(\vec{v})
+        = b(af+g)(\vec{u}) + (af+g)(\vec{v})
     \end{align*}
 \end{proof}
 \begin{proposition}
-    \({(V/U)}' = \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
+    \({(V/U)}' = \{\phi \in V' : \phi\vert_U = \vec{0}\}\).
 \end{proposition}
 \begin{proof}
     Suppose \(\phi \in {(V/U)}'\).
     Then we can extend this to \(\phi\circ\pi\),
     which since it factors through \(V/U\),
     the kernel contains \(U\),
-    so \({(V/U)}' \subseteq \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
-    On the other hand, if \(\phi\vert_U = \vb{0}\),
+    so \({(V/U)}' \subseteq \{\phi \in V' : \phi\vert_U = \vec{0}\}\).
+    On the other hand, if \(\phi\vert_U = \vec{0}\),
     by the universal property of quotients,
     we can find a corresponding morphism \(V/U \to F\),
     i.e.\ in \({(V/U)}'\).
 \end{proof}
+
+\begin{definition}
+    Suppose \(B \subset V\) is a basis.
+    The dual basis \(B' \subset V'\) is a set where for each \(\vec{u} \in B\),
+    there is a corresponding \(\phi_{\vec{u}} \in B'\)
+    such that \(\phi_{\vec{u}}(\vec{v}) = \delta_{\vec{u},\vec{v}}\)
+    for all \(\vec{v} \in B\),
+    where \(\delta\) is the Kronecker delta.
+\end{definition}
+\begin{lemma}
+    Suppose \(B = {\{\vec{v}_i\}}_{i \in I}\),
+    and \(B' = {\{\phi_i\}}_{i \in I}\),
+    where \(\phi_i(\vec{v}_j) = \delta_{ij}\).
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\phi_i(\sum_{j \in I} a_j \vec{v}_j) = a_i\); and
+        \item Each \(\phi_i \in B'\) is uniquely defined by choice of \(B\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \(\phi_i\) are linear functionals, so we have
+    \begin{equation*}
+        \phi_i\pqty{\sum_{j \in I} a_j \vec{v}_j}
+        = \sum_{j \in I} a_j \phi_i(\vec{v}_j)
+        = \sum_{j \in I} a_j \delta_{ij}
+        = a_i
+    \end{equation*}
+
+    Suppose \(\phi_i(\vec{v}_j) = \phi_{i'}(\vec{v}_j) = \delta_{ij}\).
+    Since they agree on the basis \(B \subset V\),
+    they must also agree on \(V\),
+    so \(\phi_i = \phi_{i'}\).
+\end{proof}
+
+\begin{lemma}
+    The dual basis \(B' \subset V'\) is linearly independent.
+\end{lemma}
+\begin{proof}
+    Suppose \(B'\) not linearly independent.
+    Then there exists some \(a_i\) such that \(\sum_{i \in I} a_i \phi_i = 0\).
+    But we can evaluate at \(\vec{v}_j \in B\) to conclude that
+    \(\sum_{i \in I} a_i \phi_i(\vec{v}_j) = a_j = 0\) for all \(j \in I\).
+\end{proof}
+\begin{proposition}
+    If \(V\) is finite dimensional,
+    then \(B' \subset V'\) is a basis.
+\end{proposition}
+\begin{proof}
+    It suffices to prove that it is spanning.
+    Suppose \(B = {\{\vec{v}_i\}}_{i=1}^n\),
+    and \(\phi \in V'\) some functional.
+    For any \(\vec{x} \in V\),
+    \(\vec{x} = \sum_{i=1}^n a_i \vec{v}_i\),
+    so
+    \begin{equation*}
+        \phi(\vec{x}) = \phi_{i=1}^n a_i \phi(\vec{v}_i)
+        = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i(\vec{x})
+    \end{equation*}
+    Hence \(\phi = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i\).
+\end{proof}
+\begin{corollary}
+    If \(V\) is finite dimensional,
+    then \(\dim V = \dim V'\).
+\end{corollary}
+\begin{proof}
+    The bases are the same size.
+\end{proof}
+\begin{remark}
+    Note that `dual basis' is kind of a misnomer,
+    since it does not form a basis in the case of infinite dimensions.
+    Rather, the dual basis is the basis for the subspace of \(V'\)
+    with finite support.
+\end{remark}
+
+\begin{proposition}
+    \({(\bigoplus_i V_i)}' = \prod_i V_i'\).
+\end{proposition}
 
 
 \section{Bilinear Forms}
