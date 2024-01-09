@@ -74,10 +74,6 @@
 \newcommand{\bH}{\mbb{H}}
 
 % Common notation
-\DeclareMathOperator{\Hom}{Hom}         % set of homomorphisms
-\DeclareMathOperator{\End}{End}         % set of endomorphisms
-\DeclareMathOperator{\Aut}{Aut}         % set of automorphisms
-
 \DeclareMathOperator{\ord}{ord}         % order (of a group)
 \DeclareMathOperator{\lcm}{lcm}         % least common multiple (of two numbers)
 \DeclareMathOperator{\sgn}{sgn}         % sign function
@@ -89,6 +85,16 @@
 
 \DeclareMathOperator{\adj}{adj}         % adjugate (matrix)
 \DeclareMathOperator{\id}{id}           % identity mapping
+
+\DeclareMathOperator{\Hom}{Hom}         % set of homomorphisms
+\DeclareMathOperator{\End}{End}         % set of endomorphisms
+\DeclareMathOperator{\Aut}{Aut}         % set of automorphisms
+\DeclareMathOperator{\Ob}{Ob}           % collection of objects
+\DeclareMathOperator{\Mor}{Mor}         % collection of morphisms
+\DeclareMathOperator{\dirlim}{\displaystyle\lim_{\longrightarrow}}  % direct limit
+\DeclareMathOperator{\invlim}{\displaystyle\lim_{\longleftarrow}}   % inverse limit
+
+\DeclareMathOperator{\Span}{span}       % span of vector spaces
 
 \DeclareMathOperator{\Gal}{Gal}         % Galois group
 
@@ -153,11 +159,11 @@
 
 \include{source/220-review}
 
-\part{Basic Constructions}
+\part{Simple Constructions}
 \include{source/group-theory}
 \include{source/rings}
 
-\part{General Constructions}
+\part{Linear Algebraic Constructions}
 \include{source/categories}
 \include{source/linear-algebra}
 \include{source/modules}

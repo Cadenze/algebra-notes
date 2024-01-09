@@ -1,13 +1,438 @@
-\section{Categories}
+\section{Categories}\label{sec:categories}
 
 \subsection{Basic Definitions}
 
-\subsection{Direct Sum}
+\begin{definition}
+    A category \(\mca{C}\) is a collection of objects \(\Ob(\mca{C})\)
+    alongisde a collection of morphisms \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
+    where
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\forall f \in \Mor(\mca{C}),\; \exists X,Y \in \Mor(\mca{C}),\; \func{f}{X}{Y}\),
+            a morphism is a mapping from a source object to a target object;
+            we define the collection of morphisms from \(X\) to \(Y\)
+            as \(\Hom(X,Y) = \{f\in\Mor(\mca{C}) \mid \func{f}{X}{Y}\}\);
+        \item \(\forall f \in \Hom(X,Y),\; \forall g \in \Hom(Y,Z),\; g \circ f \in \Hom(X,Z)\),
+            the composition is a morphism;
+        \item \(\forall f,g,h \in \Mor(\mca{C}),\; (f \circ g) \circ h = f \circ (g \circ h)\),
+            morphisms are associative; and
+        \item \(\forall X \in \Ob(\mca{C}),\; \exists \id_X \in \Hom(X,X),\; \id_X \circ g = g,\; f \circ \id_X = f\)
+            the identity morphism exists.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    \(\Mor\) and \(\Hom\) are often interchangeable in this context,
+    since in algebra, the morphisms that we deal with are usually homomorphisms.
+    We shall stick to the convention that the morphisms of a category is \(\Mor\),
+    while the homomorphisms between objects are \(\Hom\).
+\end{remark}
 
-\subsection{Direct Product}
+\begin{definition}
+    A morphism \(f \in \Hom(X,Y)\) is an isomorphism
+    if it has an inverse \(g \in \Hom(Y,X)\)
+    such that \(f \circ g = \id_Y\) and \(g \circ f = \id_X\).
+\end{definition}
+\begin{definition}
+    A morphism \(f \in \Hom(X,X)\) that maps to itself is called an endomorphism.
+    The collection of endomorphisms is \(\End(X) = \Hom(X,X)\).
+\end{definition}
+\begin{definition}
+    A morphism \(f \in \Aut(X)\) if it is both an isomorphism and an endomorphism.
+\end{definition}
+
+\begin{definition}
+    A category \(\mca{C}\) is small
+    if \(\Ob(\mca{C})\) and \(\Mor(\mca{C})\) both form sets.
+    A category is large otherwise.
+\end{definition}
+
+\begin{proposition}
+    The category \(\mathbf{Set}\) consisting of all sets and set maps form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Grp}\) consisting of all groups and group homomorphisms
+    form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Ab}\) consisting of all abelian groups
+    and group homomorphisms between them form a category.
+\end{proposition}
+\begin{proposition}
+    The category \(\mathbf{Ring}\) consisting of all rings and ring homomorphisms
+    form a category.
+\end{proposition}
+\begin{proof}
+    Obvious for the above four.
+\end{proof}
+
+\begin{theorem}
+    Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
+    Then \(\Aut(X)\) forms a group.
+\end{theorem}
+\begin{proof}
+    First off, if \(f,g \in \Aut(X)\),
+    then \(f \circ g \in \Aut(X)\),
+    since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
+    Associativity and identity is given for free.
+    By definition, the inverse exists since they are isomorphisms.
+\end{proof}
+
+\begin{definition}
+    A universal property is a property
+    that characterizes an object up to isomorphism.
+    This is often stated as given some objects and morphisms,
+    there exists a (unique) morphism to some desired object that we want to define.
+\end{definition}
+
 
 \subsection{Duality}
 
+\begin{remark}
+    Since morphisms are directed,
+    the notion of duality is to reverse such morphisms
+    and see whether they make sense.
+\end{remark}
+
+\begin{definition}
+    A functor \(\func{F}{\mca{C}}{\mca{D}}\) is a mapping between categories,
+    and \(F\) maps both objects \(X \in \Ob(\mca{C}) \mapsto F(X) \in \Ob(\mca{D})\)
+    and morphisms \(f \in \Mor(\mca{C}) \mapsto F(f) \in \Mor(\mca{D})\).
+    Functors respect the identity \(F(\id_\mca{C}) = \id_\mca{D}\).
+\end{definition}
+
+\begin{definition}
+    We call a functor covariant if it preserves the direction of morphisms
+    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(X),F(Y))\),
+    and composition \(F(g \circ f) = F(g) \circ F(f)\).
+    We call a functor contravariant if it reverses the direction of morphisms
+    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(Y),F(X))\),
+    and composition \(F(g \circ f) = F(f) \circ F(g)\).
+\end{definition}
+
+\subsubsection*{Subobject}
+
+\begin{remark}
+    We first generalize the notion of a subset to any categorical object.
+\end{remark}
+\begin{definition}
+    Suppose \(X,Y\) are objects.
+    We say \(X \subseteq Y\) is (isomorphic to) a subobject
+    if there exists an inclusion (injective homomorphism)
+    \(\func{\iota}{X}{Y}\).
+\end{definition}
+
+% \begin{theorem}[Universal Property of Subobjects]
+%     Let \(X \subseteq Y\) be a subobject-superobject pair,
+%     and \(Z\) some arbitrary object.
+%     Suppose \(\func{\iota}{X}{Y}\) is the subobject inclusion,
+%     and \(\func{\phi}{Z}{Y}\) is any injective homomorphism
+%     with the image \(\phi(Z) = \iota(X)\).
+%     Then there exists a unique homomorphism \(\func{\bar{\phi}}{Z}{X}\)
+%     such that \(\phi = \iota\circ\bar{\phi}\).
+
+%     This is represented by the following commutative diagram:
+%     \begin{center}
+%         \begin{tikzcd}
+%             Y & Z \arrow{l}[swap]{\phi}
+%             \arrow[dashrightarrow]{ld}{\exists!\bar{\phi}} \\
+%             X \arrow{u}[swap]{\iota}
+%         \end{tikzcd}
+%     \end{center}
+% \end{theorem}
+% \begin{proof}
+%     % We wish to prove uniqueness by assuming existence.
+%     % Suppose \(\phi = \iota\circ\bar{\phi} = \iota\circ\bar{\phi}'\).
+%     Since \(\phi(Z) = \iota(X)\),
+%     there exists a bijection \(Z \to \phi(Z) \to X\).
+%     That bijection is our desired map \(\bar{\phi}\).
+% \end{proof}
+
+\subsubsection*{Quotient Object}
+
+\begin{remark}
+    The dual to a subobject is a quotient object.
+\end{remark}
+\begin{definition}
+    Suppose \(X\) is an object, and \(\sim\) an equivalence relation on \(X\).
+    We say \(X/{\sim}\) is a quotient object of \(X\)
+    if there exists a projection \(\func{\pi}{X}{X/{\sim}}\),
+    where we map any element to its equivalence class.
+\end{definition}
+
+% \begin{theorem}[Universal Property of Quotients]
+%     Let \(X\) be an object with a relation \(\sim\).
+%     Suppose \(\func{\pi}{X}{X/{\sim}}\) is the quotient projection morphism,
+%     and \(\func{\phi}{X}{Z}\) is any surjective homomorphism
+% \end{theorem}
+
+
+\subsection{Products}
+
+\subsubsection*{Product}
+
+\begin{definition}
+    Suppose \(X,Y\) are two objects.
+    We call \(X \times Y\) the product of objects if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_1}{X \times Y}{X}\)
+            and \(\func{\pi_2}{X \times Y}{Y}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times Y}\)
+            such that \(\phi_i = \pi_i\circ\bar{\phi}\) for \(i = 1,2\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
+            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            X & X \times Y \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} & Y
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
+    We call \(\prod_{i \in I} X_i\) the (infinite) product of objects if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_i}{\prod_{i \in I} X_i}{X_i}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{Z}{\prod_{i \in I} X_i}\)
+            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
+    \end{enumerate}
+
+    This can be represented by the logical statement
+    \begin{equation*}
+        \forall Z \in \mca{C},\;
+        \forall i \in I,\;
+        \forall \phi_i \in \Hom(X,V_i),\;
+        \exists! \phi \in \Hom\pqty{Z,\prod_{i \in I} X_i},\;
+        \phi_i = \pi_i\circ\bar{\phi}
+    \end{equation*}
+    and the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \arrow{ld}[swap]{\phi_i}
+            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            X_i & \prod_{i \in I} X_i \arrow{l}{\pi_i}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\subsubsection*{Coproduct}
+
+\begin{remark}
+    The coproduct is the dual to the product.
+\end{remark}
+
+\begin{definition}
+    Suppose \(X,Y\) are two objects.
+    We call \(X \oplus Y\) the coproduct of objects if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_1}{X}{X \oplus Y}\)
+            and \(\func{\iota_2}{Y}{X \oplus Y}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Y}{Z}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{X \oplus Y}{Z}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\) for \(i = 1,2\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
+            X \oplus Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
+            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
+    We call \(\bigoplus_{i \in I} X_i\) the (infinite) coproduct of objects if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_i}{X}{\bigoplus_{i \in I} X_i}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{\bigoplus_{i \in I} X_i}{Z}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
+    \end{enumerate}
+
+    This can be represented by the logical statement
+    \begin{equation*}
+        \forall Z \in \mca{C},\;
+        \forall i \in I,\;
+        \forall \phi_i \in \Hom(X_i,Z),\;
+        \exists! \phi \in \Hom\pqty{\bigoplus_{i \in I} X_i, Z},\;
+        \phi_i = \bar{\phi}\circ\iota_i
+    \end{equation*}
+    and the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            X_i \arrow{r}[swap]{\iota_i} \arrow{ru}{\phi_i} &
+            \bigoplus_{i \in I} X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\subsubsection*{Pullback}
+
+\begin{definition}
+    Suppose \(W,X,Y\) are three objects.
+    We call \(X \times_W Y\) the pullback or fibre product with respect to \(W\) if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_X}{X}{W}\) and \(\func{\pi_Y}{Y}{W}\);
+        \item there exists projections \(\func{\pi_1}{X \times_W Y}{X}\)
+            and \(\func{\pi_2}{X \times_W Y}{Y}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times_W Y}\)
+            such that the following diagram commutes.
+    \end{enumerate}
+    \begin{center}
+        \begin{tikzcd}
+            & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
+            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            X \arrow{rd}[swap]{\pi_X} &
+            X \times Y \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} &
+            Y \arrow{ld}{\pi_Y} \\
+            & W
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\subsubsection*{Pushout}
+
+\begin{remark}
+    The pushout is the dual to the pullback.
+\end{remark}
+
+\begin{definition}
+    Suppose \(W,X,Y\) are three objects.
+    We call \(X +_W Y\) the pushout or fibre coproduct with respect to \(W\) if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_X}{W}{X}\) and \(\func{\iota_Y}{W}{Y}\);
+        \item there exists inclusions \(\func{\iota_1}{X}{X +_W Y}\)
+            and \(\func{\iota_2}{Y}{X +_W Y}\); and
+        \item for any object \(Z\),
+            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
+            then there exists a unique \(\func{\bar{\phi}}{X +_W Y}{Z}\)
+            such that the following diagram commutes.
+    \end{enumerate}
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
+            X +_W Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
+            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2} \\
+            & W \arrow{lu}{\iota_X} \arrow{ru}[swap]{\iota_Y}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+
 \subsection{Limits}
 
-\subsection{Universal Algebras}
+\subsubsection*{Direct Limit}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
+    and the index set \(I\) is ordered with the relation \(\leq\).
+    A direct system over \(I\) is when \(i \leq j\),
+    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f_{ii} = \id_{X_i}\); and
+        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
+            X_j \arrow{r}[swap]{f_{jk}} & X_k
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
+    The direct limit of this system is an object \(\dirlim X_i\)
+    that satisfies the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
+            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
+        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
+            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
+            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
+            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
+            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\subsubsection*{Inverse Limit}
+
+\begin{remark}
+    The inverse system and inverse limit
+    is dual to the direct system and direct limit.
+\end{remark}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
+    and the index set \(I\) is ordered with the relation \(\leq\).
+    An inverse system over \(I\) is when \(i \leq j\),
+    let \(\func{f_{ij}}{X_j}{X_i}\) be a homomorphism such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f_{ii} = \id_{X_i}\); and
+        \item \(f_{ik} = f_{ij} \circ f_{jk}\) for all \(i \leq j \leq k\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X_i & X_j \arrow{l}{f_{ij}} &
+            X_k \arrow{l}{f_{jk}} \arrow[bend right]{ll}[swap]{f_{ik}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is an inverse system.
+    The inverse limit of this system is an object \(\invlim X_i\)
+    that satisfies the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists projections \(\func{\pi_i}{\invlim X_i}{X_i}\)
+            such that for all \(i \leq j\), \(\pi_i = f_{ij}\circ\pi_j\); and
+        \item for any object \(Z\), if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms
+            such that for all \(i \leq j\), \(\phi_i = f_{ij}\circ\phi_j\),
+            then there exists a unique \(\func{\bar{\phi}}{Z}{\invlim X_i}\)
+            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j}
+            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & \invlim X_i \arrow{dl}{\pi_i} \arrow{dr}[swap]{\pi_j} \\
+            X_i && X_j \arrow{ll}{f_{ij}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+
+% \subsection{Universal Algebra}
+
+
+% \subsection{Categorical Constructions}
