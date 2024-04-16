@@ -1,6 +1,83 @@
 \chapter{Commutative Algebra}
 
+\begin{remark}
+    We shall assume that all rings,
+    unless otherwise noted, are commutative;
+    that is, the multiplication \(ab = ba\).
+\end{remark}
+
 \section{Ideals}
+
+\begin{proposition}
+    Suppose \(R\) is a ring.
+    \(x \in R\) is a unit if and only if the ideals \((x) = (1)\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(R\) is a nondegenerate ring.
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(R\) is a field;
+        \item \(R\) has only two distinct ideals \((0)\) and \((1)\); and
+        \item Every ring homomorphism \(\func{\phi}{R}{S}\) is injective.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    An element \(x \in R\) is nilpotent if there exists \(n > 0\) such that \(x^n = 0\).
+    Any nonzero nilpotent element is a zero divisor.
+    A ring \(R\) is reduced if the only nilpotent is 0.
+\end{definition}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is maximal if \(I \neq R\),
+    and there does not exist any intermediate ideals \(J\)
+    such that \(I \subseteq J \subseteq R\).
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I \subseteq R\) is maximal if and only if \(R/I\) is a field.
+\end{theorem}
+\begin{proof}
+    Corollary~\ref{cor:maximal-quotient-field}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is prime if \(xy \in I\) implies \(x \in I\) or \(y \in I\);
+    that is, the complement of \(I\) is closed under multiplication.
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is prime if and only if \(R/I\) is a domain.
+\end{theorem}
+\begin{proof}
+    Proposition~\ref{prop:prime-quotient-domain}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is radical if for all \(x \in R\) and \(x^n \in I\), then \(x \in I\).
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is radical if and only if \(R/I\) is reduced.
+\end{theorem}
+\begin{proof}
+    Suppose \(I\) is not radical;
+    then there exists some \(x \notin I\) such that \(x^n \in I\).
+    Hence there exists some nonzero \([x] \in R/I\) such that \([x]^n = 0\),
+    and \(R/I\) is not reduced.
+    The reverse argument holds the same way since all those logical steps are bidirectional.
+\end{proof}
 
 \section{Modules}
 

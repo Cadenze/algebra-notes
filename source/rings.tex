@@ -10,8 +10,8 @@
     with the following three properties:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \((R,+,0)\) forms an abelian group;
-        \item \((R^\star,\cdot,1)\),
-            where \(R^\star = R - \{0\}\) forms a monoid; and
+        \item \((R^\times,\cdot,1)\),
+            where \(R^\times = R - \{0\}\) forms a monoid; and
         \item \(\forall \{a,x,y\} \subset R\),
             the distributive laws \(a(x+y) = ax + ay\)
             and \((x+y)a = xa + ya\) hold.
@@ -32,7 +32,7 @@
     Then \(S \subseteq R\) is a subring if:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \((S,+,0) \subseteq (R,+,0)\) is a subgroup; and
-        \item \((S^\star,\cdot,1) \subseteq (R^\star,\cdot,1)\) is a submonoid.
+        \item \((S^\times,\cdot,1) \subseteq (R^\times,\cdot,1)\) is a submonoid.
     \end{enumerate}
 \end{definition}
 
@@ -67,7 +67,7 @@
     with the properties that:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(\func{f}{(R_1,+,0)}{(R_2,+,0)}\) is a group homomorphism; and
-        \item \(\func{f}{(R_1^\star,\cdot,1)}{(R_2^\star,\cdot,1)}\)
+        \item \(\func{f}{(R_1^\times,\cdot,1)}{(R_2^\times,\cdot,1)}\)
             is a monoid homomorphism.
     \end{enumerate}
 \end{definition}
@@ -122,18 +122,18 @@
 \end{remark}
 
 \begin{definition}
-    If the multiplicative monoid \((R^\star,\cdot,1)\) is a group,
+    If the multiplicative monoid \((R^\times,\cdot,1)\) is a group,
     i.e.\ there exists multiplicative inverses for every element,
     then \(R\) is a division ring.
 \end{definition}
 \begin{definition}
-    If the multiplicative monoid \((R^\star,\cdot,1)\) is an abelian group,
+    If the multiplicative monoid \((R^\times,\cdot,1)\) is an abelian group,
     i.e.\ there exists multiplicative inverses,
     and multiplication is commutative,
     then \(R\) is a field.
 \end{definition}
 \begin{definition}
-    If the multiplicative monoid \((R^\star,\cdot,1)\) is commutative,
+    If the multiplicative monoid \((R^\times,\cdot,1)\) is commutative,
     then \(R\) is a commutative ring.
 \end{definition}
 \begin{proposition}[Binomial Theorem]\label{prop:binom}
@@ -208,14 +208,14 @@
     but don't you dare write in your analysis homework
     that \(2\) is a unit.
 \end{remark}
-\begin{proposition}
+\begin{proposition}\label{prop:ring-unit-subgroup}
     The set of units in \(R\) is a subgroup
-    of the multiplicative monoid \((R^\star,\cdot,1)\).
+    of the multiplicative monoid \((R^\times,\cdot,1)\).
 \end{proposition}
 \begin{proof}
     Suppose \(x,y\) are units; then \(x^{-1},y^{-1}\) exist.
     By definition of a unit, \(0\) is not a unit,
-    so all units are in \(R^\star\).
+    so all units are in \(R^\times\).
     There is closure, since \({(xy)}^{-1} = y^{-1}x^{-1}\).
     Associativity is inherited,
     and \(1\) is its own inverse by definition.
@@ -641,7 +641,7 @@
     with the properties
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(\func{\phi}{(R,+,0)}{(S,+,0)}\) is a group homomorphism; and
-        \item \(\func{\phi}{(R^\star,\cdot,1)}{(S^\star,\cdot,1)}\)
+        \item \(\func{\phi}{(R^\times,\cdot,1)}{(S^\times,\cdot,1)}\)
             is a monoid homomorphism.
     \end{enumerate}
 \end{definition}
@@ -828,8 +828,8 @@
 \end{proof}
 \begin{corollary}\label{cor:maximal-quotient-field}
     Suppose \(R\) is a commutative ring,
-    and \(I\) a maximal ideal.
-    Then \(R/I\) is a field.
+    and \(I \subseteq R\) an ideal.
+    \(I\) is maximal if and only if \(R/I\) is a field.
 \end{corollary}
 \begin{proof}
     Since \(I\) maximal ideal,
@@ -837,6 +837,12 @@
     By the \hyperref[thm:iso-3-ring]{third isomorphism theorem (proven below)}
     there is no intermediate ideal \(J/I\)
     between the quotient ring \(R/I\) and \(I/I = \{0\}\).
+
+    Suppose \(R/I\) is a field.
+    Then there are no nonzero proper ideals by the \hyperref[prop:field-no-proper-ideals]{theorem above},
+    and there are no intermediate ideals \(I \subseteq J \subseteq R\)
+    due to the \hyperref[thm:iso-3-ring]{third isomorphism theorem}.
+    \(I\) must be maximal.
 \end{proof}
 
 
@@ -1311,7 +1317,7 @@
     telling us that \(F \cong F'\) are isomorphic.
 
     Now we prove existence.
-    Suppose we have tuples \((x,y) \in R \times R^\star\),
+    Suppose we have tuples \((x,y) \in R \times R^\times\),
     i.e.\ the standard condition that the denominator does not equal 0.
     We shall define an equivalence relation
     \((a,b) \sim (c,d)\) if \(ad = bc\).
@@ -1324,8 +1330,8 @@
     so \(adcf = bcde\), when cancelling out \(cd\) we have \(af = be\),
     which implies \((a,f) \sim (b,e)\) (transitive).
 
-    We define \(F = (R \times R^\star)/{\sim}\),
-    i.e.\ elements are \((x,y) \in R \times R^\star\)
+    We define \(F = (R \times R^\times)/{\sim}\),
+    i.e.\ elements are \((x,y) \in R \times R^\times\)
     without unique representation.
     We shall denote elements of \(F\) as \(\overline{(x,y)} \in F\).
     This forms a ring with addition and multiplication defined as
@@ -1343,7 +1349,7 @@
     We define \(\vfunc{\iota}{R}{F}{x}{\overline{(x,1)}}\),
     and for some arbitrary \(\func{\phi}{R}{S}\),
     let \(\vfunc{\bar{\phi}}{F}{S}{\overline{(x,y)}}{\phi(x){\phi(y)}^{-1}}\).
-    We check that for arbitrary \((x,y) \in R \times R^\star\),
+    We check that for arbitrary \((x,y) \in R \times R^\times\),
     \begin{equation*}
         \bar{\phi}(\iota(x)){\bar{\phi}(\iota(y))}^{-1}
         = \bar{\phi}\overline{(x,1)}{\bar{\phi}\overline{(y,1)}}^{-1}
@@ -2092,7 +2098,7 @@
 
 \begin{definition}
     Suppose \(R\) is a commutative integral domain.
-    For some \(\alpha \in R^\star\),
+    For some \(\alpha \in R^\times\),
     if there exists some \(\{\beta,\gamma\} \subset R\) not units
     such that \(\alpha = \beta\gamma\),
     we say \(\alpha\) factors in \(R\).
@@ -2125,7 +2131,7 @@
 \begin{definition}
     Suppose \(R\) is a commutative integral domain.
     \(R\) is a unique factorization domain (UFD)
-    if all \(\alpha \in R^\star\) can be factorized into
+    if all \(\alpha \in R^\times\) can be factorized into
     \(\alpha = \prod_{i=1}^n p_i\) where \(p_i\) are irreducible elements,
     and this factorization is unique up to reordering of elements,
     and multiplication by units.
@@ -2134,7 +2140,7 @@
     \(R\) is a UFD if the following two conditions hold:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \textit{Divisor chain.}
-            Given any \(a_1 \in R^\star\),
+            Given any \(a_1 \in R^\times\),
             there exists no infinite proper divisor chain
             such that \(a_{i+1}\) properly divides \(a_i\); and
         \item \textit{\hyperref[lem:euclid]{Primeness.}}
@@ -2168,7 +2174,7 @@
 \end{remark}
 
 \begin{definition}
-    Suppose \(R\) is a commutative domain, and \(p \in R^\star\).
+    Suppose \(R\) is a commutative domain, and \(p \in R^\times\).
     We call \(p\) prime if \(p \mid ab\)
     implies either \(p \mid a\) or \(p \mid b\).
     In a similar vein, suppose \(P \subsetneq R\) is an ideal,
@@ -2217,7 +2223,7 @@
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a commutative domain, and \(\{a,b\} \subset R^\star\).
+    Suppose \(R\) is a commutative domain, and \(\{a,b\} \subset R^\times\).
     \(d \in R\) is a greatest common denominator of \(a\) and \(b\),
     denoted \(d = \gcd(a,b)\),
     if \(d \mid a\) and \(d \mid b\),
@@ -2349,7 +2355,7 @@
     Suppose \(R\) is a commutative domain.
     We call \(R\) a Euclidean domain if there exists a long division algorithm
     \(\func{\delta}{R}{\bZ}\),
-    such that for all \(a,b \in R^\star\),
+    such that for all \(a,b \in R^\times\),
     we can find \(q,r \in R\) with \(a = qb + r\),
     where \(\delta(r) < \delta(b)\),
     and \(\delta(x) = 0\) if and only if \(x = 0\).
