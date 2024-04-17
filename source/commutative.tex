@@ -42,7 +42,7 @@
     and there does not exist any intermediate ideals \(J\)
     such that \(I \subseteq J \subseteq R\).
 \end{definition}
-\begin{theorem}
+\begin{theorem}\label{thm:maximal-quotient-field}
     Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
     \(I \subseteq R\) is maximal if and only if \(R/I\) is a field.
 \end{theorem}
@@ -55,7 +55,7 @@
     \(I\) is prime if \(xy \in I\) implies \(x \in I\) or \(y \in I\);
     that is, the complement of \(I\) is closed under multiplication.
 \end{definition}
-\begin{theorem}
+\begin{theorem}\label{thm:prime-quotient-domain}
     Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
     \(I\) is prime if and only if \(R/I\) is a domain.
 \end{theorem}
@@ -67,7 +67,7 @@
     Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
     \(I\) is radical if for all \(x \in R\) and \(x^n \in I\), then \(x \in I\).
 \end{definition}
-\begin{theorem}
+\begin{theorem}\label{thm:radical-quotient-reduced}
     Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
     \(I\) is radical if and only if \(R/I\) is reduced.
 \end{theorem}
@@ -77,6 +77,86 @@
     Hence there exists some nonzero \([x] \in R/I\) such that \([x]^n = 0\),
     and \(R/I\) is not reduced.
     The reverse argument holds the same way since all those logical steps are bidirectional.
+\end{proof}
+
+\begin{theorem}
+    Maximal ideals are prime, and prime ideals are radical.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Every ring has a maximal ideal.
+\end{theorem}
+\begin{proof}
+    Let \(\Sigma\) be the set of all proper ideals of some ring \(R\).
+    Let this set be partially ordered by \(\subseteq\), the subset relation.
+    We first see that \(\Sigma\neq\emptyset\) due to \((0) \in \Sigma\).
+    We then claim that every chain \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots\)
+    is contained within the union \(I = \bigcup_i I_i \in \Sigma\).
+    By Proposition~\ref{prop:nested-ideals}, \(I\) is an ideal,
+    and by definition, \(I_i \subseteq I\).
+    We also see that \(I \neq R\) because if \(1 \in I\),
+    then \(1 \in I_i\) for some \(i\), which gives us a contradiction.
+    Hence by \hyperref[ax:zorn]{Zorn's lemma}, there is a maximal element, a maximal ideal.
+\end{proof}
+\begin{corollary}
+    Every proper ideal lies in a maximal ideal.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a ring, and \(x \in R\) is not a unit.
+    Then \(x\) lies in a maximal ideal.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    \(R\) is a local ring if it has a unique maximal ideal \(m \subseteq R\).
+\end{definition}
+\begin{theorem}
+    Suppose \((R,m)\) forms a local ring.
+    Then \(R-m\) is the group of units in \(R\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is a proper ideal.
+    If every \(x \in R-I\) is a unit, then \((R,I)\) is a local ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is proper ideal.
+    If for every \(x \in I\), \(1+x\) is a unit, then \((R,I)\) is a local ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    The set of nilpotent elements is called the nilradical of \(R\).
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(N\) its nilradical.
+    Then \(N\) is an ideal, and \(R/N\) is reduced.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    The nilradical is the intersection of all prime ideals.
+\end{theorem}
+\begin{proof}
+    
 \end{proof}
 
 \section{Modules}

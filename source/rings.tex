@@ -735,29 +735,40 @@
 
 \begin{proposition}\label{prop:ideal-operations}
     Suppoose \(R\) is a commutative ring,
-    and \(I\) and \(J\) are ideals.
-    The \(I \cap J\), \(I + J = \{x+y : x \in I, y \in J\}\),
-    and \(IJ = \{\sum_i x_i y_i : x_i \in I, y_i \in J\}
-    \subseteq I \cap J\) are all ideals.
+    and \(I_i\) are ideals.
+    Then the following are ideals:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item an arbitrary intersection \(\bigcap_i I_i\);
+        \item an arbitrary sum with finite support \(\sum_i I_i = \{\sum_\text{finite} x_i : x_i \in I_i\}\); and
+        \item a finite product \(\prod_{i=1}^n I_i = \pqty{\prod_{i=1}^n x_i : x_i \in I_i} \subseteq \bigcap_{i=1}^n I_i\).
+    \end{enumerate}
+    % \(I \cap J\), \(I + J = \{x+y : x \in I, y \in J\}\),
+    % and \(IJ = \{\sum_i x_i y_i : x_i \in I, y_i \in J\}
+    % \subseteq I \cap J\) are all ideals.
 \end{proposition}
 \begin{proof}
-    Suppose \(\{x,y\} \subset I \cap J\). Then clearly
+    Suppose \(\{x,y\} \subset \bigcap_i I_i\). Then clearly
     \hyperref[lem:intersection-subgroup]{the intersection is a subgroup}.
-    Moreover, by closure of each of \(I\) and \(J\),
-    \(xy\) is in both \(I\) and \(J\).
-    This proves \(I \cap J\) is an ideal.
+    Moreover, by closure of each of \(I_i\),
+    \(xy\) is in each of \(I_i\).
+    This proves \(\bigcap_i I_i\) is an ideal.
 
-    Suppose \(\{x,x'\} \subset I\), and \(\{y,y'\} \subset J\).
-    Any \((x+y)+(x'+y') = (x+x')+(y+y') \in I+J\),
+    % Suppose \(\{x,x'\} \subset I\), and \(\{y,y'\} \subset J\).
+    Suppose \(\Bqty{\sum_i x_i, \sum_j y_j} \in I_i\).
+    % Any \((x+y)+(x'+y') = (x+x')+(y+y') \in I+J\),
+    the sum of two finite sum is still a finite sum,
     associativity is given by \(R\),
-    \(0 \in I\) and \(0 \in J\) so \(0 = 0+0 \in I+J\),
-    and inverse is clearly \(-x-y \in I+J\);
-    \(I+J\) is therefore an additive subgroup.
-    Moreover, \((x+y)(x'+y') = xx' + xy' + yx' + yy' \in I+J\),
-    since \(xx' + xy' \in I\) and \(yx' + yy' \in J\).
-    This proves \(I+J\) is an ideal.
+    % \(0 \in I\) and \(0 \in J\) so \(0 = 0+0 \in I+J\),
+    the empty sum is in \(\sum_i I_i\),
+    and inverse is clearly \(-\sum_i x_i \in \sum_i I_i\);
+    \(\sum_i I_i\) is therefore an additive subgroup.
+    Moreover, \(\pqty{\sum_i x_i}\pqty{\sum_j y_j} = \sum_{i,j} x_i y_j \in \sum_i I_i\),
+    since \(x_i \sum_j y_j \in I_i\).
+    This proves \(\sum_i I_i\) is an ideal.
 
-    Lastly, again suppose \(x \in I\) and \(y \in J\).
+    Lastly, we only need to prove the case of two ideals,
+    since an inductive argument completes the proof.
+    Suppose \(x \in I\) and \(y \in J\).
     We have closure simply by the summation definition,
     associativity is inherited from \(R\),
     the empty sum is \(0 \in IJ\),
