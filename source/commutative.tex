@@ -497,6 +497,59 @@
     
 \end{proof}
 
+\begin{theorem}
+    Suppose \(M\) is an \(R\)-module.
+    Let us consider two functors \(F,G\),
+    with \(F: N \mapsto \Hom_R(M,N)\) and \(G: N \mapsto \Hom_R(N,M)\).
+    Then \(F\) is a covariant left-exact functor,
+    and \(G\) is a contravariant right-exact functor.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}[Snake Lemma]
+    Suppose we have the two exact sequences,
+    and the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Then the following sequence is exact.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \ker f \arrow{r} & \ker g \arrow{r} & \ker h \arrow{r}{\delta} &
+            \coker f \arrow{r} & \coker g \arrow{r} & \coker h \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            & 0 \arrow{d} & 0 \arrow{d} & 0 \arrow{d} \\
+            0 \arrow{r} & \ker f \arrow{d} \arrow{r} &
+            \ker g \arrow{d} \arrow{r} \arrow[ddd, phantom, ""{coordinate, name=Z}] & \ker h \arrow{d}
+            \arrow[rounded corners, dashrightarrow, to path={
+                -- ([xshift=12ex]\tikztostart.east)
+                |- (Z) [near end]\tikztonodes
+                -| ([xshift=-12ex]\tikztotarget.west)
+                -- (\tikztotarget)
+            }]{dddll}[at start]{\delta} \\
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{d} \arrow{r} &
+            N_2 \arrow{d} \arrow{r} & N_3 \arrow{d} \arrow{r} & 0 \\
+            & \coker f \arrow{d} \arrow{r} &
+            \coker g \arrow{d} \arrow{r} & \coker h \arrow{d} \arrow{r} & 0 \\
+            & 0 & 0 & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{lemma}
+
+
 \section{Tensor Products}
 
 \section{Fractions}
