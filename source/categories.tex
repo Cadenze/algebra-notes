@@ -112,6 +112,32 @@
     \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(Y),F(X))\),
     and composition \(F(g \circ f) = F(f) \circ F(g)\).
 \end{definition}
+\begin{remark}
+    Contravariant functors are not really functors.
+    See the definition of the opposite category below.
+\end{remark}
+
+\begin{definition}
+    Consider a categeory \(\mca{C}\).
+    The opposite category is \(\mca{C}^\text{op}\)
+    consists of the same objects, but all morphisms reversed.
+\end{definition}
+\begin{proposition}
+    For all categories, \({(\mca{C}^\text{op})}^\text{op}\).
+\end{proposition}
+\begin{proof}
+    Reversing morphisms twice amounts to keeping them identical.
+\end{proof}
+
+\begin{proposition}
+    Contravariant functors \(\func{F}{\mca{C}}{\mca{D}}\)
+    are covariant functors \(\func{F}{\mca{C}}{\mca{D}^\text{op}}\).
+\end{proposition}
+\begin{proof}
+    Observe that if \(\phi \in \Mor(\mca{C})\), \(\func{\phi}{X}{Y}\)
+    then \(\func{F(\phi)}{F(Y)}{F(X)}\),
+    and in the opposite category, \(\func{F(\phi)}{F(X)}{F(Y)}\).
+\end{proof}
 
 \subsubsection*{Subobject}
 
