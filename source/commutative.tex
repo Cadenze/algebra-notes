@@ -548,9 +548,207 @@
         \end{tikzcd}
     \end{equation*}
 \end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose we have the two exact sequences,
+    and the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    If two of \(f,g,h\) are isomorphisms,
+    then so is the third.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
 
 
 \section{Tensor Products}
+
+\begin{definition}[Universal Property of the Tensor Product]
+    % Suppose \(M,N\) are \(R\)-modules.
+    % Then the tensor product \(M \otimes_R N = M \otimes N\) is an \(R\)-module.
+    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
+    The tensor product of \(R\)-modules is defined by the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists a projection \(\func{\pi}{\prod_{i \in S} M_i}{\bigotimes_{i \in S} M_i}\)
+            that is linear at every \(M_i\);
+        \item for any module \(P\) and any \(i\)-linear map \(\func{\phi}{\prod_{i \in S} M_i}{P}\),
+            there exists a unique homomorphism \(\func{\bar{\phi}}{\bigotimes_{i \in S} M_i}{P}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod_{i \in S} M_i \arrow{r}{\pi} \arrow{dr}{\phi} &
+            \bigotimes_{i \in S} M_i \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{theorem}
+    The tensor product of modules exists and is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{M_i, N_i\}}_{i \in S}\) are \(R\)-modules,
+    and \(\func{f_i}{M_i}{N_i}\) are homomorphisms.
+    Then \(\vfunc{\bigotimes f_i}{\bigotimes M_i}{\bigotimes N_i}{\bigotimes m_i}{\bigotimes f_i(m_i)}\)
+    is a module homomorphism.
+\end{definition}
+\begin{theorem}
+    There are canonical isomorphisms
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(M \otimes N \cong N \otimes M\) by exchanging positions;
+        \item \(R \otimes N \cong N\) by multiplication;
+        \item \((M \otimes N) \otimes P \cong M \otimes N \otimes P \cong M \otimes (N \otimes P)\); and
+        \item the tensor distributes over the direct sum
+            \((M \oplus N) \otimes P \cong (M \otimes P) \oplus (N \otimes P)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(\textbf{Mod}_R\) is a symmetric monoidal category;
+    that is, \((\textbf{Mod}_R,\otimes)\) is a commutative monoid.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}
+    \(\Hom(M \otimes N, P) \cong \Hom(M,\Hom(N,P))\),
+    which is the set of bilinear maps from \(M \times N \to P\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functor \(\vfunc{F}{\textbf{Mod}_R}{\textbf{Mod}_R}{M}{M \otimes N}\)
+    that tensors by \(N\).
+    Then \(F\) is right-exact.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    We say \(N\) is flat if tensoring by \(N\) is exact.
+\end{definition}
+\begin{lemma}
+    Suppose \(N\) is an \(R\)-module,
+    and \(F\) is the functor that tensors by \(N\).
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(N\) is flat;
+        \item \(F\) sends exact sequences to exact sequences;
+        \item \(F\) sends short exact sequences to short exact sequences;
+        \item \(F\) sends an injective map to an injective map; and
+        \item \(F\) sends an injective map of finitely generated modules
+        to an injective map of finitely generated modules.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functors \(F: M \mapsto \Hom(N,M)\) and \(G: M \mapsto \Hom(M,N)\).
+    \(N\) is a projective module if \(F\) is exact,
+    and an injective module of \(G\) is exact.
+\end{definition}
+\begin{proposition}
+    Suppose \(P\) is a projective \(R\)-module,
+    and \(M \to N\) is a surjective homomorphism.
+    Then \(\Hom(P,M) \to \Hom(P,N)\) is surjective,
+    and the following diagram holds:
+    \begin{equation*}
+        \begin{tikzcd}
+            & P \arrow[dashrightarrow]{dl}[swap]{\exists!} \arrow{d} \\
+            M \arrow{r} & N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(I\) is an injective \(R\)-module,
+    and \(M \to N\) is a injective homomorphism.
+    Then \(\Hom(M,I) \to \Hom(N,I)\) is injective,
+    and the following diagram holds:
+    \begin{equation*}
+        \begin{tikzcd}
+            & I \\
+            0 \arrow{r} & M \arrow{u} \arrow{r} & N \arrow[dashrightarrow]{ul}[swap]{\exists!}
+        \end{tikzcd}
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Free modules are projective,
+    projective modules are flat,
+    and flat modules are torsion-free.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R \to S\) is a ring homomorphism.
+    Then \(S\) is an \(R\)-algebra.
+\end{definition}
+\begin{definition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(R\)-algebra homomorphisms are
+    \begin{equation*}
+        \begin{tikzcd}
+            S \arrow{r} & T \\
+            R \arrow{u} \arrow{r}{\id} & R \arrow{u}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{proposition}
+    \(R\)-algebras are \(R\)-modules.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(S \otimes T\) is also an \(R\)-algebra.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra.
+    Then any \(S\)-module is also an \(R\)-module.
+    This is the restriction of \(M\).
+\end{definition}
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra. and \(M\) is an \(R\)-module.
+    Then \(M \otimes S\) is an \(S\)-module.
+    This is the extension of \(M\).
+\end{definition}
 
 \section{Fractions}
 
