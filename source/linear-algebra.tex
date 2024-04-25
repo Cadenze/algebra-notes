@@ -414,7 +414,7 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    \(W^V = \prod_{\vb{v} \in V} W\),
+    \(W^V = \prod_{\vec{v} \in V} W\),
     which by the universal property of the direct product is a vector space.
 
     The homomorphisms are clearly a subset,
@@ -422,26 +422,36 @@
     The zero morphism is trivially linear,
     so we show that if \(f,g\) are linear,
     \begin{align*}
-        (af+g)(b\vb{u}+\vb{v}) &= af(b\vb{u}+\vb{v}) + g(b\vb{u}+\vb{v})
-        = baf(\vb{u}) + af(\vb{v}) + bg(\vb{u}) + g(\vb{v}) \\
-        &= b(af(\vb{u}) + g(\vb{u})) + af(\vb{v}) + g(\vb{v})
-        = b(af+g)(\vb{u}) + (af+g)(\vb{v})
+        (af+g)(b\vec{u}+\vec{v}) &= af(b\vec{u}+\vec{v}) + g(b\vec{u}+\vec{v})
+        = baf(\vec{u}) + af(\vec{v}) + bg(\vec{u}) + g(\vec{v}) \\
+        &= b(af(\vec{u}) + g(\vec{u})) + af(\vec{v}) + g(\vec{v})
+        = b(af+g)(\vec{u}) + (af+g)(\vec{v})
     \end{align*}
 \end{proof}
 \begin{proposition}
-    \({(V/U)}' = \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
+    \({(V/U)}' = \{\phi \in V' : \phi\vert_U = \vec{0}\}\).
 \end{proposition}
 \begin{proof}
     Suppose \(\phi \in {(V/U)}'\).
     Then we can extend this to \(\phi\circ\pi\),
     which since it factors through \(V/U\),
     the kernel contains \(U\),
-    so \({(V/U)}' \subseteq \{\phi \in V' : \phi\vert_U = \vb{0}\}\).
-    On the other hand, if \(\phi\vert_U = \vb{0}\),
+    so \({(V/U)}' \subseteq \{\phi \in V' : \phi\vert_U = \vec{0}\}\).
+    On the other hand, if \(\phi\vert_U = \vec{0}\),
     by the universal property of quotients,
     we can find a corresponding morphism \(V/U \to F\),
     i.e.\ in \({(V/U)}'\).
 \end{proof}
+
+\begin{proposition}
+    Suppose \(V\) is a vector space,
+    and \(B \subset V\) forms a basis.
+    The dual basis is \(B' \subset V'\),
+    which for each \(\vec{u} \in B\),
+    consists of elements \(\phi_{\vec{u}} \in B'\),
+    where \(\phi_{\vec{u}}(\vec{v}) = \delta_{\vec{u},\vec{v}}\)
+    is given by the Kronecker delta.
+\end{proposition}
 
 
 \section{Bilinear Forms}
