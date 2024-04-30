@@ -1,0 +1,1463 @@
+\chapter{Commutative Algebra}
+
+\begin{remark}
+    We shall assume that all rings,
+    unless otherwise noted, are commutative;
+    that is, the multiplication \(ab = ba\).
+\end{remark}
+
+\section{Ideals}
+
+\begin{proposition}
+    Suppose \(R\) is a ring.
+    \(x \in R\) is a unit if and only if the ideals \((x) = (1)\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(R\) is a nondegenerate ring.
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(R\) is a field;
+        \item \(R\) has only two distinct ideals \((0)\) and \((1)\); and
+        \item Every ring homomorphism \(\func{\phi}{R}{S}\) is injective.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    An element \(x \in R\) is nilpotent if there exists \(n > 0\) such that \(x^n = 0\).
+    Any nonzero nilpotent element is a zero divisor.
+    A ring \(R\) is reduced if the only nilpotent is 0.
+\end{definition}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is maximal if \(I \neq R\),
+    and there does not exist any intermediate ideals \(J\)
+    such that \(I \subseteq J \subseteq R\).
+\end{definition}
+\begin{theorem}\label{thm:maximal-quotient-field}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I \subseteq R\) is maximal if and only if \(R/I\) is a field.
+\end{theorem}
+\begin{proof}
+    Corollary~\ref{cor:maximal-quotient-field}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is prime if \(xy \in I\) implies \(x \in I\) or \(y \in I\);
+    that is, the complement of \(I\) is closed under multiplication.
+\end{definition}
+\begin{theorem}\label{thm:prime-quotient-domain}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is prime if and only if \(R/I\) is a domain.
+\end{theorem}
+\begin{proof}
+    Proposition~\ref{prop:prime-quotient-domain}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is radical if for all \(x \in R\) and \(x^n \in I\), then \(x \in I\).
+\end{definition}
+\begin{theorem}\label{thm:radical-quotient-reduced}
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
+    \(I\) is radical if and only if \(R/I\) is reduced.
+\end{theorem}
+\begin{proof}
+    Suppose \(I\) is not radical;
+    then there exists some \(x \notin I\) such that \(x^n \in I\).
+    Hence there exists some nonzero \([x] \in R/I\) such that \([x]^n = 0\),
+    and \(R/I\) is not reduced.
+    The reverse argument holds the same way since all those logical steps are bidirectional.
+\end{proof}
+
+\begin{theorem}
+    Maximal ideals are prime, and prime ideals are radical.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Every ring has a maximal ideal.
+\end{theorem}
+\begin{proof}
+    Let \(\Sigma\) be the set of all proper ideals of some ring \(R\).
+    Let this set be partially ordered by \(\subseteq\), the subset relation.
+    We first see that \(\Sigma\neq\emptyset\) due to \((0) \in \Sigma\).
+    We then claim that every chain \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots\)
+    is contained within the union \(I = \bigcup_i I_i \in \Sigma\).
+    By Proposition~\ref{prop:nested-ideals}, \(I\) is an ideal,
+    and by definition, \(I_i \subseteq I\).
+    We also see that \(I \neq R\) because if \(1 \in I\),
+    then \(1 \in I_i\) for some \(i\), which gives us a contradiction.
+    Hence by \hyperref[ax:zorn]{Zorn's lemma}, there is a maximal element, a maximal ideal.
+\end{proof}
+\begin{corollary}
+    Every proper ideal lies in a maximal ideal.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a ring, and \(x \in R\) is not a unit.
+    Then \(x\) lies in a maximal ideal.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    \(R\) is a local ring if it has a unique maximal ideal \(m \subseteq R\).
+\end{definition}
+\begin{theorem}
+    Suppose \((R,m)\) forms a local ring.
+    Then \(R-m\) is the group of units in \(R\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is a proper ideal.
+    If every \(x \in R-I\) is a unit, then \((R,I)\) is a local ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is proper ideal.
+    If for every \(x \in I\), \(1+x\) is a unit, then \((R,I)\) is a local ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    The set of nilpotent elements is called the nilradical of \(R\).
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(N\) its nilradical.
+    Then \(N\) is an ideal, and \(R/N\) is reduced.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    The nilradical is the intersection of all prime ideals.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(I,J,K\) are three ideals.
+    We have the two following distributive properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(I(J+K) = IJ + IK\); and
+        \item \(I \cap (J+K) \supseteq I \cap J + I \cap K\),
+            with equality only if \(J \subseteq I\) or \(K \subseteq I\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(I,J\) are two ideals.
+    They are coprime if \(I+J = (1)\).
+\end{definition}
+\begin{theorem}
+    Suppose \({\{J_i\}}_{i=1}^n\) are pairwise coprime ideals.
+    Then \(\bigcap_{i=1}^n J_i = \prod_{i=1}^n J_i\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(\{R_i\}\) is a family of rings.
+    The direct product is \(\prod_i R_i = \{(r_1,r_2,\hdots) : r_i \in R_i\}\).
+\end{definition}
+\begin{lemma}
+    Suppose \(R\) is a ring, and \(\{J_i\}\) is a family of ideals.
+    Let us define the homomorphism \(\vfunc{\phi}{R}{\prod_i R/J_i}{r}{(r+J_1,r+J_2,\hdots)}\).
+    Then we have \(\ker(\phi) = \bigcap_i J_i\),
+    and \(\img(\phi) = R/\prod_i J_i\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[Chinese Remainder Theorem]
+    Suppose \(R\) is a ring, and \(\{J_i\}\) is a family of ideals.
+    Consider the homomorphism \(\func{\phi}{R}{\prod_i R/J_i}\).
+    Then \(\phi\) is surjective if and only if \(\{J_i\}\) are pairwise coprime.
+    In that case, \(\prod_i R/J_i \cong R/\prod_i J_i\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(I,J\) are ideals.
+    The quotient ideal is \((I:J) = \{x \in R : xJ \subseteq I\}\).
+\end{definition}
+\begin{proposition}
+    The following properties hold for quotient ideals:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(I \subseteq (I:J)\);
+        \item \((I:J)J \subseteq I\);
+        \item \((I:I) = (1)\); and
+        \item \(((I:J):K) = (I:JK) = ((I:K):J)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(\func{\phi}{R}{S}\) is any ring homomorphism.
+    Let \(I \subseteq R\) and \(J \subseteq S\) be ideals.
+    \(\phi(I) \subseteq S\) might not be an ideal,
+    so we define the ideal it generates \((\phi(I)) \subseteq \) the extension of \(I\).
+\end{definition}
+\begin{remark}
+    \(\phi^{-1}(J) \subseteq R\) is always an ideal,
+    and if \(J\) prime, \(\phi^{-1}(J)\) is also prime.
+\end{remark}
+\begin{definition}
+    Suppose \(\func{\phi}{R}{S}\) is a ring monomorphism.
+    If \(J \subseteq S\), we say \(\phi^{-1}(J) = J \cap R\) is the contraction of \(J\).
+\end{definition}
+
+
+\section{Modules}
+
+\begin{proposition}
+    Suppose \(R\) is a ring, and \(M,N\) are \(R\)-modules.
+    Then \(\Hom_R(M,N)\) is also an \(R\)-module.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(R\) is a ring.
+    The category \(\textbf{Mod}_R\) consisting of all \(R\)-modules
+    and module homomorphisms form a category.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(M\) is an \(R\)-module.
+    There exists a functor \(\func{F}{\textbf{Mod}_R}{\textbf{Mod}_R}\)
+    that maps \(N \mapsto \Hom_R(M,N)\)
+    and maps \(\func{\phi}{N}{L}\) to \(\func{\tilde{\phi}}{\Hom_R(M,N)}{\Hom_R(M,L)}\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(\Hom_R(M,N) \cong N\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(L\) is an \(R\)-module,
+    and \(M,N \subseteq L\) are submodules.
+    The quotient ideal \((M:N) = \{x \in R : xN \subseteq M\}\).
+\end{definition}
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    The annihilator of \(N\) is \(\Ann_R(N) = (0:N) = \{x \in R : xN = 0\}\).
+\end{definition}
+
+\begin{definition}
+    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
+    The direct product is \(\prod_i M_i = \{{(m_i)}_{i \in S}\}\),
+    and the direct sum is \(\bigoplus_i M_i = \{{(m_i)_{i \in S}}\}\) with finite support.
+\end{definition}
+
+\begin{definition}
+    Suppose \(M\) is an \(R\)-module, and \({\{m_i\}}_{i \in S} \subseteq M\).
+    The module it generates is \(N = \{\sum_{j=1}^n x_j m_j : x_j \in R, m_j \in {\{m_i\}}_{i \in S}\}\).
+    If \(M = N\), we say \({\{m_i\}}_{i \in S}\) generates \(M\);
+    in that case, if \(S\) is finite, we say \(M\) is finitely generated.
+\end{definition}
+\begin{proposition}
+    Suppose \(M\) is an \(R\)-module, and \({\{m_i\}}_{i \in S} \subseteq M\).
+    Consider the homomorphism \(\vfunc{\phi}{\bigoplus_{i \in S} R}{M}{{(x_i)}_i}{\sum_i x_i m_i}\).
+    We have the following:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\img(\phi)\) is the module generated by \({\{m_i\}}_{i \in S}\);
+        \item \(\phi\) is surjective if \({\{m_i\}}_{i \in S}\) generate \(M\); and
+        \item \(M\) is finitely generated if there exists a surjective \(\func{\phi}{R^n}{M}\)./
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}[Cayley-Hamilton Theorem]
+    Suppose \(M\) is a finitely-generated \(R\)-module,
+    and suppose we have an endomorphism \(\func{\phi}{M}{M}\).
+    Then there exists a monic polynomial \(\phi^n + a_1\phi^{n-1} + \cdots + a_n = 0\).
+    Moreover, if there exists \(I \subseteq R\) such that \(\img(\phi) \subseteq IM\),
+    then the coefficients \(\{a_i\} \subseteq I\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}[Nakayama's Lemma]
+    Suppose \(M\) is a finitely-generated \(R\)-module,
+    with \(I \subseteq R\) is an ideal, and \(IM = M\).
+    Then there exists \(x \in R\), \(x \equiv 1\pmod{I}\), such that \(xM = 0\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(M\) is a finitely-generated \(R\)-module,
+    and a surjective homomorphism \(\func{\alpha}{M}{M}\).
+    Then \(\alpha\) is an isomorphism.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    The Jacobson radical of \(R\) is the intersection of all maximal ideals,
+    \(\mca{R} = \bigcap m\).
+\end{definition}
+\begin{remark}
+    The nilradical is inside the Jacobson radical.
+\end{remark}
+\begin{lemma}
+    Suppose \(R\) is a ring, \(\mca{R}\) is its Jacobson radical.
+    Any element \(x \in \mca{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[Nakayama's Lemma]
+    Suppose \(M\) is a finitely generated \(R\)-module,
+    and \(\mca{R}\) is the Jacobson radical of \(R\).
+    Let \(I \subseteq \mca{R}\) be an ideal.
+    If \(IM = M\), then \(M = 0\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(M\) is a finitely generated \(R\)-module,
+    and \(N \subseteq M\) is a submodule.
+    Let \(I \subseteq \mca{R}\) be an ideal inside the Jacobson radical of \(R\).
+    If \(IM + N = M\), then \(M = N\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \((R,m)\) is a local ring,
+    and \(M\) a finitely generated \(R\)-module.
+    Then \(M/mM\) is a finite-dimensional vector space.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \((R,m)\) is a local ring,
+    and \(M\) a finitely generated \(R\)-module.
+    If \({\{x_i\}}_{i=1}^n \subset M\) span \(M/mM\) as a vector space,
+    then \({\{x_i\}}_{i=1}^n\) generate \(M\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Exact Sequences}
+
+\begin{definition}
+    Consider a sequence of \(R\)-modules with corresponding module homomorphisms.
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_{i-1} \arrow{r}{\phi_i} &
+            M_i \arrow{r}{\phi_{i+1}} & M_{i+1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    This sequence is exact at \(M_i\) if \(\img(\phi_i) = \ker(\phi_{i+1})\).
+    The sequence is exact if it is exact at every \(M_i\).
+\end{definition}
+% \begin{proposition}
+%     A sequence is exact at \(M_i\) if and only if the following two conditions hold:
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item \(\phi_{i+1}\circ\phi_i = 0\); and
+%         \item \(\phi_{i+1}(m) = 0\) implies \(m = \)
+%     \end{enumerate}
+% \end{proposition}
+
+\begin{proposition}
+    We have the following two characterizations of homomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(0 \to M \to N\) exact if and only if \(M \to N\) is injective; and
+        \item \(M \to N \to 0\) exact if and only if \(M \to N\) is surjective.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    A short exact sequence is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{r} & M_2 \arrow{r} & M_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{proposition}
+    Such a sequence is a short exact sequence if and only if \(M_3 = M_2/M_1\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Every exact sequence can be cut into short exact sequences.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}[Euler Characteristic]
+    Suppose we have an exact sequence of finite-dimensional \(K\)-vector spaces.
+    \begin{equation*}
+        \sigma: \qquad
+        \begin{tikzcd}
+            0 \arrow{r} & V_1 \arrow{r} & V_2 \arrow{r} & \cdots \arrow{r} &
+            V_n \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Then the Euler characteristic obeys
+    \begin{equation*}
+        \chi(\sigma) = \sum_{i=1}^n {(-1)}^i \dim(V_i) = 0
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(C\) is a class of \(R\)-modules,
+    closed under images and kernels.
+    Let \(\func{\lambda}{C}{\bZ}\) be additive.
+    If we have a short exact sequence in \(C\),
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{r} & M_2 \arrow{r} & M_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    then \(-\lambda(M_1) + \lambda(M_2) - \lambda(M_3) = 0\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    An exact sequence in \(C\) yields \(\sum_{i=1}^n {(-1)}^i \lambda(M_i) = 0\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Consider a functor \(\func{F}{\textbf{Mod}_R}{\textbf{Mod}_R}\).
+    \(F\) is exact if it sends short exact sequences to short exact sequences.
+    \(F\) is right-exact if it sends an exact \(M_1 \to M_2 \to M_3 \to 0\)
+    to an exact \(F(M_1) \to F(M_2) \to F(M_3) \to 0\).
+    \(F\) is left-exact if it sends an exact \(0 \to M_1 \to M_2 \to M_3\)
+    to an exact \(0 \to F(M_1) \to F(M_2) \to F(M_3)\).
+\end{definition}
+\begin{proposition}
+    Any exact functor sends exact sequences to exact sequences.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(M\) is an \(R\)-module.
+    Let us consider two functors \(F,G\),
+    with \(F: N \mapsto \Hom_R(M,N)\) and \(G: N \mapsto \Hom_R(N,M)\).
+    Then \(F\) is a covariant left-exact functor,
+    and \(G\) is a contravariant right-exact functor.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}[Snake Lemma]
+    Suppose we have the two exact sequences,
+    and the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Then the following sequence is exact.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \ker f \arrow{r} & \ker g \arrow{r} & \ker h \arrow{r}{\delta} &
+            \coker f \arrow{r} & \coker g \arrow{r} & \coker h \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            & 0 \arrow{d} & 0 \arrow{d} & 0 \arrow{d} \\
+            0 \arrow{r} & \ker f \arrow{d} \arrow{r} &
+            \ker g \arrow{d} \arrow{r} \arrow[ddd, phantom, ""{coordinate, name=Z}] & \ker h \arrow{d}
+            \arrow[rounded corners, dashrightarrow, to path={
+                -- ([xshift=12ex]\tikztostart.east)
+                |- (Z) [near end]\tikztonodes
+                -| ([xshift=-12ex]\tikztotarget.west)
+                -- (\tikztotarget)
+            }]{dddll}[at start]{\delta} \\
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{d} \arrow{r} &
+            N_2 \arrow{d} \arrow{r} & N_3 \arrow{d} \arrow{r} & 0 \\
+            & \coker f \arrow{d} \arrow{r} &
+            \coker g \arrow{d} \arrow{r} & \coker h \arrow{d} \arrow{r} & 0 \\
+            & 0 & 0 & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose we have the two exact sequences,
+    and the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    If two of \(f,g,h\) are isomorphisms,
+    then so is the third.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Tensor Products}
+
+\begin{definition}[Universal Property of the Tensor Product]
+    % Suppose \(M,N\) are \(R\)-modules.
+    % Then the tensor product \(M \otimes_R N = M \otimes N\) is an \(R\)-module.
+    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
+    The tensor product of \(R\)-modules is defined by the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists a projection \(\func{\pi}{\prod_{i \in S} M_i}{\bigotimes_{i \in S} M_i}\)
+            that is linear at every \(M_i\);
+        \item for any module \(P\) and any \(i\)-linear map \(\func{\phi}{\prod_{i \in S} M_i}{P}\),
+            there exists a unique homomorphism \(\func{\bar{\phi}}{\bigotimes_{i \in S} M_i}{P}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod_{i \in S} M_i \arrow{r}{\pi} \arrow{dr}{\phi} &
+            \bigotimes_{i \in S} M_i \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{theorem}
+    The tensor product of modules exists and is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{M_i, N_i\}}_{i \in S}\) are \(R\)-modules,
+    and \(\func{f_i}{M_i}{N_i}\) are homomorphisms.
+    Then \(\vfunc{\bigotimes f_i}{\bigotimes M_i}{\bigotimes N_i}{\bigotimes m_i}{\bigotimes f_i(m_i)}\)
+    is a module homomorphism.
+\end{definition}
+\begin{theorem}
+    There are canonical isomorphisms
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(M \otimes N \cong N \otimes M\) by exchanging positions;
+        \item \(R \otimes N \cong N\) by multiplication;
+        \item \((M \otimes N) \otimes P \cong M \otimes N \otimes P \cong M \otimes (N \otimes P)\); and
+        \item the tensor distributes over the direct sum
+            \((M \oplus N) \otimes P \cong (M \otimes P) \oplus (N \otimes P)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(\textbf{Mod}_R\) is a symmetric monoidal category;
+    that is, \((\textbf{Mod}_R,\otimes)\) is a commutative monoid.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}
+    \(\Hom(M \otimes N, P) \cong \Hom(M,\Hom(N,P))\),
+    which is the set of bilinear maps from \(M \times N \to P\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functor \(\vfunc{F}{\textbf{Mod}_R}{\textbf{Mod}_R}{M}{M \otimes N}\)
+    that tensors by \(N\).
+    Then \(F\) is right-exact.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    We say \(N\) is flat if tensoring by \(N\) is exact.
+\end{definition}
+\begin{lemma}
+    Suppose \(N\) is an \(R\)-module,
+    and \(F\) is the functor that tensors by \(N\).
+    The following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(N\) is flat;
+        \item \(F\) sends exact sequences to exact sequences;
+        \item \(F\) sends short exact sequences to short exact sequences;
+        \item \(F\) sends an injective map to an injective map; and
+        \item \(F\) sends an injective map of finitely generated modules
+        to an injective map of finitely generated modules.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functors \(F: M \mapsto \Hom(N,M)\) and \(G: M \mapsto \Hom(M,N)\).
+    \(N\) is a projective module if \(F\) is exact,
+    and an injective module of \(G\) is exact.
+\end{definition}
+\begin{proposition}
+    Suppose \(P\) is a projective \(R\)-module,
+    and \(M \to N\) is a surjective homomorphism.
+    Then \(\Hom(P,M) \to \Hom(P,N)\) is surjective,
+    and the following diagram holds:
+    \begin{equation*}
+        \begin{tikzcd}
+            & P \arrow[dashrightarrow]{dl}[swap]{\exists!} \arrow{d} \\
+            M \arrow{r} & N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(I\) is an injective \(R\)-module,
+    and \(M \to N\) is a injective homomorphism.
+    Then \(\Hom(M,I) \to \Hom(N,I)\) is injective,
+    and the following diagram holds:
+    \begin{equation*}
+        \begin{tikzcd}
+            & I \\
+            0 \arrow{r} & M \arrow{u} \arrow{r} & N \arrow[dashrightarrow]{ul}[swap]{\exists!}
+        \end{tikzcd}
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Free modules are projective,
+    projective modules are flat,
+    and flat modules are torsion-free.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R \to S\) is a ring homomorphism.
+    Then \(S\) is an \(R\)-algebra.
+\end{definition}
+\begin{definition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(R\)-algebra homomorphisms are
+    \begin{equation*}
+        \begin{tikzcd}
+            S \arrow{r} & T \\
+            R \arrow{u} \arrow{r}{\id} & R \arrow{u}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{proposition}
+    \(R\)-algebras are \(R\)-modules.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(S \otimes T\) is also an \(R\)-algebra.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra.
+    Then any \(S\)-module is also an \(R\)-module.
+    This is the restriction of \(M\).
+\end{definition}
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra. and \(M\) is an \(R\)-module.
+    Then \(M \otimes S\) is an \(S\)-module.
+    This is the extension of \(M\).
+\end{definition}
+
+
+\section{Fractions}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
+    Then the ring of fractions is \(S^{-1}R = \{r/s : r \in R, s \in S\}/{\sim}\),
+    where the equivalence relation is given by \(r_1/s_1 = r_2/s_2\)
+    if there exists some \(s \in S\) such that \(s(r_1s_2 - r_2s_1) = 0\).
+\end{definition}
+\begin{proposition}
+    There exists a ring homomorphism \(\vfunc{\iota}{R}{S^{-1}R}{n}{n/1}\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
+    If \(s \in S\), then \(s\) is a unit in \(S^{-1}R\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
+    \(r \in R\) is zero in \(S^{-1}R\) if and only if there exists some \(s\)
+    such that \(sr = 0\) in \(R\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Universal Property of Ring of Fractions]
+    Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
+    The ring of fractions is \(S^{-1}R\), if:
+    \begin{enumerate}
+        \item there exists a homomorphism \(\func{\iota}{R}{S^{-1}R}\); and
+        \item for any ring \(T\), if \(\func{\phi}{R}{T}\) is a homomorphism that sends \(s \in S\) to a unit,
+            then there exists a unique \(\func{\bar{\phi}}{S^{-1}R}{T}\)
+            such that \(\phi = \bar{\phi}\circ\iota\).
+    \end{enumerate}
+    
+    This is represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            R \arrow{r}{\phi} \arrow{d}{\iota} & T \\
+            S^{-1}R \arrow[dashrightarrow]{ur}[swap]{\exists!\bar{\phi}}
+        \end{tikzcd}
+    \end{equation*}
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(R\) is a domain, and \(S\) is the set of units in \(R\).
+    Then \(S^{-1}R\) is the field of fractions.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, \(p \subseteq R\) is a prime ideal,
+    and \(S = R - p\).
+    Then we call \(S^{-1}R = R_p\) to be the localization of \(R\) at \(p\).
+\end{definition}
+\begin{proposition}
+    Suppose \(R\) is a ring, and \(p \subseteq R\) is a prime ideal.
+    \((R_p,pR_p)\) forms a local ring.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(S^{-1}R\) is a ring of fractions, and \(M\) be an \(R\)-module.
+    Then \(S^{-1}M = \{m/s : m \in M, s \in S\}/{\sim}\) is an \(S^{-1}R\)-module,
+    with the equivalence relation is given by \(m_1/s_1 = m_2/s_2\)
+    if there exists some \(s \in S\) such that \(s(m_1s_2 - m_2s_1) = 0\).
+\end{definition}
+\begin{proposition}
+    There exists a module homomorphism \(\vfunc{\iota}{M}{S^{-1}M}{m}{m/1}\),
+    where \(\ker\iota = \{m : \exists s \in S, ms = 0\}\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(R\) is a ring, and \(S^{-1}R\) is a ring of fractions.
+    Then \(\vfunc{S^{-1}}{\textbf{Mod}_R}{\textbf{Mod}_{S^{-1}R}}{M}{S^{-1}M}\)
+    is a functor.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    \(S^{-1}\) is an exact functor.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(P\) is an \(R\)-module,
+    and \(M,N \subseteq P\) are submodules.
+    The following properties hold for modules of fractions:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(S^{-1}(M+N) \cong S^{-1}M + S^{-1}N \subseteq S^{-1}P\);
+        \item \(S^{-1}(M \cap N) \cong S^{-1}M \cap S^{-1}N \subseteq S^{-1}P\); and
+        \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N \subseteq S^{-1}P\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    There is an isomorphism \(S^{-1}R \otimes M \cong S^{-1}M\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(S^{-1}R\) is a flat \(R\)-module.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(M,N\) are (appropriate) \(R\)-modules.
+    The following properties hold for modules of fractions:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(S^{-1}(M \oplus N) \cong S^{-1}M \oplus S^{-1}N\);
+        \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N\); and
+        \item \(S^{-1}(M \otimes N) \cong S^{-1}M \otimes S^{-1}N\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    \(M\) is a flat \(R\)-module if and only if \(S^{-1}M\) is a flat \(S^{-1}R\)-module.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R,A\) are rings.
+    \(N\) is an \(R,A\)-bimodule if it is both an \(R\)-module and an \(A\)-module.
+\end{definition}
+\begin{proposition}
+    Suppose \(M\) is an \(R\)-module,
+    \(N\) is an \(R,A\)-bimodule,
+    and \(P\) is an \(A\)-module.
+    Then \(M \otimes_R N \otimes_A P\) is an \(R,A\)-bimodule.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(R\) is a ring, \(M\) is an \(R\)-module,
+    and \(M_p\) is a localization.
+    If \(M\) is flat, then \(M_p\) is also flat.
+    If \(M\) is finitely generated, then \(M_p\) is flat if and only if it is free.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{definition}
+    Suppose \(M\) is an \(R\)-module, and \(M_p\) some localization.
+    We say a module property is local when
+    \(M\) has that property if and only if \(M_p\) for all prime \(p \subseteq R\) has that property.
+    We say a module property is max-local when
+    \(M\) has that property if and only if \(M_p\) for all maximal \(p \subseteq R\) has that property.
+\end{definition}
+\begin{lemma}
+    Suppose \(M,N\) are \(R\)-modules, and \(\func{\phi}{M}{N}\) is a homomorphism.
+    Then the following properties are local and max-local:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(M = 0\);
+        \item \(\phi\) injective; and
+        \item \(\phi\) surjective.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Flatness is local and max-local.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
+    If \(I \subseteq R\), its extension is \(I \otimes S^{-1}R = S^{-1}I\).
+    If \(J \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(J)\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    There is a bijective correspondence between 
+    the prime ideals of \(R\) that do not intersect with \(S\),
+    and the prime ideals of \(S^{-1}R\).
+    In that case, \(I \subseteq R\) corresponds to its extension,
+    \(J \subseteq S^{-1}R\) corresponds to its contraction,
+    and \(s \in S \subseteq R\) corresponds to \((1) \subseteq S^{-1}R\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Primary Decomposition}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
+    \(q\) is primary if \(xy \in q\) implies \(x \in q\) or \(y^n \in q\) for some \(n\).
+\end{definition}
+\begin{proposition}
+    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
+    \(q\) is primary if and only if every zero divisor in \(R/q\) is nilpotent.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
+    If \(q\) is primary, then \(\sqrt{q}\) is prime.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{definition}
+    Suppose \(q\) is primary.
+    We say \(q\) is \(p\)-primary if \(\sqrt{q} = p\).
+\end{definition}
+
+\begin{lemma}
+    Suppose \({\{q_i\}}_{i \in S}\) is a family of \(p\)-primary ideals.
+    Then \(\bigcap_{i \in S} q_i\) is also \(p\)-primary.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{definition}
+    Suppose \(q \subseteq R\) is an ideal.
+    If \(q = \bigcap_i q_i\), we say \(q\) is decomposable.
+    In this case, we may assume \(\sqrt{q_i} = p_i\) are distinct,
+    and hence \(q_i\) should not be inside any \(q_j\).
+    We call such a decomposition the minimal or irredundant decomposition.
+\end{definition}
+\begin{lemma}
+    Suppose \(q_i\) is \(p_i\)-primary, and \(x \in R\).
+    We have the following:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(x \in q_i\), then \((q_i:x) = (1)\); and
+        \item if \(x \notin q_i\), then \((q_i:x)\) is \(p_i\)-primary.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(p = \bigcap_i J_i\) for a family of ideals.
+    Then \(p = J_i\) for some \(i\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[First Uniqueness Theorem for Primary Decompositions]
+    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
+    Then the associated primes \(p_i = \sqrt{q_i}\) are unique up to reordering.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(I\) is a decomposable ideal,
+    and \({\{p_i\}}_{i \in S}\) is a subset of the associated prime ideals.
+    This set of ideals is isolated if any associated prime \(p \subseteq p_i\)
+    is also in this subset \(p \in {\{p_i\}}_{i \in S}\).
+\end{definition}
+\begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
+    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
+    Let \({\{q_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
+    Then \(\bigcap_{i_k} q_{i_k}\) is uniquely determined independent of the decomposition.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Integral Dependence}
+
+\begin{definition}
+    Suppose \(A \subseteq R\), where \(R\) is an \(A\)-algebra.
+    \(R\) is finite over \(A\) if \(R\) is a finitely generated \(A\)-module;
+    that is, there is a surjection \(\bigoplus_{i=1}^n x_i A \to R\).
+    \(R\) is finite-type over \(A\) if \(R\) is a finitely generated \(A\)-algebra;
+    that is, there is a surjection \(A[x_1,\hdots,x_n] \to R\).
+\end{definition}
+\begin{definition}
+    Suppose \(R\) is an \(A\)-algebra, and \(x \in R\).
+    We say \(x\) is integral over \(A\) if it satisfies a monic polynomaial
+    \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
+    We say \(x\) is algebraic over \(A\) if it satisfies a polynomaial
+    \(a_0 x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
+\end{definition}
+\begin{definition}
+    \(A \subseteq R\) is integral if every \(x \in R\) is integral over \(A\).
+\end{definition}
+\begin{lemma}
+    Suppose \(R\) is an \(A\)-algebra.
+    \(x \in R\) is integral over \(A\) if and only if \(A[x]\) is a finite \(A\)-algebra.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is an \(A\)-algebra.
+    If \(x \in R\) is integral over \(A\),
+    then \(A[x]\) is integral over \(A\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is an \(A\)-algebra,
+    and \({\{x_i\}}_{i=1}^n \subset R\) are all integral over \(A\).
+    Then \(A[x_1,\hdots,x_n]\) is finite over \(A\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is an \(A\)-algebra.
+    The integral closure of \(A\) in \(R\) is an intermediate ring \(\overline{A}\)
+    that consists of all elements in \(R\) that are integral over \(A\).
+\end{definition}
+\begin{proposition}
+    Suppose \(R\) is an \(A\)-algebra.
+    \(\overline{A}\) is indeed a ring.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(A \subseteq B \subseteq R\) are all rings.
+    If \(A \subseteq B\) and \(B \subseteq R\) are both integral,
+    then \(A \subseteq R\) is also integral.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(A \subseteq R\) is an extension of rings.
+    Then \(\overline{\overline{A}} = \overline{A}\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}
+    Suppose \(A \subseteq R\) is an integral extension of rings.
+    Then we have the following two integral extensions:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(I \subseteq R\) is an ideal, and \(J = I \cap A\),
+        then \(A/J \subseteq R/I\) is integral; and
+        \item if \(S \subseteq A\) is a multiplicative monoid,
+        then \(S^{-1}A \subseteq S^{-1}R\) is integral.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(A \subseteq R\) is an integral extension of rings,
+    and \(A,R\) are both integral domains.
+    Then \(A\) is a field if and only if \(R\) is a field.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(A \subseteq R\) is an integral extension of rings.
+    If \(q \subseteq R\) is prime, and \(p = q \cap A\) is also prime,
+    then \(p\) is maximal if and only if \(q\) is maximal.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(A \subseteq R\) is an integral extension of rings,
+    and \(p \subseteq A\) is prime.
+    Then there exists some prime \(q \subseteq R\)
+    such that \(p = q \cap A\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Going Up Theorem]
+    Suppose \(A \subseteq R\) is an integral extension of rings,
+    \(p_1,p_2 \subseteq A\) and \(q_1 \subseteq R\) are prime ideals,
+    with \(p_1 = q_1 \cap A\).
+    Then there exists a prime ideal \(q_2 \subseteq R\)
+    such that \(q_1 \subseteq q_2\) and \(p_2 = q_2 \cap A\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[Going Down Theorem]
+    Suppose \(A \subseteq R\) is an integral extension of rings,
+    \(p_1,p_2 \subseteq A\) and \(q_2 \subseteq R\) are prime ideals,
+    with \(p_2 = q_2 \cap A\).
+    Then there exists a prime ideal \(q_1 \subseteq R\)
+    such that \(q_1 \subseteq q_2\) and \(p_1 = q_1 \cap A\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Noetherian Normalization]
+    Suppose \(K\) is an infinite field, and \(R\) is a finite-type \(K\)-algebra;
+    that is, \(R = K[x_1,\hdots,x_n]/I\).
+    Then there exists \({\{y_i\}}_{i=1}^m \subset R\) that are algebraically independent over \(K\),
+    such that \(K[y_1,\hdots,y_m] \subseteq R\) is integral.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Noetherian and Artinian Rings}
+
+\begin{proposition}
+    Suppose \(A \subseteq B \subseteq R\) are rings.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(A \subseteq B\) and \(B \subseteq C\) are finite, then \(A \subseteq C\) is also finite;
+        \item if \(A \subseteq B\) and \(B \subseteq C\) are integral, then \(A \subseteq C\) is also integral;
+        \item if \(A \subseteq R\) is finite, then \(B \subseteq R\) is finite;
+        \item if \(A \subseteq R\) is integral, then \(B \subseteq R\) is integral; and
+        \item if \(A \subseteq R\) is integral, then \(A \subseteq B\) is integral.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{remark}
+    In general, if \(A \subseteq R\) is finite, \(A \subseteq B\) might not necessarily be finite.
+\end{remark}
+
+\begin{definition}
+    Suppose \((\Sigma,\leq)\) is a partially ordered set.
+    \(\Sigma\) satisfies the ascending chain condition
+    if all ascending chains in \(\Sigma\) eventually stabilizes; that is,
+    \begin{equation*}
+        x_1 \leq x_2 \leq \cdots \implies x_n = x_{n+1} = \cdots
+    \end{equation*}
+    \(\Sigma\) satisfies the descending chain condition
+    if all descending chains in \(\Sigma\) eventually stabilizes; that is,
+    \begin{equation*}
+        x_1 \geq x_2 \geq \cdots \implies x_n = x_{n+1} = \cdots
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Suppose \(M\) is an \(R\)-module.
+    Let \((\Sigma, \subseteq)\) be the partially ordered set of all submodules of \(M\).
+    We say \(M\) is Noetherian if \(\Sigma\) satisfies the ascending chain condition.
+    We say \(M\) is Artinian if \(\Sigma\) satisfies the descending chain condition.
+\end{definition}
+\begin{definition}
+    Suppose \(R\) is a ring.
+    Let \((\Sigma, \subseteq)\) be the partially ordered set of all ideals of \(R\).
+    We say \(R\) is Noetherian if \(\Sigma\) satisfies the ascending chain condition.
+    We say \(R\) is Artinian if \(\Sigma\) satisfies the descending chain condition.
+\end{definition}
+
+\begin{theorem}
+    \(M\) is a Noetherian module if and only if every submodule \(N \subseteq M\) is finitely generated.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(R\) is a Noetherian ring if and only if every ideal \(I \subseteq R\) is finitely generated.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(N \subset M\) is a submodule.
+    Then \(M\) is Noetherian if and only if both \(N\) and \(M/N\) are Noetherian.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \({\{M_i\}}_{i=1}^n\) is a family of Noetherian modules.
+    Then \(\bigoplus_{i=1}^n M_i\) is Noetherian.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring,
+    and \(M\) a finitely generated \(R\)-module.
+    Then \(M\) is Noetherian.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring,
+    and \(I \subseteq R\) an ideal.
+    Then \(R/I\) is Noetherian.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(A\) is a Noetherian ring, and \(R\) is a finite \(A\)-algebra.
+    Then \(R\) is a Noetherian ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a Noetherian ring.
+    Then any ring of fractions \(S^{-1}R\) is also Noetherian.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{lemma}
+    Suppose \(R\) is a ring, and \(S^{-1}R\) is a ring of fractions.
+    Then every ideal of \(S^{-1}R\) has the form \(S^{-1}I\),
+    where \(I \subseteq R\) is an ideal.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[Hilbert Basis Theorem]
+    Suppose \(R\) is a Noetherian ring.
+    Then \(R[x]\) is also a Noetherian ring.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring.
+    Then \(R[x_1,\hdots,x_n]\) is Noetherian,
+    and any finite-type \(R\)-algebra \(R[x_1,\hdots,x_n]/I\) is also Noetherian.
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{remark}
+    We essentially have the following results:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(R\) is finite over \(A\) if and only if it is integral and finite-type; and
+        \item if \(R\) is finite-type over \(A\), then \(R\) is Noetherian over \(A\).
+    \end{enumerate}
+\end{remark}
+
+\begin{proposition}
+    Suppose \(A\) is a Noetherian ring,
+    and \(A \subseteq B \subseteq R\) is an extension of rings.
+    If \(A \subseteq R\) is finite, then \(A \subseteq B\) is finite.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
+    If \(R\) is Noetherian, then \(B\) is Noetherian.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}
+    Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
+    If \(A\) is Noetherian, \(C\) is finite-type of \(A\),
+    and \(C\) is finite over \(B\),
+    then \(B\) is finite-type over \(A\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(K\) is a field, and \(E\) a finitely generated \(K\)-algebra.
+    If \(E\) is a field, then \(E/K\) is a finite algebraic extension.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(K(y_1,\hdots,y_n)/K\) is a purely transcendental extension.
+    Then \(E\) cannot be finite-type over \(K\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}[Weak Hilbert's Nullstellensatz]
+    Suppose \(K\) is a field, and \(A\) is a finite-type \(K\)-algebra.
+    Let \(m \subseteq A\) be a maximal ideal.
+    Then \(A/m\) is a finite algebraic extension of \(K\).
+    If \(K = \overline{K}\), then \(A/m = K\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(K\) is a field, and \(R = K[x_1,\hdots,x_n]\).
+    Consider \({\{f_i\}}_{i \in S} \subset R\) a family of polynomial functions,
+    \(\func{f_i}{K^n}{K}\).
+    The vanishing locus is the set of points
+    \(\Van(\{f_i\}) = \{p \in K^n: \forall i \in S,\,f_i(p) = 0\}\).
+    Now consider \(X \subseteq K^n\).
+    The ideal of all vanishing polynomials is
+    \(\Ide(X) = \{f \in R: \forall x \in X,\,f(x) = 0\}\).
+\end{definition}
+\begin{corollary}
+    Suppose \(K = \overline{K}\) is algebraically closed.
+    Every maximal ideal of \(K[x_1,\hdots,x_n]\) is of the form
+    \((x_1-a_1,\hdots,x_n-a_n)\) for some \(a_i \in K\).
+    If \(I \subsetneq K[x_1,\hdots,x_n]\) is a proper ideal,
+    then the vanishing locus \(\Van(I) \neq \emptyset\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{theorem}[Hilbert's Nullstellensatz]\label{thm:nullstellensatz}
+    Suppose \(K = \overline{K}\) is an algebraically closed field,
+    and \(R = K[x_1,\hdots,x_n]\) is a polynomial ring.
+    Let \(J \subseteq R\) be an ideal, and \(\Van(J)\) be its vanishing locus.
+    Then \(\Ide(\Van(J)) = \sqrt{J}\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a Noetherian ring, and \(I \subseteq R\) is an ideal.
+    \(I\) is irreducible if \(I = I_1 \cap I_2\) implies \(I = I_1\) or \(I = I_2\).
+\end{definition}
+\begin{lemma}
+    Suppose \(R\) is a Noetherian ring.
+    Then every ideal \(I \subseteq R\) is a finite intersection of irreducible ideals
+    \(I = \bigcap_{j=1}^n I_j\).
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(R\) is a Noetherian ring.
+    If \(I \subseteq R\) is an irreducible ideal,
+    then it is also primary.
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    Suppose \(R\) is a Noetherian ring, and \(I \subseteq R\) is an ideal.
+    Then \({(\sqrt{I})^n} \subseteq I\) for some \(n\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring, and \(\mca{N}(R)\) its nilradical.
+    Then \({(\mca{N}(R))}^n = 0\) for some \(n\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring, and \(m \subseteq R\) is a maximal ideal.
+    Let \(q\) be a primary ideal.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(q \subseteq R\) is \(m\)-primary;
+        \item \(\sqrt{q} = m\); and
+        \item \(m^n \subseteq q \subseteq m\) for some \(n\).
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}
+    Suppose \(R\) is a Noetherian ring.
+    Then any ideal has a primary decomposition.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}

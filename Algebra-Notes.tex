@@ -65,6 +65,8 @@
 \newcommand{\bH}{\mbb{H}}
 
 % Common notation
+\DeclareMathOperator{\img}{img}         % image (of a morphism)
+
 \DeclareMathOperator{\ord}{ord}         % order (of a group)
 \DeclareMathOperator{\lcm}{lcm}         % least common multiple (of two numbers)
 \DeclareMathOperator{\sgn}{sgn}         % sign function
@@ -87,7 +89,13 @@
 
 \DeclareMathOperator{\Span}{span}       % span of vector spaces
 
+\DeclareMathOperator{\Ann}{Ann}         % annihilator
+\DeclareMathOperator{\coker}{coker}     % cokernel
+
 \DeclareMathOperator{\Gal}{Gal}         % Galois group
+
+\DeclareMathOperator{\Van}{V}           % vanishing locus
+\DeclareMathOperator{\Ide}{I}           % ideal of
 
 % Sometimes helpful macros
 \newcommand{\func}[3]{#1\colon#2\to#3}
@@ -156,6 +164,10 @@
 \part{Theory of Equations}
 \include{source/fields}
 \include{source/galois}
+\include{source/commutative}
+
+\part{Theory of Structures}
+\include{source/homology}
 
 \backmatter
 
