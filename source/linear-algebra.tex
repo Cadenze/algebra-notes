@@ -498,7 +498,7 @@
     \(\vec{x} = \sum_{i=1}^n a_i \vec{v}_i\),
     so
     \begin{equation*}
-        \phi(\vec{x}) = \phi_{i=1}^n a_i \phi(\vec{v}_i)
+        \phi(\vec{x}) = \sum_{i=1}^n a_i \phi(\vec{v}_i)
         = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i(\vec{x})
     \end{equation*}
     Hence \(\phi = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i\).
@@ -518,8 +518,78 @@
 \end{remark}
 
 \begin{proposition}
-    \({(\bigoplus_i V_i)}' = \prod_i V_i'\).
+    \(\pqty{\bigoplus_i V_i}' \cong \prod_i V_i'\).
 \end{proposition}
+\begin{proof}
+    Suppose \(\phi \in \pqty{\bigoplus_i V_i}'\).
+    If we consider the usual restriction of \(\phi\) to each individual \(V_i\),
+    and denote each of them \(\phi_i\),
+    then the direct product of each of the \(\phi_i\)
+    gives us a natural homomorphism
+    from \(\pqty{\bigoplus_i V_i}' \to \prod_i V_i'\),
+    \(\phi \mapsto (\phi_i)\).
+
+    We shall explicitly construct the inverse as to show that it is an isomorphism.
+    Consider \((\psi_i) \in \prod_i V_i'\).
+    We can map this to some element \(\sum_i \psi_i\).
+    Observe that although there might be infinitely many nonzero \(\psi_i\),
+    when applied to \(\vec{x}_i \in V_i\), there are only finitely many nonzero \(\psi_i(\vec{x}_i)\) terms.
+
+    We first check that these two homomorphisms are indeed homomorphisms,
+    by checking linearity.
+    The forward direction is almost by definition:
+    \(a\phi + \chi\) restricts to \(a\phi_i + \chi_i\),
+    so \(a\phi + \chi \mapsto (a\phi_i + \chi_i) = a(\phi_i) + (\chi_i)\).
+    The reverse direction is similar:
+    \(a(\psi_i) + (\omega_i) = (a\psi_i + \omega_i) \mapsto
+    \sum_i a\psi_i + \omega_i = a\sum_i \psi_i + \sum_i \omega_i\).
+
+    We then check that it is indeed an inverse.
+    \begin{equation*}
+        \phi\pqty{\sum_i \vec{x}_i} \overset{f}{\mapsto} (\phi_i(\vec{x}_i))
+        = \sum_i \phi_i(\vec{x}_i) = \phi\pqty{\sum_i \vec{x}_i}
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}
+    Suppose \(\vfunc{f}{V}{V''}{\vec{v}}{(\phi\mapsto\phi(\vec{v})) = \delta_{\vec{v}}}\),
+    where \(\delta_{\vec{v}}\) is the evaluation map.
+    This homomorphism is injective;
+    furthermore, it is an isomorphism if and only if \(\dim_F(V) < \infty\).
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction, that there is some \(\vec{v} \neq \vec{0}\)
+    such that \(f(\vec{v}) = \delta_{\vec{v}} = 0\);
+    this tells us there is some vector \(\vec{v} \in V\)
+    such that any \(\phi \in V'\) evaluates it to \(\phi(\vec{v}) = 0\).
+    But then, if we choose a basis for \(V\), such that it includes \(\vec{v}\),
+    the corresponding dual basis would include some \(\phi_{\vec{v}}\)
+    such that \(\phi_{\vec{v}}(\vec{v}) = 1\), which is a contradiction.
+
+    Suppose \(V\) is a finite-dimensional vector space.
+    Then it suffices to prove that \(f\) is a surjection.
+    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis,
+    and \({\{\phi_i\}}_{i=1}^n \subset V'\) be its dual basis.
+    Consider any \(\delta \in V''\).
+    If we let \(a_i = \delta(\phi_i)\),
+    and \(\vec{v} = \sum_{i=1}^n a_i\vec{v}_i\),
+    then we see that
+    \begin{equation*}
+        f(\vec{v}) = \sum_{i=1}^n a_i f(\vec{v}_i)
+        = \sum_{i=1}^n \delta(\phi_i) \delta_{\vec{v}_i}
+        = \delta
+    \end{equation*}
+    Hence we have surjection.
+
+    Now suppose \(V\) is an infinite-dimensional vector space.
+    Then if \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis,
+    then \(V = \bigoplus_{i \in I} F\),
+    and \(V' = \prod_{i \in I} F\).
+    But we can immediately see that in infinite dimensions the dual basis does not form a basis,
+    and hence there is no surjection from \(V \to V'\).
+    Analogously there is no surjection from \(V' \to V''\).
+    Hence there exists no surjection \(V \to V''\).
+\end{proof}
 
 
 \section{Bilinear Forms}
