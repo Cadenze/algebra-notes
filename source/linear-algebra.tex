@@ -9,6 +9,10 @@
             denotes a matrix or tensorial quantity.
     \end{enumerate}
 \end{remark}
+\begin{remark}
+    All homomorphisms in this chapter are assumed to be \(F\)-vector space homomorphisms;
+    that is, \(\Hom(U,V) = \Hom_F(U,V)\) for \(U,V\) being \(F\)-vector spaces.
+\end{remark}
 
 \section{Basic Definitions}
 
@@ -594,6 +598,8 @@
 
 \section{Tensor Product}
 
+\subsection*{Bilinearity}
+
 \begin{definition}
     Suppose \(U,V,W\) are vector spaces,
     and \(\func{f}{U \times V}{W}\) is a function.
@@ -601,6 +607,107 @@
     Similarly, if \(\func{f}{\prod_{i=1}^n V_i}{W}\) is a function,
     \(f\) is \(n\)-linear if it is linear in each variable.
 \end{definition}
+\begin{definition}
+    We can generalize the inner product of vectors.
+    Suppose \(U,V\) are vector spaces,
+    with \({\{\vec{u}_i\}}_{i=1}^m,{\{\vec{v}_j\}}_{j=1}^n\) their respective bases.
+    Then we can define a Gram matrix to be \(b_{ij} = \ip{\vec{u}_i}{\vec{v}_j}\),
+    for some bilinear form \(\func{\ip{\cdot}{\cdot}}{U \times V}{F}\).
+    Then the pairing becomes \(\ip{\vec{u}}{\vec{v}} = \vec{u}^T \vb{B} \vec{v}\),
+    where \(\vb{B}\) is the Gram matrix.
+\end{definition}
+\begin{theorem}
+    There is a bijection between the set of bilinear maps \(U \times V \to W\)
+    and \(\Hom(U,\Hom(V,W))\).
+\end{theorem}
+\begin{proof}
+    Consider a bilinear function \(\func{f}{U \times V}{W}\).
+    If we fix any \(\vec{u} \in U\),
+    we can define \(\func{f_{\vec{u}} = f(\vec{u},\cdot)}{V}{W}\).
+    Then clearly \(f_{\vec{u}} \in \Hom(V,W)\),
+    and \(\vec{u} \mapsto f_{\vec{u}}\) is in \(\Hom(U,\Hom(V,W))\).
+
+    Now consider any arbitrary map \(\Hom(U,\Hom(V,W))\).
+    Then for each \(\vec{u} \in U\) we have a corresponding \(f_{\vec{u}} \in \Hom(V,W)\),
+    and this map is linear in \(U\).
+    But \(f_{\vec{u}}\) is exactly the set of linear maps from \(V \to W\),
+    so we have linearity in both \(U\) and \(V\) as desired.
+\end{proof}
+\begin{corollary}
+    There is a bijection between the set of pairings \(\func{f}{U \times V}{F}\)
+    and \(\Hom(U,V')\).
+\end{corollary}
+\begin{proof}
+    \(\Hom(U,\Hom(V,F)) = \Hom(U,V')\).
+\end{proof}
+\begin{definition}
+    A paring \(U \times V \to F\) is nondegenerate
+    if the associated maps \(U \mapsto V'\) and \(V \mapsto U'\) are both embeddings.
+\end{definition}
+
+\begin{definition}
+    Suppose \(T \in \Hom(U,V)\).
+    We define the dual map to be \(T' \in \Hom(V',U')\),
+    where we map \(\phi \mapsto \phi \circ T\).
+\end{definition}
+\begin{proposition}
+    We have the following properties for dual maps:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(T \mapsto T'\) is a linear map from \(\Hom(U,V) \to \Hom(V',U')\);
+        \item \({(ST)}' = T'S'\); and
+        \item if \(\vb{A}\) is the matrix of \(T\), then \(\vb{A}^T\) is the matrix of \(T'\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(S,T \in \Hom(U,V)\).
+    Then for any \(\phi \in V'\),
+    \begin{equation*}
+        (aS + T)'\phi = \phi \circ (aS + T) = a\phi \circ S + \phi \circ T
+        = aS' + T'
+    \end{equation*}
+    This proves statement (a).
+
+    Suppose \(T \in \Hom(U,V)\) and \(S \in \Hom(V,W)\).
+    Then for any \(\phi \in W'\),
+    \begin{equation*}
+        {(ST)}'\phi = \phi \circ ST = (\phi \circ S) \circ T
+        = T'(\phi \circ S) = T'S'\phi
+    \end{equation*}
+    This proves statement (b).
+
+    Suppose \(T \in \Hom(U,V)\), and \(\vb{A}\) is its matrix representation.
+    Let \(\phi \in V'\) be a linear functional,
+    with a representation \(\phi_i\) as a horizontal covector.
+    % and we have bases \({\{\vec{u}_i\}}_{i=1}^m\) and \({\{\vec{v}_j\}}_{j=1}^n\).
+    % Let \(a_{ij}\) be the matrix elements of \(\vb{A}\),
+    % and \(\vec{u} = \sum_{k=1}^m b_k\vec{u}_k\).
+    % We have
+    % \begin{equation*}
+    %     T\vec{u} =  \sum_{i,j} a_{ij}b_j\vec{v}_i
+    % \end{equation*}
+    Then we have
+    \begin{equation*}
+        \pqty{\phi\vb{A}}^T
+        = \vb{A}^T\phi^T
+    \end{equation*}
+    where the left multiplication is by \(\vb{A}^T\).
+    This proves statement (c).
+\end{proof}
+\begin{remark}
+    Although we have not proven all the corresponding properties,
+    we can see intuitively that taking the dual is a contravariant functor.
+    Functoriality of \(\Hom(\cdot,F)\) will be discussed in more generality
+    in Section~\ref{sec:comm-modules} for modules over commutative rings.
+\end{remark}
+% \begin{proposition}
+%     Suppose \(T \in \End(V,V)\) is arbitrary.
+%     Then there exists a unique nondegenerate pairing \(\func{\ip{\cdot}{\cdot}}{V' \times V}{F}\)
+%     such that \(\ip{\phi}{T\vec{v}} = \ip{T'\phi}{\vec{v}}\) holds
+%     for all \(\vec{v} \in V\) and \(\phi \in V'\).
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
 
 
 \section{Symmetry and Antisymmetry}
