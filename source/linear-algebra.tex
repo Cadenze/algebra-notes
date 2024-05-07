@@ -234,6 +234,7 @@
 \begin{theorem}[Existence of Direct Sum]
     The direct sum of vector spaces \(V_i\)
     is a sum of elements \(x_i \in V_i\), with finite support.
+    Addition and scalar multiplication respect usual summation rules.
 \end{theorem}
 \begin{proof}
     We prove that our vector space of finite sums does fulfill the universal property.
@@ -275,7 +276,7 @@
     is often revealed while proving uniqueness.
 \end{remark}
 \begin{theorem}[Uniqueness of Direct Sum]
-    The direct sum of vector spaces is associative and commutative up to isomorphism.
+    The direct sum of vector spaces is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
     \begin{center}
@@ -291,11 +292,41 @@
             %     [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
         \end{tikzcd}
     \end{center}
-    It is obvious from the universal property that
-    the unique inclusions do not get affected by order or bracketing.
+    % It is obvious from the universal property that
+    % the unique inclusions do not get affected by order or bracketing.
+    We can see from the diagram that \((\bar{\phi}'\circ\bar{\phi})\circ\iota_i = \iota_i\),
+    so by the uniqueness of \(\bar{\phi}\) and \(\bar{\phi}'\) in this diagram,
+    \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    The same argument can be used to conclude that \(\bar{\phi}\circ\bar{\phi}' = \id\).
     Hence \(\bar{\phi}^{-1} = \bar{\phi}'\),
     and we have isomorphism.
 \end{proof}
+
+\begin{proposition}\label{prop:vsp-sum-iso}
+    We have the following canonical isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \((U \oplus V) \oplus W \cong U \oplus V \oplus W \cong U \oplus (V \oplus W)\); and
+        \item \(U \oplus V \cong V \oplus U\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(\vec{u} \in U\), \(\vec{v} \in V\), and \(\vec{w} \in W\).
+    Then we have the following maps:
+    \((\vec{u}+\vec{v})+\vec{w} \mapsto \vec{u}+\vec{v}+\vec{w} \mapsto \vec{u}+(\vec{v}+\vec{w})\).
+    Both of these maps are isomorphic,
+    because the bases are concatenated from the bases of \(U,V,W\).
+    % for \(\vec{u}_i,\vec{v}_j,\vec{w}_k\) basis vectors.
+
+    A similar argument can be made for part (b).
+    The bases are both dependent on the choice of \(\vec{u}_i,\vec{v}_j\),
+    since the bases this time is concatenated from a different order only.
+\end{proof}
+% \begin{proposition}
+%     \(\dim(\bigoplus_{i=1}^n V_i) = \sum_{i=1}^n \dim(V_i)\).
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
 
 
 \subsection*{Direct Product}
@@ -362,7 +393,7 @@
     The fact that \(\pi_i\circ\bar{\phi} = \phi_i\) is by construction.
 \end{proof}
 \begin{theorem}[Uniqueness of Direct Product]
-    The direct product of vector spaces is associative and commutative up to isomorphism.
+    The direct product of vector spaces is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
     \begin{center}
@@ -377,11 +408,13 @@
         \end{tikzcd}
     \end{center}
     Again, from the universal property,
-    the unique projections do not get affected by order or bracketing.
-    Hence we have an isomorphism between direct products.
+    \(\pi_i\circ(\bar{\phi}'\circ\bar{\phi}) = \pi_i\),
+    and by uniqueness, \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    A similar argument gives \(\bar{\phi}\circ\bar{\phi}' = \id\).
+    Hence we have isomorphism.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:vsp-sum-prod-iso}
     Suppose \({\{V_i\}}_{i=1}^n\) is a finite family of vector spaces.
     Then the direct sum and direct product of finitely many vector spaces are isomorphic.
     \begin{equation*}
@@ -403,7 +436,6 @@
     gives us that a surjection of finitely many vector spaces
     must also be an injection.
 \end{proof}
-
 \begin{remark}
     In infinite indices,
     the direct sum is a smaller space than the direct product.
@@ -411,6 +443,19 @@
     the direct sum can only have finite support with respect to its basis,
     but the direct product can have infinite support.
 \end{remark}
+
+\begin{proposition}
+    We have the following canonical isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \((U \times V) \times W \cong U \times V \times W \cong U \times (V \times W)\); and
+        \item \(U \times V \cong V \times U\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since Theorem~\ref{thm:vsp-sum-prod-iso} tells us we have an isomorphism
+    between the finite direct sum and direct product,
+    Proposition~\ref{prop:vsp-sum-iso} suffices.
+\end{proof}
 
 
 \subsection*{Quotient}
@@ -782,6 +827,36 @@
 % \begin{proof}
     
 % \end{proof}
+
+\subsection*{Tensor Product}
+
+\begin{definition}[Universal Property of Tensor Product]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
+    The tensor product of vector spaces \(\bigotimes_{i \in I} V_i\)
+    is the universal construction for all \(I\)-linear maps, that is,
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists a projection \(\func{\pi}{\prod_{i \in I} V_i}{\bigotimes_{i \in I} V_i}\); and
+        \item for any vector space \(X\),
+            if \(\func{\phi}{\prod_{i \in I} V_i}{X}\) is a bilinear map,
+            then there exists a unique \(\func{\bar{\phi}}{\bigotimes_{i \in I} V_i}{X}\)
+            such that \(\phi = \bar{\phi}\circ\pi\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            \prod_{i \in I} V_i \arrow{r}{\phi} \arrow{d}{\pi_i} & X \\
+            \bigotimes_{i \in I} V_i \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{theorem}[Uniqueness of Tensor Product]
+    The tensor product is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
 
 
 \section{Symmetry and Antisymmetry}
