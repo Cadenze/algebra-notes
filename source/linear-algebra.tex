@@ -237,9 +237,9 @@
 \end{theorem}
 \begin{proof}
     We prove that our vector space of finite sums does fulfill the universal property.
-    We shall first prove uniqueness of \(\bar{phi}\), assuming existence.
+    We shall first prove uniqueness of \(\bar{\phi}\), assuming existence.
     Suppose, by way of contradiction,
-    that \(\bar{phi} \neq \bar{phi}'\) both fulfill this diagram.
+    that \(\bar{\phi} \neq \bar{\phi}'\) both fulfill this diagram.
     Then there exists some finite sum \(\sum_{i \in I} \iota_i(x_i)\) such that
     \begin{equation*}
         \sum_{i \in I} \phi_i(x_i)
@@ -252,18 +252,20 @@
     which is a contradiction.
 
     We now prove existence.
-    We wish to show that we can define \(\phi\) as
+    We wish to show that we can define \(\bar{\phi}\) as
     \(\sum \iota_i(x_i) \mapsto \sum \phi_i(x_i)\).
     We first check linearity,
     and that we pad our sums below with zeroes,
     so that they are both sums with same number of terms.
-    \begin{equation*}
+    \begin{align*}
         \bar{\phi}\pqty{a\sum \iota_i(x_i) + \sum \iota_i(y_i)}
-        = \bar{\phi}\pqty{\sum \iota_i(ax_i + y_i)}
-        = \sum \phi_i(ax_i + y_i)
-        = a\sum \phi_i(x_i) + \sum \phi_i(y_i)
+        &= \bar{\phi}\pqty{\sum (a\iota_i(x_i)+\iota_i(y_i))}
+        = \pqty{\sum (\bar{\phi}\circ\iota_i)(ax_i + y_i)}
+        = \sum \phi_i(ax_i + y_i) \\
+        &= a\sum \phi_i(x_i) + \sum \phi_i(y_i)
         = a\bar{\phi}\pqty{\sum \iota_i(x_i)} + \bar{\phi}\pqty{\sum \iota_i(y_i)}
-    \end{equation*}
+    \end{align*}
+    The fact that \(\bar{\phi}\circ\iota_i = \phi_i\) is by construction.
 \end{proof}
 \begin{remark}
     In general, when proving a universal property,
@@ -328,6 +330,37 @@
     \end{center}
 \end{definition}
 
+\begin{theorem}[Existence of Direct Product]
+    The direct product of vector spaces is a tuple \({(x_i)}_{i \in I}\) indexed over \(I\),
+    with each element \(x_i \in V_i\).
+\end{theorem}
+\begin{proof}
+    We prove that our vector space of tuples does fulfill the universal property.
+    We shall first prove uniqueness of \(\bar{\phi}\), assuming existence.
+    Suppose, by way of contradiction,
+    that \(\bar{\phi} \neq \bar{\phi}'\) both fulfill this diagram.
+    Then there exists some element \(x \in X\) such that
+    \(\bar{\phi}(x) \neq \bar{\phi}'(x)\).
+    But we have, for all \(i \in I\)
+    \begin{equation*}
+        (\pi_i\circ\bar{\phi})(x) = \phi_i(x) = (\pi_i\circ\bar{\phi}')(x)
+    \end{equation*}
+    so we have two different elements projecting to the same elements in \(V_i\).
+    That is a contradiction, since if all projections agree,
+    then the tuples must agree at all positions.
+
+    We now prove existence.
+    We wish to show that we can define \(\bar{\phi}\) as
+    \(x \mapsto {(\phi_i(x))}_{i \in I}\).
+    We first check linearity.
+    \begin{equation*}
+        \bar{\phi}(ax + y) = {(\phi_i(ax+y))}_{i \in I}
+        = {(a\phi_i(x) + \phi_i(y))}_{i \in I}
+        = a{(\phi_i(x))}_{i \in I} + {(\phi_i(y))}_{i \in I}
+        = a\bar{\phi}(x) + \bar{\phi}(y)
+    \end{equation*}
+    The fact that \(\pi_i\circ\bar{\phi} = \phi_i\) is by construction.
+\end{proof}
 \begin{theorem}[Uniqueness of Direct Product]
     The direct product of vector spaces is associative and commutative up to isomorphism.
 \end{theorem}
