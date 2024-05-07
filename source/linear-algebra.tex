@@ -279,10 +279,12 @@
     The direct sum of vector spaces is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
+    Suppose, by way of contradiction,
+    that there exists some \(W\) that also fits the universal property.
     \begin{center}
         \begin{tikzcd}
             V_i \arrow{r}{\iota_i'} \arrow{d}{\iota_i} &
-            \bigoplus_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
                 [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
             \bigoplus_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
                 [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
@@ -396,12 +398,14 @@
     The direct product of vector spaces is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
+    Suppose, by way of contradiction, that there exists another vector space \(W\)
+    that fits this universal property.
     \begin{center}
         \begin{tikzcd}
             V_i & %
                 % \arrow[dashrightarrow]{ld}{\exists! \bar{\phi}} \\
             % \prod_{i \in I} V_i \
-            \prod_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
                 [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \arrow{l}[swap]{\pi_i'} \\
             \prod_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
                 [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}} \arrow{u}[swap]{\pi_i}
@@ -835,17 +839,17 @@
     The tensor product of vector spaces \(\bigotimes_{i \in I} V_i\)
     is the universal construction for all \(I\)-linear maps, that is,
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists a projection \(\func{\pi}{\prod_{i \in I} V_i}{\bigotimes_{i \in I} V_i}\); and
+        \item there exists a bilinear embedding \(\func{\iota}{\prod_{i \in I} V_i}{\bigotimes_{i \in I} V_i}\); and
         \item for any vector space \(X\),
             if \(\func{\phi}{\prod_{i \in I} V_i}{X}\) is a bilinear map,
             then there exists a unique \(\func{\bar{\phi}}{\bigotimes_{i \in I} V_i}{X}\)
-            such that \(\phi = \bar{\phi}\circ\pi\).
+            such that \(\phi = \bar{\phi}\circ\iota\).
     \end{enumerate}
 
     This can be represented by the following commutative diagram:
     \begin{center}
         \begin{tikzcd}
-            \prod_{i \in I} V_i \arrow{r}{\phi} \arrow{d}{\pi_i} & X \\
+            \prod_{i \in I} V_i \arrow{r}{\phi} \arrow{d}{\iota} & X \\
             \bigotimes_{i \in I} V_i \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
         \end{tikzcd}
     \end{center}
@@ -855,7 +859,46 @@
     The tensor product is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
-    
+    Suppose, by way of contradiction, that there exists another vector space \(W\)
+    that fits that universal property.
+    \begin{center}
+        \begin{tikzcd}
+            \prod_{i \in I} V_i \arrow{r}{\iota'} \arrow{d}{\iota} &
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            \bigotimes_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    A standard argument via diagram chase gives us
+    \begin{align*}
+        (\bar{\phi}'\circ\bar{\phi})\circ\iota = \iota &\implies \bar{\phi}'\circ\bar{\phi} = \id \\
+        (\bar{\phi}\circ\bar{\phi}')\circ\iota' = \iota' &\implies \bar{\phi}\circ\bar{\phi}' = \id
+    \end{align*}
+    by uniqueness of \(\bar{\phi},\bar{\phi}'\).
+    This gives us isomorphism.
+\end{proof}
+
+\begin{theorem}[Existence of Tensor Product]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces,
+    Consider the vector space \(T\) of formal linear combinations of vectors
+    \({\{{(\vec{v}_i)}_{i \in I} : \vec{v}_i \in V_i\}}\).
+    We then construct the following equivalence classes,
+    where the vectors below only differ in the \(i\)th index.
+    \begin{equation*}
+        (\hdots,\vec{u}_i+\vec{v}_i,\hdots) = (\hdots,\vec{u}_i,\hdots) + (\hdots,\vec{v}_i,\hdots) \qquad
+        (\hdots,a\vec{v}_i,\hdots) = a(\hdots,\vec{v}_i,\hdots)
+    \end{equation*}
+    Then \(T/{\sim}\) is the tensor product,
+    with the image of \({(\vec{v}_i)}_{i \in I}\) written as \(\bigotimes_{i \in I} \vec{v}_i\).
+\end{theorem}
+\begin{proof}
+    We first remember that the equivalence class \(\sim\) indeed forms a vector space,
+    since by construction,
+    all linear combinations of elements will be in the equivalence class.
+    Hence \(T/{\sim}\) is indeed a valid quotient vector space.
+
+    We now show that \(T/{\sim}\) indeed fulfills our universal property.
 \end{proof}
 
 
