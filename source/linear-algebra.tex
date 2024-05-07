@@ -231,6 +231,47 @@
     simply by span of \(B_U\) and \(B_V\).
 \end{proof}
 
+\begin{theorem}[Existence of Direct Sum]
+    The direct sum of vector spaces \(V_i\)
+    is a sum of elements \(x_i \in V_i\), with finite support.
+\end{theorem}
+\begin{proof}
+    We prove that our vector space of finite sums does fulfill the universal property.
+    We shall first prove uniqueness of \(\bar{phi}\), assuming existence.
+    Suppose, by way of contradiction,
+    that \(\bar{phi} \neq \bar{phi}'\) both fulfill this diagram.
+    Then there exists some finite sum \(\sum_{i \in I} \iota_i(x_i)\) such that
+    \begin{equation*}
+        \sum_{i \in I} \phi_i(x_i)
+        = \sum_{i \in I} (\bar{\phi}\circ\iota_i)(x_i)
+        = \bar{\phi}\pqty{\sum_{i \in I} \iota_ix(x_i)}
+        \neq \bar{\phi}'\pqty{\sum_{i \in I} \iota_i(x_i)}
+        = \sum_{i \in I} (\bar{\phi}'\circ\iota_i)(x_i)
+        = \sum_{i \in I} \phi_i(x_i)
+    \end{equation*}
+    which is a contradiction.
+
+    We now prove existence.
+    We wish to show that we can define \(\phi\) as
+    \(\sum \iota_i(x_i) \mapsto \sum \phi_i(x_i)\).
+    We first check linearity,
+    and that we pad our sums below with zeroes,
+    so that they are both sums with same number of terms.
+    \begin{equation*}
+        \bar{\phi}\pqty{a\sum \iota_i(x_i) + \sum \iota_i(y_i)}
+        = \bar{\phi}\pqty{\sum \iota_i(ax_i + y_i)}
+        = \sum \phi_i(ax_i + y_i)
+        = a\sum \phi_i(x_i) + \sum \phi_i(y_i)
+        = a\bar{\phi}\pqty{\sum \iota_i(x_i)} + \bar{\phi}\pqty{\sum \iota_i(y_i)}
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    In general, when proving a universal property,
+    we start by proving uniqueness assuming existence,
+    and then proving existence afterwards.
+    This is because the details of the proof of existence
+    is often revealed while proving uniqueness.
+\end{remark}
 \begin{theorem}[Uniqueness of Direct Sum]
     The direct sum of vector spaces is associative and commutative up to isomorphism.
 \end{theorem}
