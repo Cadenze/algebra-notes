@@ -952,6 +952,28 @@
     Lastly, we see that our \(\bar{\phi}\) fulfills the diagram by construction.
 \end{proof}
 
+\begin{proposition}
+    Suppose \(B_U \subset U\) and \(B_V \subset V\) are bases.
+    Then \(\{\vec{u}\otimes\vec{v}: \vec{u} \in B_U, \vec{v} \in B_V\}\) is a basis.
+\end{proposition}
+\begin{proof}
+    By construction, this is already spanning,
+    because the only possible pure tensors are selected from \(\vec{u}\otimes\vec{v}\),
+    where \(\vec{u} \in U\) and \(\vec{v} \in V\),
+    and each of these can be expressed as a linear combination of the bases vectors.
+    We now see that this is also linearly independent,
+    because if not,
+    then it implies that there are some linear combination of tensors
+    that bilinear forms will always evaluate to zero,
+    which is strictly untrue.
+\end{proof}
+\begin{corollary}
+    \(\dim(U \otimes V) = \dim(U)\dim(V)\).
+\end{corollary}
+\begin{proof}
+    Simply take the cardinality of the basis.
+\end{proof}
+
 
 \section{Symmetry and Antisymmetry}
 
