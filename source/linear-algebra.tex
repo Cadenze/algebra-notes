@@ -899,6 +899,57 @@
     Hence \(T/{\sim}\) is indeed a valid quotient vector space.
 
     We now show that \(T/{\sim}\) indeed fulfills our universal property.
+    First off, we define our embedding \(\iota\) as
+    \({(\vec{v}_i)}_{i \in I} \mapsto \bigotimes_{i \in I} \vec{v}_i\).
+    By definition of our equivalence class, \(\iota\) is \(I\)-linear.
+    We can also see that since \(\{{(\vec{v}_i)}_{i \in I} : \vec{v}_i \in V_i\}\) span \(T\),
+    its image must also span \(\{\bigotimes_{i \in I} \vec{v}_i : \vec{v}_i \in V_i\}\) span \(T/{\sim}\)
+    We show that if such a \(\bar{\phi}\) exists, it must be unique.
+    Suppose, by way of contradiction,
+    that \(\bar{\phi}\neq\bar{\phi}'\) both fit our universal property.
+    Then we know that there exists some \(\vec{w} \in T/{\sim}\)
+    that \(\bar{\phi}\) and \(\bar{\phi}'\) disagree on;
+    in particular, if we write \(\vec{w}\) as a sum of some spanning tensors,
+    \(\bar{\phi}\) and \(\bar{\phi}'\) disagree on at least one of those tensors.
+    Hence
+    \begin{equation*}
+        \phi{(\vec{v}_i)}_{i \in I}
+        = (\bar{\phi}\circ\iota){(\vec{v}_i)}_{i \in I}
+        = \bar{\phi}\pqty{\bigotimes_{i \in I} \vec{v}_i}
+        \neq \bar{\phi}'\pqty{\bigotimes_{i \in I} \vec{v}_i}
+        = (\bar{\phi}'\circ\iota){(\vec{v}_i)}_{i \in I}
+        = \phi{(\vec{v}_i)}_{i \in I}
+    \end{equation*}
+    is a contradiction.
+
+    We then show existence of such a \(\bar{\phi}\).
+    We define \(\bar{\phi}\) (on a spanning set) to be
+    \(\bigotimes_{i \in I} \vec{v}_i \mapsto \phi{(\vec{v}_i)}_{i \in I}\),
+    and any sums of that to sums of the image.
+    We check that this is well-defined,
+    by checking that the elements in the kernel \(\sim\) must go to 0.
+    \begin{align*}
+        \bar{\phi}(\iota(\hdots,\vec{u}_i+\vec{v}_i,\hdots))
+        &= \phi(\hdots,\vec{u}_i+\vec{v}_i,\hdots)
+        = \phi(\hdots,\vec{u}_i,\hdots) + \phi(\hdots,\vec{u}_i,\hdots) \\
+        &= \bar{\phi}(\iota(\hdots,\vec{u}_i,\hdots))
+        + \bar{\phi}(\iota(\hdots,\vec{v}_i,\hdots)) \\
+        \bar{\phi}(\iota(\hdots,a\vec{v}_i,\hdots))
+        &= \phi(\hdots,a\vec{v}_i,\hdots)
+        = a\phi(\hdots,\vec{v}_i,\hdots)
+        = a\bar{\phi}(\iota(\hdots,\vec{v}_i,\hdots))
+    \end{align*}
+    We show linearity.
+    \begin{equation*}
+        \bar{\phi}\pqty{a\sum_j \bigotimes_{i \in I} \vec{v}_{ij}}
+        % = \bar{\phi}\pqty{\sum_j a\bigotimes_{i \in I} \vec{v}_{ij}}
+        = \sum_j \bar{\phi}\pqty{a\bigotimes_{i \in I} \vec{v}_{ij}}
+        = \sum_j a\phi{(\vec{v}_{ij})}_{i \in I}
+        = a \sum_j \bar{\phi}\pqty{\bigotimes_{i \in I} \vec{v}_{ij}}
+        = a \bar{\phi}\pqty{\sum_j \bigotimes_{i \in I} \vec{v}_{ij}}
+    \end{equation*}
+    The sum part of linearity is true by definition.
+    Lastly, we see that our \(\bar{\phi}\) fulfills the diagram by construction.
 \end{proof}
 
 
