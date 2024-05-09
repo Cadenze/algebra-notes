@@ -148,7 +148,7 @@
     Vector space homomorphisms are linear maps.
 \end{definition}
 \begin{proposition}
-    \(\End(V) = \Hom(V,V)\) endomorphisms of a vector space
+    The set of endomorphisms of a vector space, \(\End(V) = \Hom(V,V)\)
     has both a ring structure and a vector space structure.
 \end{proposition}
 \begin{proof}
@@ -160,7 +160,6 @@
     If we define ring multiplication as function composition,
     then by linearity we have distributivity.
 \end{proof}
-
 
 \section{General Constructions}
 
@@ -976,6 +975,20 @@
 
 
 \section{Symmetry and Antisymmetry}
+
+\begin{definition}
+    Suppose \(T \in \End(V)\) is a linear operator.
+    We say \(\lambda\) is an eigenvalue of \(T\)
+    if there exists some \(\vec{v} \neq \vec{0}\) such that \(T\vec{v} = \lambda\vec{v}\).
+    The set of all eigenvalues of \(T\) is its spectrum, \(\Spec(T)\).
+\end{definition}
+\begin{definition}
+    Suppose \(T \in \End(V)\) is a linear operator.
+    If there exists some \(n > 0\) such that \(T^n = 0\),
+    then we say that \(T\) is nilpotent of index \(n\).
+    Similarly, if there exists some \(n > 0\) such that \(T^m = \id\),
+    then we say that \(T\) is idempotent of index \(m\).
+\end{definition}
 
 
 \section{Minimal Polynomial}
