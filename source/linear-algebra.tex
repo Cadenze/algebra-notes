@@ -212,7 +212,7 @@
         = a(b(\vec{u},\vec{v}))
     \end{equation*}
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:dim-direct-sum}
     \(\dim_F(U \oplus V) = \dim_F U + \dim_F V\).
 \end{lemma}
 \begin{proof}
@@ -502,7 +502,7 @@
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(U \subseteq V\), the kernel is a subspace;
         \item \(\phi(V) \subseteq W\), the image is a subspace; and
-        \item \(\phi(V) \cong V/W\), the image is uniquely isomorphic to the quotient subspace.
+        \item \(\phi(V) \cong V/U\), the image is uniquely isomorphic to the quotient subspace.
     \end{enumerate}
 \end{theorem}
 \begin{theorem}[Third and Fourth Isomorphism Theorems for Vector Spaces]\label{thm:iso-3-vsp}\label{thm:iso-4-vsp}
@@ -966,7 +966,7 @@
     that bilinear forms will always evaluate to zero,
     which is strictly untrue.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:dim-tensor-product}
     \(\dim(U \otimes V) = \dim(U)\dim(V)\).
 \end{corollary}
 \begin{proof}
@@ -975,6 +975,12 @@
 
 
 \section{Symmetry and Antisymmetry}
+
+\begin{remark}
+    In the following section,
+    suppose all fields are of characteristic not 2,
+    unless otherwise noted.
+\end{remark}
 
 \begin{definition}
     Suppose \(T \in \End(V)\) is a linear operator.
@@ -989,6 +995,139 @@
     Similarly, if there exists some \(n > 0\) such that \(T^m = \id\),
     then we say that \(T\) is idempotent of index \(m\).
 \end{definition}
+
+\begin{lemma}\label{lem:direct-sum-idempotent}
+    Suppose \(T \in \End(V)\) is a linear operator,
+    with \(T \neq \id\), and \(T^2 = \id\).
+    Then \(\Spec(T) = \{\pm 1\}\), and \(V = V_+ \oplus V_-\),
+    where \(V_+ = \{\vec{v}: T\vec{v} = \vec{v}\}\)
+    and \(V_- = \{\vec{v}: T\vec{v} = -\vec{v}\}\).
+\end{lemma}
+\begin{proof}
+    Let \(P_+ = \frac{1}{2}(T+I)\).
+    Then \(TP_+ = \frac{1}{2}(T^2+T) = \frac{1}{2}(I+T) = P_+\),
+    and \(P_+^2 = \frac{1}{4}(T^2+2T+I) = \frac{1}{4}(2T+2I) = P_+\).
+    Hence \(P_+\) is a projection operator.
+    In particular, if \(\vec{v} \in \img(P_+)\),
+    then there exists \(\vec{u}\) such that \(P_+\vec{u} = \vec{v}\);
+    we have \(\vec{v} = P_+\vec{u} = TP_+\vec{u} = T\vec{v}\)
+    so \(\vec{v} \in V_+\).
+    Therefore \(\img(P_+) \subseteq V_+\).
+
+    Similarly, let \(P_- = \frac{1}{2}(I-T)\).
+    Then \(TP_- = \frac{1}{2}(T-T^2) = \frac{1}{2}(T-I) = -P_-\),
+    and \(P_-^2 = \frac{1}{4}(I-2T+T^2) = \frac{1}{4}(2I-2T) = P_-\).
+    Hence \(P_-\) is also a projection operator.
+    In particular, if \(\vec{v} \in \img(P_-)\),
+    then there exists \(\vec{u}\) such that \(P_-\vec{u} = \vec{v}\);
+    we have \(\vec{v} = P_-\vec{u} = -TP_-\vec{u} = -T\vec{v}\),
+    so \(\vec{v} \in V_-\).
+    Therefore \(\img(P_-) \subseteq V_-\).
+
+    Observe that \(P_+ = \id - P_-\).
+    Now, we see that for any \(\vec{v} \in V\),
+    \(\vec{v} = P_+\vec{v} + (\id - P_+)\vec{v} = P_+\vec{v} + P_-\vec{v}\),
+    so we have \(V \subseteq \img(P_+) \oplus \img(P_-)\)
+    (we cannot be sure that they are equal,
+    since we have not proven whether this representation is unique or not).
+    But then we see that
+    \(V \subseteq \img(P_+) \oplus \img(P_-) \subseteq V_+ \oplus V_- \subseteq V\).
+    We are sure that \(V_+,V_-\) are both nonzero
+    because by defintion, \(P_+,P_-\) are nonzero.
+\end{proof}
+\begin{definition}
+    Suppose \(U\) is a vector space,
+    and \(\sigma \in \End(U \otimes U)\) is an involution,
+    i.e.\ it maps \(\vec{u}\otimes\vec{v} \mapsto \vec{v}\otimes\vec{u}\).
+    Then the symmetric product is
+    \(\Sym^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = \vec{t}\}\),
+    and the antisymmetric product is
+    \(\bigwedge^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = -\vec{t}\}\).
+\end{definition}
+\begin{proposition}\label{prop:sum-sym-wedge}
+    \(U \otimes U \cong \Sym^2 U \oplus \bigwedge^2 U\).
+\end{proposition}
+\begin{proof}
+    Simple application of Lemma~\ref*{lem:direct-sum-idempotent}.
+\end{proof}
+
+\begin{proposition}
+    Suppose \(B \subset U\) is a basis.
+    Then \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} + \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
+    spans \(\Sym^2 U\),
+    and \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} - \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
+    spans \(\bigwedge^2 U\).
+\end{proposition}
+\begin{proof}
+    Consider any \(\vec{t} \in \Sym^2 U\).
+    Write \(\vec{t} = \sum_i a_i\vec{u}_i\otimes\vec{v}_i\),
+    where \(\{\vec{u}_i,\vec{v}_i\} \subset B\).
+    But we have
+    \begin{equation*}
+        \sigma(\vec{t}) = \sum_i a_i\vec{v}_i\otimes\vec{u}_i
+        = \sum_i a_i\vec{u}_i\otimes\vec{v}_i = \vec{t}
+    \end{equation*}
+    Hence we can write
+    \begin{equation*}
+        \vec{t} = \frac{1}{2} \sum_i a_i(\vec{u}_i\otimes\vec{v}_i + \vec{v}_i\otimes\vec{u}_i)
+    \end{equation*}
+
+    Similarly, if \(\vec{t} \in \bigwedge^2 U\), we have
+    \begin{equation*}
+        \sigma(\vec{t}) = -\sum_i a_i\vec{v}_i\otimes\vec{u}_i
+        = \sum_i a_i\vec{u}_i\otimes\vec{v}_i = \vec{t}
+    \end{equation*}
+    Hence we can write
+    \begin{equation*}
+        \vec{t} = \frac{1}{2} \sum_i a_i(\vec{u}_i\otimes\vec{v}_i - \vec{v}_i\otimes\vec{u}_i)
+    \end{equation*}
+\end{proof}
+\begin{corollary}\label{cor:dim-sym-wedge}
+    If \(\dim U = n\),
+    then \(\dim \Sym^2 U = \frac{1}{2}n(n+1)\),
+    and \(\dim \bigwedge^2 U = \frac{1}{2}n(n-1)\).
+\end{corollary}
+\begin{proof}
+    Let \({\{\vec{u}_i\}}_{i=1}^n \subset U\) be a basis
+    Just by counting the cardinality of the spanning set,
+    we know that for \(\Sym^2 U\),
+    since swapping \(i,j\) gives us the same vector,
+    \(\vec{u}_1\) gives us \(n\) choices of \(\vec{v}_j\),
+    \(\vec{u}_2\) gives us \(n-1\) choices of \(\vec{v}_j\),
+    and so on;
+    hence \(\dim \Sym^2 U \leq 1 + 2 + \cdots + n = \frac{1}{2}n(n+1)\).
+    For \(\bigwedge^2 U\),
+    the same holds true, but additionally, we cannot have \(i = j\),
+    since that tensor evaluates to zero;
+    hence \(\dim \bigwedge^2 U \leq 1 + 2 + \cdots + (n-1) + n - n
+    = 1 + 2 + \cdots + (n-1) = \frac{1}{2}(n-1)(1+n-1) = \frac{1}{2}n(n-1)\).
+    But Proposition~\ref{prop:sum-sym-wedge} tells us that
+    \(U \otimes U \cong \Sym^2 U \oplus \bigwedge^2 U\)
+    so by Lemma~\ref{lem:dim-direct-sum} and Corollary~\ref{cor:dim-tensor-product},
+    \begin{equation*}
+        n^2 = \dim(U \otimes U) = \dim \Sym^2 U + \dim {\bigwedge}^2 U
+        \leq \frac{1}{2}(n(n+1) + n(n-1)) = \frac{1}{2}(2n^2 + n - n) = n^2
+    \end{equation*}
+    and we have found exactly the minimal spanning set.
+\end{proof}
+\begin{corollary}
+    If \(U\) is a finite-dimensional vector space,
+    and \({\{\vec{u}_i\}}_{i=1}^n \subset U\) is a basis,
+    then \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j+\vec{u}_j\otimes\vec{u}_i)\}_{i \leq j} \subset \Sym^2 U\)
+    and \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)\}_{i<j} \subset \bigwedge^2 U\)
+    are bases.
+\end{corollary}
+\begin{proof}
+    Restatement of minimality of spanning set from the
+    \hyperref[cor:dim-sym-wedge]{corollary above}.
+\end{proof}
+\begin{remark}
+    The cross product is an antisymmetric product of two vectors in \(\bR^3\).
+    Observe that \(\dim \bigwedge^2 \bR^3 = 3\),
+    which is exactly why the cross product can only be defined,
+    for two vectors, in three dimensions;
+    it is a coincidence.
+\end{remark}
 
 
 \section{Minimal Polynomial}
