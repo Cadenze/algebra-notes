@@ -1129,6 +1129,22 @@
     it is a coincidence.
 \end{remark}
 
+\begin{lemma}
+    Suppose \(U\) is a vector space.
+    We can define an action of \(S_n\) on \(\bigotimes_{i=1}^n U\),
+    via \(\sigma(\bigotimes_{i=1}^n \vec{u}_i) = \bigotimes_{i=1}^n \vec{u}_{\sigma(i)}\),
+    where \(\sigma \in S_n\).
+\end{lemma}
+\begin{proof}
+    Identity, inverse, and associativity are obvious.
+    Group multiplication is given by
+    \begin{equation*}
+        \sigma\tau(\bigotimes_{i=1}^n \vec{u}_i)
+        = \sigma(\bigotimes_{i=1}^n \vec{u}_{\tau(i)})
+        = \sigma(\bigotimes_{i=1}^n \vec{u}_{\sigma\tau(i)})
+    \end{equation*}
+\end{proof}
+
 
 \section{Minimal Polynomial}
 
