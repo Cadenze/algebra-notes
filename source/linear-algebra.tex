@@ -1042,10 +1042,10 @@
     Then the symmetric product is
     \(\Sym^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = \vec{t}\}\),
     and the antisymmetric product is
-    \(\bigwedge^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = -\vec{t}\}\).
+    \(\Asym^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = -\vec{t}\}\).
 \end{definition}
 \begin{proposition}\label{prop:sum-sym-wedge}
-    \(U \otimes U \cong \Sym^2 U \oplus \bigwedge^2 U\).
+    \(U \otimes U \cong \Sym^2 U \oplus \Asym^2 U\).
 \end{proposition}
 \begin{proof}
     Simple application of Lemma~\ref*{lem:direct-sum-idempotent}.
@@ -1056,7 +1056,7 @@
     Then \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} + \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
     spans \(\Sym^2 U\),
     and \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} - \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
-    spans \(\bigwedge^2 U\).
+    spans \(\Asym^2 U\).
 \end{proposition}
 \begin{proof}
     Consider any \(\vec{t} \in \Sym^2 U\).
@@ -1072,7 +1072,7 @@
         \vec{t} = \frac{1}{2} \sum_i a_i(\vec{u}_i\otimes\vec{v}_i + \vec{v}_i\otimes\vec{u}_i)
     \end{equation*}
 
-    Similarly, if \(\vec{t} \in \bigwedge^2 U\), we have
+    Similarly, if \(\vec{t} \in \Asym^2 U\), we have
     \begin{equation*}
         \sigma(\vec{t}) = -\sum_i a_i\vec{v}_i\otimes\vec{u}_i
         = \sum_i a_i\vec{u}_i\otimes\vec{v}_i = \vec{t}
@@ -1085,7 +1085,7 @@
 \begin{corollary}\label{cor:dim-sym-wedge}
     If \(\dim U = n\),
     then \(\dim \Sym^2 U = \frac{1}{2}n(n+1)\),
-    and \(\dim \bigwedge^2 U = \frac{1}{2}n(n-1)\).
+    and \(\dim \Asym^2 U = \frac{1}{2}n(n-1)\).
 \end{corollary}
 \begin{proof}
     Let \({\{\vec{u}_i\}}_{i=1}^n \subset U\) be a basis
@@ -1096,16 +1096,16 @@
     \(\vec{u}_2\) gives us \(n-1\) choices of \(\vec{v}_j\),
     and so on;
     hence \(\dim \Sym^2 U \leq 1 + 2 + \cdots + n = \frac{1}{2}n(n+1)\).
-    For \(\bigwedge^2 U\),
+    For \(\Asym^2 U\),
     the same holds true, but additionally, we cannot have \(i = j\),
     since that tensor evaluates to zero;
-    hence \(\dim \bigwedge^2 U \leq 1 + 2 + \cdots + (n-1) + n - n
+    hence \(\dim \Asym^2 U \leq 1 + 2 + \cdots + (n-1) + n - n
     = 1 + 2 + \cdots + (n-1) = \frac{1}{2}(n-1)(1+n-1) = \frac{1}{2}n(n-1)\).
     But Proposition~\ref{prop:sum-sym-wedge} tells us that
-    \(U \otimes U \cong \Sym^2 U \oplus \bigwedge^2 U\)
+    \(U \otimes U \cong \Sym^2 U \oplus \Asym^2 U\)
     so by Lemma~\ref{lem:dim-direct-sum} and Corollary~\ref{cor:dim-tensor-product},
     \begin{equation*}
-        n^2 = \dim(U \otimes U) = \dim \Sym^2 U + \dim {\bigwedge}^2 U
+        n^2 = \dim(U \otimes U) = \dim \Sym^2 U + \dim \Asym^2 U
         \leq \frac{1}{2}(n(n+1) + n(n-1)) = \frac{1}{2}(2n^2 + n - n) = n^2
     \end{equation*}
     and we have found exactly the minimal spanning set.
@@ -1114,7 +1114,7 @@
     If \(U\) is a finite-dimensional vector space,
     and \({\{\vec{u}_i\}}_{i=1}^n \subset U\) is a basis,
     then \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j+\vec{u}_j\otimes\vec{u}_i)\}_{i \leq j} \subset \Sym^2 U\)
-    and \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)\}_{i<j} \subset \bigwedge^2 U\)
+    and \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)\}_{i<j} \subset \Asym^2 U\)
     are bases.
 \end{corollary}
 \begin{proof}
@@ -1123,7 +1123,7 @@
 \end{proof}
 \begin{remark}
     The cross product is an antisymmetric product of two vectors in \(\bR^3\).
-    Observe that \(\dim \bigwedge^2 \bR^3 = 3\),
+    Observe that \(\dim \Asym^2 \bR^3 = 3\),
     which is exactly why the cross product can only be defined,
     for two vectors, in three dimensions;
     it is a coincidence.
@@ -1139,11 +1139,86 @@
     Identity, inverse, and associativity are obvious.
     Group multiplication is given by
     \begin{equation*}
-        \sigma\tau(\bigotimes_{i=1}^n \vec{u}_i)
-        = \sigma(\bigotimes_{i=1}^n \vec{u}_{\tau(i)})
-        = \sigma(\bigotimes_{i=1}^n \vec{u}_{\sigma\tau(i)})
+        \sigma\pqty{\tau\pqty{\bigotimes_{i=1}^n \vec{u}_i}}
+        = \sigma\pqty{\bigotimes_{i=1}^n \vec{u}_{\tau(i)}}
+        = \sigma\pqty{\bigotimes_{i=1}^n \vec{u}_{\sigma\tau(i)}}
+        = (\sigma\tau)\pqty{\bigotimes_{i=1}^n \vec{u}_i}
     \end{equation*}
 \end{proof}
+\begin{definition}
+    We can generalize the symmetric product to be
+    \begin{equation*}
+        \Sym^n U = \Bqty{\vec{t} \in \bigotimes_{i=1}^n U: \forall\sigma \in S_n,\,\sigma(\vec{t}) = \vec{t}}
+    \end{equation*}
+    Similarly, we can generalize the antisymmetric product to be
+    \begin{equation*}
+        \Asym^n U = \Bqty{\vec{t} \in \bigotimes_{i=1}^n U: \forall\sigma \in S_n,\,\sigma(\vec{t}) = \sgn(\sigma)\vec{t}}
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Given the symmetric and antisymmetric products, \(\Sym^n U\) and \(\Asym^n U\),
+    we can define the associated projection operators
+    \begin{equation*}
+        P_+\vec{t} = \frac{1}{n!} \sum_{\sigma \in S_n} \sigma(\vec{t}) \qquad
+        P_-\vec{t} = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \sigma(\vec{t})
+    \end{equation*}
+    These are often called the symmetrization and the antisymmetrization of \(\vec{t}\).
+\end{definition}
+\begin{lemma}
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(P_+\) and \(P_-\) are both projection operators,
+            i.e.\ \(P_+^2 = P_+\) and \(P_-^2 = P_-\);
+        \item \(\img(P_+) \subseteq \Sym^n U\); and
+        \item \(\img(P_-) \subseteq \Asym^n U\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    We first observe that, for any \(\tau \in S_n\),
+    \begin{equation*}
+        \tau P_+ = \frac{1}{n!} \sum_{\sigma \in S_n} \tau\sigma
+        = \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \tilde{\sigma}
+        = P_+
+    \end{equation*}
+    after a change of variables \(\tilde{\sigma} = \tau\sigma\).
+    Similarly, we have
+    \begin{equation*}
+        \tau P_- = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \tau\sigma
+        = \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \sgn(\tau^{-1}\tilde{\sigma}) \tilde{\sigma}
+        = \sgn(\tau^{-1}) \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \sgn(\tilde{\sigma}) \tilde{\sigma}
+        = \sgn(\tau) P_-
+    \end{equation*}
+    We can then write the symmetrization as
+    \begin{equation*}
+        P_+^2 = \frac{1}{n!} \sum_{\sigma \in S_n} \sigma P_+
+        = \frac{1}{n!} \sum_{\sigma \in S_n} P_+ = P_+
+    \end{equation*}
+    and the antisymmetrization as
+    \begin{equation*}
+        P_-^2 = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \sigma P_-
+        = \frac{1}{n!} \sum_{\sigma \in S_n} {\sgn(\sigma)}^2 P_- = P_-
+    \end{equation*}
+    This proves statement (a).
+
+    Consider \(\vec{t} \in \img(P_+)\).
+    Then there exists some \(\vec{u}\) such that \(\vec{t} = P_+\vec{u}\).
+    For any \(\sigma \in S_n\),
+    \begin{equation*}
+        \sigma(\vec{t}) = (\sigma P_+)\vec{u} = P_+\vec{u} = \vec{t}
+    \end{equation*}
+    so \(\vec{t} \in \Sym^n U\).
+    This proves statement (b).
+
+    Consider \(\vec{t} \in \img(P_-)\).
+    Then there exists some \(\vec{u}\) such that \(\vec{t} = P_-\vec{u}\).
+    For any \(\sigma \in S_n\),
+    \begin{equation*}
+        \sigma(\vec{t}) = (\sigma P_-)\vec{u} = \sgn(\sigma) P_-\vec{u} = \sgn(\sigma)\vec{t}
+    \end{equation*}
+    so \(\vec{t} \in \Asym^n U\).
+    This proves statement (c).
+\end{proof}
+
 
 
 \section{Minimal Polynomial}
