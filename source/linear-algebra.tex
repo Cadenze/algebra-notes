@@ -1164,7 +1164,7 @@
     \end{equation*}
     These are often called the symmetrization and the antisymmetrization of \(\vec{t}\).
 \end{definition}
-\begin{lemma}
+\begin{proposition}\label{prop:symmetrization-prop}
     We have the following properties:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(P_+\) and \(P_-\) are both projection operators,
@@ -1172,7 +1172,7 @@
         \item \(\img(P_+) \subseteq \Sym^n U\); and
         \item \(\img(P_-) \subseteq \Asym^n U\).
     \end{enumerate}
-\end{lemma}
+\end{proposition}
 \begin{proof}
     We first observe that, for any \(\tau \in S_n\),
     \begin{equation*}
@@ -1218,7 +1218,41 @@
     so \(\vec{t} \in \Asym^n U\).
     This proves statement (c).
 \end{proof}
+\begin{remark}
+    Even though \(\bigotimes_{i=1}^m (\bigotimes_{i=1}^n U) \cong \bigotimes_{i=1}^{mn} U\),
+    \(\Sym^2 \Sym^2 U \ncong \Sym^4 U\),
+    since the group associated with \(\Sym^2 \Sym^2\) is \(V_4\), not \(S_4\).
+\end{remark}
 
+\begin{lemma}\label{lem:antisym-same-zero}
+    \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\)
+    if \(\vec{u}_i = \vec{u}_j\) for some \(i \neq j\).
+\end{lemma}
+\begin{proof}
+    Consider the transposition \(\tau = (ij)\), with \(\sgn(\tau) = -1\).
+    Then we have, from Proposition~\ref{prop:symmetrization-prop}a,
+    \begin{equation*}
+        -P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = (\tau P_-)(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = (P_- \tau)(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = P_- (\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+    \end{equation*}
+    since \(\tau P_- = P_- \tau^{-1} = P_- \tau\) by Proposition~\ref{prop:sn-conjugation}.
+\end{proof}
+\begin{theorem}
+    Suppose \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set of vectors.
+    Then \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\).
+\end{theorem}
+\begin{proof}
+    We write \(\vec{u}_n = \sum_{i=1}^{n-1} a_i\vec{u}_i\).
+    Then
+    \begin{equation*}
+        P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = \sum_{i=1}^{n-1} a_i P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_{n-1} \otimes \vec{u}_i)
+        = \vec{0}
+    \end{equation*}
+    by the \hyperref[lem:antisym-same-zero]{lemma above}.
+\end{proof}
 
 
 \section{Minimal Polynomial}
