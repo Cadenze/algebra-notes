@@ -161,6 +161,34 @@
     then by linearity we have distributivity.
 \end{proof}
 
+\begin{proposition}\label{prop:image-spanning}
+    Suppose \(B \subset V\) is spanning.
+    Then the image of this set under a linear transformation \(\func{T}{V}{W}\) is spanning.
+\end{proposition}
+\begin{proof}
+    Suppose \(\vec{v} \in V\) is a vector.
+    Let it be written as \(\vec{v} = \sum a_i\vec{x}_i\).
+    Then \(T\vec{v}\) can be written as a linear combination
+    \begin{equation*}
+        T\vec{v} = T\pqty{\sum a_i\vec{x}_i} = \sum a_i T\vec{x}_i
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:image-lin-indep}
+    Suppose \(B \subset V\) is linearly independent,
+    and \(\func{T}{V}{W}\) is a linear transformation.
+    If \(T\) is injective, then the image \(T(B)\) is also linearly independent.
+\end{proposition}
+\begin{proof}
+    Suppose, by way of contradiction,
+    that \(T(B)\) is not linearly independent.
+    Then there exists some nonzero \(a_i\) such that
+    \(\sum a_i T\vec{x}_i = \vec{0}\).
+    But then that would imply that \(T(\sum a_i\vec{x}_i) = \vec{0}\),
+    and by injectivity, \(\sum a_i\vec{x}_i = \vec{0}\),
+    which contradicts linear independence.
+\end{proof}
+
+
 \section{General Constructions}
 
 \subsection*{Direct Sum}
@@ -537,7 +565,8 @@
 \begin{lemma}
     Suppose \(W\) and \(V\) are \(F\)-vector spaces. Then
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(W^V\) is a vector space under coordinate-wise operations; and
+        \item \(W^V\), the set of all functions \(V \to W\),
+            is a vector space under coordinate-wise operations; and
         \item \(\Hom_F(W,V) \subseteq W^V\) is a subspace.
     \end{enumerate}
 \end{lemma}
@@ -951,7 +980,7 @@
     Lastly, we see that our \(\bar{\phi}\) fulfills the diagram by construction.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:tensor-basis}
     Suppose \(B_U \subset U\) and \(B_V \subset V\) are bases.
     Then \(\{\vec{u}\otimes\vec{v}: \vec{u} \in B_U, \vec{v} \in B_V\}\) is a basis.
 \end{proposition}
@@ -1253,6 +1282,75 @@
     \end{equation*}
     by the \hyperref[lem:antisym-same-zero]{lemma above}.
 \end{proof}
+
+\begin{lemma}\label{lem:tensor-n-basis}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then we can define \(\vec{v}_f = \vec{v}_{f(1)} \otimes \cdots \otimes \vec{v}_{f(n)}\)
+    for any \(\func{f}{\{1,\hdots,n\}}{I}\),
+    and \({\{\vec{v}_f: f \in I^{\{1,\hdots,n\}}\}} \subset \bigotimes_{i=1}^n V\)
+    forms a basis.
+\end{lemma}
+\begin{proof}
+    The case of \(n = 2\) is given by Proposition~\ref{prop:tensor-basis}.
+    We now proceed inductively,
+    supposing that the case of \(n = k\) holds true.
+    Applying Proposition~\ref{prop:tensor-basis} again,
+    since we can choose any \(f \in I^{\{1,\hdots,k\}}\) for the first \(k\) indices,
+    and we also have complete freedom in the choice of the last index \(f \in I^{\{k+1\}}\),
+    we have the case of \(k+1\).
+\end{proof}
+\begin{theorem}\label{thm:sym-antisym-basis}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then \(\{P_+(\vec{v}_f): f \in I^{\{1,\hdots,n\}},\,f(1) \leq \cdots \leq f(n)\} \subset \Sym^n V\)
+    and \(\{P_-(\vec{v}_f): f \in I^{\{1,\hdots,n\}},\,f(1) < \cdots < f(n)\} \subset \Asym^n V\)
+    are bases.
+\end{theorem}
+\begin{proof}
+    From the \hyperref[lem:tensor-n-basis]{lemma above},
+    we already know that \(\{P_+(\vec{v}_f): f \in I^{\{1,\hdots,n\}}\} \subset \Sym^n V\)
+    and \(\{P_-(\vec{v}_f): f \in I^{\{1,\hdots,n\}}\} \subset \Asym^n V\) are spanning
+    (Proposition~\ref{prop:image-spanning}).
+    Moreover, if the images under \(P_\pm\) are different,
+    we will have linear independence (Proposition~\ref{prop:image-lin-indep});
+    so it suffices for us to remove all the duplicates.
+    
+    Consider any \(f\) that is not non-decreasing.
+    Then we can rearrange the image of \(f\) into a non-decreasing one,
+    and call that function \(f'\).
+    Since by definition, \(P_\pm\) includes all possible rearrangements in the sum,
+    \(P_\pm(\vec{v}_f) = \pm P_\pm(\vec{v}_{f'})\).
+    Now consider any two \(f \neq f'\) that are both non-decreasing.
+    The multiset \({\{\vec{v}_{f(i)}\}}_{i=1}^n\) images are different,
+    so the images under \(P_\pm\) must also differ.
+
+    Lastly, we remember Lemma~\ref{lem:antisym-same-zero} holds,
+    which gives us that only the increasing ones are nonzero for \(P_-\).
+\end{proof}
+\begin{corollary}
+    Suppose \(\dim V = n\).
+    Then \(\dim \Asym^k V = \binom{n}{k}\) and \(\dim \Sym^k V = \binom{n+k-1}{k}\).
+\end{corollary}
+\begin{proof}
+    Since there are no duplicates in the multiset images of \(P_-\),
+    we are simply choosing \(k\) distinct elements.
+
+    On the other hand, we need to count duplicates in \(P_+\).
+    This is equivalent to the number of multisets of size \(k\),
+    chosen from a set of \(n\) elements.
+    Let \(a_i\) be the number of occurences of \(i \in \{1,\hdots,n\}\).
+    We want to count the number of solutions to the equation \(\sum a_i = k\).
+    Organize these multisets in ascending order,
+    and imagine us putting a divider every time the element changes,
+    as in there are \(n-1\) dividers.
+    Then we can now view this as a sequence of \(k\) numeric elements and \(n-1\) dividers,
+    with a total of \(n+k-1\) things.
+    The number of ways to put in these \(n-1\) dividers and \(k\) numeric elements
+    is exactly \(\binom{n+k-1}{k}\).
+\end{proof}
+\begin{remark}
+    If \(k > n\), we have \(\Asym^k V = \{\vec{0}\}\).
+    Moreover, \(\dim \Asym^n V = 1\).
+\end{remark}
 
 
 \section{Minimal Polynomial}
