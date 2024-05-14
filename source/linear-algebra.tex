@@ -1349,8 +1349,32 @@
 \end{proof}
 \begin{remark}
     If \(k > n\), we have \(\Asym^k V = \{\vec{0}\}\).
-    Moreover, \(\dim \Asym^n V = 1\).
+    Moreover, \(\dim \Asym^n V = 1\),
+    and hence \(\dim \End(\Asym^n V) = 1\).
 \end{remark}
+
+\begin{definition}
+    Suppose \(\dim V = n\), and \(T \in \End(V)\).
+    Then \(\Asym^k T \in \End(\Asym^k V)\),
+    which is defined to be an element-wise application of \(T\).
+\end{definition}
+\begin{definition}
+    Consider the natural isomorphism \(\func{\phi}{\End(\Asym^n V)}{F}\).
+    Then we define the determinant to be \(\det T = \phi(\Asym^n T)\).
+\end{definition}
+\begin{proposition}
+    This definition of the determinant coincides
+    with the universal property in Section~\ref{sec:matrix-rings}.
+\end{proposition}
+\begin{proof}
+    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis.
+    First off, \(\det \id = 1\),
+    since \(\id(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \vec{v}_1 \wedge \cdots \wedge \vec{v}_n\).
+    Secondly, by definition of the antisymmetric product,
+    \((\sigma T)(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \sgn(\sigma) T(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n)\),
+    so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
+    Lastly, \(n\)-linearity is given by the definition of the tensor product.
+\end{proof}
 
 
 \section{Minimal Polynomial}
