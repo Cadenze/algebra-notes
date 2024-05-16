@@ -1269,10 +1269,11 @@
     since \(\tau P_- = P_- \tau^{-1} = P_- \tau\) by Proposition~\ref{prop:sn-conjugation}.
 \end{proof}
 \begin{theorem}\label{thm:antisym-lin-dep-zero}
-    Suppose \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set of vectors.
-    Then \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\).
+    \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set of vectors
+    if and only if \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\).
 \end{theorem}
 \begin{proof}
+    Suppose \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set.
     We write \(\vec{u}_n = \sum_{i=1}^{n-1} a_i\vec{u}_i\).
     Then
     \begin{equation*}
@@ -1281,6 +1282,15 @@
         = \vec{0}
     \end{equation*}
     by the \hyperref[lem:antisym-same-zero]{lemma above}.
+    
+    Consider a linearly independent set \({\{\vec{u}_i\}}_{i=1}^n\),
+    and suppose, by way of contradiction, that \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\)
+    We can extend this set to a basis \({\{\vec{u}_i\}}_{i \in I} \subset V\)
+    for the underlying vector space.
+    But then, by definition, this implies that
+    \({\{\vec{u}_{\sigma(1)} \otimes \cdots \otimes \vec{u}_{\sigma(n)}\}}_{\sigma \in S_n}\)
+    is a linearly dependent set,
+    which contradicts the \hyperref[lem:tensor-n-basis]{lemma below}.
 \end{proof}
 
 \begin{lemma}\label{lem:tensor-n-basis}
@@ -1374,6 +1384,137 @@
     \((\sigma T)(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \sgn(\sigma) T(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n)\),
     so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
     Lastly, \(n\)-linearity is given by the definition of the tensor product.
+\end{proof}
+
+\begin{proposition}
+    There is a bijection between the \(k\)-dimensional subspaces of \(V\)
+    and \((\Asym^k V - \{\vec{0}\})/F^\times\),
+    the set of all lines going through the origin in \(\Asym^k V\).
+\end{proposition}
+\begin{proof}
+    We first prove that for a set of vectors \({\{\vec{v}_i\}}_{i=1}^k \subset V\),
+    \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\)
+    only depends on the span of \({\{\vec{v}_i\}}_{i=1}^k\).
+    Suppose \(\Span{\{\vec{w}_i\}}_{i=1}^k \subseteq \Span{\{\vec{v}_i\}}_{i=1}^k\).
+    Then we know that every vector can be written as a linear combination
+    \(\vec{w}_j = \sum_i a_{ij}\vec{v}_i\).
+    Observe that
+    \begin{equation*}
+        \vec{w}_1 \otimes \cdots \otimes \vec{w}_k
+        = \sum_{i_1,\hdots,i_k} a_{i_1 1} \hdots a_{i_k k}
+        (\vec{v}_{i_1} \otimes \cdots \otimes \vec{v}_{i_k})
+        = \sum_{\func{\sigma}{\{1,\hdots,k\}}{\{1,\hdots,k\}}}
+        \prod_{j=1}^k a_{\sigma(j)j} (\vec{v}_{\sigma(1)} \otimes \cdots \otimes \vec{v}_{\sigma(k)})
+    \end{equation*}
+    via a substitution \(i_j \mapsto \sigma(j)\).
+    But as we know from Proposition~\ref{lem:antisym-same-zero}
+    the antisymmetrization evaluates to zero for any \(\sigma(i) = \sigma(j)\) when \(i \neq j\),
+    so we must only sum over all bijective \(\sigma\),
+    which is the symmetric group \(S_k\).
+    \begin{equation*}
+        P_-(\vec{w}_1 \otimes \cdots \otimes \vec{w}_k)
+        = \sum_{\sigma \in S_k} \prod_{j=1}^k a_{\sigma(j)j}
+        P_-\sigma(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)
+        = \sum_{\sigma \in S_k} \sgn(\sigma) \prod_{j=1}^k a_{\sigma(j)j}
+        P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)
+    \end{equation*}
+    Hence any two sets of vectors with the same span
+    will have the same antisymmetrization up to a constant multiple.
+
+    We can now see that any \(k\)-dimensional vector space
+    can be uniquely associated with some antisymmetrization.
+    Consider any such vector space \(V\),
+    with a basis \({\{\vec{v}_i\}}_{i=1}^k\),
+    and map it to \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\).
+    This is surjective, because by Theorem~\ref{thm:antisym-lin-dep-zero},
+    any nonzero \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\)
+    is mapped from a linearly independent set \({\{\vec{v}_i\}}_{i=1}^k\),
+    which spans a \(k\)-dimensional vector space.
+    This is also injective, because if
+    \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k) = \lambda P_-(\vec{w}_1 \otimes \cdots \otimes \vec{w}_k)\),
+    the paragraph above shows that their spans should be the same,
+    so they correspond to the same vector space.
+    This gives us our desired bijection.
+\end{proof}
+\begin{remark}
+    The Grassmannian \(\textbf{Gr}(k,V)\) is the set of all \(k\)-dimensional subspaces of \(V\).
+    It can be endowed with a manifold structure by the above correspondence,
+    via the topological construct of the projective space of \(\Asym^k V\).
+\end{remark}
+\begin{definition}
+    The Gaussian binomial coefficient is defined to be
+    \(\binom{n}{k}_q = \abs{\textbf{Gr}(k,\bF_q^n)}\),
+    the number of \(k\)-dimensional subspaces of \(\bF_q^n\).
+\end{definition}
+\begin{proposition}
+    We have the following properties for the Gaussian binomial coefficient:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\binom{n}{k}_q\) is a rational function in \(q\);
+        \item \(\binom{n}{1}_q\) is a polynomial in \(q\); and
+        \item \(\binom{n}{k}_1 = \binom{n}{k}\) is the binomial coefficient.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first find the general formula for \(\binom{n}{k}_q\).
+    In \(\bF_q^n\), there are \(n\) indices, each with \(q\) possible choices from the finite field,
+    so there are a total of \(f(n) = q^n - 1\) nonzero vectors in \(\bF_q^n\).
+    Now consider a tuple of \(k\) vectors, \((\vec{v}_1,\hdots,\vec{v}_k)\),
+    and let us count the number of tuple
+    such that \({\{\vec{v}_i\}}_{i=1}^k\) forms a linearly independent set.
+    We can see that we have completely freedom in the first index, a total of \(q^n - 1\) choices;
+    then in the second index, we have to choose from a subspace of one dimension smaller,
+    a total of \(q^n - q\) choices;
+    and so on and so forth, which yields a total of
+    \begin{equation*}
+        (q^n - 1)(q^n - q)\hdots(q^n - q^{k-1})
+        = (q^n - 1) q(q^{n-1} - 1) \hdots q^{k-1}(q^{n-k+1} - 1)
+        = q^{k(k-1)/2} f(n)f(n-1) \hdots f(n-k+1)
+    \end{equation*}
+    such tuples.
+    Now consider an arbitrary tuple,
+    and let us act on it by a left action,
+    with the group of all matrices \(\bF_q^{k \times k}\).
+    If these matrices were to preserve the span of our vectors,
+    then it must have rank \(k\);
+    the number of these matrices is equivalent to
+    choosing \(k\) linearly independent vectors in \(\bF_q^k\),
+    which is given by the above formula to be
+    \begin{equation*}
+        (q^k - 1)(q^k - k)\hdots(q^k - q^{k-1})
+        = q^{k(k-1)/2} f(k)f(k-1) \hdots f(1)
+    \end{equation*}
+    Hence there are a total of this many such ordered tuples
+    that represent a single \(k\)-dimensional vector space,
+    so the total number of \(k\)-dimensional vector spaces are
+    \begin{equation*}
+        \binom{n}{k}_q
+        = \frac{q^{k(k-1)/2} f(n)f(n-1) \hdots f(n-k+1)}{q^{k(k-1)/2} f(k)f(k-1) \hdots f(1)}
+        = \frac{ f(n)f(n-1) \hdots f(n-k+1)}{f(k)f(k-1) \hdots f(1)}
+    \end{equation*}
+    which is by definition, a rational function.
+    This proves statement (a).
+
+    Then we have
+    \begin{equation*}
+        \binom{n}{1}_q = \frac{f(n)}{f(1)} = \frac{q^n - 1}{q - 1}
+        = 1 + q + \cdots + q^{n-1}
+    \end{equation*}
+    which proves statement (b).
+
+    Now that \(q = 1\), we have from the previous part, \(\binom{m}{1}_1 = m\).
+    Generalizing that, we have
+    \begin{equation*}
+        \frac{f(n-j)}{f(j+1)} = \frac{f(n-j)}{f(1)}\frac{f(1)}{f(j+1)}
+        = \frac{\binom{n-j}{1}_1}{\binom{j+1}{1}_1}
+        = \frac{n-j}{j+1}
+    \end{equation*}
+    which when substituted into the general formula,
+    \begin{equation*}
+        \binom{n}{k}_1 = \frac{f(n)}{f(1)}\frac{f(n-1)}{f(2)} \cdots \frac{f(n-k+1)}{f(k)}
+        = \frac{n}{1}\frac{n-1}{2}\cdots\frac{n-k+1}{k}
+        = \frac{n!}{k!(n-k)!} = \binom{n}{k}
+    \end{equation*}
+    giving us statement (c).
 \end{proof}
 
 
