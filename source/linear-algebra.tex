@@ -1011,6 +1011,8 @@
     unless otherwise noted.
 \end{remark}
 
+\subsection*{Bilinearity}
+
 \begin{definition}
     Suppose \(T \in \End(V)\) is a linear operator.
     We say \(\lambda\) is an eigenvalue of \(T\)
@@ -1157,6 +1159,8 @@
     for two vectors, in three dimensions;
     it is a coincidence.
 \end{remark}
+
+\subsection*{\(n\)-linearity}
 
 \begin{lemma}
     Suppose \(U\) is a vector space.
@@ -1516,6 +1520,80 @@
     \end{equation*}
     giving us statement (c).
 \end{proof}
+
+\subsection*{Alternating Forms}
+
+\begin{definition}
+    Suppose \(\func{f}{V^n}{F}\) is an \(n\)-linear form.
+    \(f\) is alternating if \(f(\vec{v}_1,\hdots,\vec{v}_n) = 0\)
+    whenever \(\vec{v}_i = \vec{v}_j\) for some \(i \neq j\).
+    \(f\) is antisymmetric if
+    \(f(\vec{v}_{\sigma(1)},\hdots,\vec{v}_{\sigma(n)}) = \sgn(\sigma)f(\vec{v}_1,\hdots,\vec{v}_n)\).
+\end{definition}
+\begin{proposition}
+    We have the following two relationships:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item for fields of any characteristic, alternating forms are antisymmetric; and
+        \item for fields of characteristic not 2, antisymmetric forms are alternating.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(f(\vec{x},\vec{x}) = \vec{0}\) for all \(\vec{x}\).
+    Then we have
+    \begin{equation*}
+        0 = f(\vec{x}+\vec{y},\vec{x}+\vec{y})
+        = f(\vec{x},\vec{x}) + f(\vec{y},\vec{y}) + f(\vec{x},\vec{y}) + f(\vec{y},\vec{x})
+        = f(\vec{x},\vec{y}) + f(\vec{y},\vec{x})
+    \end{equation*}
+    so \(f(\vec{x},\vec{y}) = -f(\vec{y},\vec{x})\).
+    This proves statement (a).
+
+    Suppose \(f(\vec{x},\vec{y}) = -f(\vec{y},\vec{x})\).
+    Then we have \(2f(\vec{x},\vec{x}) = 0\),
+    so division by 2 is possible whenever the characteristic is not 2.
+    This proves statement (b).
+\end{proof}
+\begin{lemma}
+    Suppose \(\func{f}{V^n}{F}\) is an \(n\)-linear form,
+    and \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then we can define \(\vec{v}_g = (\vec{v}_{g(1)},\hdots,\vec{v}_{g(n)})\),
+    for any \(\func{g}{\{1,\hdots,n\}}{I}\),
+    and \(f\) is uniquely determined by \(f(\vec{v}_g)\) for all \(\vec{v}_g\).
+\end{lemma}
+\begin{proof}
+    \(f\) is a linear map from \(\bigotimes_{i=1}^n V \to F\),
+    so it must be uniquely determined by its basis,
+    as outlined in Lemma~\ref{lem:tensor-n-basis}.
+\end{proof}
+\begin{corollary}
+    If \(\dim\Span{\{\vec{u}_i\}}_{i=1}^n < n\),
+    then for any alternating form \(f\),
+    \(f(\vec{u}_1,\hdots,\vec{u}_n) = 0\).
+\end{corollary}
+\begin{proof}
+    Follows directly from Theorem~\ref{thm:antisym-lin-dep-zero}.
+\end{proof}
+
+\begin{theorem}
+    Suppose \(V\) is an \(n\)-dimensional vector space.
+    Then \(\Asym^n V'\) is the set of alternating \(n\)-linear forms.
+    Additionally, \(\dim \Asym^n V' = 1\).
+\end{theorem}
+\begin{proof}
+    Since \(V'\) is the space of linear forms,
+    \(\Asym^n V'\) must be the space of antisymmetric/alternating forms.
+    The dimension is then given by Corollary~\ref{cor:dim-sym-wedge}.
+\end{proof}
+\begin{remark}
+    For \(T \in \End(V)\) and \(f \in \Asym^k V'\),
+    we can, as per usual, define
+    \begin{equation*}
+        (\Asym^n T)f(\vec{v}_1,\hdots,\vec{v_k})
+        = f(T\vec{v}_1,\hdots,\vec{v}_k).
+    \end{equation*}
+    Then we can see that \(\Asym^n T\) is a linear map, \(F \to F\),
+    which is a scalar.
+\end{remark}
 
 
 \section{Minimal Polynomial}
