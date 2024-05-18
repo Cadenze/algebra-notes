@@ -1363,32 +1363,8 @@
 \end{proof}
 \begin{remark}
     If \(k > n\), we have \(\Asym^k V = \{\vec{0}\}\).
-    Moreover, \(\dim \Asym^n V = 1\),
-    and hence \(\dim \End(\Asym^n V) = 1\).
+    Moreover, \(\dim \Asym^n V = 1\).
 \end{remark}
-
-\begin{definition}
-    Suppose \(\dim V = n\), and \(T \in \End(V)\).
-    Then \(\Asym^k T \in \End(\Asym^k V)\),
-    which is defined to be an element-wise application of \(T\).
-\end{definition}
-\begin{definition}
-    Consider the natural isomorphism \(\func{\phi}{\End(\Asym^n V)}{F}\).
-    Then we define the determinant to be \(\det T = \phi(\Asym^n T)\).
-\end{definition}
-\begin{proposition}
-    This definition of the determinant coincides
-    with the universal property in Section~\ref{sec:matrix-rings}.
-\end{proposition}
-\begin{proof}
-    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis.
-    First off, \(\det \id = 1\),
-    since \(\id(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \vec{v}_1 \wedge \cdots \wedge \vec{v}_n\).
-    Secondly, by definition of the antisymmetric product,
-    \((\sigma T)(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \sgn(\sigma) T(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n)\),
-    so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
-    Lastly, \(n\)-linearity is given by the definition of the tensor product.
-\end{proof}
 
 \begin{proposition}
     There is a bijection between the \(k\)-dimensional subspaces of \(V\)
@@ -1584,16 +1560,60 @@
     \(\Asym^n V'\) must be the space of antisymmetric/alternating forms.
     The dimension is then given by Corollary~\ref{cor:dim-sym-wedge}.
 \end{proof}
-\begin{remark}
+\begin{definition}
     For \(T \in \End(V)\) and \(f \in \Asym^k V'\),
     we can, as per usual, define
     \begin{equation*}
-        (\Asym^n T)f(\vec{v}_1,\hdots,\vec{v_k})
+        \pqty{\Asym^n T}f(\vec{v}_1,\hdots,\vec{v_k})
         = f(T\vec{v}_1,\hdots,\vec{v}_k).
     \end{equation*}
     Then we can see that \(\Asym^n T\) is a linear map, \(F \to F\),
     which is a scalar.
-\end{remark}
+\end{definition}
+\begin{definition}
+    Consider the natural isomorphism \(\func{\phi}{\End(F)}{F}\).
+    Then we define the determinant to be \(\det T = \phi(\Asym^n T)\).
+\end{definition}
+\begin{proposition}
+    This definition of the determinant coincides
+    with the universal property in Section~\ref{sec:matrix-rings}.
+\end{proposition}
+\begin{proof}
+    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis.
+    First off, \(\det \id = 1\),
+    since \(\id(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \vec{v}_1 \wedge \cdots \wedge \vec{v}_n\).
+    Secondly, by definition of the antisymmetric product,
+    \((\sigma T)(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \sgn(\sigma) T(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n)\),
+    so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
+    Lastly, \(n\)-linearity is given by the definition of the tensor product.
+\end{proof}
+\begin{proposition}
+    We have the following properties for the determinant:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\det(TS) = (\det T)(\det S)\);
+        \item if \(T\) is invertible, then \((\det T)(\det T^{-1}) = 1\); and
+        \item if \(T\) is not invertible, then \(\det T = 0\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For any arbitrary \(f \in \Asym^k V'\),
+    \begin{eqnarray}
+        \pqty{\Asym^n (TS)} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
+        = f(TS\vec{v}_1 \otimes \cdots \otimes TS\vec{v}_n)
+        = \pqty{\Asym^n T} f(S\vec{v}_1 \otimes \cdots \otimes S\vec{v}_n)
+        = \pqty{\Asym^n T}\pqty{\Asym^n S} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
+    \end{eqnarray}
+    so \(\det(TS) = \pqty{\Asym^n (TS)} = \pqty{\Asym^n T}\pqty{\Asym^n S} = (\det T)(\det S)\).
+    This proves statement (a).
+
+    Then \((\det T)(\det T^{-1}) = \det(TT^{-1}) = \det\id = 1\),
+    which proves statement (b).
+
+    Lastly, if \(T\) is not invertible, then \(\img(T) \subsetneq V\),
+    so for any \(f \in \Asym^k V'\), \(\pqty{\Asym^n T} f = 0\),
+    since any set of \(n\) vectors \(T\vec{v}_n\) are linearly dependent.
+    Hence \(\det T = 0\), which proves statement (c).
+\end{proof}
 
 
 \section{Minimal Polynomial}
