@@ -1017,7 +1017,7 @@
     Suppose \(T \in \End(V)\) is a linear operator.
     We say \(\lambda\) is an eigenvalue of \(T\)
     if there exists some \(\vec{v} \neq \vec{0}\) such that \(T\vec{v} = \lambda\vec{v}\).
-    The set of all eigenvalues of \(T\) is its spectrum, \(\Spec(T)\).
+    % The set of all eigenvalues of \(T\) is its spectrum, \(\Spec(T)\).
 \end{definition}
 \begin{definition}
     Suppose \(T \in \End(V)\) is a linear operator.
@@ -1030,7 +1030,7 @@
 \begin{lemma}\label{lem:direct-sum-idempotent}
     Suppose \(T \in \End(V)\) is a linear operator,
     with \(T \neq \id\), and \(T^2 = \id\).
-    Then \(\Spec(T) = \{\pm 1\}\), and \(V = V_+ \oplus V_-\),
+    Then the eigenvalues are \(\pm 1\), and \(V = V_+ \oplus V_-\),
     where \(V_+ = \{\vec{v}: T\vec{v} = \vec{v}\}\)
     and \(V_- = \{\vec{v}: T\vec{v} = -\vec{v}\}\).
 \end{lemma}
@@ -1617,6 +1617,36 @@
 
 
 \section{Minimal Polynomial}
+
+\begin{definition}
+    Given some \(T \in \End(V)\),
+    we recall that \(\lambda\) is an eigenvalue when
+    there exists some nonzero \(\vec{v} \in V\) such that \(T\vec{v} = \lambda\vec{v}\).
+    Equivalently, \(\lambda\) is an eigenvalue when \(\ker(T-\lambda) \neq \{\vec{0}\}\).
+\end{definition}
+\begin{lemma}
+    Suppose \(V\) has finite dimension, and \(T \in \End(V)\).
+    Then \(\lambda\) is an eigenvalue if and only if \(T - \lambda\) is not invertible.
+\end{lemma}
+\begin{proof}
+    % The forward direction is almost by definition.
+    If \(\lambda\) is an eigenvalue,
+    then we have nonzero vectors in the kernel of \(T-\lambda\),
+    and hence \(T-\lambda\) is not bijective.
+
+    Suppose \(\lambda\) is not an eigenvalue.
+    Then \(\ker(T-\lambda) = \{\vec{0}\}\).
+    Hence \(T-\lambda\) is injective, and in finite dimensions,
+    the \hyperref[thm:pigeonhole]{pigeonhole principle} guarantees it must be bijective.
+\end{proof}
+\begin{definition}
+    For finite dimensional vector spaces,
+    the set of eigenvalues of \(T\) is the spectrum \(\Spec(T)\).
+\end{definition}
+\begin{remark}
+    The spectrum is usually defined generally differently,
+    but in finite dimensions, agrees with our definition above.
+\end{remark}
 
 
 \section{Jordan Canonical Form}
