@@ -641,7 +641,7 @@
     But we can evaluate at \(\vec{v}_j \in B\) to conclude that
     \(\sum_{i \in I} a_i \phi_i(\vec{v}_j) = a_j = 0\) for all \(j \in I\).
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:finite-dim-dual-basis}
     If \(V\) is finite dimensional,
     then \(B' \subset V'\) is a basis.
 \end{proposition}
@@ -784,7 +784,7 @@
     But \(f_{\vec{u}}\) is exactly the set of linear maps from \(V \to W\),
     so we have linearity in both \(U\) and \(V\) as desired.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:bilinear-hom-bijection}
     There is a bijection between the set of pairings \(\func{f}{U \times V}{F}\)
     and \(\Hom(U,V')\).
 \end{corollary}
@@ -1000,6 +1000,132 @@
 \end{corollary}
 \begin{proof}
     Simply take the cardinality of the basis.
+\end{proof}
+
+\subsection*{Trace}
+
+\begin{theorem}
+    Suppose either \(U\) or \(V\) is finite dimensional.
+    Then \(V \otimes U' \cong \Hom(U,V)\).
+\end{theorem}
+\begin{proof}
+    Let us consider the homomorphism \(\func{f}{V \otimes U'}{\Hom(U,V)}\)
+    where \(f(\vec{v}\otimes\phi)\) maps \(\vec{u} \mapsto \phi(\vec{u})\vec{v}\).
+    We can immediately show that this map is bilinear, because
+    \begin{align*}
+        f(a\vec{v}\otimes\phi + \vec{w}\otimes\phi)
+        &= f((a\vec{v}+\vec{w})\otimes\phi)
+        = (a\vec{v}+\vec{w})\phi
+        = a\vec{v}\phi + \vec{w}\phi
+        = af(\vec{v}\otimes\phi) + f(\vec{w}\otimes\phi) \\
+        f(a\vec{v}\otimes\phi + \vec{v}\otimes\psi)
+        &= f(\vec{v}\otimes(a\phi+\psi))
+        = \vec{v}(a\phi+\psi)
+        = a\vec{v}\phi + \vec{v}\psi
+        = af(\vec{v}\otimes\phi) + f(\vec{v}\otimes\psi)
+    \end{align*}
+
+    We can prove injectivity without finiteness of dimension.
+    Suppose \(\vec{v}\phi = \vec{w}\psi\).
+    If \(\phi = c\psi\), then \(\vec{w} = c\vec{v}\),
+    so \(\vec{v}\otimes\phi = c\vec{v}\otimes\psi = \vec{w}\otimes\psi\).
+    If \(\phi \neq \psi\), then there exists some \(\vec{u} \in U\)
+    such that \(\phi(\vec{u}) \neq \psi(\vec{u})\).
+    Let \(\phi(\vec{u}) = c\psi(\vec{u})\), since we are in a field.
+    We see that \(\vec{v}\phi(\vec{u}) = c\vec{v}\psi(\vec{u}) = \vec{w}\psi(\vec{u})\),
+    so \(\vec{w} = c\vec{v}\), which reduces to the first case.
+
+    First suppose \(U\) is finite dimensional.
+    Then let us choose a basis \({\{\vec{u}_i\}}_{i=1}^n \subset U\),
+    and a dual basis \({\{\phi_i\}}_{i=1}^n \subset U'\).
+    % We prove that this map is injective.
+    % If \(\vec{v}\phi = \vec{w}\psi\),
+    % then \(\vec{v}\sum a_i\phi_i = \vec{w}\sum b_i\phi_i\).
+    % Hence for \(\vec{u}_i\) in the basis,
+    % \begin{equation*}
+    %     a_i\vec{v} = \vec{v}\sum a_i\phi_i(\vec{u}_i)
+    %     = \vec{w}\sum b_i\phi_i(\vec{u}_i) = b_i\vec{w}
+    % \end{equation*}
+    % If \(a_i = b_i\) for all \(i\), then \(\phi = \psi\),
+    % and the equality above gives \(\vec{v} = \vec{w}\), and we are done.
+    % If \(a_i \neq b_i\) for some \(i\), then \(\vec{v} = \frac{b_i}{a_i}\vec{w} = c\vec{w}\),
+    % and in fact \(c = \frac{b_1}{a_1} = \cdots = \frac{b_n}{a_n}\) as a result;
+    % then \(\psi = c\phi\), which gives us
+    % \(\vec{v}\otimes\phi = c\vec{w}\otimes\phi = \vec{w}\otimes\psi\) as desired.
+    % Proving this for pure tensors is sufficient as all tensors are linear combinations of pure ones.
+    Let us prove surjectivity.
+    % Consider \(\vec{u} = \sum a_i\vec{u}_i\).
+    We know that any map in \(\Hom(U,V)\)
+    is wholly determined by the image of its basis,
+    which we let to be \(\vec{u}_i\mapsto\vec{v}_i\).
+    This is mapped from \(\sum \vec{v}_i\otimes\phi_i\), since
+    \begin{equation*}
+        f\pqty{\sum_{i=1}^n \vec{v}_i\otimes\phi_i}
+        = \sum_{i=1}^n f(\vec{v}_i\otimes\phi_i)
+        = \sum_{i=1}^n \vec{v}_i\phi_i
+    \end{equation*}
+
+    Now suppose \(V\) is finite dimensional.
+    % Then let us choose bases \({\{\vec{v}_i\}}_{i=1}^n \subset V\),
+    % \({\{\vec{u}_j\}}_{j \in I} \subset U\),
+    % \({\{\phi_j\}}_{j \in \tilde{I}} \subset U'\),
+    % where \(I \subset \tilde{I}\),
+    % i.e.\ the basis of \(U'\) is extended from the dual basis.
+    % We prove that this map is injective.
+    % If \(\vec{v}\phi = \vec{w}\psi\),
+    % then \(\sum a_i\vec{v}_i\phi = \sum b_i\vec{v}_i\psi\).
+    % From the previous paragraph, if \(\phi = c\psi\), then we are done.
+    % Now suppose \(\phi \neq \psi\).
+    % Then there exists some \(\vec{u} \in U\) such that \(\phi(\vec{u}) \neq \psi(\vec{u})\),
+    % and in that case, let \(\phi(\vec{u}) = c\psi(\vec{u})\).
+    % We have \(\vec{w} = c\vec{v}\), so \(\phi = c\psi\), which reduces to the first case.
+    Let us prove surjectivity.
+    % We know that any map in \(\Hom(U,V)\)
+    % is wholly determined by the image of its basis,
+    % which we let to be \(\vec{u}_i\mapsto\sum_j a_j\vec{v}_j\).
+    % This is mapped from \(\sum_j a\vec{v}_j\otimes\vec{u}_i\), since
+    % \begin{equation*}
+    %     f\pqty{\sum_{j=1}^n a_j\vec{v}_j\otimes\vec{u}_i}
+    % \end{equation*}
+    Consider any map \(h \in \Hom(U,V)\).
+    By the \hyperref[thm:iso-1-vsp]{first isomorphism theorem},
+    We know that \(U/\ker h \cong \img h \subseteq V\),
+    so let us get a basis \({\{[\vec{u}_i]\}}_{i=1}^m \subset U/\ker h\),
+    and correspondingly we get a basis \({\{\vec{v}_i\}}_{i=1}^m \subset \img h\),
+    which can be extended to a basis \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
+    Let us construct functionals \(\phi_i\)
+    such that \(\phi_i(\vec{u}_j) = \delta_{ij}\) for all \(\vec{u}_j \in [\vec{u}_j]\).
+    \begin{equation*}
+        f\pqty{\sum_{i=1}^m \vec{v}_i\otimes\phi_i}
+        = \sum_{i=1}^m f(\vec{v}_i\otimes\phi_i)
+        = \sum_{i=1}^m \vec{v}_i\phi_i = h
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    Suppose \(V\) is finite dimensional.
+    Consider the map \(\vfunc{\tr}{V \otimes V'}{F}{\vec{u}\otimes\phi}{\phi(\vec{u})}\).
+    The trace of \(T \in \End(V)\) is the value of \(\tr\tilde{T}\),
+    where \(\tilde{T}\) corresponds to \(T\) via the above isomorphism.
+    This is often denoted \(\tr T\).
+\end{definition}
+\begin{proposition}
+    Suppose \({\{\vec{v}_i\}}_{i=1}^n \subset V\) is a basis.
+    If we write \(T\vec{v}_i = \sum_j a_{ij}\vec{v}_j\),
+    then \(\tr T = \sum_i a_{ii}\).
+\end{proposition}
+\begin{proof}
+    Let \({\{\phi_i\}}_{i=1}^n \subset V'\) be its dual basis.
+    We first claim that \(T\) is identified with \(\sum_{ij} a_{ij}\vec{v}_j\otimes\phi_i\).
+    \begin{equation*}
+        \sum_{ij} a_{ij}\vec{v}_j\otimes\phi_i(\vec{v}_k)
+        \mapsto \sum_{ij} a_{ij}\phi_i(\vec{v}_k)\vec{v}_j
+        = \sum_j a_{kj}\vec{v}_j = T\vec{v}_k
+    \end{equation*}
+    Then the trace map yields
+    \begin{equation*}
+        \tr T = \sum_{ij} a_{ij} \phi_i(\vec{v}_j) = \sum_{ii} a_{ii}
+    \end{equation*}
 \end{proof}
 
 
@@ -1647,6 +1773,83 @@
     The spectrum is usually defined generally differently,
     but in finite dimensions, agrees with our definition above.
 \end{remark}
+
+\begin{remark}
+    In the rest of the chapter (the next two sections),
+    all vector spaces are assumed to be finite dimensional.
+\end{remark}
+
+\begin{lemma}
+    For all \(T \in \End(V)\),
+    there exists a nonzero polynomial \(p \in F[x]\) such that \(p(T) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\dim V = n\). Then \(\dim \End(V) = n^2\).
+    Consider the set \({\{T^i\}}_{i=0}^{n^2}\).
+    This must be a linearly dependent set,
+    so there is a linear combination, which is a polynomial, that evaluates to zero.
+\end{proof}
+\begin{definition}
+    The minimal polynomial of \(T\) is the monic polynomial \(m_T \in F[x]\)
+    of least (nonzero) degree such that \(m_T(T) = 0\).
+\end{definition}
+\begin{proposition}
+    The minimal polynomial \(m_T\) is unique.
+\end{proposition}
+\begin{proof}
+    Suppose, by way of contradiction, that we have two minimal polynomials
+    \(m,\tilde{m}\) of the same degree.
+    Then \(m-\tilde{m}\) is also a polynomial that satisfies the conditions,
+    after dividing by a factor to make this polynomial monic.
+    But this polynomial must have a smaller degree, which is a contradiction.
+\end{proof}
+\begin{proposition}
+    Suppose \(p \in F[x]\) is a polynomial.
+    Then \(p(T) = 0\) if and only if \(m_T \mid p\).
+\end{proposition}
+\begin{proof}
+    Suppose \(m_T \mid p\).
+    Then \(p = q m_T = 0\) for some \(q \in F[x]\).
+
+    Suppose, by way of contradiction, that \(m_T \nmid p\).
+    Then by polynomial long division, we write \(p = q m_T + r\),
+    and since \(p(T) = m_T(T) = 0\), \(r(T) = 0\).
+    But \(r\) has a smaller degree than \(m_T\),
+    which contradicts the minimality of \(m_T\).
+\end{proof}
+
+\begin{lemma}
+    \(\lambda \in \Spec(T)\) if and only if \(m_T(\lambda) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\lambda \in \Spec(T)\).
+    For any polynomial \(p \in F[x]\),
+    \(p(T)\vec{v} = p(\lambda)\vec{v}\).
+    In particular, \(m_T(\lambda)\vec{v} = m_T(T)\vec{v} = \vec{0}\) for all \(\vec{v}\),
+    so \(m_T(\lambda) = 0\).
+
+    Suppose \(\lambda\) is a root of \(m_T\).
+    Then we can write \(m_T = (x-\lambda)q\) for some \(q \in F[x]\),
+    with a smaller degree than \(m_T\).
+    Evaulating at \(T\), we have \(0 = m_T(T) = (T-\lambda)q(T)\).
+    Suppose, by way of contradiction, that \(\lambda \notin \Spec(T)\).
+    Then \(T-\lambda\) is invertible, which implies \(q(T) = 0\),
+    which contradicts the minimality of \(m_T\).
+\end{proof}
+\begin{remark}
+    As we know from the \hyperref[thm:fta]{fundamental theorem of algebra},
+    if the field is not algebraically closed,
+    we cannot guarantee that the solutions of a polynomial are all in the field.
+\end{remark}
+\begin{corollary}
+    Consider a field extension \(K/F\).
+    Then for any \(T \in \End(V)\),
+    the minimal polynomial is the same over both fields.
+\end{corollary}
+% \begin{proof}
+%     Consider a basis \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
+    
+% \end{proof}
 
 
 \section{Jordan Canonical Form}
