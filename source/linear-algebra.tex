@@ -491,7 +491,7 @@
 
 \subsection*{Quotient}
 
-\begin{proposition}[Universal Property of Quotients]
+\begin{proposition}[Universal Property of Quotients]\label{prop:univ-prop-quotient-vsp}
     Suppose \(V\) is a vector space, and \(U \subseteq V\) is a subspace,
     and \(\func{\pi}{V}{U}\) is the quotient map as groups.
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -1002,6 +1002,21 @@
     Simply take the cardinality of the basis.
 \end{proof}
 
+\begin{proposition}
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces,
+    and \(A_i \in \End(V_i)\).
+    Then \(\pqty{\bigotimes_i A_i}\)
+    which maps \(\bigotimes_i \vec{v}_i \mapsto \bigotimes_i A_i\vec{v}_i\) is a linear map.
+\end{proposition}
+\begin{proof}
+    We prove \(I\)-linearity.
+    \begin{equation*}
+        A_i(a\vec{v}+\vec{w}) \otimes \cdots
+        = a A_i\vec{v} + A_i\vec{w} \otimes \cdots
+        = a \pqty{A_i\vec{v} \otimes \cdots} + \pqty{A_i\vec{w} \otimes \cdots}
+    \end{equation*}
+\end{proof}
+
 \subsection*{Trace}
 
 \begin{theorem}
@@ -1126,6 +1141,235 @@
     \begin{equation*}
         \tr T = \sum_{ij} a_{ij} \phi_i(\vec{v}_j) = \sum_{ii} a_{ii}
     \end{equation*}
+\end{proof}
+
+\subsection*{Field Extensions}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension, and \(V\) is a vector space over \(F\).
+    Then \(V_K = K \otimes V\) is the scalar extension of \(V\).
+\end{definition}
+\begin{lemma}
+    \(V_K\) is also a vector space over \(K\).
+\end{lemma}
+\begin{proof}
+    We have no issues with addition, since it follows directly from the tensor product.
+    Consider \(\alpha \in K\); a scalar multiple can be defined as
+    \(\alpha(\beta\otimes\vec{v}) = (\alpha\beta)\otimes\vec{v}\),
+    which is naturally associative and distributive due to the field properties of \(K\).
+\end{proof}
+\begin{proposition}\label{prop:field-ext-lin-dep}\label{prop:field-ext-span}
+    \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly independent or spanning
+    if and only if \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\)
+    is respectively linearly independent or spanning.
+\end{proposition}
+\begin{proof}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly dependent.
+    Then there exists some \(\sum a_i\vec{v}_i = 0\) for \(a_i\) not all zero,
+    so we have \(1 \otimes \sum a_i\vec{v}_i = \sum a_i(1\otimes\vec{v}_i) = 0\).
+
+    Suppose \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\) is linearly dependent,
+    and by way contradiction, that \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly independent.
+    Then there exists some \(\sum \alpha_i\otimes\vec{v}_i = 0\).
+    But in particular, each \(\alpha_i = \sum_j a_{ij}\beta_j\),
+    for \({\{\beta_j\}}_{j \in J} \subset K\) a basis.
+    Hence we have
+    \begin{equation*}
+        0 = \sum_{i \in I} \alpha_i \otimes\vec{v}_i
+        = \sum_{i \in I,\,j \in J} a_{ij} \beta_j \otimes \vec{v}_i
+    \end{equation*}
+    Crucially, \({\{\beta_j \otimes \vec{v_i}\}}_{i,j}\) is linearly independent,
+    so we have reached a contradiction.
+
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is spanning.
+    Then every \(\vec{v} = \sum a_i\vec{v}_i\).
+    Now let \({\{\beta_j\}}_{j \in J} \subset K\) be a basis.
+    \({\{\beta_j\otimes\vec{v}_i\}}_{i,j}\) is spanning,
+    so we can write any vector in \(V_K\) as
+    \begin{equation*}
+        \vec{w} = \sum_{i,j} a_{ij}\beta_j \otimes \vec{v}_i
+        = \sum_i \alpha_i \otimes \vec{v}_1
+        = \sum_i \alpha_i (1\otimes\vec{v}_1)
+    \end{equation*}
+
+    % Suppose \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\) is spanning.
+    % Then any vector \(\vec{w} = \sum \alpha_i(1\otimes\vec{v}_i) = \sum a_{ij} \beta_j \otimes \vec{v}_i\),
+    % using the basis \({\{\beta_j\}}_{j \in J} \subset K\).
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is not spanning,
+    then there exists some \(\vec{v}\) that cannot be written as a linear combination.
+    As a result, \(1 \otimes \vec{v}\) should not be written as a linear combination too.
+\end{proof}
+\begin{corollary}
+    \(\dim_K(K \otimes V) = \dim_F(V)\).
+\end{corollary}
+\begin{proof}
+    If \({\{\vec{v}_i\}}_{i=1}^n \subset V\) is a basis,
+    then \({\{1\otimes\vec{v}_i\}}_{i=1}^n \subset K \otimes V\) is a basis.
+\end{proof}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension, and \(U,V\) are \(F\)-vector spaces.
+    If \(T \in \Hom_F(U,V)\), define \(T_K = \id \otimes T \in \Hom_F(U_K,V_K)\).
+\end{definition}
+\begin{lemma}
+    \(T_K \in \Hom_K(U_K,V_K)\).
+\end{lemma}
+\begin{proof}
+    We show \(K\)-linearity.
+    \begin{equation*}
+        T_K(\alpha(\beta\otimes\vec{v})+\gamma\otimes\vec{w})
+        = T_K(\alpha\beta\otimes\vec{v}) + T_K(\gamma\otimes\vec{w})
+        = \alpha\beta\otimes T\vec{v} + T_K(\gamma\otimes\vec{w})
+        = \alpha T_K(\beta\otimes\vec{v}) + T_K(\gamma\otimes\vec{w})
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:field-ext-functor}
+    We have a functor \(\textbf{Vect}_F \to \textbf{Vect}_K\),
+    which maps spaces \(V \mapsto K \otimes V\) and homomorphisms \(T \mapsto T_K\).
+\end{proposition}
+\begin{proof}
+    We have already shown that \(K \otimes V\) is a \(K\)-vector space,
+    and \(T_K\) is a \(K\)-linear map.
+    Let us first show that this maps \(\id \in \End(U)\) maps to \(\id \in \End(U_K)\).
+    \begin{equation*}
+        (\id\otimes\id)(\alpha\otimes\vec{u}) = \alpha\otimes\vec{u}
+    \end{equation*}
+    We can then show that this map preserves composition.
+    \begin{equation*}
+        (\id\otimes(TS))(\alpha\otimes\vec{u})
+        = \alpha\otimes(TS\vec{u})
+        = (\id \otimes T)(\alpha\otimes(S\vec{u}))
+        = (\id \otimes T)(\id \otimes S)(\alpha\otimes\vec{u})
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}
+    Suppose \(U \subset V\), i.e.\ we have an inclusion map \(\func{\iota}{U}{V}\).
+    We have an inclusion \(U_K \subset V_K\), i.e.\ the inclusion \(\func{\iota_K}{U_K}{V_K}\).
+    Then if \(T \in \End(U,V)\),
+    we have \(\ker T_K = \pqty{\ker T}_K\) and \(\img T_K = \pqty{\img T}_K\).
+\end{proposition}
+\begin{proof}
+    Consider a basis \({\{\vec{u}_i\}}_{i \in I} \subset \ker T\),
+    and extend that to a basis \({\{\vec{u}_i\}}_{i \in I+J} \subset U\).
+    If \(\vec{v} = \sum_{i \in I+J} \alpha_i\otimes\vec{u}_i \in \ker T_K\),
+    we have
+    \begin{equation*}
+        \vec{0} = T_K\pqty{\sum_{i \in I+J} \alpha_i\otimes\vec{u}_i}
+        = \sum_{i \in I+J} \alpha_i \otimes T\vec{u}_i
+        = \sum_{i \in I+J} \alpha_i (1 \otimes T\vec{u}_i)
+        = \sum_{i \in J} \alpha_i (1 \otimes T\vec{u}_i)
+    \end{equation*}
+    since we know that \(T\vec{u}_i = 0\) for all \(i \in I\).
+    By linear independence, \(\alpha_i = 0\) for all \(i \in J\).
+    Hence we can write \(\vec{v} = \sum_{i \in I} \alpha_i\otimes\vec{u}_i\),
+    which are linear combinations of
+    the basis \({\{1\otimes\vec{u}_i\}}_{i \in I} \subset \pqty{\ker T}_K\).
+    We have \(\ker T_K \subseteq \pqty{\ker T}_K\).
+
+    Now consider any linear combination \(\sum_{i \in I} \alpha_i\otimes\vec{u}_i \in \pqty{\ker T}_K\).
+    \begin{equation*}
+        T_K\pqty{\sum_{i \in I} \alpha_i\otimes\vec{u}_i}
+        = \sum_{i \in I} \alpha_i \otimes T\vec{u}_i = \vec{0}
+    \end{equation*}
+    We have \(\pqty{\ker T}_K \subseteq \ker T_K\).
+
+    Now, we have \(\img T_K = U_K/\ker T_K = U_K/\pqty{\ker T}_K = \pqty{U/\ker T}_K = \pqty{\img T}_K\)
+    by the \hyperref[thm:iso-1-vsp]{first isomorphism theorem}.
+\end{proof}
+
+\begin{proposition}
+    We have the following isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\bigoplus_{i \in I} {(V_i)}_K \cong \pqty{\bigoplus_{i \in I} V_i}_K\);
+        \item \(U_K/V_K \cong \pqty{U/V}_K\); and
+        \item \(U_K \otimes V_K \cong \pqty{U \otimes V}_K\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Consider a basis \({\{\vec{v}_{ij}\}}_{j \in J_i} \subset V_i\).
+    Then we have a basis \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i} \subset {(V_i)}_K\),
+    and from Lemma~\ref{lem:dim-direct-sum} we have a basis
+    \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \bigoplus_{i \in I} {(V_i)}_K\).
+    But on the other hand, we have a basis
+    \({\{\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \bigoplus_{i \in I} V_i\),
+    so tensoring with \(K\) gives the same basis
+    \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \pqty{\bigoplus_{i \in I} V_i}_K\).
+    Hence we have an isomorphism.
+    This proves statement (a).
+
+    We now wish to show that the following diagram commutes.
+    \begin{center}
+        \begin{tikzcd}
+            U_K \arrow{r}{\phi} \arrow{d}{\pi_K} & Z \\
+            \pqty{U/V}_K \arrow[dashrightarrow]{ru}[swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    Consider the quotient map \(\func{\pi}{U}{U/V}\),
+    and let us apply the functor \({(\cdot)}_K\) from Proposition~\ref{prop:field-ext-functor}.
+    We get the map \(\func{\pi_K}{U_K}{{(U/V)}_K}\),
+    which maps \(\alpha\otimes\vec{u} \mapsto \alpha\otimes[\vec{u}]\) onto its equivalence class.
+    Now consider any arbitrary vector space \(Z\),
+    and some \(\func{\phi}{U_K}{Z}\) with \(V_K \subseteq \ker\phi\).
+    We show that we can define \(\bar{\phi}\) as
+    \(\alpha\otimes[\vec{u}] \mapsto \phi(\alpha\otimes\vec{u})\).
+    We demonstrate that this is a valid definition,
+    by checking that the choice of coset representative does not matter.
+    Suppose \(\tilde{\vec{u}} = \vec{u}+\vec{v} \in [\vec{u}]\). Then
+    \begin{equation*}
+        \bar{\phi}(\alpha\otimes[\tilde{\vec{u}}])
+        = \phi(\alpha\otimes(\vec{u}+\vec{v}))
+        = \phi(\alpha\otimes\vec{u}) + \alpha\phi(1\otimes\vec{v})
+        = \phi(\alpha\otimes\vec{u})
+        = \bar{\phi}(\alpha\otimes[\vec{u}])
+    \end{equation*}
+    We then check linearity.
+    By construction, \(\bar{\phi}\) fits this diagram,
+    and this proves statement (b).
+
+    We finally wish to show that this diagram commutes.
+    \begin{center}
+        \begin{tikzcd}
+            U_K \times V_K \arrow{r}{\phi} \arrow{d}{\iota} & X \\
+            \pqty{U \otimes V}_K \arrow[dashrightarrow]{ru}[swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    Consider the homomorphism \(\func{\iota}{U_K \times V_K}{\pqty{U \otimes V}_K}\)
+    that maps \((\sum \alpha_i\otimes\vec{u}_i, \sum \beta_j\otimes\vec{v}_j)
+    \mapsto \sum_{i,j} \alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)\).
+    We first demonstrate that this is bilinear.
+    \begin{align*}
+        \iota\pqty{\gamma\sum_i\alpha_i\otimes\vec{u}_i+\sum_k\delta_k\otimes\vec{w}_k, \sum_j\beta_j\otimes\vec{v}_j}
+        &= \sum_{i,j} \gamma\alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)
+        + \sum_{k,j} \delta_k\beta_j\otimes(\vec{w}_k\otimes\vec{v}_j) \\
+        &= \gamma\iota\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+        + \iota\pqty{\delta_k\otimes\vec{w}_k,\sum_j\beta_j\otimes\vec{v}_j}
+    \end{align*}
+    Linearity in the other coordinate is checked using the exact same argument.
+    Now consider an arbitrary vector space \(X\),
+    with a bilinear map \(\func{\phi}{U_K \times V_K}{X}\).
+    We show that we can define \(\bar{\phi}\) as
+    \(\sum_{i,j}\alpha_{ij}\otimes(\vec{u}_i\otimes\vec{v}_j)
+    \mapsto \sum_{i,j} \phi(\alpha_{ij}\otimes\vec{u}_i,1\otimes\vec{v}_j)\).
+    This map is indeed linear, by
+    \begin{align*}
+        \bar{\phi}\pqty{\gamma \sum \alpha\otimes(\vec{u}\otimes\vec{v})}
+        &= \sum \phi(\gamma\alpha\otimes\vec{u},1\otimes\vec{v})
+        = \gamma \sum \phi(\alpha\otimes\vec{u},1\otimes\vec{v})
+        = \gamma \bar{\phi}\pqty{\sum \alpha\otimes(\vec{u}\otimes\vec{v})}
+    \end{align*}
+    and addition is preserved by definition.
+    Lastly, we check that \(\phi = \bar{\phi}\circ\iota\).
+    \begin{align*}
+        (\bar{\phi}\circ\iota)&\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+        = \bar{\phi}\pqty{\sum_{i,j} \alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)}
+        = \sum_{i,j} \phi(\alpha_i\beta_j\otimes\vec{u}_i,1\otimes\vec{v}_j) \\
+        &= \sum_{i,j} \phi(\alpha_i\otimes\vec{u}_i,\beta_j\otimes\vec{v}_j)
+        = \phi\pqty{\sum_{i,j} (\alpha_i\otimes\vec{u}_i,\beta_j\otimes\vec{v}_j)}
+        = \phi\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+    \end{align*}
+    using bilinearity of \(\phi\).
+    This proves statement (c).
 \end{proof}
 
 
@@ -1270,8 +1514,11 @@
 \begin{corollary}
     If \(U\) is a finite-dimensional vector space,
     and \({\{\vec{u}_i\}}_{i=1}^n \subset U\) is a basis,
-    then \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j+\vec{u}_j\otimes\vec{u}_i)\}_{i \leq j} \subset \Sym^2 U\)
-    and \(\{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)\}_{i<j} \subset \Asym^2 U\)
+    then
+    \begin{equation*}
+        \Bqty{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j+\vec{u}_j\otimes\vec{u}_i)}_{i \leq j} \subset \Sym^2 U \qquad
+        \Bqty{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)}_{i<j} \subset \Asym^2 U
+    \end{equation*}
     are bases.
 \end{corollary}
 \begin{proof}
@@ -1382,6 +1629,13 @@
     \(\Sym^2 \Sym^2 U \ncong \Sym^4 U\),
     since the group associated with \(\Sym^2 \Sym^2\) is \(V_4\), not \(S_4\).
 \end{remark}
+
+\begin{definition}
+    Suppose \(T \in \End(V)\).
+    If we let \(T^\otimes = \bigotimes_{i=1}^n T\),
+    then we have linear operators \(\Sym^n T = P_+ T^\otimes \in \End(\Sym^n V)\)
+    and \(\Asym^n T = P_- T^\otimes \in \End\pqty{\Asym^n V}\).
+\end{definition}
 
 \begin{lemma}\label{lem:antisym-same-zero}
     \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\)
@@ -1723,12 +1977,12 @@
 \end{proposition}
 \begin{proof}
     For any arbitrary \(f \in \Asym^k V'\),
-    \begin{eqnarray}
+    \begin{align*}
         \pqty{\Asym^n (TS)} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
-        = f(TS\vec{v}_1 \otimes \cdots \otimes TS\vec{v}_n)
-        = \pqty{\Asym^n T} f(S\vec{v}_1 \otimes \cdots \otimes S\vec{v}_n)
-        = \pqty{\Asym^n T}\pqty{\Asym^n S} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
-    \end{eqnarray}
+        &= f(TS\vec{v}_1 \otimes \cdots \otimes TS\vec{v}_n)
+        = \pqty{\Asym^n T} f(S\vec{v}_1 \otimes \cdots \otimes S\vec{v}_n) \\
+        &= \pqty{\Asym^n T}\pqty{\Asym^n S} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
+    \end{align*}
     so \(\det(TS) = \pqty{\Asym^n (TS)} = \pqty{\Asym^n T}\pqty{\Asym^n S} = (\det T)(\det S)\).
     This proves statement (a).
 
@@ -1739,6 +1993,33 @@
     so for any \(f \in \Asym^k V'\), \(\pqty{\Asym^n T} f = 0\),
     since any set of \(n\) vectors \(T\vec{v}_n\) are linearly dependent.
     Hence \(\det T = 0\), which proves statement (c).
+\end{proof}
+\begin{theorem}
+    Suppose \(\dim U = m\) and \(\dim V = n\),
+    with linear operators \(T \in \End(U)\) and \(S \in \End(V)\).
+    Then \(\det(T \otimes S) = \pqty{\det T}^n\pqty{\det S}^m\).
+\end{theorem}
+\begin{proof}
+    We choose bases \({\{\vec{u}_i\}}_{i=1}^m \subset U\)
+    and \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
+    Then we have a corresponding basis \({\{\vec{u}_i\otimes\vec{v}_j\}}_{i,j} \subset U \otimes V\).
+    We can see that \(T \otimes S = (T \otimes \id)(\id \otimes S)\).
+
+    Now, observe that \(T\vec{u}_j = \sum_{i=1}^m a_{ij}\vec{u}_i\),
+    and \(\id\vec{v}_\ell = \sum_{k=1}^n \delta_{k\ell}\vec{v}_k\),
+    which gives us \((T \otimes \id)(\vec{u}_j\otimes\vec{v}_\ell)
+    = \sum_{i,k} a_{ij}\delta_{k,\ell} \vec{u}_i\otimes\vec{v}_k\).
+    Using a matrix representation \(\vb{A}\) for \(T\) and \(\vb{I}\) for \(\id\),
+    if we order the basis \(ki, \ell j\) lexicographically,
+    we have block matrices \(\vb{A}\), each of size \(m \times m\), repeated \(n\) times along the diagonal.
+    \begin{equation*}
+        \bmqty{\vb{A} \\ & \vb{A} \\ && \ddots \\ &&& \vb{A}}
+        = \bmqty{\vb{A} \\ & \vb{I} \\ && \ddots \\ &&& \vb{I}}
+        \bmqty{\vb{I} \\ & \vb{A} \\ && \ddots \\ &&& \vb{I}} \cdots
+        \bmqty{\vb{I} \\ & \vb{I} \\ && \ddots \\ &&& \vb{A}}
+    \end{equation*}
+    so immediately \(\det(T \otimes \id) = \pqty{\det T}^n\).
+    By a similar argument \(\det(\id \otimes S) = \pqty{\det S}^m\).
 \end{proof}
 
 
