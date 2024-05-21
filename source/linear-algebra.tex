@@ -522,6 +522,26 @@
         = a\pi(\vec{v} +\vec{w})
     \end{equation*}
 \end{proof}
+\begin{theorem}[Uniqueness of Quotients]
+    The quotient of two vector spaces is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    Suppose that there exists some \(W\) that also fits the universal property.
+    \begin{center}
+        \begin{tikzcd}
+            V \arrow{r}{\pi'} \arrow{d}{\pi} &
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            V/U \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    By the universal property, there exists unique \(\bar{\phi},\bar{\phi}'\)
+    such that \((\bar{\phi}'\circ\bar{\phi})\circ\pi\),
+    so \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    Similarly we have \(\bar{\phi}\circ\bar{\phi}' = \id\).
+    Hence we have isomorphism.
+\end{proof}
 
 \begin{theorem}[First Isomorphism Theorem for Vector Spaces]\label{thm:iso-1-vsp}
     Suppose \(\func{\phi}{V}{W}\) is a vector space homomorphism,
