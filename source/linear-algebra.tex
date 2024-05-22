@@ -1987,7 +1987,7 @@
     so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
     Lastly, \(n\)-linearity is given by the definition of the tensor product.
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:det-properties}
     We have the following properties for the determinant:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(\det(TS) = (\det T)(\det S)\);
@@ -2013,6 +2013,23 @@
     so for any \(f \in \Asym^k V'\), \(\pqty{\Asym^n T} f = 0\),
     since any set of \(n\) vectors \(T\vec{v}_n\) are linearly dependent.
     Hence \(\det T = 0\), which proves statement (c).
+\end{proof}
+
+\begin{lemma}\label{lem:det-direct-sum}
+    Suppose \(T_i \in \End(V_i)\).
+    Then \(\det(\bigoplus_{i=1}^n T_i) = \prod_{i=1}^n T_i\).
+\end{lemma}
+\begin{proof}
+    Supopse \(\vb{A}_i\) is the matrix representation of \(T_i\).
+    Then if \(B_i \subset V_i\) is a basis,
+    \(\bigoplus_{i=1}^n T_i\) written in the basis \(\bigcup_{i=1}^n B_i\) is
+    \begin{equation*}
+        \bmqty{\vb{A}_1 \\ & \vb{A}_2 \\ && \ddots \\ &&& \vb{A}_n}
+        = \bmqty{\vb{A}_1 \\ & \vb{I} \\ && \ddots \\ &&& \vb{I}}
+        \bmqty{\vb{I} \\ & \vb{A}_2 \\ && \ddots \\ &&& \vb{I}} \cdots
+        \bmqty{\vb{I} \\ & \vb{I} \\ && \ddots \\ &&& \vb{A}_n}
+    \end{equation*}
+    so by the multiplicative rule we are done.
 \end{proof}
 \begin{theorem}
     Suppose \(\dim U = m\) and \(\dim V = n\),
@@ -2144,7 +2161,7 @@
     if the field is not algebraically closed,
     we cannot guarantee that the solutions of a polynomial are all in the field.
 \end{remark}
-\begin{corollary}
+\begin{corollary}\label{cor:min-poly-field-ext}
     Consider a field extension \(K/F\).
     Then for any \(T \in \End(V)\),
     the minimal polynomial is the same over both fields.
@@ -2157,6 +2174,28 @@
     But any \(F\)-polynomial must also be a \(K\)-polynomial,
     so the minimal polynomial in \(K\) divides the minimal polynomial in \(F\).
     Hence we have equality.
+\end{proof}
+
+\begin{proposition}\label{prop:min-poly-direct-sum}
+    Suppose \(T \in \End(\bigoplus_{i=1}^n V_i)\),
+    and let \(T_i = \eval{T}_{V_i}\).
+    Then \(m_T = \lcm{\{m_{T_i}\}}_{i=1}^n\).
+\end{proposition}
+\begin{proof}
+    Consider \(\vec{v}_i \in V_i\).
+    Then we have
+    \begin{equation*}
+        T\pqty{\sum_{i=1}^n \vec{v}_i} = \sum_{i=1}^n T_i\vec{v_i}
+    \end{equation*}
+    so if \(m_T(\lambda) = 0\), there exists some \(i\) such that \(m_{T_i}(\lambda) = 0\);
+    so any root of \(m_T\) must be a root of \(\lcm\{m_{T_i}\}\).
+    This gives us that \(m_T \mid \lcm\{m_{T_i}\}\).
+
+    On the other hand, consider any eigenvalue \(\lambda_i\) of \(T_i\).
+    By definition, it means there exists some \(\vec{v}_i \in CV_i\)
+    such that \(T_i\vec{v}_i = \lambda_i\vec{v}_i\).
+    But \(T\vec{v}_i = \lambda_i\vec{v}_i\) too,
+    so the roots must be identical.
 \end{proof}
 
 \subsection*{Generalized Eigenspaces}
@@ -2274,6 +2313,82 @@
     which tells is that \(\vec{u} \in V_\mu \subseteq W\),
     which contradicts that \(\vec{u} \notin W\).
     Hence \(V = W\).
+\end{proof}
+
+\begin{lemma}
+    We can write the minimal polynomial as
+    \(m_T(x) = \prod_{i=1}^r {(x-\lambda_i)}^{k_i}\),
+    where \(k_i\) is the smallest value such that
+    \(\eval{{(T-\lambda_i)}^{k_i}}_{V_{\lambda_i}} = 0\).
+\end{lemma}
+\begin{proof}
+    Consider \(T_i = \eval{T}_{V_{\lambda_i}}\).
+    Then \(m_{T_i}(x) = {(x-\lambda_i)}^{k_i}\) by assumption,
+    and because of Proposition~\ref{prop:min-poly-direct-sum}, \(m_{T_i} \mid m_T\),
+    so the factor \({(x-\lambda_i)}^k\) in \(m_T\) must have \(k \geq k_i\).
+    On the other hand, if \(k > k_i\),
+    it would imply that there is some element \(\vec{v} \notin V_{\lambda_i}\)
+    that \({(T-\lambda_i)}^{k_i}\vec{v} \neq \vec{0}\),
+    but \({(T-\lambda_i)}^k\vec{v} = \vec{0}\).
+    This is a contradiction, because this shows that \({(T-\lambda_i)}^{k-k_i}\vec{v} \in V_{\lambda_i}\),
+    violating that \(T\vec{v}\) would also be in another eigenspace.
+    Hence \(k = k_i\).
+\end{proof}
+
+\begin{lemma}
+    Suppose \(\dim V = n\), and \(N \in \End(V)\) is nilpotent of degree \(m\).
+    Then \(m \leq n\).
+\end{lemma}
+\begin{proof}
+    By Proposition~\ref{prop:eigenspace-properties},
+    consider the chain \(V \supseteq N(V) \supseteq N^2(V) \supseteq \cdots\).
+    Observe that if \(N^k(V) = N^{k+1}(V)\),
+    then the chain stabilizes with \(N^k(V) = N^{k+1}(V) = N^{k+2}(V) = \cdots\).
+    Now suppose, by way of contradiction, that \(N^n(V) \neq \{\vec{0}\}\).
+    Then it must have some positive dimension.
+    But the dimension of the chain must keep decreasing until zero since \(N\) is nilpotent,
+    which cannot happen in this case.
+\end{proof}
+\begin{definition}
+    Let \(T \in \End(V)\).
+    The characteristic polynomial is \(p_T(x) = \det(x-T)\).
+\end{definition}
+\begin{lemma}\label{lem:char-poly-roots}
+    \(\lambda \in \Spec(T)\) if and only if \(p_T(\lambda) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\lambda \in \Spec(T)\).
+    Then \(T-\lambda\) is not invertible,
+    so by Proposition~\ref{prop:det-properties} \(p_T(\lambda) = \det(\lambda-T) = 0\).
+
+    Suppose \(\lambda \notin \Spec(T)\).
+    Then \(T-\lambda\) is invertible,
+    so by Proposition~\ref{prop:det-properties} \(p_T(\lambda) = \det(\lambda-T) \neq 0\).
+\end{proof}
+\begin{theorem}[Cayley-Hamilton Theorem]\label{thm:cayley-hamilton}
+    Suppose \(\dim V = n\).
+    Then \(\deg m_T \leq n\) and \(m_T \mid p_T\).
+\end{theorem}
+\begin{proof}
+    Let us write \(V = \bigoplus V_\lambda\),
+    so that by Proposition~\ref{prop:min-poly-direct-sum} we have
+    \(m_T = \lcm{\{m_{T_\lambda}\}}\), for \(T_\lambda = \eval{T}_{V_\lambda}\).
+    But \(m_{T_\lambda}\) is nilpotent of index less than \(\dim V_\lambda\).
+    This proves that \(\deg m_T \leq \dim V\).
+
+    Now, we can see that since \(x-T\) respects the eigenspaces,
+    \(\det(x-T) = \det(\bigoplus (x-T_\lambda)) = \prod \det(x-T_\lambda)\)
+    by Lemma~\ref{lem:det-direct-sum}.
+    But from the \hyperref[lem:char-poly-roots]{lemma above},
+    \(\det(x-T_\lambda) = {(x-\lambda)}^{\dim V_\lambda}\).
+    Hence we immediately see that \(m_T \mid p_T\).
+
+    Notice this above proof only works for algebraically closed fields.
+    But as we know, the definition of the determinant is independent of field,
+    so \(p_T\) is the same regardless of base field;
+    similarly, by Corollary~\ref{cor:min-poly-field-ext},
+    \(m_T\) is the same regardless of base field.
+    This extends our proof to any subfield of an algebraically closed field.
 \end{proof}
 
 
