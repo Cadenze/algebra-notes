@@ -2043,7 +2043,9 @@
 \end{proof}
 
 
-\section{Minimal Polynomial}
+\section{Eigenspaces}
+
+\subsection*{Minimal Polynomial}
 
 \begin{definition}
     Given some \(T \in \End(V)\),
@@ -2104,7 +2106,7 @@
     after dividing by a factor to make this polynomial monic.
     But this polynomial must have a smaller degree, which is a contradiction.
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:minimal-polynomial-factor}
     Suppose \(p \in F[x]\) is a polynomial.
     Then \(p(T) = 0\) if and only if \(m_T \mid p\).
 \end{proposition}
@@ -2119,7 +2121,7 @@
     which contradicts the minimality of \(m_T\).
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:eigenvalue-min-poly}
     \(\lambda \in \Spec(T)\) if and only if \(m_T(\lambda) = 0\).
 \end{lemma}
 \begin{proof}
@@ -2147,10 +2149,132 @@
     Then for any \(T \in \End(V)\),
     the minimal polynomial is the same over both fields.
 \end{corollary}
-% \begin{proof}
-%     Consider a basis \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
-    
-% \end{proof}
+\begin{proof}
+    Consider a linearly independent set \({\{T^i\}}_{i=1}^{\deg m_T - 1} \subset \End_F(V)\),
+    and the corresponding set \({\{T_K^i\}}_{i=1}^{\deg m_T - 1} \subset \End_K(V) = \pqty{\End_F(V)}_K\).
+    Hence the the minimal polynomial in \(K\) must have the same or larger degree
+    as the minimal polynomial in \(F\).
+    But any \(F\)-polynomial must also be a \(K\)-polynomial,
+    so the minimal polynomial in \(K\) divides the minimal polynomial in \(F\).
+    Hence we have equality.
+\end{proof}
+
+\subsection*{Generalized Eigenspaces}
+
+\begin{definition}
+    \(\vec{v} \in V\) is a generalized eigenvector
+    if there exists some eigenvalue \(\lambda\) such that \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    The set of all generalized eigenvectors for a given eigenvalue \(\lambda\)
+    is the generalized eigenspace \(V_\lambda\).
+\end{definition}
+\begin{proposition}\label{prop:eigenspace-properties}
+    Given some \(T \in \End(V)\), we have
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(V_\lambda \subseteq V\) is a subspace;
+        \item \(T(V_\lambda) \subseteq V_\lambda\);
+        \item if \(\mu \neq \lambda\), \(\eval{T-\mu}_{V_\lambda}\) is invertible; and
+        \item \(V_\lambda \neq \{\vec{0}\}\) if and only if \(\lambda\) is an eigenvalue.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    If \({(T-\lambda)}^k\vec{v} = \vec{0}\) and \({(T-\lambda)}^\ell\vec{w} = \vec{0}\).
+    Then \({(T-\lambda)}^{\max\{k,\ell\}}(a\vec{v}+\vec{w}) = \vec{0}\).
+    This proves (a).
+
+    Consider \(\vec{v} \in V_\lambda\), with \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    Then \({(T-\lambda)}^k T\vec{v} = T{(T-\lambda)}^k\vec{v} = \vec{0}\)
+    so \(T\vec{v} \in T_\lambda\).
+    This proves (b).
+
+    Suppose, by way of contradiction, that \(T-\mu\) is not invertible.
+    Then there exists some nonzero \(\vec{v} \in V_\lambda\)
+    such that \(T\vec{v} = \mu\vec{v}\).
+    But we will then have \({(T-\lambda)}^k\vec{v} = {(\mu-\lambda)}^k\vec{v} \neq \vec{0}\),
+    which is a contradiction.
+    This proves (c).
+
+    For (d), the reverse direction is by definition.
+    For the forward direction,
+    suppose we have the smallest \(k\) such that \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    If this \(k = 1\), we are done.
+    If not, we see that \((T-\lambda){(T-\lambda)}^{k-1}\vec{v} = \vec{0}\),
+    and \({(T-\lambda)}^{k-1}\vec{v}\) is our eigenvector.
+    This proves (d).
+\end{proof}
+
+\begin{lemma}\label{lem:eigenspace-direct-sum}
+    Given some \(T \in \End(V)\),
+    the sum of eigenspaces \(\sum_{\lambda\in\Spec(T)} V_\lambda\) is direct;
+    as in, there is a unique decomposition \(\vec{w} = \sum_i \vec{v}_i\),
+    \(\vec{v}_i \in V_{\lambda_i}\).
+\end{lemma}
+\begin{proof}
+    Suppose, by way of contradiction,
+    that there is no unique decomposition.
+    Then there exists some nonzero sum \(\sum_{i=1}^r \vec{v}_i = \vec{0}\),
+    which without loss of generality, has the least number of terms.
+    For a large enough \(k\), we know that \({(T-\lambda_1)}^k\vec{v}_1 = \vec{0}\),
+    and by invertibility in other eigenspaces, \({(T-\lambda_1)}^k\vec{v}_i \neq \vec{0}\).
+    Then we have \({(T-\lambda_1)}^k \sum_{i=2}^r \vec{v}_i = \vec{0}\),
+    which is a contradiction to minimality of the sum.
+\end{proof}
+\begin{remark}
+    From now on until the end of chapter,
+    extend the base field until it is algebraically closed,
+    so we can assume \(F\) contains all roots to polynomials.
+\end{remark}
+\begin{theorem}[Spectral Theorem]
+    \(V = \bigoplus_{\lambda\in\Spec(T)} V_{\lambda}\).
+\end{theorem}
+\begin{proof}
+    We already know that the direct sum \(W = \bigoplus_{\lambda\in\Spec(T)} V_{\lambda}\)
+    is a subspace of \(V\) from the \hyperref[lem:eigenspace-direct-sum]{lemma above},
+    so let us consider the space \(V/W\).
+    Since \(T(V_\lambda) \subseteq V_\lambda\) by Proposition~\ref{prop:eigenspace-properties},
+    \(T(W) \subseteq W\).
+    From this fact, we wish to define \(\bar{T} \in \End(V/W)\).
+    For \(\pi\) being the quotient map,
+    we already have \(\func{\pi \circ T}{V}{V/W}\),
+    so by the \hyperref[prop:univ-prop-quotient-vsp]{universal property of quotients}
+    we know that there exists a unique \(\bar{T}\) such that \(\bar{T}\circ\pi = \pi \circ T\).
+
+    Now, suppose by way of contradiction, that \(W \neq V\).
+    Then \(\dim V/W \geq 1\), which implies that there are eigenvalues.
+    Now observe that \(\bar{T}\) fulfills the minimal polynomial of \(T\) too.
+    \begin{equation*}
+        m_T(\bar{T})[\vec{v}] = [m_T(T)\vec{v}] = [\vec{0}] = W
+    \end{equation*}
+    Hence by Proposition~\ref{prop:minimal-polynomial-factor},
+    \(m_{\bar{T}} \mid m_T\), and \(\Spec(\bar{T}) \subseteq \Spec(T)\).
+    For some eigenvector \(\vec{v} \in V\),
+    we have \(\bar{T}[\vec{v}] = [T\vec{v}] = \mu[\vec{v}]\).
+    Now consider all eigenvalues \(\lambda \neq \mu\).
+    For each of these eigenvalues, let \(k_\lambda\) be the smallest value
+    such that \(\eval{{(T-\lambda)}^{k_\lambda}}_{V_\lambda} = 0\).
+    Then we have \((T-\mu)\vec{v} = \vec{w} \in W\), which yields
+    \begin{equation*}
+        (T-\mu) \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{v}
+        = \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{w} \in V_\mu
+    \end{equation*}
+    since if we were to write \(\vec{w} = \vec{w}_\mu + \sum_{\lambda\neq\mu} \vec{w}_\lambda\),
+    \({(T-\lambda)}^{k_\lambda} \vec{w}_\lambda = \vec{0}\) by construction,
+    and we are left with only the \(\vec{w}_\mu \in V_\mu\) component.
+    Let us define \(\vec{u} = \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{v}\),
+    such that \((T-\mu)\vec{u} \in V_\mu\) as above.
+    We can show that \(\vec{u} \neq \vec{0}\), since projecting to \(V/W\) gives
+    \begin{equation*}
+        \pi(\vec{u}) = \prod_{\lambda\neq\mu} {(\bar{T}-\lambda)}^{k_\lambda} [\vec{v}]
+        = \prod_{\lambda\neq\mu} {(\mu-\lambda)}^{k_\lambda} [\vec{v}]
+        \neq [\vec{0}] = W
+    \end{equation*}
+    so it is not even in the equivalence class of \(\vec{0}\).
+    But we can also show that, since \((T-\mu)\vec{u} \in V_\mu\),
+    that there exists some \(k\) such that
+    \({(T-\mu)}^k(T-\mu)\vec{u} = {(T-\mu)}^{k+1}\vec{u} = \vec{0}\),
+    which tells is that \(\vec{u} \in V_\mu \subseteq W\),
+    which contradicts that \(\vec{u} \notin W\).
+    Hence \(V = W\).
+\end{proof}
 
 
 \section{Jordan Canonical Form}
