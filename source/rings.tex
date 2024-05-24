@@ -922,8 +922,8 @@
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(I \subseteq R\), the kernel is an ideal;
-        \item \(\phi(R) \subseteq S\), the image is a subring; and
-        \item \(\phi(R) \cong R/I\),
+        \item \(\img\phi \subseteq S\), the image is a subring; and
+        \item \(\img\phi \cong R/I\),
             the image is uniquely isomorphic to the quotient ring.
     \end{enumerate}
 
@@ -931,7 +931,7 @@
     \begin{center}
         \begin{tikzcd}
             R \arrow{rd}{\phi} \arrow{d}{\pi} & S \\
-            R/I \arrow{r}{\cong} & \phi(R) \arrow[dash]{u}
+            R/I \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
     \end{center}
 \end{theorem}
@@ -958,7 +958,7 @@
     \medskip
 
     The \hyperref[thm:univ-prop-quotient-ring]{universal property}
-    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/I}{\phi(R)}\)
+    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/I}{\img\phi}\)
     such that \(\phi = \bar{\phi}\circ\pi\),
     \(\pi\) being the quotient homomorphism.
     By the \hyperref[thm:iso-1-group]{first group isomorphism theorem},

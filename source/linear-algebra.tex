@@ -2341,10 +2341,10 @@
 \end{lemma}
 \begin{proof}
     By Proposition~\ref{prop:eigenspace-properties},
-    consider the chain \(V \supseteq N(V) \supseteq N^2(V) \supseteq \cdots\).
-    Observe that if \(N^k(V) = N^{k+1}(V)\),
-    then the chain stabilizes with \(N^k(V) = N^{k+1}(V) = N^{k+2}(V) = \cdots\).
-    Now suppose, by way of contradiction, that \(N^n(V) \neq \{\vec{0}\}\).
+    consider the chain \(V \supseteq \img N \supseteq \img N^2 \supseteq \cdots\).
+    Observe that if \(\img N^k = \img N^{k+1}\),
+    then the chain stabilizes with \(\img N^k = \img N^{k+1} = \img N^{k+2} = \cdots\).
+    Now suppose, by way of contradiction, that \(\img N^n \neq \{\vec{0}\}\).
     Then it must have some positive dimension.
     But the dimension of the chain must keep decreasing until zero since \(N\) is nilpotent,
     which cannot happen in this case.

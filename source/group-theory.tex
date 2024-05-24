@@ -1105,7 +1105,7 @@
 %     Suppose \(\func{\phi}{G}{H}\) is a group homomorphism,
 %     and \(N = \ker(\phi)\).
 %     Then there exists a unique isomorphism
-%     that makes the image \(\phi(G) \cong G/N\).
+%     that makes the image \(\img\phi \cong G/N\).
 % \end{corollary}
 % \begin{proof}
 %     We want to prove that for all \(g \in \phi^{-1}(x)\)
@@ -1132,8 +1132,8 @@
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(N \lhd G\), the kernel is a normal subgroup;
-        \item \(\phi(G) \subseteq H\), the image is a subgroup; and
-        \item \(\phi(G) \cong G/N\),
+        \item \(\img\phi \subseteq H\), the image is a subgroup; and
+        \item \(\img\phi \cong G/N\),
             the image is uniquely isomorphic to the quotient group.
     \end{enumerate}
 
@@ -1141,7 +1141,7 @@
     \begin{center}
         \begin{tikzcd}
             G \arrow{rd}{\phi} \arrow{d}{\pi} & H \\
-            G/N \arrow{r}{\cong} & \phi(G) \arrow[dash]{u}
+            G/N \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
     \end{center}
 \end{theorem}
@@ -1170,32 +1170,32 @@
 
     \medskip
 
-    If \(\{\phi(x),\phi(y)\} \subset \phi(G)\),
-    then \(\phi(x)\phi(y) = \phi(xy) \in \phi(G)\),
+    If \(\{\phi(x),\phi(y)\} \subset \img\phi\),
+    then \(\phi(x)\phi(y) = \phi(xy) \in \img\phi\),
     and thus we have closure.
-    Then \(\phi(1_G) \in \phi(G)\)
+    Then \(\phi(1_G) \in \img\phi\)
     which must be the identity by definition of a homomorphism.
     Associativity is obtained for free
     when we equate the multiplicative operation
-    between \(G\) and \(\phi(G)\).
+    between \(G\) and \(\img\phi\).
     Lastly the inverse must be given by
     \(1_H = \phi(1_G) = \phi(xx^{-1}) = \phi(x)\phi(x^{-1})\).
-    Hence \(\phi(G)\) forms a subgroup of \(H\),
+    Hence \(\img\phi\) forms a subgroup of \(H\),
     which proves statement (b).
 
     \medskip
 
     By the \hyperref[thm:univ-prop-quotient-group]{universal property},
-    there exists a unique homomorphism \(\func{\bar{\phi}}{G/N}{\phi(G)}\)
+    there exists a unique homomorphism \(\func{\bar{\phi}}{G/N}{\img\phi}\)
     such that \(\phi = \bar{\phi}\circ\pi\),
     where \(\pi\) is the quotient homomorphism.
     Since by definition, \(\phi\) is a surjective mapping
-    from \(G\) to its image \(\phi(G)\),
+    from \(G\) to its image \(\img\phi\),
     \(\bar{\phi}\) must also be a surjection.
 
     Again taking the same definition for \(\bar{\phi}\)
     as in the universal property,
-    \(\vfunc{\bar{\phi}}{G/N}{\phi(G)}{gN}{\phi(g)}\),
+    \(\vfunc{\bar{\phi}}{G/N}{\img\phi}{gN}{\phi(g)}\),
     suppose we have two cosets \(g_1 N\) and \(g_2 N\).
     such that \(\bar{\phi}(g_1 N) = \bar{\phi}(g_2 N)\),
     giving us \(\phi(g_1) = \bar{\phi}(\pi(g_1)) = \bar{\phi}(g_1 N)
