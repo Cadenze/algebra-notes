@@ -663,8 +663,8 @@
     and therefore is not always a ring.
     A left ideal is defined with only \(yx \in I\),
     and a right ideal is defined with only \(xy \in I\).
-    We shall sometimes denote this as \(I \lhd R\),
-    as one shall soon see its similarity to normal subgroups.
+    % We shall sometimes denote this as \(I \lhd R\),
+    % as one shall soon see its similarity to normal subgroups.
 \end{definition}
 % \begin{proposition}
 %     The kernel of any ring homomorphism is an ideal.
@@ -708,7 +708,7 @@
 \end{definition}
 
 \begin{lemma}
-    Suppose \(R\) is a ring, and \(I \lhd R\) is an ideal.
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is an ideal.
     Then \(R/I\) forms a ring via \((x+I)(y+I) = (xy+I)\).
 \end{lemma}
 \begin{proof}
@@ -812,9 +812,9 @@
     if \(I = (S)\) for some finite \(S\).
 \end{definition}
 \begin{definition}
-    Suppose \(R\) is a ring, and \(I \lhd R\) an ideal.
+    Suppose \(R\) is a ring, and \(I \subseteq R\) an ideal.
     We call \(I\) maximal (in \(R\))
-    if there are no ideals \(J \lhd R\) such that \(I \subseteq J \subseteq R\).
+    if there are no ideals \(J \subseteq R\) such that \(I \subseteq J \subseteq R\).
 \end{definition}
 
 \begin{proposition}\label{prop:field-no-proper-ideals}
@@ -867,7 +867,7 @@
 
 \begin{theorem}[Universal Property of Quotient Rings]\label{thm:univ-prop-quotient-ring}
     Let \(R,S\) be commutative rings,
-    and \(I \lhd R\) be an ideal.
+    and \(I \subseteq R\) be an ideal.
     Suppose \(\func{\pi}{R}{R/I}\) is the quotient homomorphism
     and \(\func{\phi}{R}{S}\) is any ring homomorphism
     with \(I \subseteq \ker(\phi)\).
@@ -921,7 +921,7 @@
     and \(I = \ker(\phi)\).
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(I \lhd R\), the kernel is an ideal;
+        \item \(I \subseteq R\), the kernel is an ideal;
         \item \(\phi(R) \subseteq S\), the image is a subring; and
         \item \(\phi(R) \cong R/I\),
             the image is uniquely isomorphic to the quotient ring.
@@ -969,13 +969,13 @@
 
 \begin{theorem}[Second Isomorphism Theorem for Rings]\label{thm:iso-2-ring}
     Suppose \(R\) is a ring, \(S \subseteq R\) some subring,
-    and \(I \lhd R\) an ideal.
+    and \(I \subseteq R\) an ideal.
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(S + I = \{s+x : x \in S, x \in I\} \subseteq R\),
             the sum is a subring;
-        \item \(I \lhd S + I\), the ideal is also and ideal of the sum;
-        \item \(S \cap I \lhd S\),
+        \item \(I \subseteq S + I\), the ideal is also and ideal of the sum;
+        \item \(S \cap I \subseteq S\),
             the intersection is an ideal of the subring; and
         \item \((S+I)/I \cong S/(S \cap I)\),
             these two quotients are isomorphic.
@@ -1030,7 +1030,7 @@
     Now, we need to check the multiplicative condition.
     Suppose \(x \in S \cap I\), and \(y \in S\).
     We see that by the definition of a subring, \(\{xy,yx\} \subset S\);
-    but also \(\{xy,yx\} \subset I\) since \(I \lhd R\) is an ideal,
+    but also \(\{xy,yx\} \subset I\) since \(I \subseteq R\) is an ideal,
     so it also works for elements \(y \in S \subseteq R\).
     This proves statement (c).
 
@@ -1070,18 +1070,18 @@
 \end{proof}
 
 \begin{theorem}[Third Isomorphism Theorem for Rings]\label{thm:iso-3-ring}
-    Suppose \(R\) is a ring, \(I \lhd R\) an ideal. Then:
+    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal. Then:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item if \(S\) is a subring such that \(I \subseteq S \subseteq R\),
             then \(S/I \subseteq R/I\) is a subring;
         \item a subring of \(R/I\) must be of the form \(S/I\)
             such that \(S\) is a subring with \(I \subseteq S \subseteq R\);
         \item if \(J\) is an ideal such that \(I \subseteq J \subseteq R\),
-            then \(J/I \lhd R/I\) is an ideal;
+            then \(J/I \subseteq R/I\) is an ideal;
         \item an ideal of \(R/I\) must be of the form \(J/I\)
-            such that \(J \lhd R\) is an ideal
+            such that \(J \subseteq R\) is an ideal
             with \(I \subseteq J \subseteq R\); and
-        \item if \(J \lhd R\) is an ideal such that \(I \subseteq J \subseteq R\),
+        \item if \(J \subseteq R\) is an ideal such that \(I \subseteq J \subseteq R\),
             then \((R/I)/(J/I) \cong R/J\).
     \end{enumerate}
 
@@ -1101,7 +1101,7 @@
     \end{center}
 \end{theorem}
 \begin{proof}
-    We first have to prove that \(I \lhd S\),
+    We first have to prove that \(I \subseteq S\),
     which is obvious because it is already an additive subgroup,
     and \(\{xy,yx\} \in I\) for all \(x \in I\) and \(y \in R\)
     can be restricted to \(y \in S \subseteq R\).
@@ -1138,7 +1138,7 @@
 
     \medskip
 
-    Suppose \(J' \lhd R/I\) is an ideal.
+    Suppose \(J' \subseteq R/I\) is an ideal.
     We can look at the preimage \(\pi^{-1}(J')\),
     which since \(0 \in J'\), we have \(J' \supseteq \ker(\pi) = I\).
     Notice that the preimage \(\pi^{-1}(J') = J' + I\) is an ideal,
@@ -1167,14 +1167,14 @@
     that are represented by elements of \(J\) into \(0\).
 
     Lastly, we invoke the \hyperref[thm:iso-1-ring]{first isomorphism theorem},
-    which gives us \(\ker(\phi) = J/I \lhd R/I\),
+    which gives us \(\ker(\phi) = J/I \subseteq R/I\),
     making our quotient \((R/I)/(J/I)\) valid,
     and also that \((R/I)/\ker(\phi) = (R/I)/(J/I) \cong R/J\),
     proving statement (e).
 \end{proof}
 
 \begin{theorem}[Fourth Isomorphism Theorem for Rings]\label{thm:iso-4-ring}
-    Suppose \(R\) is a ring, \(I \lhd R\) some ideal,
+    Suppose \(R\) is a ring, \(I \subseteq R\) some ideal,
     and \(\vfunc{\pi}{R}{R/I}{x}{x+I}\) the quotient homomorphism.
     Then \(\pi\) is a bijection between the subrings of \(R/I\)
     and the subrings of \(R\) containing \(I\);
