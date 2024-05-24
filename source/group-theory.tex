@@ -1015,7 +1015,7 @@
     Suppose we have a group homomorphism \(\func{\phi}{G}{H}\).
     We call the preimage of the identity \(\phi^{-1}(1)\)
     the kernel of \(\phi\),
-    sometimes denoted \(\ker(\phi) = \{g \in G : \phi(g) = 1\}\).
+    sometimes denoted \(\ker\phi = \{g \in G : \phi(g) = 1\}\).
 \end{definition}
 
 \begin{theorem}[Universal Property of Quotient Groups]\label{thm:univ-prop-quotient-group}
@@ -1023,7 +1023,7 @@
     and \(N \lhd G\) be a normal subgroup.
     Suppose \(\func{\pi}{G}{G/N}\) is the quotient homomorphism
     and \(\func{\phi}{G}{H}\) is any group homomorphism
-    with \(N \subseteq \ker(\phi)\).
+    with \(N \subseteq \ker\phi\).
     Then there exists a unique group homomorphism
     \(\func{\bar{\phi}}{G/N}{H}\) such that \(\phi = \bar{\phi}\circ\pi\).
 
@@ -1044,7 +1044,7 @@
     and then proving existence without any assumptions.
 
     Suppose \(\phi = \bar{\phi}\circ\pi = \bar{\phi}'\circ\pi\).
-    Since \(N \subseteq \ker(\phi)\),
+    Since \(N \subseteq \ker\phi\),
     all elements \(n \in N\) obey \(\phi(n) = 1\).
     Knowing that all elements in \(G\) belong to some coset \(gN\),
     all \(g' \in gN\) maps to
@@ -1103,9 +1103,9 @@
 \end{remark}
 % \begin{corollary}[Fundamental Homomorphism Theorem for Groups]
 %     Suppose \(\func{\phi}{G}{H}\) is a group homomorphism,
-%     and \(N = \ker(\phi)\).
+%     and \(N = \ker\phi\).
 %     Then there exists a unique isomorphism
-%     that makes the image \(\phi(G) \cong G/N\).
+%     that makes the image \(\img\phi \cong G/N\).
 % \end{corollary}
 % \begin{proof}
 %     We want to prove that for all \(g \in \phi^{-1}(x)\)
@@ -1128,12 +1128,12 @@
 
 \begin{theorem}[First Isomorphism Theorem for Groups]\label{thm:iso-1-group}
     Suppose \(\func{\phi}{G}{H}\) is a group homomorphism,
-    and \(N = \ker(\phi)\).
+    and \(N = \ker\phi\).
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(N \lhd G\), the kernel is a normal subgroup;
-        \item \(\phi(G) \subseteq H\), the image is a subgroup; and
-        \item \(\phi(G) \cong G/N\),
+        \item \(\img\phi \subseteq H\), the image is a subgroup; and
+        \item \(\img\phi \cong G/N\),
             the image is uniquely isomorphic to the quotient group.
     \end{enumerate}
 
@@ -1141,7 +1141,7 @@
     \begin{center}
         \begin{tikzcd}
             G \arrow{rd}{\phi} \arrow{d}{\pi} & H \\
-            G/N \arrow{r}{\cong} & \phi(G) \arrow[dash]{u}
+            G/N \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
     \end{center}
 \end{theorem}
@@ -1170,32 +1170,32 @@
 
     \medskip
 
-    If \(\{\phi(x),\phi(y)\} \subset \phi(G)\),
-    then \(\phi(x)\phi(y) = \phi(xy) \in \phi(G)\),
+    If \(\{\phi(x),\phi(y)\} \subset \img\phi\),
+    then \(\phi(x)\phi(y) = \phi(xy) \in \img\phi\),
     and thus we have closure.
-    Then \(\phi(1_G) \in \phi(G)\)
+    Then \(\phi(1_G) \in \img\phi\)
     which must be the identity by definition of a homomorphism.
     Associativity is obtained for free
     when we equate the multiplicative operation
-    between \(G\) and \(\phi(G)\).
+    between \(G\) and \(\img\phi\).
     Lastly the inverse must be given by
     \(1_H = \phi(1_G) = \phi(xx^{-1}) = \phi(x)\phi(x^{-1})\).
-    Hence \(\phi(G)\) forms a subgroup of \(H\),
+    Hence \(\img\phi\) forms a subgroup of \(H\),
     which proves statement (b).
 
     \medskip
 
     By the \hyperref[thm:univ-prop-quotient-group]{universal property},
-    there exists a unique homomorphism \(\func{\bar{\phi}}{G/N}{\phi(G)}\)
+    there exists a unique homomorphism \(\func{\bar{\phi}}{G/N}{\img\phi}\)
     such that \(\phi = \bar{\phi}\circ\pi\),
     where \(\pi\) is the quotient homomorphism.
     Since by definition, \(\phi\) is a surjective mapping
-    from \(G\) to its image \(\phi(G)\),
+    from \(G\) to its image \(\img\phi\),
     \(\bar{\phi}\) must also be a surjection.
 
     Again taking the same definition for \(\bar{\phi}\)
     as in the universal property,
-    \(\vfunc{\bar{\phi}}{G/N}{\phi(G)}{gN}{\phi(g)}\),
+    \(\vfunc{\bar{\phi}}{G/N}{\img\phi}{gN}{\phi(g)}\),
     suppose we have two cosets \(g_1 N\) and \(g_2 N\).
     such that \(\bar{\phi}(g_1 N) = \bar{\phi}(g_2 N)\),
     giving us \(\phi(g_1) = \bar{\phi}(\pi(g_1)) = \bar{\phi}(g_1 N)
@@ -1294,7 +1294,7 @@
     We now attempt to construct a homomorphism
     \(\vfunc{\phi}{S}{SN/N}{s}{sN}\).
     % \(\vfunc{\phi}{SN/N}{S/(S \cap N)}{sN}{s(S \cap N)}\).
-    % Obviously the kernel is \(\ker(\phi) = N\),
+    % Obviously the kernel is \(\ker\phi = N\),
     % because to map to 1, \(s = 1\),
     % which implies \(sn = n \in N\);
     % conversely, when \(s \neq 1\), then \(sn \notin N\),
@@ -1314,15 +1314,15 @@
     so every coset is covered by \(\phi\),
     and therefore it is an epimorphism.
 
-    We can then demonstrate that \(\ker(\phi) = S \cap N\).
+    We can then demonstrate that \(\ker\phi = S \cap N\).
     We can see that if \(g \in S \cap N\),
     then \(g \in N\), so \(\phi(g) = gN = N\),
-    which gives us \(S \cap N \subseteq \ker(\phi)\).
-    On the other hand, if \(g \in \ker(\phi)\),
+    which gives us \(S \cap N \subseteq \ker\phi\).
+    On the other hand, if \(g \in \ker\phi\),
     then \(\phi(g) = gN \subseteq N\),
     which requires \(g \in N\),
-    giving us \(\ker(\phi) \subseteq S \cap N\).
-    Hence \(\ker(\phi) = S \cap N\).
+    giving us \(\ker\phi \subseteq S \cap N\).
+    Hence \(\ker\phi = S \cap N\).
 
     Lastly, we can apply the
     \hyperref[thm:iso-1-group]{first isomorphism theorem},
@@ -1390,12 +1390,12 @@
 
     Suppose \(K' \subseteq G/N\) is a subgroup.
     We can look at the preimage \(\pi^{-1}(K')\),
-    which since \(1 \in K'\), we have \(K' \supseteq \ker(\pi) = N\).
+    which since \(1 \in K'\), we have \(K' \supseteq \ker\pi = N\).
     Notice that the preimage of a group is still a group:
     suppose \(\func{\phi}{G'}{H'}\) is a homomorphism,
     since \(\{x,y\}\subseteq\phi^{-1}(H')\)
     implies \(\phi(xy) = \phi(x)\phi(y) \in H'\) (closure),
-    \(1 \in \ker(\phi) \subseteq \phi^{-1}(H')\) (identity),
+    \(1 \in \ker\phi \subseteq \phi^{-1}(H')\) (identity),
     associativity inherited from \(G'\),
     and \(x \in \pi^{-1}(H')\)
     implies \({\pi(x)}^{-1} = \pi(x^{-1}) \in H'\) (inverse).
@@ -1454,25 +1454,25 @@
     must get sent to it,
     alongside all other elements in that \(N\)-coset.
 
-    We claim the kernel is \(\ker(\phi) = K/N\).
+    We claim the kernel is \(\ker\phi = K/N\).
     % To see this, first observe \(kN \in K/N\)
     % must get mapped to \(\phi(kN) = kK = K\),
     % which is the coset of the identity,
-    % giving us \(K/N \in \ker(\phi)\).
+    % giving us \(K/N \in \ker\phi\).
     % For the reverse argument,
     % for the image to be the identity coset \(K\),
     % the element \(g\) must belong in \(K\),
     % which means the kernel must be the cosets of the elements in \(K\),
-    % otherwise written as \(\ker(\phi) \subseteq K/N\).
+    % otherwise written as \(\ker\phi \subseteq K/N\).
     % This proves our claim.
-    Observe that \(\ker(\eta) = K\) and \(\ker(\pi) = N\),
+    Observe that \(\ker\eta = K\) and \(\ker\pi = N\),
     so \(\phi\) must map all the \(N\)-cosets
     that are represented by elements of \(K\) into \(1\).
 
     Lastly, we invoke the \hyperref[thm:iso-1-group]{first isomorphism theorem},
-    which gives us \(\ker(\phi) = K/N \lhd G/N\),
+    which gives us \(\ker\phi = K/N \lhd G/N\),
     making our quotient \((G/N)/(K/N)\) valid;
-    and also that \((G/N)/\ker(\phi) = (G/N)/(K/N) \cong G/K\),
+    and also that \((G/N)/\ker\phi = (G/N)/(K/N) \cong G/K\),
     proving statement (e).
 \end{proof}
 
@@ -1648,10 +1648,10 @@
 \begin{proposition}
     Suppose \(G\) acts on itself by conjugation.
     Then the kernel of the homomorphism is the centralizer of the group,
-    \(\ker(\phi) = \Centre(G)\).
+    \(\ker\phi = \Centre(G)\).
 \end{proposition}
 \begin{proof}
-    \(\ker(\phi) = \{g \in G : \phi(g) = 1\}
+    \(\ker\phi = \{g \in G : \phi(g) = 1\}
     = \{g \in G : \gamma_g = \gamma_1\}
     = \{g \in G : \forall x \in G, gxg^{-1} = x\}
     = \Centre(G)\).
@@ -2127,7 +2127,7 @@
     since \(m,p\) coprime, \(m,p^t\) also coprime,
     so the order must be \(\abs{\pi(k)} = 1\),
     and therefore the image must be \(\pi(K) = \{1\}\).
-    Hence we can conclude that \(K \subseteq \ker(\pi) = P\).
+    Hence we can conclude that \(K \subseteq \ker\pi = P\).
 \end{proof}
 \begin{theorem}[Sylow's Second Theorem]\label{thm:sylow-2}
     Suppose \(G\) is a finite group, \(p\) a prime number,
