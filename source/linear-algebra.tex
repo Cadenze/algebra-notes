@@ -1412,9 +1412,9 @@
 \begin{definition}
     Suppose \(T \in \End(V)\) is a linear operator.
     If there exists some \(n > 0\) such that \(T^n = 0\),
-    then we say that \(T\) is nilpotent of index \(n\).
+    then we say that \(T\) is nilpotent of degree \(n\).
     Similarly, if there exists some \(n > 0\) such that \(T^m = \id\),
-    then we say that \(T\) is idempotent of index \(m\).
+    then we say that \(T\) is idempotent of degree \(m\).
 \end{definition}
 
 \begin{lemma}\label{lem:direct-sum-idempotent}
@@ -2262,7 +2262,7 @@
     extend the base field until it is algebraically closed,
     so we can assume \(F\) contains all roots to polynomials.
 \end{remark}
-\begin{theorem}[Spectral Theorem]
+\begin{theorem}[Spectral Theorem]\label{thm:spectral}
     \(V = \bigoplus_{\lambda\in\Spec(T)} V_{\lambda}\).
 \end{theorem}
 \begin{proof}
@@ -2335,7 +2335,7 @@
     Hence \(k = k_i\).
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:nilpotent-degree}
     Suppose \(\dim V = n\), and \(N \in \End(V)\) is nilpotent of degree \(m\).
     Then \(m \leq n\).
 \end{lemma}
@@ -2393,3 +2393,161 @@
 
 
 \section{Jordan Canonical Form}
+
+\begin{lemma}
+    For \(N = \End(V)\) be nilpotent of degree \(k\),
+    we have a filtration
+    \(\{\vec{0}\} \subsetneq \ker N \subsetneq \ker N^2 \subsetneq \cdots \subsetneq \ker N^k = V\).
+\end{lemma}
+\begin{proof}
+    From Lemma~\ref{lem:nilpotent-degree},
+    we have a decreasing sequence of images,
+    so the corresponding sequence of kernels must be increasing
+    by the \hyperref[thm:iso-1-vsp]{first isomorphism theorem}.
+\end{proof}
+\begin{lemma}\label{lem:nilpotent-lin-indep}
+    Suppose \(N = \End(V)\) is nilpotent,
+    and \(B \subseteq V\) is a set of vectors with \(N(B) \subseteq B \cup \{\vec{0}\}\).
+    Then \(B\) is linearly indepedent if and only of \(B \cap \ker N\) is linearly independent.
+\end{lemma}
+\begin{proof}
+    The forward direction is obvious,
+    since a subset \(B \cap \ker N\) is indepedent if the superset \(B\) is.
+
+    Now suppose, by way of contradiction,
+    that \(B\) is linearly depedent, but \(B \cap \ker N\) is linearly independent.
+    Let \(\sum a_i\vec{v}_i = \vec{0}\) be a minimally dependent set,
+    and \(s\) be the largest value such that there still exists an \(i\) such that
+    \(N^s\vec{v}_i \neq \vec{0}\).
+    If there exists some \(N^s\vec{v}_i = \vec{0}\)
+    then we have a contraduction with minimality.
+    If all \(N^s\vec{v}_i \neq \vec{0}\),
+    then \(N^s\vec{v}_i \in \ker N\) by maximality,
+    so we have a dependent set in \(B \cap \ker N\), which is a contradiction.
+\end{proof}
+\begin{corollary}
+    Suppose \(N \in \End(V)\), and we have some nonzero \(\vec{v} \in V\)
+    such that \(N^k\vec{v} = \vec{0}\) for some smallest possible \(k\).
+    Then \({\{N^i\vec{v}\}}_{i=0}^{k-1}\) is linearly independent.
+\end{corollary}
+\begin{proof}
+    \(N\) is nilpotent on \(\Span{\{N^i\vec{v}\}}_{i=0}^{k-1}\).
+    We see that \({\{N^i\vec{v}\}}_{i=0}^{k-1} \cap \ker N = \{N^{k-1}\vec{v}\}\),
+    and the set of one element is linearly indepedent,
+    so after applying the \hyperref[lem:nilpotent-lin-indep]{lemma above},
+    our whole set of \(k\) vectors are linearly independent.
+\end{proof}
+
+\begin{theorem}\label{thm:jordan-canonical-nilpotent}
+    Suppose \(N \in \End(V)\) is nilpotent.
+    Then we have a direct sum \(V = \bigoplus_{i=1}^r V_i\)
+    where each \(V_i\) is \(N\)-invariant.
+\end{theorem}
+\begin{proof}
+    Suppose \(N\) is nilpotent of degree \(d\).
+    Let \(W = \ker N\), and \(W_k = \img N^k \cap W\),
+    so we have the chain
+    \(W = W_0 \supsetneq W_1 \supsetneq \cdots \supsetneq W_d = \{\vec{0}\}\).
+    By extension of bases,
+    we can inductively choose a basis \(C_k \subset W_k\)
+    such that \(C = C_0 \supsetneq C_1 \supsetneq \cdots \supsetneq C_d = \emptyset\).
+    Let us write the the basis of \(W\) as \(C = {\{\vec{v}_i\}}_{i=1}^r\),
+    and for each \(\vec{v}_i\) we can associate it with a number
+    \(k_i\) since it will be in some \(C_{k_i} - C_{k_i+1}\).
+    Since \(\vec{v}_i \in C_{k_i} \subset W_{k_i} \subset \img N^{k_i}\),
+    we can find \(\vec{u}_i \in V\) such that \(N^{k_i}\vec{u}_i = \vec{v}_i\).
+    Then if we let \(B_i = {\{N^j\vec{u}_i\}}_{j=0}^{k_i}\),
+    we have \(V_i = \Span B_i\) is \(N\)-invariant by construction.
+
+    We now claim that \(V = \bigoplus_{i=1}^r V_i = \Span \bigcup_{i=1}^r B_i\).
+    Letting \(B = \bigcup_{i=1}^r B_i\),
+    we see that \(N(B) \subseteq B \cup \{\vec{0}\}\) by choice,
+    and \(B \cap \ker N = C\) is linearly independent by construction,
+    so \(B\) must be linearly independent.
+    We can also show inductively that \(\ker N^k \subseteq \Span B\).
+    Observe that \(\ker N^0 = \ker\id = \{\vec{0}\}\),
+    which is trivially in the span of \(B\).
+    Now suppose \(\ker N^k \subseteq \Span B\),
+    and let us show that \(\ker N^{k+1} \subseteq \Span B\).
+    Let us have some arbitrary \(\vec{v} \in \ker N^{k+1}\).
+    Then \(N^k\vec{v} \in W_k\), so write this as
+    \begin{equation*}
+        N^k\vec{v} = \sum_{i: \vec{v}_i \in C_k} a_i\vec{v}_i
+        = \sum_{i: k_i \geq k} a_i N^{k_i}\vec{u}_i
+        = \sum_{i: k_i \geq k} a_i N^k (N^{k_i-k}\vec{u}_i)
+        \implies N^k\pqty{\vec{v} - \sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i} = \vec{0}
+    \end{equation*}
+    since \(\vec{v}_i \in C_k\) implies that
+    it could be in any of the subsets \(C_{\geq k}\), so \(k_i \geq k\).
+    The linear combination \(\sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i \in \Span B\) by definition,
+    and by the inductive hypothesis,
+    we have just shown that \(\vec{v} - \sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i \in \ker N^k \subseteq \Span B\).
+    Hence \(\vec{v} \in \Span B\).
+\end{proof}
+\begin{definition}
+    The \(V_i\) as specified in the \hyperref[thm:jordan-canonical-nilpotent]{theorem above}
+    is called a Jordan block,
+    and the basis \(B \subset V\) is called a Jordan basis.
+\end{definition}
+
+\begin{theorem}[Existence of Jordan Canonical Form]\label{thm:jordan-canonical-form}
+    Suppose \(T \in \End(V)\),
+    and suppose \(m_T\) splits into linear factors in our field.
+    Then there exists a basis \({\{\vec{v}_{\lambda,i,j}\}}_{\lambda\in\Spec(T)} \subset V\)
+    such that \(\{\vec{v}_{\lambda,i,j}\} \subset V_\lambda\) is a basis.
+\end{theorem}
+\begin{proof}
+    By the \hyperref[thm:spectral]{spectral theorem},
+    it suffices to find a Jordan basis for each eigenspace \(V_\lambda\).
+    But we know that in \(V_\lambda\), \(T-\lambda\) is nilpotent,
+    so Theorem~\ref{thm:jordan-canonical-nilpotent} applies.
+\end{proof}
+\begin{remark}
+    We can summarize the process of finding a Jordan basis to be:
+    \begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
+        \item find eigenvalues \(\lambda\) (using the characteristic polynomial)
+            and dimenion of eigenspace \(\dim V_\lambda\);
+        \item compute \({(T-\lambda)}^k\), and find generalized eigenvectors;
+            pay special attention to the \(k\)'s
+            that have number of generalized eigenvectors decrease between \(k\) and \(k+1\),
+            and denote those as \(k_i\) (counted with multiplicity);
+        \item start off from the largest \(k_i\),
+            find a (linearly independent) \(\vec{u}_i\)
+            such that \({(T-\lambda)}^{k_i}\vec{u}_i = \vec{0}\),
+            and then let \(\vec{v}_{\lambda,i,j} = {(T-\lambda)}^{k_i-j}\vec{u}_i\);
+            and repeat until all \(k_i\) exhausted.
+    \end{enumerate}
+    By construction we have \((T-\lambda)\vec{v}_{\lambda,i,1} = \vec{0}\),
+    and \((T-\lambda)\vec{v}_{\lambda,i,j} = \vec{v}_{\lambda,i,j-1}\),
+    so in the basis \({\{\vec{v}_{\lambda,i,j}\}}_j\),
+    a Jordan block can be represented by the matrix
+    \begin{equation*}
+        \vb{J} =
+        \begin{bmatrix}
+            \lambda & 1 \\
+            & \lambda \\
+            & & \ddots & 1 \\
+            & & & \lambda
+        \end{bmatrix}
+    \end{equation*}
+    where we have \(\lambda\) on the main diagonal,
+    and 1 on the superdiagonal.
+\end{remark}
+\begin{theorem}[Uniqueness of Jordan Canonical Form]
+    The Jordan blocks are unique up to the reordering of blocks.
+\end{theorem}
+\begin{proof}
+    We again prove only for the nilpotent case,
+    as it extends to the general case simply using the \hyperref[thm:spectral]{spectral theorem}.
+    Suppose \(N \in \End(V)\) is nilpotent.
+    Let \(B \subset V\) be a basis, with \(m_r\) blocks of size \(r\).
+    We prove that \(m_r\) is unique.
+    Then \(\dim \ker N = \sum_r m_r\) is the number of blocks,
+    and \(\dim \ker N^2 = \sum_r m_r + \sum_{r \geq 2} m_r = m_1 + 2\sum_{r \geq 2} m_r\),
+    since all the blocks of size 1 will already be completely annihilated,
+    so in general this argument extends to
+    \(\dim \ker N^k = m_1 + 2m_2 + \cdots + (k-1)m_{k-1} + k\sum_{r \geq k} m_k\).
+    But via a simple substitution we can see that
+    \(\dim \ker N^k - k \dim \ker N = \sum_{i < k} (i-k)m_i\),
+    which uniquely determines \(m_k\) after inducting on \(k\).
+\end{proof}
