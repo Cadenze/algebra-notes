@@ -9,6 +9,10 @@
             denotes a matrix or tensorial quantity.
     \end{enumerate}
 \end{remark}
+\begin{remark}
+    All homomorphisms in this chapter are assumed to be \(F\)-vector space homomorphisms;
+    that is, \(\Hom(U,V) = \Hom_F(U,V)\) for \(U,V\) being \(F\)-vector spaces.
+\end{remark}
 
 \section{Basic Definitions}
 
@@ -144,7 +148,7 @@
     Vector space homomorphisms are linear maps.
 \end{definition}
 \begin{proposition}
-    \(\End(V) = \Hom(V,V)\) endomorphisms of a vector space
+    The set of endomorphisms of a vector space, \(\End(V) = \Hom(V,V)\)
     has both a ring structure and a vector space structure.
 \end{proposition}
 \begin{proof}
@@ -157,8 +161,37 @@
     then by linearity we have distributivity.
 \end{proof}
 
+\begin{proposition}\label{prop:image-spanning}
+    Suppose \(B \subset V\) is spanning.
+    Then the image of this set under a linear transformation \(\func{T}{V}{W}\) is spanning.
+\end{proposition}
+\begin{proof}
+    Suppose \(\vec{v} \in V\) is a vector.
+    Let it be written as \(\vec{v} = \sum a_i\vec{x}_i\).
+    Then \(T\vec{v}\) can be written as a linear combination
+    \begin{equation*}
+        T\vec{v} = T\pqty{\sum a_i\vec{x}_i} = \sum a_i T\vec{x}_i
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:image-lin-indep}
+    Suppose \(B \subset V\) is linearly independent,
+    and \(\func{T}{V}{W}\) is a linear transformation.
+    If \(T\) is injective, then the image \(T(B)\) is also linearly independent.
+\end{proposition}
+\begin{proof}
+    Suppose, by way of contradiction,
+    that \(T(B)\) is not linearly independent.
+    Then there exists some nonzero \(a_i\) such that
+    \(\sum a_i T\vec{x}_i = \vec{0}\).
+    But then that would imply that \(T(\sum a_i\vec{x}_i) = \vec{0}\),
+    and by injectivity, \(\sum a_i\vec{x}_i = \vec{0}\),
+    which contradicts linear independence.
+\end{proof}
 
-\section{Direct Sum}
+
+\section{General Constructions}
+
+\subsection*{Direct Sum}
 
 \begin{definition}[Universal Property of Direct Sum]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
@@ -207,7 +240,7 @@
         = a(b(\vec{u},\vec{v}))
     \end{equation*}
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:dim-direct-sum}
     \(\dim_F(U \oplus V) = \dim_F U + \dim_F V\).
 \end{lemma}
 \begin{proof}
@@ -225,14 +258,60 @@
     simply by span of \(B_U\) and \(B_V\).
 \end{proof}
 
-\begin{theorem}[Uniqueness of Direct Sum]
-    The direct sum of vector spaces is associative and commutative up to isomorphism.
+\begin{theorem}[Existence of Direct Sum]
+    The direct sum of vector spaces \(V_i\)
+    is a sum of elements \(x_i \in V_i\), with finite support.
+    Addition and scalar multiplication respect usual summation rules.
 \end{theorem}
 \begin{proof}
+    We prove that our vector space of finite sums does fulfill the universal property.
+    We shall first prove uniqueness of \(\bar{\phi}\), assuming existence.
+    Suppose, by way of contradiction,
+    that \(\bar{\phi} \neq \bar{\phi}'\) both fulfill this diagram.
+    Then there exists some finite sum \(\sum_{i \in I} \iota_i(x_i)\) such that
+    \begin{equation*}
+        \sum_{i \in I} \phi_i(x_i)
+        = \sum_{i \in I} (\bar{\phi}\circ\iota_i)(x_i)
+        = \bar{\phi}\pqty{\sum_{i \in I} \iota_ix(x_i)}
+        \neq \bar{\phi}'\pqty{\sum_{i \in I} \iota_i(x_i)}
+        = \sum_{i \in I} (\bar{\phi}'\circ\iota_i)(x_i)
+        = \sum_{i \in I} \phi_i(x_i)
+    \end{equation*}
+    which is a contradiction.
+
+    We now prove existence.
+    We wish to show that we can define \(\bar{\phi}\) as
+    \(\sum \iota_i(x_i) \mapsto \sum \phi_i(x_i)\).
+    We first check linearity,
+    and that we pad our sums below with zeroes,
+    so that they are both sums with same number of terms.
+    \begin{align*}
+        \bar{\phi}\pqty{a\sum \iota_i(x_i) + \sum \iota_i(y_i)}
+        &= \bar{\phi}\pqty{\sum (a\iota_i(x_i)+\iota_i(y_i))}
+        = \pqty{\sum (\bar{\phi}\circ\iota_i)(ax_i + y_i)}
+        = \sum \phi_i(ax_i + y_i) \\
+        &= a\sum \phi_i(x_i) + \sum \phi_i(y_i)
+        = a\bar{\phi}\pqty{\sum \iota_i(x_i)} + \bar{\phi}\pqty{\sum \iota_i(y_i)}
+    \end{align*}
+    The fact that \(\bar{\phi}\circ\iota_i = \phi_i\) is by construction.
+\end{proof}
+\begin{remark}
+    In general, when proving a universal property,
+    we start by proving uniqueness assuming existence,
+    and then proving existence afterwards.
+    This is because the details of the proof of existence
+    is often revealed while proving uniqueness.
+\end{remark}
+\begin{theorem}[Uniqueness of Direct Sum]
+    The direct sum of vector spaces is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction,
+    that there exists some \(W\) that also fits the universal property.
     \begin{center}
         \begin{tikzcd}
             V_i \arrow{r}{\iota_i'} \arrow{d}{\iota_i} &
-            \bigoplus_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
                 [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
             \bigoplus_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
                 [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
@@ -242,14 +321,44 @@
             %     [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
         \end{tikzcd}
     \end{center}
-    It is obvious from the universal property that
-    the unique inclusions do not get affected by order or bracketing.
+    % It is obvious from the universal property that
+    % the unique inclusions do not get affected by order or bracketing.
+    We can see from the diagram that \((\bar{\phi}'\circ\bar{\phi})\circ\iota_i = \iota_i\),
+    so by the uniqueness of \(\bar{\phi}\) and \(\bar{\phi}'\) in this diagram,
+    \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    The same argument can be used to conclude that \(\bar{\phi}\circ\bar{\phi}' = \id\).
     Hence \(\bar{\phi}^{-1} = \bar{\phi}'\),
     and we have isomorphism.
 \end{proof}
 
+\begin{proposition}\label{prop:vsp-sum-iso}
+    We have the following canonical isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \((U \oplus V) \oplus W \cong U \oplus V \oplus W \cong U \oplus (V \oplus W)\); and
+        \item \(U \oplus V \cong V \oplus U\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(\vec{u} \in U\), \(\vec{v} \in V\), and \(\vec{w} \in W\).
+    Then we have the following maps:
+    \((\vec{u}+\vec{v})+\vec{w} \mapsto \vec{u}+\vec{v}+\vec{w} \mapsto \vec{u}+(\vec{v}+\vec{w})\).
+    Both of these maps are isomorphic,
+    because the bases are concatenated from the bases of \(U,V,W\).
+    % for \(\vec{u}_i,\vec{v}_j,\vec{w}_k\) basis vectors.
 
-\section{Direct Product}
+    A similar argument can be made for part (b).
+    The bases are both dependent on the choice of \(\vec{u}_i,\vec{v}_j\),
+    since the bases this time is concatenated from a different order only.
+\end{proof}
+% \begin{proposition}
+%     \(\dim(\bigoplus_{i=1}^n V_i) = \sum_{i=1}^n \dim(V_i)\).
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
+
+
+\subsection*{Direct Product}
 
 \begin{definition}[Universal Property of Direct Product]
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
@@ -281,27 +390,62 @@
     \end{center}
 \end{definition}
 
-\begin{theorem}[Uniqueness of Direct Product]
-    The direct product of vector spaces is associative and commutative up to isomorphism.
+\begin{theorem}[Existence of Direct Product]
+    The direct product of vector spaces is a tuple \({(x_i)}_{i \in I}\) indexed over \(I\),
+    with each element \(x_i \in V_i\).
 \end{theorem}
 \begin{proof}
+    We prove that our vector space of tuples does fulfill the universal property.
+    We shall first prove uniqueness of \(\bar{\phi}\), assuming existence.
+    Suppose, by way of contradiction,
+    that \(\bar{\phi} \neq \bar{\phi}'\) both fulfill this diagram.
+    Then there exists some element \(x \in X\) such that
+    \(\bar{\phi}(x) \neq \bar{\phi}'(x)\).
+    But we have, for all \(i \in I\)
+    \begin{equation*}
+        (\pi_i\circ\bar{\phi})(x) = \phi_i(x) = (\pi_i\circ\bar{\phi}')(x)
+    \end{equation*}
+    so we have two different elements projecting to the same elements in \(V_i\).
+    That is a contradiction, since if all projections agree,
+    then the tuples must agree at all positions.
+
+    We now prove existence.
+    We wish to show that we can define \(\bar{\phi}\) as
+    \(x \mapsto {(\phi_i(x))}_{i \in I}\).
+    We first check linearity.
+    \begin{equation*}
+        \bar{\phi}(ax + y) = {(\phi_i(ax+y))}_{i \in I}
+        = {(a\phi_i(x) + \phi_i(y))}_{i \in I}
+        = a{(\phi_i(x))}_{i \in I} + {(\phi_i(y))}_{i \in I}
+        = a\bar{\phi}(x) + \bar{\phi}(y)
+    \end{equation*}
+    The fact that \(\pi_i\circ\bar{\phi} = \phi_i\) is by construction.
+\end{proof}
+\begin{theorem}[Uniqueness of Direct Product]
+    The direct product of vector spaces is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction, that there exists another vector space \(W\)
+    that fits this universal property.
     \begin{center}
         \begin{tikzcd}
             V_i & %
                 % \arrow[dashrightarrow]{ld}{\exists! \bar{\phi}} \\
             % \prod_{i \in I} V_i \
-            \prod_{i \in I} V_i' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
                 [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \arrow{l}[swap]{\pi_i'} \\
             \prod_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
                 [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}} \arrow{u}[swap]{\pi_i}
         \end{tikzcd}
     \end{center}
     Again, from the universal property,
-    the unique projections do not get affected by order or bracketing.
-    Hence we have an isomorphism between direct products.
+    \(\pi_i\circ(\bar{\phi}'\circ\bar{\phi}) = \pi_i\),
+    and by uniqueness, \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    A similar argument gives \(\bar{\phi}\circ\bar{\phi}' = \id\).
+    Hence we have isomorphism.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:vsp-sum-prod-iso}
     Suppose \({\{V_i\}}_{i=1}^n\) is a finite family of vector spaces.
     Then the direct sum and direct product of finitely many vector spaces are isomorphic.
     \begin{equation*}
@@ -323,7 +467,6 @@
     gives us that a surjection of finitely many vector spaces
     must also be an injection.
 \end{proof}
-
 \begin{remark}
     In infinite indices,
     the direct sum is a smaller space than the direct product.
@@ -332,10 +475,23 @@
     but the direct product can have infinite support.
 \end{remark}
 
+\begin{proposition}
+    We have the following canonical isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \((U \times V) \times W \cong U \times V \times W \cong U \times (V \times W)\); and
+        \item \(U \times V \cong V \times U\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since Theorem~\ref{thm:vsp-sum-prod-iso} tells us we have an isomorphism
+    between the finite direct sum and direct product,
+    Proposition~\ref{prop:vsp-sum-iso} suffices.
+\end{proof}
 
-\section{Quotient}
 
-\begin{proposition}[Universal Property of Quotients]
+\subsection*{Quotient}
+
+\begin{proposition}[Universal Property of Quotients]\label{prop:univ-prop-quotient-vsp}
     Suppose \(V\) is a vector space, and \(U \subseteq V\) is a subspace,
     and \(\func{\pi}{V}{U}\) is the quotient map as groups.
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -366,6 +522,26 @@
         = a\pi(\vec{v} +\vec{w})
     \end{equation*}
 \end{proof}
+\begin{theorem}[Uniqueness of Quotients]
+    The quotient of two vector spaces is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    Suppose that there exists some \(W\) that also fits the universal property.
+    \begin{center}
+        \begin{tikzcd}
+            V \arrow{r}{\pi'} \arrow{d}{\pi} &
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            V/U \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    By the universal property, there exists unique \(\bar{\phi},\bar{\phi}'\)
+    such that \((\bar{\phi}'\circ\bar{\phi})\circ\pi\),
+    so \(\bar{\phi}'\circ\bar{\phi} = \id\).
+    Similarly we have \(\bar{\phi}\circ\bar{\phi}' = \id\).
+    Hence we have isomorphism.
+\end{proof}
 
 \begin{theorem}[First Isomorphism Theorem for Vector Spaces]\label{thm:iso-1-vsp}
     Suppose \(\func{\phi}{V}{W}\) is a vector space homomorphism,
@@ -374,7 +550,7 @@
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(U \subseteq V\), the kernel is a subspace;
         \item \(\phi(V) \subseteq W\), the image is a subspace; and
-        \item \(\phi(V) \cong V/W\), the image is uniquely isomorphic to the quotient subspace.
+        \item \(\phi(V) \cong V/U\), the image is uniquely isomorphic to the quotient subspace.
     \end{enumerate}
 \end{theorem}
 \begin{theorem}[Third and Fourth Isomorphism Theorems for Vector Spaces]\label{thm:iso-3-vsp}\label{thm:iso-4-vsp}
@@ -409,7 +585,8 @@
 \begin{lemma}
     Suppose \(W\) and \(V\) are \(F\)-vector spaces. Then
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(W^V\) is a vector space under coordinate-wise operations; and
+        \item \(W^V\), the set of all functions \(V \to W\),
+            is a vector space under coordinate-wise operations; and
         \item \(\Hom_F(W,V) \subseteq W^V\) is a subspace.
     \end{enumerate}
 \end{lemma}
@@ -443,27 +620,1934 @@
     i.e.\ in \({(V/U)}'\).
 \end{proof}
 
-\begin{proposition}
-    Suppose \(V\) is a vector space,
-    and \(B \subset V\) forms a basis.
-    The dual basis is \(B' \subset V'\),
-    which for each \(\vec{u} \in B\),
-    consists of elements \(\phi_{\vec{u}} \in B'\),
-    where \(\phi_{\vec{u}}(\vec{v}) = \delta_{\vec{u},\vec{v}}\)
-    is given by the Kronecker delta.
+\begin{definition}
+    Suppose \(B \subset V\) is a basis.
+    The dual basis \(B' \subset V'\) is a set where for each \(\vec{u} \in B\),
+    there is a corresponding \(\phi_{\vec{u}} \in B'\)
+    such that \(\phi_{\vec{u}}(\vec{v}) = \delta_{\vec{u},\vec{v}}\)
+    for all \(\vec{v} \in B\),
+    where \(\delta\) is the Kronecker delta.
+\end{definition}
+\begin{lemma}
+    Suppose \(B = {\{\vec{v}_i\}}_{i \in I}\),
+    and \(B' = {\{\phi_i\}}_{i \in I}\),
+    where \(\phi_i(\vec{v}_j) = \delta_{ij}\).
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\phi_i(\sum_{j \in I} a_j \vec{v}_j) = a_i\); and
+        \item Each \(\phi_i \in B'\) is uniquely defined by choice of \(B\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \(\phi_i\) are linear functionals, so we have
+    \begin{equation*}
+        \phi_i\pqty{\sum_{j \in I} a_j \vec{v}_j}
+        = \sum_{j \in I} a_j \phi_i(\vec{v}_j)
+        = \sum_{j \in I} a_j \delta_{ij}
+        = a_i
+    \end{equation*}
+
+    Suppose \(\phi_i(\vec{v}_j) = \phi_{i'}(\vec{v}_j) = \delta_{ij}\).
+    Since they agree on the basis \(B \subset V\),
+    they must also agree on \(V\),
+    so \(\phi_i = \phi_{i'}\).
+\end{proof}
+
+\begin{lemma}
+    The dual basis \(B' \subset V'\) is linearly independent.
+\end{lemma}
+\begin{proof}
+    Suppose \(B'\) not linearly independent.
+    Then there exists some \(a_i\) such that \(\sum_{i \in I} a_i \phi_i = 0\).
+    But we can evaluate at \(\vec{v}_j \in B\) to conclude that
+    \(\sum_{i \in I} a_i \phi_i(\vec{v}_j) = a_j = 0\) for all \(j \in I\).
+\end{proof}
+\begin{proposition}\label{prop:finite-dim-dual-basis}
+    If \(V\) is finite dimensional,
+    then \(B' \subset V'\) is a basis.
 \end{proposition}
+\begin{proof}
+    It suffices to prove that it is spanning.
+    Suppose \(B = {\{\vec{v}_i\}}_{i=1}^n\),
+    and \(\phi \in V'\) some functional.
+    For any \(\vec{x} \in V\),
+    \(\vec{x} = \sum_{i=1}^n a_i \vec{v}_i\),
+    so
+    \begin{equation*}
+        \phi(\vec{x}) = \sum_{i=1}^n a_i \phi(\vec{v}_i)
+        = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i(\vec{x})
+    \end{equation*}
+    Hence \(\phi = \sum_{i=1}^n \phi(\vec{v}_i) \phi_i\).
+\end{proof}
+\begin{corollary}
+    If \(V\) is finite dimensional,
+    then \(\dim V = \dim V'\).
+\end{corollary}
+\begin{proof}
+    The bases are the same size.
+\end{proof}
+\begin{remark}
+    Note that `dual basis' is kind of a misnomer,
+    since it does not form a basis in the case of infinite dimensions.
+    Rather, the dual basis is the basis for the subspace of \(V'\)
+    with finite support.
+\end{remark}
 
+\begin{proposition}
+    \(\pqty{\bigoplus_i V_i}' \cong \prod_i V_i'\).
+\end{proposition}
+\begin{proof}
+    Suppose \(\phi \in \pqty{\bigoplus_i V_i}'\).
+    If we consider the usual restriction of \(\phi\) to each individual \(V_i\),
+    and denote each of them \(\phi_i\),
+    then the direct product of each of the \(\phi_i\)
+    gives us a natural homomorphism
+    from \(\pqty{\bigoplus_i V_i}' \to \prod_i V_i'\),
+    \(\phi \mapsto (\phi_i)\).
 
-\section{Bilinear Forms}
+    We shall explicitly construct the inverse as to show that it is an isomorphism.
+    Consider \((\psi_i) \in \prod_i V_i'\).
+    We can map this to some element \(\sum_i \psi_i\).
+    Observe that although there might be infinitely many nonzero \(\psi_i\),
+    when applied to \(\vec{x}_i \in V_i\), there are only finitely many nonzero \(\psi_i(\vec{x}_i)\) terms.
+
+    We first check that these two homomorphisms are indeed homomorphisms,
+    by checking linearity.
+    The forward direction is almost by definition:
+    \(a\phi + \chi\) restricts to \(a\phi_i + \chi_i\),
+    so \(a\phi + \chi \mapsto (a\phi_i + \chi_i) = a(\phi_i) + (\chi_i)\).
+    The reverse direction is similar:
+    \(a(\psi_i) + (\omega_i) = (a\psi_i + \omega_i) \mapsto
+    \sum_i a\psi_i + \omega_i = a\sum_i \psi_i + \sum_i \omega_i\).
+
+    We then check that it is indeed an inverse.
+    \begin{equation*}
+        \phi\pqty{\sum_i \vec{x}_i} \overset{f}{\mapsto} (\phi_i(\vec{x}_i))
+        = \sum_i \phi_i(\vec{x}_i) = \phi\pqty{\sum_i \vec{x}_i}
+    \end{equation*}
+\end{proof}
+
+\begin{theorem}
+    Suppose \(\vfunc{f}{V}{V''}{\vec{v}}{(\phi\mapsto\phi(\vec{v})) = \delta_{\vec{v}}}\),
+    where \(\delta_{\vec{v}}\) is the evaluation map.
+    This homomorphism is injective;
+    furthermore, it is an isomorphism if and only if \(\dim_F(V) < \infty\).
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction, that there is some \(\vec{v} \neq \vec{0}\)
+    such that \(f(\vec{v}) = \delta_{\vec{v}} = 0\);
+    this tells us there is some vector \(\vec{v} \in V\)
+    such that any \(\phi \in V'\) evaluates it to \(\phi(\vec{v}) = 0\).
+    But then, if we choose a basis for \(V\), such that it includes \(\vec{v}\),
+    the corresponding dual basis would include some \(\phi_{\vec{v}}\)
+    such that \(\phi_{\vec{v}}(\vec{v}) = 1\), which is a contradiction.
+
+    Suppose \(V\) is a finite-dimensional vector space.
+    Then it suffices to prove that \(f\) is a surjection.
+    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis,
+    and \({\{\phi_i\}}_{i=1}^n \subset V'\) be its dual basis.
+    Consider any \(\delta \in V''\).
+    If we let \(a_i = \delta(\phi_i)\),
+    and \(\vec{v} = \sum_{i=1}^n a_i\vec{v}_i\),
+    then we see that
+    \begin{equation*}
+        f(\vec{v}) = \sum_{i=1}^n a_i f(\vec{v}_i)
+        = \sum_{i=1}^n \delta(\phi_i) \delta_{\vec{v}_i}
+        = \delta
+    \end{equation*}
+    Hence we have surjection.
+
+    Now suppose \(V\) is an infinite-dimensional vector space.
+    Then if \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis,
+    then \(V = \bigoplus_{i \in I} F\),
+    and \(V' = \prod_{i \in I} F\).
+    But we can immediately see that in infinite dimensions the dual basis does not form a basis,
+    and hence there is no surjection from \(V \to V'\).
+    Analogously there is no surjection from \(V' \to V''\).
+    Hence there exists no surjection \(V \to V''\).
+\end{proof}
 
 
 \section{Tensor Product}
 
+\subsection*{Bilinearity}
+
+\begin{definition}
+    Suppose \(U,V,W\) are vector spaces,
+    and \(\func{f}{U \times V}{W}\) is a function.
+    We say \(f\) is bilinear if it is linear in each variable.
+    Similarly, if \(\func{f}{\prod_{i=1}^n V_i}{W}\) is a function,
+    \(f\) is \(n\)-linear if it is linear in each variable.
+\end{definition}
+\begin{definition}
+    We can generalize the inner product of vectors.
+    Suppose \(U,V\) are vector spaces,
+    with \({\{\vec{u}_i\}}_{i=1}^m,{\{\vec{v}_j\}}_{j=1}^n\) their respective bases.
+    Then we can define a Gram matrix to be \(b_{ij} = \ip{\vec{u}_i}{\vec{v}_j}\),
+    for some bilinear form \(\func{\ip{\cdot}{\cdot}}{U \times V}{F}\).
+    Then the pairing becomes \(\ip{\vec{u}}{\vec{v}} = \vec{u}^T \vb{B} \vec{v}\),
+    where \(\vb{B}\) is the Gram matrix.
+\end{definition}
+\begin{theorem}
+    There is a bijection between the set of bilinear maps \(U \times V \to W\)
+    and \(\Hom(U,\Hom(V,W))\).
+\end{theorem}
+\begin{proof}
+    Consider a bilinear function \(\func{f}{U \times V}{W}\).
+    If we fix any \(\vec{u} \in U\),
+    we can define \(\func{f_{\vec{u}} = f(\vec{u},\cdot)}{V}{W}\).
+    Then clearly \(f_{\vec{u}} \in \Hom(V,W)\),
+    and \(\vec{u} \mapsto f_{\vec{u}}\) is in \(\Hom(U,\Hom(V,W))\).
+
+    Now consider any arbitrary map \(\Hom(U,\Hom(V,W))\).
+    Then for each \(\vec{u} \in U\) we have a corresponding \(f_{\vec{u}} \in \Hom(V,W)\),
+    and this map is linear in \(U\).
+    But \(f_{\vec{u}}\) is exactly the set of linear maps from \(V \to W\),
+    so we have linearity in both \(U\) and \(V\) as desired.
+\end{proof}
+\begin{corollary}\label{cor:bilinear-hom-bijection}
+    There is a bijection between the set of pairings \(\func{f}{U \times V}{F}\)
+    and \(\Hom(U,V')\).
+\end{corollary}
+\begin{proof}
+    \(\Hom(U,\Hom(V,F)) = \Hom(U,V')\).
+\end{proof}
+\begin{definition}
+    A paring \(U \times V \to F\) is nondegenerate
+    if the associated maps \(U \mapsto V'\) and \(V \mapsto U'\) are both embeddings.
+\end{definition}
+
+\begin{definition}
+    Suppose \(T \in \Hom(U,V)\).
+    We define the dual map to be \(T' \in \Hom(V',U')\),
+    where we map \(\phi \mapsto \phi \circ T\).
+\end{definition}
+\begin{proposition}
+    We have the following properties for dual maps:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(T \mapsto T'\) is a linear map from \(\Hom(U,V) \to \Hom(V',U')\);
+        \item \({(ST)}' = T'S'\); and
+        \item if \(\vb{A}\) is the matrix of \(T\), then \(\vb{A}^T\) is the matrix of \(T'\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(S,T \in \Hom(U,V)\).
+    Then for any \(\phi \in V'\),
+    \begin{equation*}
+        (aS + T)'\phi = \phi \circ (aS + T) = a\phi \circ S + \phi \circ T
+        = aS' + T'
+    \end{equation*}
+    This proves statement (a).
+
+    Suppose \(T \in \Hom(U,V)\) and \(S \in \Hom(V,W)\).
+    Then for any \(\phi \in W'\),
+    \begin{equation*}
+        {(ST)}'\phi = \phi \circ ST = (\phi \circ S) \circ T
+        = T'(\phi \circ S) = T'S'\phi
+    \end{equation*}
+    This proves statement (b).
+
+    Suppose \(T \in \Hom(U,V)\), and \(\vb{A}\) is its matrix representation.
+    Let \(\phi \in V'\) be a linear functional,
+    with a representation \(\phi_i\) as a horizontal covector.
+    % and we have bases \({\{\vec{u}_i\}}_{i=1}^m\) and \({\{\vec{v}_j\}}_{j=1}^n\).
+    % Let \(a_{ij}\) be the matrix elements of \(\vb{A}\),
+    % and \(\vec{u} = \sum_{k=1}^m b_k\vec{u}_k\).
+    % We have
+    % \begin{equation*}
+    %     T\vec{u} =  \sum_{i,j} a_{ij}b_j\vec{v}_i
+    % \end{equation*}
+    Then we have
+    \begin{equation*}
+        \pqty{\phi\vb{A}}^T
+        = \vb{A}^T\phi^T
+    \end{equation*}
+    where the left multiplication is by \(\vb{A}^T\).
+    This proves statement (c).
+\end{proof}
+\begin{remark}
+    Although we have not proven all the corresponding properties,
+    we can see intuitively that taking the dual is a contravariant functor.
+    Functoriality of \(\Hom(\cdot,F)\) will be discussed in more generality
+    in Section~\ref{sec:comm-modules} for modules over commutative rings.
+\end{remark}
+% \begin{proposition}
+%     Suppose \(T \in \End(V,V)\) is arbitrary.
+%     Then there exists a unique nondegenerate pairing \(\func{\ip{\cdot}{\cdot}}{V' \times V}{F}\)
+%     such that \(\ip{\phi}{T\vec{v}} = \ip{T'\phi}{\vec{v}}\) holds
+%     for all \(\vec{v} \in V\) and \(\phi \in V'\).
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
+
+\subsection*{Tensor Product}
+
+\begin{definition}[Universal Property of Tensor Product]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces.
+    The tensor product of vector spaces \(\bigotimes_{i \in I} V_i\)
+    is the universal construction for all \(I\)-linear maps, that is,
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists a bilinear embedding \(\func{\iota}{\prod_{i \in I} V_i}{\bigotimes_{i \in I} V_i}\); and
+        \item for any vector space \(X\),
+            if \(\func{\phi}{\prod_{i \in I} V_i}{X}\) is a bilinear map,
+            then there exists a unique \(\func{\bar{\phi}}{\bigotimes_{i \in I} V_i}{X}\)
+            such that \(\phi = \bar{\phi}\circ\iota\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            \prod_{i \in I} V_i \arrow{r}{\phi} \arrow{d}{\iota} & X \\
+            \bigotimes_{i \in I} V_i \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{theorem}[Uniqueness of Tensor Product]
+    The tensor product is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    Suppose, by way of contradiction, that there exists another vector space \(W\)
+    that fits that universal property.
+    \begin{center}
+        \begin{tikzcd}
+            \prod_{i \in I} V_i \arrow{r}{\iota'} \arrow{d}{\iota} &
+            W \arrow[rightharpoondown, shift right=0.25ex]{ld}%
+                [xshift=.5ex, yshift=-.5ex, swap]{\bar{\phi}'} \\
+            \bigotimes_{i \in I} V_i \arrow[rightharpoondown, shift right=0.25ex]{ru}%
+                [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    A standard argument via diagram chase gives us
+    \begin{align*}
+        (\bar{\phi}'\circ\bar{\phi})\circ\iota = \iota &\implies \bar{\phi}'\circ\bar{\phi} = \id \\
+        (\bar{\phi}\circ\bar{\phi}')\circ\iota' = \iota' &\implies \bar{\phi}\circ\bar{\phi}' = \id
+    \end{align*}
+    by uniqueness of \(\bar{\phi},\bar{\phi}'\).
+    This gives us isomorphism.
+\end{proof}
+
+\begin{theorem}[Existence of Tensor Product]
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces,
+    Consider the vector space \(T\) of formal linear combinations of vectors
+    \({\{{(\vec{v}_i)}_{i \in I} : \vec{v}_i \in V_i\}}\).
+    We then construct the following equivalence classes,
+    where the vectors below only differ in the \(i\)th index.
+    \begin{equation*}
+        (\hdots,\vec{u}_i+\vec{v}_i,\hdots) = (\hdots,\vec{u}_i,\hdots) + (\hdots,\vec{v}_i,\hdots) \qquad
+        (\hdots,a\vec{v}_i,\hdots) = a(\hdots,\vec{v}_i,\hdots)
+    \end{equation*}
+    Then \(T/{\sim}\) is the tensor product,
+    with the image of \({(\vec{v}_i)}_{i \in I}\) written as \(\bigotimes_{i \in I} \vec{v}_i\).
+\end{theorem}
+\begin{proof}
+    We first remember that the equivalence class \(\sim\) indeed forms a vector space,
+    since by construction,
+    all linear combinations of elements will be in the equivalence class.
+    Hence \(T/{\sim}\) is indeed a valid quotient vector space.
+
+    We now show that \(T/{\sim}\) indeed fulfills our universal property.
+    First off, we define our embedding \(\iota\) as
+    \({(\vec{v}_i)}_{i \in I} \mapsto \bigotimes_{i \in I} \vec{v}_i\).
+    By definition of our equivalence class, \(\iota\) is \(I\)-linear.
+    We can also see that since \(\{{(\vec{v}_i)}_{i \in I} : \vec{v}_i \in V_i\}\) span \(T\),
+    its image must also span \(\{\bigotimes_{i \in I} \vec{v}_i : \vec{v}_i \in V_i\}\) span \(T/{\sim}\)
+    We show that if such a \(\bar{\phi}\) exists, it must be unique.
+    Suppose, by way of contradiction,
+    that \(\bar{\phi}\neq\bar{\phi}'\) both fit our universal property.
+    Then we know that there exists some \(\vec{w} \in T/{\sim}\)
+    that \(\bar{\phi}\) and \(\bar{\phi}'\) disagree on;
+    in particular, if we write \(\vec{w}\) as a sum of some spanning tensors,
+    \(\bar{\phi}\) and \(\bar{\phi}'\) disagree on at least one of those tensors.
+    Hence
+    \begin{equation*}
+        \phi{(\vec{v}_i)}_{i \in I}
+        = (\bar{\phi}\circ\iota){(\vec{v}_i)}_{i \in I}
+        = \bar{\phi}\pqty{\bigotimes_{i \in I} \vec{v}_i}
+        \neq \bar{\phi}'\pqty{\bigotimes_{i \in I} \vec{v}_i}
+        = (\bar{\phi}'\circ\iota){(\vec{v}_i)}_{i \in I}
+        = \phi{(\vec{v}_i)}_{i \in I}
+    \end{equation*}
+    is a contradiction.
+
+    We then show existence of such a \(\bar{\phi}\).
+    We define \(\bar{\phi}\) (on a spanning set) to be
+    \(\bigotimes_{i \in I} \vec{v}_i \mapsto \phi{(\vec{v}_i)}_{i \in I}\),
+    and any sums of that to sums of the image.
+    We check that this is well-defined,
+    by checking that the elements in the kernel \(\sim\) must go to 0.
+    \begin{align*}
+        \bar{\phi}(\iota(\hdots,\vec{u}_i+\vec{v}_i,\hdots))
+        &= \phi(\hdots,\vec{u}_i+\vec{v}_i,\hdots)
+        = \phi(\hdots,\vec{u}_i,\hdots) + \phi(\hdots,\vec{u}_i,\hdots) \\
+        &= \bar{\phi}(\iota(\hdots,\vec{u}_i,\hdots))
+        + \bar{\phi}(\iota(\hdots,\vec{v}_i,\hdots)) \\
+        \bar{\phi}(\iota(\hdots,a\vec{v}_i,\hdots))
+        &= \phi(\hdots,a\vec{v}_i,\hdots)
+        = a\phi(\hdots,\vec{v}_i,\hdots)
+        = a\bar{\phi}(\iota(\hdots,\vec{v}_i,\hdots))
+    \end{align*}
+    We show linearity.
+    \begin{equation*}
+        \bar{\phi}\pqty{a\sum_j \bigotimes_{i \in I} \vec{v}_{ij}}
+        % = \bar{\phi}\pqty{\sum_j a\bigotimes_{i \in I} \vec{v}_{ij}}
+        = \sum_j \bar{\phi}\pqty{a\bigotimes_{i \in I} \vec{v}_{ij}}
+        = \sum_j a\phi{(\vec{v}_{ij})}_{i \in I}
+        = a \sum_j \bar{\phi}\pqty{\bigotimes_{i \in I} \vec{v}_{ij}}
+        = a \bar{\phi}\pqty{\sum_j \bigotimes_{i \in I} \vec{v}_{ij}}
+    \end{equation*}
+    The sum part of linearity is true by definition.
+    Lastly, we see that our \(\bar{\phi}\) fulfills the diagram by construction.
+\end{proof}
+
+\begin{proposition}\label{prop:tensor-basis}
+    Suppose \(B_U \subset U\) and \(B_V \subset V\) are bases.
+    Then \(\{\vec{u}\otimes\vec{v}: \vec{u} \in B_U, \vec{v} \in B_V\}\) is a basis.
+\end{proposition}
+\begin{proof}
+    By construction, this is already spanning,
+    because the only possible pure tensors are selected from \(\vec{u}\otimes\vec{v}\),
+    where \(\vec{u} \in U\) and \(\vec{v} \in V\),
+    and each of these can be expressed as a linear combination of the bases vectors.
+    We now see that this is also linearly independent,
+    because if not,
+    then it implies that there are some linear combination of tensors
+    that bilinear forms will always evaluate to zero,
+    which is strictly untrue.
+\end{proof}
+\begin{corollary}\label{cor:dim-tensor-product}
+    \(\dim(U \otimes V) = \dim(U)\dim(V)\).
+\end{corollary}
+\begin{proof}
+    Simply take the cardinality of the basis.
+\end{proof}
+
+\begin{proposition}
+    Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces,
+    and \(A_i \in \End(V_i)\).
+    Then \(\pqty{\bigotimes_i A_i}\)
+    which maps \(\bigotimes_i \vec{v}_i \mapsto \bigotimes_i A_i\vec{v}_i\) is a linear map.
+\end{proposition}
+\begin{proof}
+    We prove \(I\)-linearity.
+    \begin{equation*}
+        A_i(a\vec{v}+\vec{w}) \otimes \cdots
+        = a A_i\vec{v} + A_i\vec{w} \otimes \cdots
+        = a \pqty{A_i\vec{v} \otimes \cdots} + \pqty{A_i\vec{w} \otimes \cdots}
+    \end{equation*}
+\end{proof}
+
+\subsection*{Trace}
+
+\begin{theorem}
+    Suppose either \(U\) or \(V\) is finite dimensional.
+    Then \(V \otimes U' \cong \Hom(U,V)\).
+\end{theorem}
+\begin{proof}
+    Let us consider the homomorphism \(\func{f}{V \otimes U'}{\Hom(U,V)}\)
+    where \(f(\vec{v}\otimes\phi)\) maps \(\vec{u} \mapsto \phi(\vec{u})\vec{v}\).
+    We can immediately show that this map is bilinear, because
+    \begin{align*}
+        f(a\vec{v}\otimes\phi + \vec{w}\otimes\phi)
+        &= f((a\vec{v}+\vec{w})\otimes\phi)
+        = (a\vec{v}+\vec{w})\phi
+        = a\vec{v}\phi + \vec{w}\phi
+        = af(\vec{v}\otimes\phi) + f(\vec{w}\otimes\phi) \\
+        f(a\vec{v}\otimes\phi + \vec{v}\otimes\psi)
+        &= f(\vec{v}\otimes(a\phi+\psi))
+        = \vec{v}(a\phi+\psi)
+        = a\vec{v}\phi + \vec{v}\psi
+        = af(\vec{v}\otimes\phi) + f(\vec{v}\otimes\psi)
+    \end{align*}
+
+    We can prove injectivity without finiteness of dimension.
+    Suppose \(\vec{v}\phi = \vec{w}\psi\).
+    If \(\phi = c\psi\), then \(\vec{w} = c\vec{v}\),
+    so \(\vec{v}\otimes\phi = c\vec{v}\otimes\psi = \vec{w}\otimes\psi\).
+    If \(\phi \neq \psi\), then there exists some \(\vec{u} \in U\)
+    such that \(\phi(\vec{u}) \neq \psi(\vec{u})\).
+    Let \(\phi(\vec{u}) = c\psi(\vec{u})\), since we are in a field.
+    We see that \(\vec{v}\phi(\vec{u}) = c\vec{v}\psi(\vec{u}) = \vec{w}\psi(\vec{u})\),
+    so \(\vec{w} = c\vec{v}\), which reduces to the first case.
+
+    First suppose \(U\) is finite dimensional.
+    Then let us choose a basis \({\{\vec{u}_i\}}_{i=1}^n \subset U\),
+    and a dual basis \({\{\phi_i\}}_{i=1}^n \subset U'\).
+    % We prove that this map is injective.
+    % If \(\vec{v}\phi = \vec{w}\psi\),
+    % then \(\vec{v}\sum a_i\phi_i = \vec{w}\sum b_i\phi_i\).
+    % Hence for \(\vec{u}_i\) in the basis,
+    % \begin{equation*}
+    %     a_i\vec{v} = \vec{v}\sum a_i\phi_i(\vec{u}_i)
+    %     = \vec{w}\sum b_i\phi_i(\vec{u}_i) = b_i\vec{w}
+    % \end{equation*}
+    % If \(a_i = b_i\) for all \(i\), then \(\phi = \psi\),
+    % and the equality above gives \(\vec{v} = \vec{w}\), and we are done.
+    % If \(a_i \neq b_i\) for some \(i\), then \(\vec{v} = \frac{b_i}{a_i}\vec{w} = c\vec{w}\),
+    % and in fact \(c = \frac{b_1}{a_1} = \cdots = \frac{b_n}{a_n}\) as a result;
+    % then \(\psi = c\phi\), which gives us
+    % \(\vec{v}\otimes\phi = c\vec{w}\otimes\phi = \vec{w}\otimes\psi\) as desired.
+    % Proving this for pure tensors is sufficient as all tensors are linear combinations of pure ones.
+    Let us prove surjectivity.
+    % Consider \(\vec{u} = \sum a_i\vec{u}_i\).
+    We know that any map in \(\Hom(U,V)\)
+    is wholly determined by the image of its basis,
+    which we let to be \(\vec{u}_i\mapsto\vec{v}_i\).
+    This is mapped from \(\sum \vec{v}_i\otimes\phi_i\), since
+    \begin{equation*}
+        f\pqty{\sum_{i=1}^n \vec{v}_i\otimes\phi_i}
+        = \sum_{i=1}^n f(\vec{v}_i\otimes\phi_i)
+        = \sum_{i=1}^n \vec{v}_i\phi_i
+    \end{equation*}
+
+    Now suppose \(V\) is finite dimensional.
+    % Then let us choose bases \({\{\vec{v}_i\}}_{i=1}^n \subset V\),
+    % \({\{\vec{u}_j\}}_{j \in I} \subset U\),
+    % \({\{\phi_j\}}_{j \in \tilde{I}} \subset U'\),
+    % where \(I \subset \tilde{I}\),
+    % i.e.\ the basis of \(U'\) is extended from the dual basis.
+    % We prove that this map is injective.
+    % If \(\vec{v}\phi = \vec{w}\psi\),
+    % then \(\sum a_i\vec{v}_i\phi = \sum b_i\vec{v}_i\psi\).
+    % From the previous paragraph, if \(\phi = c\psi\), then we are done.
+    % Now suppose \(\phi \neq \psi\).
+    % Then there exists some \(\vec{u} \in U\) such that \(\phi(\vec{u}) \neq \psi(\vec{u})\),
+    % and in that case, let \(\phi(\vec{u}) = c\psi(\vec{u})\).
+    % We have \(\vec{w} = c\vec{v}\), so \(\phi = c\psi\), which reduces to the first case.
+    Let us prove surjectivity.
+    % We know that any map in \(\Hom(U,V)\)
+    % is wholly determined by the image of its basis,
+    % which we let to be \(\vec{u}_i\mapsto\sum_j a_j\vec{v}_j\).
+    % This is mapped from \(\sum_j a\vec{v}_j\otimes\vec{u}_i\), since
+    % \begin{equation*}
+    %     f\pqty{\sum_{j=1}^n a_j\vec{v}_j\otimes\vec{u}_i}
+    % \end{equation*}
+    Consider any map \(h \in \Hom(U,V)\).
+    By the \hyperref[thm:iso-1-vsp]{first isomorphism theorem},
+    We know that \(U/\ker h \cong \img h \subseteq V\),
+    so let us get a basis \({\{[\vec{u}_i]\}}_{i=1}^m \subset U/\ker h\),
+    and correspondingly we get a basis \({\{\vec{v}_i\}}_{i=1}^m \subset \img h\),
+    which can be extended to a basis \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
+    Let us construct functionals \(\phi_i\)
+    such that \(\phi_i(\vec{u}_j) = \delta_{ij}\) for all \(\vec{u}_j \in [\vec{u}_j]\).
+    \begin{equation*}
+        f\pqty{\sum_{i=1}^m \vec{v}_i\otimes\phi_i}
+        = \sum_{i=1}^m f(\vec{v}_i\otimes\phi_i)
+        = \sum_{i=1}^m \vec{v}_i\phi_i = h
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    Suppose \(V\) is finite dimensional.
+    Consider the map \(\vfunc{\tr}{V \otimes V'}{F}{\vec{u}\otimes\phi}{\phi(\vec{u})}\).
+    The trace of \(T \in \End(V)\) is the value of \(\tr\tilde{T}\),
+    where \(\tilde{T}\) corresponds to \(T\) via the above isomorphism.
+    This is often denoted \(\tr T\).
+\end{definition}
+\begin{proposition}
+    Suppose \({\{\vec{v}_i\}}_{i=1}^n \subset V\) is a basis.
+    If we write \(T\vec{v}_i = \sum_j a_{ij}\vec{v}_j\),
+    then \(\tr T = \sum_i a_{ii}\).
+\end{proposition}
+\begin{proof}
+    Let \({\{\phi_i\}}_{i=1}^n \subset V'\) be its dual basis.
+    We first claim that \(T\) is identified with \(\sum_{ij} a_{ij}\vec{v}_j\otimes\phi_i\).
+    \begin{equation*}
+        \sum_{ij} a_{ij}\vec{v}_j\otimes\phi_i(\vec{v}_k)
+        \mapsto \sum_{ij} a_{ij}\phi_i(\vec{v}_k)\vec{v}_j
+        = \sum_j a_{kj}\vec{v}_j = T\vec{v}_k
+    \end{equation*}
+    Then the trace map yields
+    \begin{equation*}
+        \tr T = \sum_{ij} a_{ij} \phi_i(\vec{v}_j) = \sum_{ii} a_{ii}
+    \end{equation*}
+\end{proof}
+
+\subsection*{Field Extensions}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension, and \(V\) is a vector space over \(F\).
+    Then \(V_K = K \otimes V\) is the scalar extension of \(V\).
+\end{definition}
+\begin{lemma}
+    \(V_K\) is also a vector space over \(K\).
+\end{lemma}
+\begin{proof}
+    We have no issues with addition, since it follows directly from the tensor product.
+    Consider \(\alpha \in K\); a scalar multiple can be defined as
+    \(\alpha(\beta\otimes\vec{v}) = (\alpha\beta)\otimes\vec{v}\),
+    which is naturally associative and distributive due to the field properties of \(K\).
+\end{proof}
+\begin{proposition}\label{prop:field-ext-lin-dep}\label{prop:field-ext-span}
+    \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly independent or spanning
+    if and only if \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\)
+    is respectively linearly independent or spanning.
+\end{proposition}
+\begin{proof}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly dependent.
+    Then there exists some \(\sum a_i\vec{v}_i = 0\) for \(a_i\) not all zero,
+    so we have \(1 \otimes \sum a_i\vec{v}_i = \sum a_i(1\otimes\vec{v}_i) = 0\).
+
+    Suppose \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\) is linearly dependent,
+    and by way contradiction, that \({\{\vec{v}_i\}}_{i \in I} \subset V\) is linearly independent.
+    Then there exists some \(\sum \alpha_i\otimes\vec{v}_i = 0\).
+    But in particular, each \(\alpha_i = \sum_j a_{ij}\beta_j\),
+    for \({\{\beta_j\}}_{j \in J} \subset K\) a basis.
+    Hence we have
+    \begin{equation*}
+        0 = \sum_{i \in I} \alpha_i \otimes\vec{v}_i
+        = \sum_{i \in I,\,j \in J} a_{ij} \beta_j \otimes \vec{v}_i
+    \end{equation*}
+    Crucially, \({\{\beta_j \otimes \vec{v_i}\}}_{i,j}\) is linearly independent,
+    so we have reached a contradiction.
+
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is spanning.
+    Then every \(\vec{v} = \sum a_i\vec{v}_i\).
+    Now let \({\{\beta_j\}}_{j \in J} \subset K\) be a basis.
+    \({\{\beta_j\otimes\vec{v}_i\}}_{i,j}\) is spanning,
+    so we can write any vector in \(V_K\) as
+    \begin{equation*}
+        \vec{w} = \sum_{i,j} a_{ij}\beta_j \otimes \vec{v}_i
+        = \sum_i \alpha_i \otimes \vec{v}_1
+        = \sum_i \alpha_i (1\otimes\vec{v}_1)
+    \end{equation*}
+
+    % Suppose \({\{1\otimes\vec{v}_i\}}_{i \in I} \subset V_K\) is spanning.
+    % Then any vector \(\vec{w} = \sum \alpha_i(1\otimes\vec{v}_i) = \sum a_{ij} \beta_j \otimes \vec{v}_i\),
+    % using the basis \({\{\beta_j\}}_{j \in J} \subset K\).
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is not spanning,
+    then there exists some \(\vec{v}\) that cannot be written as a linear combination.
+    As a result, \(1 \otimes \vec{v}\) should not be written as a linear combination too.
+\end{proof}
+\begin{corollary}
+    \(\dim_K(K \otimes V) = \dim_F(V)\).
+\end{corollary}
+\begin{proof}
+    If \({\{\vec{v}_i\}}_{i=1}^n \subset V\) is a basis,
+    then \({\{1\otimes\vec{v}_i\}}_{i=1}^n \subset K \otimes V\) is a basis.
+\end{proof}
+
+\begin{definition}
+    Suppose \(K/F\) is a field extension, and \(U,V\) are \(F\)-vector spaces.
+    If \(T \in \Hom_F(U,V)\), define \(T_K = \id \otimes T \in \Hom_F(U_K,V_K)\).
+\end{definition}
+\begin{lemma}
+    \(T_K \in \Hom_K(U_K,V_K)\).
+\end{lemma}
+\begin{proof}
+    We show \(K\)-linearity.
+    \begin{equation*}
+        T_K(\alpha(\beta\otimes\vec{v})+\gamma\otimes\vec{w})
+        = T_K(\alpha\beta\otimes\vec{v}) + T_K(\gamma\otimes\vec{w})
+        = \alpha\beta\otimes T\vec{v} + T_K(\gamma\otimes\vec{w})
+        = \alpha T_K(\beta\otimes\vec{v}) + T_K(\gamma\otimes\vec{w})
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:field-ext-functor}
+    We have a functor \(\textbf{Vect}_F \to \textbf{Vect}_K\),
+    which maps spaces \(V \mapsto K \otimes V\) and homomorphisms \(T \mapsto T_K\).
+\end{proposition}
+\begin{proof}
+    We have already shown that \(K \otimes V\) is a \(K\)-vector space,
+    and \(T_K\) is a \(K\)-linear map.
+    Let us first show that this maps \(\id \in \End(U)\) maps to \(\id \in \End(U_K)\).
+    \begin{equation*}
+        (\id\otimes\id)(\alpha\otimes\vec{u}) = \alpha\otimes\vec{u}
+    \end{equation*}
+    We can then show that this map preserves composition.
+    \begin{equation*}
+        (\id\otimes(TS))(\alpha\otimes\vec{u})
+        = \alpha\otimes(TS\vec{u})
+        = (\id \otimes T)(\alpha\otimes(S\vec{u}))
+        = (\id \otimes T)(\id \otimes S)(\alpha\otimes\vec{u})
+    \end{equation*}
+\end{proof}
+
+\begin{proposition}
+    Suppose \(U \subset V\), i.e.\ we have an inclusion map \(\func{\iota}{U}{V}\).
+    We have an inclusion \(U_K \subset V_K\), i.e.\ the inclusion \(\func{\iota_K}{U_K}{V_K}\).
+    Then if \(T \in \End(U,V)\),
+    we have \(\ker T_K = \pqty{\ker T}_K\) and \(\img T_K = \pqty{\img T}_K\).
+\end{proposition}
+\begin{proof}
+    Consider a basis \({\{\vec{u}_i\}}_{i \in I} \subset \ker T\),
+    and extend that to a basis \({\{\vec{u}_i\}}_{i \in I+J} \subset U\).
+    If \(\vec{v} = \sum_{i \in I+J} \alpha_i\otimes\vec{u}_i \in \ker T_K\),
+    we have
+    \begin{equation*}
+        \vec{0} = T_K\pqty{\sum_{i \in I+J} \alpha_i\otimes\vec{u}_i}
+        = \sum_{i \in I+J} \alpha_i \otimes T\vec{u}_i
+        = \sum_{i \in I+J} \alpha_i (1 \otimes T\vec{u}_i)
+        = \sum_{i \in J} \alpha_i (1 \otimes T\vec{u}_i)
+    \end{equation*}
+    since we know that \(T\vec{u}_i = 0\) for all \(i \in I\).
+    By linear independence, \(\alpha_i = 0\) for all \(i \in J\).
+    Hence we can write \(\vec{v} = \sum_{i \in I} \alpha_i\otimes\vec{u}_i\),
+    which are linear combinations of
+    the basis \({\{1\otimes\vec{u}_i\}}_{i \in I} \subset \pqty{\ker T}_K\).
+    We have \(\ker T_K \subseteq \pqty{\ker T}_K\).
+
+    Now consider any linear combination \(\sum_{i \in I} \alpha_i\otimes\vec{u}_i \in \pqty{\ker T}_K\).
+    \begin{equation*}
+        T_K\pqty{\sum_{i \in I} \alpha_i\otimes\vec{u}_i}
+        = \sum_{i \in I} \alpha_i \otimes T\vec{u}_i = \vec{0}
+    \end{equation*}
+    We have \(\pqty{\ker T}_K \subseteq \ker T_K\).
+
+    Now, we have \(\img T_K = U_K/\ker T_K = U_K/\pqty{\ker T}_K = \pqty{U/\ker T}_K = \pqty{\img T}_K\)
+    by the \hyperref[thm:iso-1-vsp]{first isomorphism theorem}.
+\end{proof}
+
+\begin{proposition}
+    We have the following isomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\bigoplus_{i \in I} {(V_i)}_K \cong \pqty{\bigoplus_{i \in I} V_i}_K\);
+        \item \(U_K/V_K \cong \pqty{U/V}_K\); and
+        \item \(U_K \otimes V_K \cong \pqty{U \otimes V}_K\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Consider a basis \({\{\vec{v}_{ij}\}}_{j \in J_i} \subset V_i\).
+    Then we have a basis \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i} \subset {(V_i)}_K\),
+    and from Lemma~\ref{lem:dim-direct-sum} we have a basis
+    \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \bigoplus_{i \in I} {(V_i)}_K\).
+    But on the other hand, we have a basis
+    \({\{\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \bigoplus_{i \in I} V_i\),
+    so tensoring with \(K\) gives the same basis
+    \({\{1\otimes\vec{v}_{ij}\}}_{j \in J_i,\,i \in I} \subset \pqty{\bigoplus_{i \in I} V_i}_K\).
+    Hence we have an isomorphism.
+    This proves statement (a).
+
+    We now wish to show that the following diagram commutes.
+    \begin{center}
+        \begin{tikzcd}
+            U_K \arrow{r}{\phi} \arrow{d}{\pi_K} & Z \\
+            \pqty{U/V}_K \arrow[dashrightarrow]{ru}[swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    Consider the quotient map \(\func{\pi}{U}{U/V}\),
+    and let us apply the functor \({(\cdot)}_K\) from Proposition~\ref{prop:field-ext-functor}.
+    We get the map \(\func{\pi_K}{U_K}{{(U/V)}_K}\),
+    which maps \(\alpha\otimes\vec{u} \mapsto \alpha\otimes[\vec{u}]\) onto its equivalence class.
+    Now consider any arbitrary vector space \(Z\),
+    and some \(\func{\phi}{U_K}{Z}\) with \(V_K \subseteq \ker\phi\).
+    We show that we can define \(\bar{\phi}\) as
+    \(\alpha\otimes[\vec{u}] \mapsto \phi(\alpha\otimes\vec{u})\).
+    We demonstrate that this is a valid definition,
+    by checking that the choice of coset representative does not matter.
+    Suppose \(\tilde{\vec{u}} = \vec{u}+\vec{v} \in [\vec{u}]\). Then
+    \begin{equation*}
+        \bar{\phi}(\alpha\otimes[\tilde{\vec{u}}])
+        = \phi(\alpha\otimes(\vec{u}+\vec{v}))
+        = \phi(\alpha\otimes\vec{u}) + \alpha\phi(1\otimes\vec{v})
+        = \phi(\alpha\otimes\vec{u})
+        = \bar{\phi}(\alpha\otimes[\vec{u}])
+    \end{equation*}
+    We then check linearity.
+    By construction, \(\bar{\phi}\) fits this diagram,
+    and this proves statement (b).
+
+    We finally wish to show that this diagram commutes.
+    \begin{center}
+        \begin{tikzcd}
+            U_K \times V_K \arrow{r}{\phi} \arrow{d}{\iota} & X \\
+            \pqty{U \otimes V}_K \arrow[dashrightarrow]{ru}[swap]{\bar{\phi}}
+        \end{tikzcd}
+    \end{center}
+    Consider the homomorphism \(\func{\iota}{U_K \times V_K}{\pqty{U \otimes V}_K}\)
+    that maps \((\sum \alpha_i\otimes\vec{u}_i, \sum \beta_j\otimes\vec{v}_j)
+    \mapsto \sum_{i,j} \alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)\).
+    We first demonstrate that this is bilinear.
+    \begin{align*}
+        \iota\pqty{\gamma\sum_i\alpha_i\otimes\vec{u}_i+\sum_k\delta_k\otimes\vec{w}_k, \sum_j\beta_j\otimes\vec{v}_j}
+        &= \sum_{i,j} \gamma\alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)
+        + \sum_{k,j} \delta_k\beta_j\otimes(\vec{w}_k\otimes\vec{v}_j) \\
+        &= \gamma\iota\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+        + \iota\pqty{\delta_k\otimes\vec{w}_k,\sum_j\beta_j\otimes\vec{v}_j}
+    \end{align*}
+    Linearity in the other coordinate is checked using the exact same argument.
+    Now consider an arbitrary vector space \(X\),
+    with a bilinear map \(\func{\phi}{U_K \times V_K}{X}\).
+    We show that we can define \(\bar{\phi}\) as
+    \(\sum_{i,j}\alpha_{ij}\otimes(\vec{u}_i\otimes\vec{v}_j)
+    \mapsto \sum_{i,j} \phi(\alpha_{ij}\otimes\vec{u}_i,1\otimes\vec{v}_j)\).
+    This map is indeed linear, by
+    \begin{align*}
+        \bar{\phi}\pqty{\gamma \sum \alpha\otimes(\vec{u}\otimes\vec{v})}
+        &= \sum \phi(\gamma\alpha\otimes\vec{u},1\otimes\vec{v})
+        = \gamma \sum \phi(\alpha\otimes\vec{u},1\otimes\vec{v})
+        = \gamma \bar{\phi}\pqty{\sum \alpha\otimes(\vec{u}\otimes\vec{v})}
+    \end{align*}
+    and addition is preserved by definition.
+    Lastly, we check that \(\phi = \bar{\phi}\circ\iota\).
+    \begin{align*}
+        (\bar{\phi}\circ\iota)&\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+        = \bar{\phi}\pqty{\sum_{i,j} \alpha_i\beta_j\otimes(\vec{u}_i\otimes\vec{v}_j)}
+        = \sum_{i,j} \phi(\alpha_i\beta_j\otimes\vec{u}_i,1\otimes\vec{v}_j) \\
+        &= \sum_{i,j} \phi(\alpha_i\otimes\vec{u}_i,\beta_j\otimes\vec{v}_j)
+        = \phi\pqty{\sum_{i,j} (\alpha_i\otimes\vec{u}_i,\beta_j\otimes\vec{v}_j)}
+        = \phi\pqty{\sum_i\alpha_i\otimes\vec{u}_i,\sum_j\beta_j\otimes\vec{v}_j}
+    \end{align*}
+    using bilinearity of \(\phi\).
+    This proves statement (c).
+\end{proof}
+
 
 \section{Symmetry and Antisymmetry}
 
+\begin{remark}
+    In the following section,
+    suppose all fields are of characteristic not 2,
+    unless otherwise noted.
+\end{remark}
 
-\section{Minimal Polynomial}
+\subsection*{Bilinearity}
+
+\begin{definition}
+    Suppose \(T \in \End(V)\) is a linear operator.
+    We say \(\lambda\) is an eigenvalue of \(T\)
+    if there exists some \(\vec{v} \neq \vec{0}\) such that \(T\vec{v} = \lambda\vec{v}\).
+    % The set of all eigenvalues of \(T\) is its spectrum, \(\Spec(T)\).
+\end{definition}
+\begin{definition}
+    Suppose \(T \in \End(V)\) is a linear operator.
+    If there exists some \(n > 0\) such that \(T^n = 0\),
+    then we say that \(T\) is nilpotent of degree \(n\).
+    Similarly, if there exists some \(n > 0\) such that \(T^m = \id\),
+    then we say that \(T\) is idempotent of degree \(m\).
+\end{definition}
+
+\begin{lemma}\label{lem:direct-sum-idempotent}
+    Suppose \(T \in \End(V)\) is a linear operator,
+    with \(T \neq \id\), and \(T^2 = \id\).
+    Then the eigenvalues are \(\pm 1\), and \(V = V_+ \oplus V_-\),
+    where \(V_+ = \{\vec{v}: T\vec{v} = \vec{v}\}\)
+    and \(V_- = \{\vec{v}: T\vec{v} = -\vec{v}\}\).
+\end{lemma}
+\begin{proof}
+    Let \(P_+ = \frac{1}{2}(T+I)\).
+    Then \(TP_+ = \frac{1}{2}(T^2+T) = \frac{1}{2}(I+T) = P_+\),
+    and \(P_+^2 = \frac{1}{4}(T^2+2T+I) = \frac{1}{4}(2T+2I) = P_+\).
+    Hence \(P_+\) is a projection operator.
+    In particular, if \(\vec{v} \in \img(P_+)\),
+    then there exists \(\vec{u}\) such that \(P_+\vec{u} = \vec{v}\);
+    we have \(\vec{v} = P_+\vec{u} = TP_+\vec{u} = T\vec{v}\)
+    so \(\vec{v} \in V_+\).
+    Therefore \(\img(P_+) \subseteq V_+\).
+
+    Similarly, let \(P_- = \frac{1}{2}(I-T)\).
+    Then \(TP_- = \frac{1}{2}(T-T^2) = \frac{1}{2}(T-I) = -P_-\),
+    and \(P_-^2 = \frac{1}{4}(I-2T+T^2) = \frac{1}{4}(2I-2T) = P_-\).
+    Hence \(P_-\) is also a projection operator.
+    In particular, if \(\vec{v} \in \img(P_-)\),
+    then there exists \(\vec{u}\) such that \(P_-\vec{u} = \vec{v}\);
+    we have \(\vec{v} = P_-\vec{u} = -TP_-\vec{u} = -T\vec{v}\),
+    so \(\vec{v} \in V_-\).
+    Therefore \(\img(P_-) \subseteq V_-\).
+
+    Observe that \(P_+ = \id - P_-\).
+    Now, we see that for any \(\vec{v} \in V\),
+    \(\vec{v} = P_+\vec{v} + (\id - P_+)\vec{v} = P_+\vec{v} + P_-\vec{v}\),
+    so we have \(V \subseteq \img(P_+) \oplus \img(P_-)\)
+    (we cannot be sure that they are equal,
+    since we have not proven whether this representation is unique or not).
+    But then we see that
+    \(V \subseteq \img(P_+) \oplus \img(P_-) \subseteq V_+ \oplus V_- \subseteq V\).
+    We are sure that \(V_+,V_-\) are both nonzero
+    because by defintion, \(P_+,P_-\) are nonzero.
+\end{proof}
+\begin{definition}
+    Suppose \(U\) is a vector space,
+    and \(\sigma \in \End(U \otimes U)\) is an involution,
+    i.e.\ it maps \(\vec{u}\otimes\vec{v} \mapsto \vec{v}\otimes\vec{u}\).
+    Then the symmetric product is
+    \(\Sym^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = \vec{t}\}\),
+    and the antisymmetric product is
+    \(\Asym^2 U = \{\vec{t} \in U \otimes U: \sigma(\vec{t}) = -\vec{t}\}\).
+\end{definition}
+\begin{proposition}\label{prop:sum-sym-wedge}
+    \(U \otimes U \cong \Sym^2 U \oplus \Asym^2 U\).
+\end{proposition}
+\begin{proof}
+    Simple application of Lemma~\ref*{lem:direct-sum-idempotent}.
+\end{proof}
+
+\begin{proposition}
+    Suppose \(B \subset U\) is a basis.
+    Then \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} + \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
+    spans \(\Sym^2 U\),
+    and \({\{\frac{1}{2}(\vec{u}\otimes\vec{v} - \vec{v}\otimes\vec{u})\}}_{\vec{u},\vec{v} \in B}\)
+    spans \(\Asym^2 U\).
+\end{proposition}
+\begin{proof}
+    Consider any \(\vec{t} \in \Sym^2 U\).
+    Write \(\vec{t} = \sum_i a_i\vec{u}_i\otimes\vec{v}_i\),
+    where \(\{\vec{u}_i,\vec{v}_i\} \subset B\).
+    But we have
+    \begin{equation*}
+        \sigma(\vec{t}) = \sum_i a_i\vec{v}_i\otimes\vec{u}_i
+        = \sum_i a_i\vec{u}_i\otimes\vec{v}_i = \vec{t}
+    \end{equation*}
+    Hence we can write
+    \begin{equation*}
+        \vec{t} = \frac{1}{2} \sum_i a_i(\vec{u}_i\otimes\vec{v}_i + \vec{v}_i\otimes\vec{u}_i)
+    \end{equation*}
+
+    Similarly, if \(\vec{t} \in \Asym^2 U\), we have
+    \begin{equation*}
+        \sigma(\vec{t}) = -\sum_i a_i\vec{v}_i\otimes\vec{u}_i
+        = \sum_i a_i\vec{u}_i\otimes\vec{v}_i = \vec{t}
+    \end{equation*}
+    Hence we can write
+    \begin{equation*}
+        \vec{t} = \frac{1}{2} \sum_i a_i(\vec{u}_i\otimes\vec{v}_i - \vec{v}_i\otimes\vec{u}_i)
+    \end{equation*}
+\end{proof}
+\begin{corollary}\label{cor:dim-sym-wedge}
+    If \(\dim U = n\),
+    then \(\dim \Sym^2 U = \frac{1}{2}n(n+1)\),
+    and \(\dim \Asym^2 U = \frac{1}{2}n(n-1)\).
+\end{corollary}
+\begin{proof}
+    Let \({\{\vec{u}_i\}}_{i=1}^n \subset U\) be a basis
+    Just by counting the cardinality of the spanning set,
+    we know that for \(\Sym^2 U\),
+    since swapping \(i,j\) gives us the same vector,
+    \(\vec{u}_1\) gives us \(n\) choices of \(\vec{v}_j\),
+    \(\vec{u}_2\) gives us \(n-1\) choices of \(\vec{v}_j\),
+    and so on;
+    hence \(\dim \Sym^2 U \leq 1 + 2 + \cdots + n = \frac{1}{2}n(n+1)\).
+    For \(\Asym^2 U\),
+    the same holds true, but additionally, we cannot have \(i = j\),
+    since that tensor evaluates to zero;
+    hence \(\dim \Asym^2 U \leq 1 + 2 + \cdots + (n-1) + n - n
+    = 1 + 2 + \cdots + (n-1) = \frac{1}{2}(n-1)(1+n-1) = \frac{1}{2}n(n-1)\).
+    But Proposition~\ref{prop:sum-sym-wedge} tells us that
+    \(U \otimes U \cong \Sym^2 U \oplus \Asym^2 U\)
+    so by Lemma~\ref{lem:dim-direct-sum} and Corollary~\ref{cor:dim-tensor-product},
+    \begin{equation*}
+        n^2 = \dim(U \otimes U) = \dim \Sym^2 U + \dim \Asym^2 U
+        \leq \frac{1}{2}(n(n+1) + n(n-1)) = \frac{1}{2}(2n^2 + n - n) = n^2
+    \end{equation*}
+    and we have found exactly the minimal spanning set.
+\end{proof}
+\begin{corollary}
+    If \(U\) is a finite-dimensional vector space,
+    and \({\{\vec{u}_i\}}_{i=1}^n \subset U\) is a basis,
+    then
+    \begin{equation*}
+        \Bqty{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j+\vec{u}_j\otimes\vec{u}_i)}_{i \leq j} \subset \Sym^2 U \qquad
+        \Bqty{\frac{1}{2}(\vec{u}_i\otimes\vec{u}_j-\vec{u}_j\otimes\vec{u}_i)}_{i<j} \subset \Asym^2 U
+    \end{equation*}
+    are bases.
+\end{corollary}
+\begin{proof}
+    Restatement of minimality of spanning set from the
+    \hyperref[cor:dim-sym-wedge]{corollary above}.
+\end{proof}
+\begin{remark}
+    The cross product is an antisymmetric product of two vectors in \(\bR^3\).
+    Observe that \(\dim \Asym^2 \bR^3 = 3\),
+    which is exactly why the cross product can only be defined,
+    for two vectors, in three dimensions;
+    it is a coincidence.
+\end{remark}
+
+\subsection*{\(n\)-linearity}
+
+\begin{lemma}
+    Suppose \(U\) is a vector space.
+    We can define an action of \(S_n\) on \(\bigotimes_{i=1}^n U\),
+    via \(\sigma(\bigotimes_{i=1}^n \vec{u}_i) = \bigotimes_{i=1}^n \vec{u}_{\sigma(i)}\),
+    where \(\sigma \in S_n\).
+\end{lemma}
+\begin{proof}
+    Identity, inverse, and associativity are obvious.
+    Group multiplication is given by
+    \begin{equation*}
+        \sigma\pqty{\tau\pqty{\bigotimes_{i=1}^n \vec{u}_i}}
+        = \sigma\pqty{\bigotimes_{i=1}^n \vec{u}_{\tau(i)}}
+        = \sigma\pqty{\bigotimes_{i=1}^n \vec{u}_{\sigma\tau(i)}}
+        = (\sigma\tau)\pqty{\bigotimes_{i=1}^n \vec{u}_i}
+    \end{equation*}
+\end{proof}
+\begin{definition}
+    We can generalize the symmetric product to be
+    \begin{equation*}
+        \Sym^n U = \Bqty{\vec{t} \in \bigotimes_{i=1}^n U: \forall\sigma \in S_n,\,\sigma(\vec{t}) = \vec{t}}
+    \end{equation*}
+    Similarly, we can generalize the antisymmetric product to be
+    \begin{equation*}
+        \Asym^n U = \Bqty{\vec{t} \in \bigotimes_{i=1}^n U: \forall\sigma \in S_n,\,\sigma(\vec{t}) = \sgn(\sigma)\vec{t}}
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Given the symmetric and antisymmetric products, \(\Sym^n U\) and \(\Asym^n U\),
+    we can define the associated projection operators
+    \begin{equation*}
+        P_+\vec{t} = \frac{1}{n!} \sum_{\sigma \in S_n} \sigma(\vec{t}) \qquad
+        P_-\vec{t} = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \sigma(\vec{t})
+    \end{equation*}
+    These are often called the symmetrization and the antisymmetrization of \(\vec{t}\).
+\end{definition}
+\begin{proposition}\label{prop:symmetrization-prop}
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(P_+\) and \(P_-\) are both projection operators,
+            i.e.\ \(P_+^2 = P_+\) and \(P_-^2 = P_-\);
+        \item \(\img(P_+) \subseteq \Sym^n U\); and
+        \item \(\img(P_-) \subseteq \Asym^n U\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first observe that, for any \(\tau \in S_n\),
+    \begin{equation*}
+        \tau P_+ = \frac{1}{n!} \sum_{\sigma \in S_n} \tau\sigma
+        = \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \tilde{\sigma}
+        = P_+
+    \end{equation*}
+    after a change of variables \(\tilde{\sigma} = \tau\sigma\).
+    Similarly, we have
+    \begin{equation*}
+        \tau P_- = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \tau\sigma
+        = \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \sgn(\tau^{-1}\tilde{\sigma}) \tilde{\sigma}
+        = \sgn(\tau^{-1}) \frac{1}{n!} \sum_{\tilde{\sigma} \in S_n} \sgn(\tilde{\sigma}) \tilde{\sigma}
+        = \sgn(\tau) P_-
+    \end{equation*}
+    We can then write the symmetrization as
+    \begin{equation*}
+        P_+^2 = \frac{1}{n!} \sum_{\sigma \in S_n} \sigma P_+
+        = \frac{1}{n!} \sum_{\sigma \in S_n} P_+ = P_+
+    \end{equation*}
+    and the antisymmetrization as
+    \begin{equation*}
+        P_-^2 = \frac{1}{n!} \sum_{\sigma \in S_n} \sgn(\sigma) \sigma P_-
+        = \frac{1}{n!} \sum_{\sigma \in S_n} {\sgn(\sigma)}^2 P_- = P_-
+    \end{equation*}
+    This proves statement (a).
+
+    Consider \(\vec{t} \in \img(P_+)\).
+    Then there exists some \(\vec{u}\) such that \(\vec{t} = P_+\vec{u}\).
+    For any \(\sigma \in S_n\),
+    \begin{equation*}
+        \sigma(\vec{t}) = (\sigma P_+)\vec{u} = P_+\vec{u} = \vec{t}
+    \end{equation*}
+    so \(\vec{t} \in \Sym^n U\).
+    This proves statement (b).
+
+    Consider \(\vec{t} \in \img(P_-)\).
+    Then there exists some \(\vec{u}\) such that \(\vec{t} = P_-\vec{u}\).
+    For any \(\sigma \in S_n\),
+    \begin{equation*}
+        \sigma(\vec{t}) = (\sigma P_-)\vec{u} = \sgn(\sigma) P_-\vec{u} = \sgn(\sigma)\vec{t}
+    \end{equation*}
+    so \(\vec{t} \in \Asym^n U\).
+    This proves statement (c).
+\end{proof}
+\begin{remark}
+    Even though \(\bigotimes_{i=1}^m (\bigotimes_{i=1}^n U) \cong \bigotimes_{i=1}^{mn} U\),
+    \(\Sym^2 \Sym^2 U \ncong \Sym^4 U\),
+    since the group associated with \(\Sym^2 \Sym^2\) is \(V_4\), not \(S_4\).
+\end{remark}
+
+\begin{definition}
+    Suppose \(T \in \End(V)\).
+    If we let \(T^\otimes = \bigotimes_{i=1}^n T\),
+    then we have linear operators \(\Sym^n T = P_+ T^\otimes \in \End(\Sym^n V)\)
+    and \(\Asym^n T = P_- T^\otimes \in \End\pqty{\Asym^n V}\).
+\end{definition}
+
+\begin{lemma}\label{lem:antisym-same-zero}
+    \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\)
+    if \(\vec{u}_i = \vec{u}_j\) for some \(i \neq j\).
+\end{lemma}
+\begin{proof}
+    Consider the transposition \(\tau = (ij)\), with \(\sgn(\tau) = -1\).
+    Then we have, from Proposition~\ref{prop:symmetrization-prop}a,
+    \begin{equation*}
+        -P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = (\tau P_-)(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = (P_- \tau)(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = P_- (\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+    \end{equation*}
+    since \(\tau P_- = P_- \tau^{-1} = P_- \tau\) by Proposition~\ref{prop:sn-conjugation}.
+\end{proof}
+\begin{theorem}\label{thm:antisym-lin-dep-zero}
+    \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set of vectors
+    if and only if \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\).
+\end{theorem}
+\begin{proof}
+    Suppose \({\{\vec{u}_i\}}_{i=1}^n\) is a linearly dependent set.
+    We write \(\vec{u}_n = \sum_{i=1}^{n-1} a_i\vec{u}_i\).
+    Then
+    \begin{equation*}
+        P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n)
+        = \sum_{i=1}^{n-1} a_i P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_{n-1} \otimes \vec{u}_i)
+        = \vec{0}
+    \end{equation*}
+    by the \hyperref[lem:antisym-same-zero]{lemma above}.
+    
+    Consider a linearly independent set \({\{\vec{u}_i\}}_{i=1}^n\),
+    and suppose, by way of contradiction, that \(P_-(\vec{u}_1 \otimes \cdots \otimes \vec{u}_n) = \vec{0}\)
+    We can extend this set to a basis \({\{\vec{u}_i\}}_{i \in I} \subset V\)
+    for the underlying vector space.
+    But then, by definition, this implies that
+    \({\{\vec{u}_{\sigma(1)} \otimes \cdots \otimes \vec{u}_{\sigma(n)}\}}_{\sigma \in S_n}\)
+    is a linearly dependent set,
+    which contradicts the \hyperref[lem:tensor-n-basis]{lemma below}.
+\end{proof}
+
+\begin{lemma}\label{lem:tensor-n-basis}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then we can define \(\vec{v}_f = \vec{v}_{f(1)} \otimes \cdots \otimes \vec{v}_{f(n)}\)
+    for any \(\func{f}{\{1,\hdots,n\}}{I}\),
+    and \({\{\vec{v}_f: f \in I^{\{1,\hdots,n\}}\}} \subset \bigotimes_{i=1}^n V\)
+    forms a basis.
+\end{lemma}
+\begin{proof}
+    The case of \(n = 2\) is given by Proposition~\ref{prop:tensor-basis}.
+    We now proceed inductively,
+    supposing that the case of \(n = k\) holds true.
+    Applying Proposition~\ref{prop:tensor-basis} again,
+    since we can choose any \(f \in I^{\{1,\hdots,k\}}\) for the first \(k\) indices,
+    and we also have complete freedom in the choice of the last index \(f \in I^{\{k+1\}}\),
+    we have the case of \(k+1\).
+\end{proof}
+\begin{theorem}\label{thm:sym-antisym-basis}
+    Suppose \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then \(\{P_+(\vec{v}_f): f \in I^{\{1,\hdots,n\}},\,f(1) \leq \cdots \leq f(n)\} \subset \Sym^n V\)
+    and \(\{P_-(\vec{v}_f): f \in I^{\{1,\hdots,n\}},\,f(1) < \cdots < f(n)\} \subset \Asym^n V\)
+    are bases.
+\end{theorem}
+\begin{proof}
+    From the \hyperref[lem:tensor-n-basis]{lemma above},
+    we already know that \(\{P_+(\vec{v}_f): f \in I^{\{1,\hdots,n\}}\} \subset \Sym^n V\)
+    and \(\{P_-(\vec{v}_f): f \in I^{\{1,\hdots,n\}}\} \subset \Asym^n V\) are spanning
+    (Proposition~\ref{prop:image-spanning}).
+    Moreover, if the images under \(P_\pm\) are different,
+    we will have linear independence (Proposition~\ref{prop:image-lin-indep});
+    so it suffices for us to remove all the duplicates.
+    
+    Consider any \(f\) that is not non-decreasing.
+    Then we can rearrange the image of \(f\) into a non-decreasing one,
+    and call that function \(f'\).
+    Since by definition, \(P_\pm\) includes all possible rearrangements in the sum,
+    \(P_\pm(\vec{v}_f) = \pm P_\pm(\vec{v}_{f'})\).
+    Now consider any two \(f \neq f'\) that are both non-decreasing.
+    The multiset \({\{\vec{v}_{f(i)}\}}_{i=1}^n\) images are different,
+    so the images under \(P_\pm\) must also differ.
+
+    Lastly, we remember Lemma~\ref{lem:antisym-same-zero} holds,
+    which gives us that only the increasing ones are nonzero for \(P_-\).
+\end{proof}
+\begin{corollary}
+    Suppose \(\dim V = n\).
+    Then \(\dim \Asym^k V = \binom{n}{k}\) and \(\dim \Sym^k V = \binom{n+k-1}{k}\).
+\end{corollary}
+\begin{proof}
+    Since there are no duplicates in the multiset images of \(P_-\),
+    we are simply choosing \(k\) distinct elements.
+
+    On the other hand, we need to count duplicates in \(P_+\).
+    This is equivalent to the number of multisets of size \(k\),
+    chosen from a set of \(n\) elements.
+    Let \(a_i\) be the number of occurences of \(i \in \{1,\hdots,n\}\).
+    We want to count the number of solutions to the equation \(\sum a_i = k\).
+    Organize these multisets in ascending order,
+    and imagine us putting a divider every time the element changes,
+    as in there are \(n-1\) dividers.
+    Then we can now view this as a sequence of \(k\) numeric elements and \(n-1\) dividers,
+    with a total of \(n+k-1\) things.
+    The number of ways to put in these \(n-1\) dividers and \(k\) numeric elements
+    is exactly \(\binom{n+k-1}{k}\).
+\end{proof}
+\begin{remark}
+    If \(k > n\), we have \(\Asym^k V = \{\vec{0}\}\).
+    Moreover, \(\dim \Asym^n V = 1\).
+\end{remark}
+
+\begin{proposition}
+    There is a bijection between the \(k\)-dimensional subspaces of \(V\)
+    and \((\Asym^k V - \{\vec{0}\})/F^\times\),
+    the set of all lines going through the origin in \(\Asym^k V\).
+\end{proposition}
+\begin{proof}
+    We first prove that for a set of vectors \({\{\vec{v}_i\}}_{i=1}^k \subset V\),
+    \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\)
+    only depends on the span of \({\{\vec{v}_i\}}_{i=1}^k\).
+    Suppose \(\Span{\{\vec{w}_i\}}_{i=1}^k \subseteq \Span{\{\vec{v}_i\}}_{i=1}^k\).
+    Then we know that every vector can be written as a linear combination
+    \(\vec{w}_j = \sum_i a_{ij}\vec{v}_i\).
+    Observe that
+    \begin{equation*}
+        \vec{w}_1 \otimes \cdots \otimes \vec{w}_k
+        = \sum_{i_1,\hdots,i_k} a_{i_1 1} \hdots a_{i_k k}
+        (\vec{v}_{i_1} \otimes \cdots \otimes \vec{v}_{i_k})
+        = \sum_{\func{\sigma}{\{1,\hdots,k\}}{\{1,\hdots,k\}}}
+        \prod_{j=1}^k a_{\sigma(j)j} (\vec{v}_{\sigma(1)} \otimes \cdots \otimes \vec{v}_{\sigma(k)})
+    \end{equation*}
+    via a substitution \(i_j \mapsto \sigma(j)\).
+    But as we know from Proposition~\ref{lem:antisym-same-zero}
+    the antisymmetrization evaluates to zero for any \(\sigma(i) = \sigma(j)\) when \(i \neq j\),
+    so we must only sum over all bijective \(\sigma\),
+    which is the symmetric group \(S_k\).
+    \begin{equation*}
+        P_-(\vec{w}_1 \otimes \cdots \otimes \vec{w}_k)
+        = \sum_{\sigma \in S_k} \prod_{j=1}^k a_{\sigma(j)j}
+        P_-\sigma(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)
+        = \sum_{\sigma \in S_k} \sgn(\sigma) \prod_{j=1}^k a_{\sigma(j)j}
+        P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)
+    \end{equation*}
+    Hence any two sets of vectors with the same span
+    will have the same antisymmetrization up to a constant multiple.
+
+    We can now see that any \(k\)-dimensional vector space
+    can be uniquely associated with some antisymmetrization.
+    Consider any such vector space \(V\),
+    with a basis \({\{\vec{v}_i\}}_{i=1}^k\),
+    and map it to \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\).
+    This is surjective, because by Theorem~\ref{thm:antisym-lin-dep-zero},
+    any nonzero \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k)\)
+    is mapped from a linearly independent set \({\{\vec{v}_i\}}_{i=1}^k\),
+    which spans a \(k\)-dimensional vector space.
+    This is also injective, because if
+    \(P_-(\vec{v}_1 \otimes \cdots \otimes \vec{v}_k) = \lambda P_-(\vec{w}_1 \otimes \cdots \otimes \vec{w}_k)\),
+    the paragraph above shows that their spans should be the same,
+    so they correspond to the same vector space.
+    This gives us our desired bijection.
+\end{proof}
+\begin{remark}
+    The Grassmannian \(\textbf{Gr}(k,V)\) is the set of all \(k\)-dimensional subspaces of \(V\).
+    It can be endowed with a manifold structure by the above correspondence,
+    via the topological construct of the projective space of \(\Asym^k V\).
+\end{remark}
+\begin{definition}
+    The Gaussian binomial coefficient is defined to be
+    \(\binom{n}{k}_q = \abs{\textbf{Gr}(k,\bF_q^n)}\),
+    the number of \(k\)-dimensional subspaces of \(\bF_q^n\).
+\end{definition}
+\begin{proposition}
+    We have the following properties for the Gaussian binomial coefficient:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\binom{n}{k}_q\) is a rational function in \(q\);
+        \item \(\binom{n}{1}_q\) is a polynomial in \(q\); and
+        \item \(\binom{n}{k}_1 = \binom{n}{k}\) is the binomial coefficient.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first find the general formula for \(\binom{n}{k}_q\).
+    In \(\bF_q^n\), there are \(n\) indices, each with \(q\) possible choices from the finite field,
+    so there are a total of \(f(n) = q^n - 1\) nonzero vectors in \(\bF_q^n\).
+    Now consider a tuple of \(k\) vectors, \((\vec{v}_1,\hdots,\vec{v}_k)\),
+    and let us count the number of tuple
+    such that \({\{\vec{v}_i\}}_{i=1}^k\) forms a linearly independent set.
+    We can see that we have completely freedom in the first index, a total of \(q^n - 1\) choices;
+    then in the second index, we have to choose from a subspace of one dimension smaller,
+    a total of \(q^n - q\) choices;
+    and so on and so forth, which yields a total of
+    \begin{equation*}
+        (q^n - 1)(q^n - q)\hdots(q^n - q^{k-1})
+        = (q^n - 1) q(q^{n-1} - 1) \hdots q^{k-1}(q^{n-k+1} - 1)
+        = q^{k(k-1)/2} f(n)f(n-1) \hdots f(n-k+1)
+    \end{equation*}
+    such tuples.
+    Now consider an arbitrary tuple,
+    and let us act on it by a left action,
+    with the group of all matrices \(\bF_q^{k \times k}\).
+    If these matrices were to preserve the span of our vectors,
+    then it must have rank \(k\);
+    the number of these matrices is equivalent to
+    choosing \(k\) linearly independent vectors in \(\bF_q^k\),
+    which is given by the above formula to be
+    \begin{equation*}
+        (q^k - 1)(q^k - k)\hdots(q^k - q^{k-1})
+        = q^{k(k-1)/2} f(k)f(k-1) \hdots f(1)
+    \end{equation*}
+    Hence there are a total of this many such ordered tuples
+    that represent a single \(k\)-dimensional vector space,
+    so the total number of \(k\)-dimensional vector spaces are
+    \begin{equation*}
+        \binom{n}{k}_q
+        = \frac{q^{k(k-1)/2} f(n)f(n-1) \hdots f(n-k+1)}{q^{k(k-1)/2} f(k)f(k-1) \hdots f(1)}
+        = \frac{ f(n)f(n-1) \hdots f(n-k+1)}{f(k)f(k-1) \hdots f(1)}
+    \end{equation*}
+    which is by definition, a rational function.
+    This proves statement (a).
+
+    Then we have
+    \begin{equation*}
+        \binom{n}{1}_q = \frac{f(n)}{f(1)} = \frac{q^n - 1}{q - 1}
+        = 1 + q + \cdots + q^{n-1}
+    \end{equation*}
+    which proves statement (b).
+
+    Now that \(q = 1\), we have from the previous part, \(\binom{m}{1}_1 = m\).
+    Generalizing that, we have
+    \begin{equation*}
+        \frac{f(n-j)}{f(j+1)} = \frac{f(n-j)}{f(1)}\frac{f(1)}{f(j+1)}
+        = \frac{\binom{n-j}{1}_1}{\binom{j+1}{1}_1}
+        = \frac{n-j}{j+1}
+    \end{equation*}
+    which when substituted into the general formula,
+    \begin{equation*}
+        \binom{n}{k}_1 = \frac{f(n)}{f(1)}\frac{f(n-1)}{f(2)} \cdots \frac{f(n-k+1)}{f(k)}
+        = \frac{n}{1}\frac{n-1}{2}\cdots\frac{n-k+1}{k}
+        = \frac{n!}{k!(n-k)!} = \binom{n}{k}
+    \end{equation*}
+    giving us statement (c).
+\end{proof}
+
+\subsection*{Alternating Forms}
+
+\begin{definition}
+    Suppose \(\func{f}{V^n}{F}\) is an \(n\)-linear form.
+    \(f\) is alternating if \(f(\vec{v}_1,\hdots,\vec{v}_n) = 0\)
+    whenever \(\vec{v}_i = \vec{v}_j\) for some \(i \neq j\).
+    \(f\) is antisymmetric if
+    \(f(\vec{v}_{\sigma(1)},\hdots,\vec{v}_{\sigma(n)}) = \sgn(\sigma)f(\vec{v}_1,\hdots,\vec{v}_n)\).
+\end{definition}
+\begin{proposition}
+    We have the following two relationships:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item for fields of any characteristic, alternating forms are antisymmetric; and
+        \item for fields of characteristic not 2, antisymmetric forms are alternating.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(f(\vec{x},\vec{x}) = \vec{0}\) for all \(\vec{x}\).
+    Then we have
+    \begin{equation*}
+        0 = f(\vec{x}+\vec{y},\vec{x}+\vec{y})
+        = f(\vec{x},\vec{x}) + f(\vec{y},\vec{y}) + f(\vec{x},\vec{y}) + f(\vec{y},\vec{x})
+        = f(\vec{x},\vec{y}) + f(\vec{y},\vec{x})
+    \end{equation*}
+    so \(f(\vec{x},\vec{y}) = -f(\vec{y},\vec{x})\).
+    This proves statement (a).
+
+    Suppose \(f(\vec{x},\vec{y}) = -f(\vec{y},\vec{x})\).
+    Then we have \(2f(\vec{x},\vec{x}) = 0\),
+    so division by 2 is possible whenever the characteristic is not 2.
+    This proves statement (b).
+\end{proof}
+\begin{lemma}
+    Suppose \(\func{f}{V^n}{F}\) is an \(n\)-linear form,
+    and \({\{\vec{v}_i\}}_{i \in I} \subset V\) is a basis.
+    Then we can define \(\vec{v}_g = (\vec{v}_{g(1)},\hdots,\vec{v}_{g(n)})\),
+    for any \(\func{g}{\{1,\hdots,n\}}{I}\),
+    and \(f\) is uniquely determined by \(f(\vec{v}_g)\) for all \(\vec{v}_g\).
+\end{lemma}
+\begin{proof}
+    \(f\) is a linear map from \(\bigotimes_{i=1}^n V \to F\),
+    so it must be uniquely determined by its basis,
+    as outlined in Lemma~\ref{lem:tensor-n-basis}.
+\end{proof}
+\begin{corollary}
+    If \(\dim\Span{\{\vec{u}_i\}}_{i=1}^n < n\),
+    then for any alternating form \(f\),
+    \(f(\vec{u}_1,\hdots,\vec{u}_n) = 0\).
+\end{corollary}
+\begin{proof}
+    Follows directly from Theorem~\ref{thm:antisym-lin-dep-zero}.
+\end{proof}
+
+\begin{theorem}
+    Suppose \(V\) is an \(n\)-dimensional vector space.
+    Then \(\Asym^n V'\) is the set of alternating \(n\)-linear forms.
+    Additionally, \(\dim \Asym^n V' = 1\).
+\end{theorem}
+\begin{proof}
+    Since \(V'\) is the space of linear forms,
+    \(\Asym^n V'\) must be the space of antisymmetric/alternating forms.
+    The dimension is then given by Corollary~\ref{cor:dim-sym-wedge}.
+\end{proof}
+\begin{definition}
+    For \(T \in \End(V)\) and \(f \in \Asym^k V'\),
+    we can, as per usual, define
+    \begin{equation*}
+        \pqty{\Asym^n T}f(\vec{v}_1,\hdots,\vec{v_k})
+        = f(T\vec{v}_1,\hdots,\vec{v}_k).
+    \end{equation*}
+    Then we can see that \(\Asym^n T\) is a linear map, \(F \to F\),
+    which is a scalar.
+\end{definition}
+\begin{definition}
+    Consider the natural isomorphism \(\func{\phi}{\End(F)}{F}\).
+    Then we define the determinant to be \(\det T = \phi(\Asym^n T)\).
+\end{definition}
+\begin{proposition}
+    This definition of the determinant coincides
+    with the universal property in Section~\ref{sec:matrix-rings}.
+\end{proposition}
+\begin{proof}
+    Let \({\{\vec{v}_i\}}_{i=1}^n \subset V\) be a basis.
+    First off, \(\det \id = 1\),
+    since \(\id(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \vec{v}_1 \wedge \cdots \wedge \vec{v}_n\).
+    Secondly, by definition of the antisymmetric product,
+    \((\sigma T)(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n) = \sgn(\sigma) T(\vec{v}_1 \wedge \cdots \wedge \vec{v}_n)\),
+    so \(\det(\sigma T) = \sgn(\sigma)\det(T)\).
+    Lastly, \(n\)-linearity is given by the definition of the tensor product.
+\end{proof}
+\begin{proposition}\label{prop:det-properties}
+    We have the following properties for the determinant:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\det(TS) = (\det T)(\det S)\);
+        \item if \(T\) is invertible, then \((\det T)(\det T^{-1}) = 1\); and
+        \item if \(T\) is not invertible, then \(\det T = 0\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For any arbitrary \(f \in \Asym^k V'\),
+    \begin{align*}
+        \pqty{\Asym^n (TS)} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
+        &= f(TS\vec{v}_1 \otimes \cdots \otimes TS\vec{v}_n)
+        = \pqty{\Asym^n T} f(S\vec{v}_1 \otimes \cdots \otimes S\vec{v}_n) \\
+        &= \pqty{\Asym^n T}\pqty{\Asym^n S} f(\vec{v}_1 \otimes \cdots \otimes \vec{v}_n)
+    \end{align*}
+    so \(\det(TS) = \pqty{\Asym^n (TS)} = \pqty{\Asym^n T}\pqty{\Asym^n S} = (\det T)(\det S)\).
+    This proves statement (a).
+
+    Then \((\det T)(\det T^{-1}) = \det(TT^{-1}) = \det\id = 1\),
+    which proves statement (b).
+
+    Lastly, if \(T\) is not invertible, then \(\img(T) \subsetneq V\),
+    so for any \(f \in \Asym^k V'\), \(\pqty{\Asym^n T} f = 0\),
+    since any set of \(n\) vectors \(T\vec{v}_n\) are linearly dependent.
+    Hence \(\det T = 0\), which proves statement (c).
+\end{proof}
+
+\begin{lemma}\label{lem:det-direct-sum}
+    Suppose \(T_i \in \End(V_i)\).
+    Then \(\det(\bigoplus_{i=1}^n T_i) = \prod_{i=1}^n T_i\).
+\end{lemma}
+\begin{proof}
+    Supopse \(\vb{A}_i\) is the matrix representation of \(T_i\).
+    Then if \(B_i \subset V_i\) is a basis,
+    \(\bigoplus_{i=1}^n T_i\) written in the basis \(\bigcup_{i=1}^n B_i\) is
+    \begin{equation*}
+        \bmqty{\vb{A}_1 \\ & \vb{A}_2 \\ && \ddots \\ &&& \vb{A}_n}
+        = \bmqty{\vb{A}_1 \\ & \vb{I} \\ && \ddots \\ &&& \vb{I}}
+        \bmqty{\vb{I} \\ & \vb{A}_2 \\ && \ddots \\ &&& \vb{I}} \cdots
+        \bmqty{\vb{I} \\ & \vb{I} \\ && \ddots \\ &&& \vb{A}_n}
+    \end{equation*}
+    so by the multiplicative rule we are done.
+\end{proof}
+\begin{theorem}
+    Suppose \(\dim U = m\) and \(\dim V = n\),
+    with linear operators \(T \in \End(U)\) and \(S \in \End(V)\).
+    Then \(\det(T \otimes S) = \pqty{\det T}^n\pqty{\det S}^m\).
+\end{theorem}
+\begin{proof}
+    We choose bases \({\{\vec{u}_i\}}_{i=1}^m \subset U\)
+    and \({\{\vec{v}_i\}}_{i=1}^n \subset V\).
+    Then we have a corresponding basis \({\{\vec{u}_i\otimes\vec{v}_j\}}_{i,j} \subset U \otimes V\).
+    We can see that \(T \otimes S = (T \otimes \id)(\id \otimes S)\).
+
+    Now, observe that \(T\vec{u}_j = \sum_{i=1}^m a_{ij}\vec{u}_i\),
+    and \(\id\vec{v}_\ell = \sum_{k=1}^n \delta_{k\ell}\vec{v}_k\),
+    which gives us \((T \otimes \id)(\vec{u}_j\otimes\vec{v}_\ell)
+    = \sum_{i,k} a_{ij}\delta_{k,\ell} \vec{u}_i\otimes\vec{v}_k\).
+    Using a matrix representation \(\vb{A}\) for \(T\) and \(\vb{I}\) for \(\id\),
+    if we order the basis \(ki, \ell j\) lexicographically,
+    we have block matrices \(\vb{A}\), each of size \(m \times m\), repeated \(n\) times along the diagonal.
+    \begin{equation*}
+        \bmqty{\vb{A} \\ & \vb{A} \\ && \ddots \\ &&& \vb{A}}
+        = \bmqty{\vb{A} \\ & \vb{I} \\ && \ddots \\ &&& \vb{I}}
+        \bmqty{\vb{I} \\ & \vb{A} \\ && \ddots \\ &&& \vb{I}} \cdots
+        \bmqty{\vb{I} \\ & \vb{I} \\ && \ddots \\ &&& \vb{A}}
+    \end{equation*}
+    so immediately \(\det(T \otimes \id) = \pqty{\det T}^n\).
+    By a similar argument \(\det(\id \otimes S) = \pqty{\det S}^m\).
+\end{proof}
+
+
+\section{Eigenspaces}
+
+\subsection*{Minimal Polynomial}
+
+\begin{definition}
+    Given some \(T \in \End(V)\),
+    we recall that \(\lambda\) is an eigenvalue when
+    there exists some nonzero \(\vec{v} \in V\) such that \(T\vec{v} = \lambda\vec{v}\).
+    Equivalently, \(\lambda\) is an eigenvalue when \(\ker(T-\lambda) \neq \{\vec{0}\}\).
+\end{definition}
+\begin{lemma}
+    Suppose \(V\) has finite dimension, and \(T \in \End(V)\).
+    Then \(\lambda\) is an eigenvalue if and only if \(T - \lambda\) is not invertible.
+\end{lemma}
+\begin{proof}
+    % The forward direction is almost by definition.
+    If \(\lambda\) is an eigenvalue,
+    then we have nonzero vectors in the kernel of \(T-\lambda\),
+    and hence \(T-\lambda\) is not bijective.
+
+    Suppose \(\lambda\) is not an eigenvalue.
+    Then \(\ker(T-\lambda) = \{\vec{0}\}\).
+    Hence \(T-\lambda\) is injective, and in finite dimensions,
+    the \hyperref[thm:pigeonhole]{pigeonhole principle} guarantees it must be bijective.
+\end{proof}
+\begin{definition}
+    For finite dimensional vector spaces,
+    the set of eigenvalues of \(T\) is the spectrum \(\Spec(T)\).
+\end{definition}
+\begin{remark}
+    The spectrum is usually defined generally differently,
+    but in finite dimensions, agrees with our definition above.
+\end{remark}
+
+\begin{remark}
+    In the rest of the chapter (the next two sections),
+    all vector spaces are assumed to be finite dimensional.
+\end{remark}
+
+\begin{lemma}
+    For all \(T \in \End(V)\),
+    there exists a nonzero polynomial \(p \in F[x]\) such that \(p(T) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\dim V = n\). Then \(\dim \End(V) = n^2\).
+    Consider the set \({\{T^i\}}_{i=0}^{n^2}\).
+    This must be a linearly dependent set,
+    so there is a linear combination, which is a polynomial, that evaluates to zero.
+\end{proof}
+\begin{definition}
+    The minimal polynomial of \(T\) is the monic polynomial \(m_T \in F[x]\)
+    of least (nonzero) degree such that \(m_T(T) = 0\).
+\end{definition}
+\begin{proposition}
+    The minimal polynomial \(m_T\) is unique.
+\end{proposition}
+\begin{proof}
+    Suppose, by way of contradiction, that we have two minimal polynomials
+    \(m,\tilde{m}\) of the same degree.
+    Then \(m-\tilde{m}\) is also a polynomial that satisfies the conditions,
+    after dividing by a factor to make this polynomial monic.
+    But this polynomial must have a smaller degree, which is a contradiction.
+\end{proof}
+\begin{proposition}\label{prop:minimal-polynomial-factor}
+    Suppose \(p \in F[x]\) is a polynomial.
+    Then \(p(T) = 0\) if and only if \(m_T \mid p\).
+\end{proposition}
+\begin{proof}
+    Suppose \(m_T \mid p\).
+    Then \(p = q m_T = 0\) for some \(q \in F[x]\).
+
+    Suppose, by way of contradiction, that \(m_T \nmid p\).
+    Then by polynomial long division, we write \(p = q m_T + r\),
+    and since \(p(T) = m_T(T) = 0\), \(r(T) = 0\).
+    But \(r\) has a smaller degree than \(m_T\),
+    which contradicts the minimality of \(m_T\).
+\end{proof}
+
+\begin{lemma}\label{lem:eigenvalue-min-poly}
+    \(\lambda \in \Spec(T)\) if and only if \(m_T(\lambda) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\lambda \in \Spec(T)\).
+    For any polynomial \(p \in F[x]\),
+    \(p(T)\vec{v} = p(\lambda)\vec{v}\).
+    In particular, \(m_T(\lambda)\vec{v} = m_T(T)\vec{v} = \vec{0}\) for all \(\vec{v}\),
+    so \(m_T(\lambda) = 0\).
+
+    Suppose \(\lambda\) is a root of \(m_T\).
+    Then we can write \(m_T = (x-\lambda)q\) for some \(q \in F[x]\),
+    with a smaller degree than \(m_T\).
+    Evaulating at \(T\), we have \(0 = m_T(T) = (T-\lambda)q(T)\).
+    Suppose, by way of contradiction, that \(\lambda \notin \Spec(T)\).
+    Then \(T-\lambda\) is invertible, which implies \(q(T) = 0\),
+    which contradicts the minimality of \(m_T\).
+\end{proof}
+\begin{remark}
+    As we know from the \hyperref[thm:fta]{fundamental theorem of algebra},
+    if the field is not algebraically closed,
+    we cannot guarantee that the solutions of a polynomial are all in the field.
+\end{remark}
+\begin{corollary}\label{cor:min-poly-field-ext}
+    Consider a field extension \(K/F\).
+    Then for any \(T \in \End(V)\),
+    the minimal polynomial is the same over both fields.
+\end{corollary}
+\begin{proof}
+    Consider a linearly independent set \({\{T^i\}}_{i=1}^{\deg m_T - 1} \subset \End_F(V)\),
+    and the corresponding set \({\{T_K^i\}}_{i=1}^{\deg m_T - 1} \subset \End_K(V) = \pqty{\End_F(V)}_K\).
+    Hence the the minimal polynomial in \(K\) must have the same or larger degree
+    as the minimal polynomial in \(F\).
+    But any \(F\)-polynomial must also be a \(K\)-polynomial,
+    so the minimal polynomial in \(K\) divides the minimal polynomial in \(F\).
+    Hence we have equality.
+\end{proof}
+
+\begin{proposition}\label{prop:min-poly-direct-sum}
+    Suppose \(T \in \End(\bigoplus_{i=1}^n V_i)\),
+    and let \(T_i = \eval{T}_{V_i}\).
+    Then \(m_T = \lcm{\{m_{T_i}\}}_{i=1}^n\).
+\end{proposition}
+\begin{proof}
+    Consider \(\vec{v}_i \in V_i\).
+    Then we have
+    \begin{equation*}
+        T\pqty{\sum_{i=1}^n \vec{v}_i} = \sum_{i=1}^n T_i\vec{v_i}
+    \end{equation*}
+    so if \(m_T(\lambda) = 0\), there exists some \(i\) such that \(m_{T_i}(\lambda) = 0\);
+    so any root of \(m_T\) must be a root of \(\lcm\{m_{T_i}\}\).
+    This gives us that \(m_T \mid \lcm\{m_{T_i}\}\).
+
+    On the other hand, consider any eigenvalue \(\lambda_i\) of \(T_i\).
+    By definition, it means there exists some \(\vec{v}_i \in CV_i\)
+    such that \(T_i\vec{v}_i = \lambda_i\vec{v}_i\).
+    But \(T\vec{v}_i = \lambda_i\vec{v}_i\) too,
+    so the roots must be identical.
+\end{proof}
+
+\subsection*{Generalized Eigenspaces}
+
+\begin{definition}
+    \(\vec{v} \in V\) is a generalized eigenvector
+    if there exists some eigenvalue \(\lambda\) such that \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    The set of all generalized eigenvectors for a given eigenvalue \(\lambda\)
+    is the generalized eigenspace \(V_\lambda\).
+\end{definition}
+\begin{proposition}\label{prop:eigenspace-properties}
+    Given some \(T \in \End(V)\), we have
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(V_\lambda \subseteq V\) is a subspace;
+        \item \(T(V_\lambda) \subseteq V_\lambda\);
+        \item if \(\mu \neq \lambda\), \(\eval{T-\mu}_{V_\lambda}\) is invertible; and
+        \item \(V_\lambda \neq \{\vec{0}\}\) if and only if \(\lambda\) is an eigenvalue.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    If \({(T-\lambda)}^k\vec{v} = \vec{0}\) and \({(T-\lambda)}^\ell\vec{w} = \vec{0}\).
+    Then \({(T-\lambda)}^{\max\{k,\ell\}}(a\vec{v}+\vec{w}) = \vec{0}\).
+    This proves (a).
+
+    Consider \(\vec{v} \in V_\lambda\), with \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    Then \({(T-\lambda)}^k T\vec{v} = T{(T-\lambda)}^k\vec{v} = \vec{0}\)
+    so \(T\vec{v} \in T_\lambda\).
+    This proves (b).
+
+    Suppose, by way of contradiction, that \(T-\mu\) is not invertible.
+    Then there exists some nonzero \(\vec{v} \in V_\lambda\)
+    such that \(T\vec{v} = \mu\vec{v}\).
+    But we will then have \({(T-\lambda)}^k\vec{v} = {(\mu-\lambda)}^k\vec{v} \neq \vec{0}\),
+    which is a contradiction.
+    This proves (c).
+
+    For (d), the reverse direction is by definition.
+    For the forward direction,
+    suppose we have the smallest \(k\) such that \({(T-\lambda)}^k\vec{v} = \vec{0}\).
+    If this \(k = 1\), we are done.
+    If not, we see that \((T-\lambda){(T-\lambda)}^{k-1}\vec{v} = \vec{0}\),
+    and \({(T-\lambda)}^{k-1}\vec{v}\) is our eigenvector.
+    This proves (d).
+\end{proof}
+
+\begin{lemma}\label{lem:eigenspace-direct-sum}
+    Given some \(T \in \End(V)\),
+    the sum of eigenspaces \(\sum_{\lambda\in\Spec(T)} V_\lambda\) is direct;
+    as in, there is a unique decomposition \(\vec{w} = \sum_i \vec{v}_i\),
+    \(\vec{v}_i \in V_{\lambda_i}\).
+\end{lemma}
+\begin{proof}
+    Suppose, by way of contradiction,
+    that there is no unique decomposition.
+    Then there exists some nonzero sum \(\sum_{i=1}^r \vec{v}_i = \vec{0}\),
+    which without loss of generality, has the least number of terms.
+    For a large enough \(k\), we know that \({(T-\lambda_1)}^k\vec{v}_1 = \vec{0}\),
+    and by invertibility in other eigenspaces, \({(T-\lambda_1)}^k\vec{v}_i \neq \vec{0}\).
+    Then we have \({(T-\lambda_1)}^k \sum_{i=2}^r \vec{v}_i = \vec{0}\),
+    which is a contradiction to minimality of the sum.
+\end{proof}
+\begin{remark}
+    From now on until the end of chapter,
+    extend the base field until it is algebraically closed,
+    so we can assume \(F\) contains all roots to polynomials.
+\end{remark}
+\begin{theorem}[Spectral Theorem]\label{thm:spectral}
+    \(V = \bigoplus_{\lambda\in\Spec(T)} V_{\lambda}\).
+\end{theorem}
+\begin{proof}
+    We already know that the direct sum \(W = \bigoplus_{\lambda\in\Spec(T)} V_{\lambda}\)
+    is a subspace of \(V\) from the \hyperref[lem:eigenspace-direct-sum]{lemma above},
+    so let us consider the space \(V/W\).
+    Since \(T(V_\lambda) \subseteq V_\lambda\) by Proposition~\ref{prop:eigenspace-properties},
+    \(T(W) \subseteq W\).
+    From this fact, we wish to define \(\bar{T} \in \End(V/W)\).
+    For \(\pi\) being the quotient map,
+    we already have \(\func{\pi \circ T}{V}{V/W}\),
+    so by the \hyperref[prop:univ-prop-quotient-vsp]{universal property of quotients}
+    we know that there exists a unique \(\bar{T}\) such that \(\bar{T}\circ\pi = \pi \circ T\).
+
+    Now, suppose by way of contradiction, that \(W \neq V\).
+    Then \(\dim V/W \geq 1\), which implies that there are eigenvalues.
+    Now observe that \(\bar{T}\) fulfills the minimal polynomial of \(T\) too.
+    \begin{equation*}
+        m_T(\bar{T})[\vec{v}] = [m_T(T)\vec{v}] = [\vec{0}] = W
+    \end{equation*}
+    Hence by Proposition~\ref{prop:minimal-polynomial-factor},
+    \(m_{\bar{T}} \mid m_T\), and \(\Spec(\bar{T}) \subseteq \Spec(T)\).
+    For some eigenvector \(\vec{v} \in V\),
+    we have \(\bar{T}[\vec{v}] = [T\vec{v}] = \mu[\vec{v}]\).
+    Now consider all eigenvalues \(\lambda \neq \mu\).
+    For each of these eigenvalues, let \(k_\lambda\) be the smallest value
+    such that \(\eval{{(T-\lambda)}^{k_\lambda}}_{V_\lambda} = 0\).
+    Then we have \((T-\mu)\vec{v} = \vec{w} \in W\), which yields
+    \begin{equation*}
+        (T-\mu) \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{v}
+        = \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{w} \in V_\mu
+    \end{equation*}
+    since if we were to write \(\vec{w} = \vec{w}_\mu + \sum_{\lambda\neq\mu} \vec{w}_\lambda\),
+    \({(T-\lambda)}^{k_\lambda} \vec{w}_\lambda = \vec{0}\) by construction,
+    and we are left with only the \(\vec{w}_\mu \in V_\mu\) component.
+    Let us define \(\vec{u} = \prod_{\lambda\neq\mu} {(T-\lambda)}^{k_\lambda} \vec{v}\),
+    such that \((T-\mu)\vec{u} \in V_\mu\) as above.
+    We can show that \(\vec{u} \neq \vec{0}\), since projecting to \(V/W\) gives
+    \begin{equation*}
+        \pi(\vec{u}) = \prod_{\lambda\neq\mu} {(\bar{T}-\lambda)}^{k_\lambda} [\vec{v}]
+        = \prod_{\lambda\neq\mu} {(\mu-\lambda)}^{k_\lambda} [\vec{v}]
+        \neq [\vec{0}] = W
+    \end{equation*}
+    so it is not even in the equivalence class of \(\vec{0}\).
+    But we can also show that, since \((T-\mu)\vec{u} \in V_\mu\),
+    that there exists some \(k\) such that
+    \({(T-\mu)}^k(T-\mu)\vec{u} = {(T-\mu)}^{k+1}\vec{u} = \vec{0}\),
+    which tells is that \(\vec{u} \in V_\mu \subseteq W\),
+    which contradicts that \(\vec{u} \notin W\).
+    Hence \(V = W\).
+\end{proof}
+
+\begin{lemma}
+    We can write the minimal polynomial as
+    \(m_T(x) = \prod_{i=1}^r {(x-\lambda_i)}^{k_i}\),
+    where \(k_i\) is the smallest value such that
+    \(\eval{{(T-\lambda_i)}^{k_i}}_{V_{\lambda_i}} = 0\).
+\end{lemma}
+\begin{proof}
+    Consider \(T_i = \eval{T}_{V_{\lambda_i}}\).
+    Then \(m_{T_i}(x) = {(x-\lambda_i)}^{k_i}\) by assumption,
+    and because of Proposition~\ref{prop:min-poly-direct-sum}, \(m_{T_i} \mid m_T\),
+    so the factor \({(x-\lambda_i)}^k\) in \(m_T\) must have \(k \geq k_i\).
+    On the other hand, if \(k > k_i\),
+    it would imply that there is some element \(\vec{v} \notin V_{\lambda_i}\)
+    that \({(T-\lambda_i)}^{k_i}\vec{v} \neq \vec{0}\),
+    but \({(T-\lambda_i)}^k\vec{v} = \vec{0}\).
+    This is a contradiction, because this shows that \({(T-\lambda_i)}^{k-k_i}\vec{v} \in V_{\lambda_i}\),
+    violating that \(T\vec{v}\) would also be in another eigenspace.
+    Hence \(k = k_i\).
+\end{proof}
+
+\begin{lemma}\label{lem:nilpotent-degree}
+    Suppose \(\dim V = n\), and \(N \in \End(V)\) is nilpotent of degree \(m\).
+    Then \(m \leq n\).
+\end{lemma}
+\begin{proof}
+    By Proposition~\ref{prop:eigenspace-properties},
+    consider the chain \(V \supseteq N(V) \supseteq N^2(V) \supseteq \cdots\).
+    Observe that if \(N^k(V) = N^{k+1}(V)\),
+    then the chain stabilizes with \(N^k(V) = N^{k+1}(V) = N^{k+2}(V) = \cdots\).
+    Now suppose, by way of contradiction, that \(N^n(V) \neq \{\vec{0}\}\).
+    Then it must have some positive dimension.
+    But the dimension of the chain must keep decreasing until zero since \(N\) is nilpotent,
+    which cannot happen in this case.
+\end{proof}
+\begin{definition}
+    Let \(T \in \End(V)\).
+    The characteristic polynomial is \(p_T(x) = \det(x-T)\).
+\end{definition}
+\begin{lemma}\label{lem:char-poly-roots}
+    \(\lambda \in \Spec(T)\) if and only if \(p_T(\lambda) = 0\).
+\end{lemma}
+\begin{proof}
+    Suppose \(\lambda \in \Spec(T)\).
+    Then \(T-\lambda\) is not invertible,
+    so by Proposition~\ref{prop:det-properties} \(p_T(\lambda) = \det(\lambda-T) = 0\).
+
+    Suppose \(\lambda \notin \Spec(T)\).
+    Then \(T-\lambda\) is invertible,
+    so by Proposition~\ref{prop:det-properties} \(p_T(\lambda) = \det(\lambda-T) \neq 0\).
+\end{proof}
+\begin{theorem}[Cayley-Hamilton Theorem]\label{thm:cayley-hamilton}
+    Suppose \(\dim V = n\).
+    Then \(\deg m_T \leq n\) and \(m_T \mid p_T\).
+\end{theorem}
+\begin{proof}
+    Let us write \(V = \bigoplus V_\lambda\),
+    so that by Proposition~\ref{prop:min-poly-direct-sum} we have
+    \(m_T = \lcm{\{m_{T_\lambda}\}}\), for \(T_\lambda = \eval{T}_{V_\lambda}\).
+    But \(m_{T_\lambda}\) is nilpotent of index less than \(\dim V_\lambda\).
+    This proves that \(\deg m_T \leq \dim V\).
+
+    Now, we can see that since \(x-T\) respects the eigenspaces,
+    \(\det(x-T) = \det(\bigoplus (x-T_\lambda)) = \prod \det(x-T_\lambda)\)
+    by Lemma~\ref{lem:det-direct-sum}.
+    But from the \hyperref[lem:char-poly-roots]{lemma above},
+    \(\det(x-T_\lambda) = {(x-\lambda)}^{\dim V_\lambda}\).
+    Hence we immediately see that \(m_T \mid p_T\).
+
+    Notice this above proof only works for algebraically closed fields.
+    But as we know, the definition of the determinant is independent of field,
+    so \(p_T\) is the same regardless of base field;
+    similarly, by Corollary~\ref{cor:min-poly-field-ext},
+    \(m_T\) is the same regardless of base field.
+    This extends our proof to any subfield of an algebraically closed field.
+\end{proof}
 
 
 \section{Jordan Canonical Form}
+
+\begin{lemma}
+    For \(N = \End(V)\) be nilpotent of degree \(k\),
+    we have a filtration
+    \(\{\vec{0}\} \subsetneq \ker N \subsetneq \ker N^2 \subsetneq \cdots \subsetneq \ker N^k = V\).
+\end{lemma}
+\begin{proof}
+    From Lemma~\ref{lem:nilpotent-degree},
+    we have a decreasing sequence of images,
+    so the corresponding sequence of kernels must be increasing
+    by the \hyperref[thm:iso-1-vsp]{first isomorphism theorem}.
+\end{proof}
+\begin{lemma}\label{lem:nilpotent-lin-indep}
+    Suppose \(N = \End(V)\) is nilpotent,
+    and \(B \subseteq V\) is a set of vectors with \(N(B) \subseteq B \cup \{\vec{0}\}\).
+    Then \(B\) is linearly indepedent if and only of \(B \cap \ker N\) is linearly independent.
+\end{lemma}
+\begin{proof}
+    The forward direction is obvious,
+    since a subset \(B \cap \ker N\) is indepedent if the superset \(B\) is.
+
+    Now suppose, by way of contradiction,
+    that \(B\) is linearly depedent, but \(B \cap \ker N\) is linearly independent.
+    Let \(\sum a_i\vec{v}_i = \vec{0}\) be a minimally dependent set,
+    and \(s\) be the largest value such that there still exists an \(i\) such that
+    \(N^s\vec{v}_i \neq \vec{0}\).
+    If there exists some \(N^s\vec{v}_i = \vec{0}\)
+    then we have a contraduction with minimality.
+    If all \(N^s\vec{v}_i \neq \vec{0}\),
+    then \(N^s\vec{v}_i \in \ker N\) by maximality,
+    so we have a dependent set in \(B \cap \ker N\), which is a contradiction.
+\end{proof}
+\begin{corollary}
+    Suppose \(N \in \End(V)\), and we have some nonzero \(\vec{v} \in V\)
+    such that \(N^k\vec{v} = \vec{0}\) for some smallest possible \(k\).
+    Then \({\{N^i\vec{v}\}}_{i=0}^{k-1}\) is linearly independent.
+\end{corollary}
+\begin{proof}
+    \(N\) is nilpotent on \(\Span{\{N^i\vec{v}\}}_{i=0}^{k-1}\).
+    We see that \({\{N^i\vec{v}\}}_{i=0}^{k-1} \cap \ker N = \{N^{k-1}\vec{v}\}\),
+    and the set of one element is linearly indepedent,
+    so after applying the \hyperref[lem:nilpotent-lin-indep]{lemma above},
+    our whole set of \(k\) vectors are linearly independent.
+\end{proof}
+
+\begin{theorem}\label{thm:jordan-canonical-nilpotent}
+    Suppose \(N \in \End(V)\) is nilpotent.
+    Then we have a direct sum \(V = \bigoplus_{i=1}^r V_i\)
+    where each \(V_i\) is \(N\)-invariant.
+\end{theorem}
+\begin{proof}
+    Suppose \(N\) is nilpotent of degree \(d\).
+    Let \(W = \ker N\), and \(W_k = \img N^k \cap W\),
+    so we have the chain
+    \(W = W_0 \supsetneq W_1 \supsetneq \cdots \supsetneq W_d = \{\vec{0}\}\).
+    By extension of bases,
+    we can inductively choose a basis \(C_k \subset W_k\)
+    such that \(C = C_0 \supsetneq C_1 \supsetneq \cdots \supsetneq C_d = \emptyset\).
+    Let us write the the basis of \(W\) as \(C = {\{\vec{v}_i\}}_{i=1}^r\),
+    and for each \(\vec{v}_i\) we can associate it with a number
+    \(k_i\) since it will be in some \(C_{k_i} - C_{k_i+1}\).
+    Since \(\vec{v}_i \in C_{k_i} \subset W_{k_i} \subset \img N^{k_i}\),
+    we can find \(\vec{u}_i \in V\) such that \(N^{k_i}\vec{u}_i = \vec{v}_i\).
+    Then if we let \(B_i = {\{N^j\vec{u}_i\}}_{j=0}^{k_i}\),
+    we have \(V_i = \Span B_i\) is \(N\)-invariant by construction.
+
+    We now claim that \(V = \bigoplus_{i=1}^r V_i = \Span \bigcup_{i=1}^r B_i\).
+    Letting \(B = \bigcup_{i=1}^r B_i\),
+    we see that \(N(B) \subseteq B \cup \{\vec{0}\}\) by choice,
+    and \(B \cap \ker N = C\) is linearly independent by construction,
+    so \(B\) must be linearly independent.
+    We can also show inductively that \(\ker N^k \subseteq \Span B\).
+    Observe that \(\ker N^0 = \ker\id = \{\vec{0}\}\),
+    which is trivially in the span of \(B\).
+    Now suppose \(\ker N^k \subseteq \Span B\),
+    and let us show that \(\ker N^{k+1} \subseteq \Span B\).
+    Let us have some arbitrary \(\vec{v} \in \ker N^{k+1}\).
+    Then \(N^k\vec{v} \in W_k\), so write this as
+    \begin{equation*}
+        N^k\vec{v} = \sum_{i: \vec{v}_i \in C_k} a_i\vec{v}_i
+        = \sum_{i: k_i \geq k} a_i N^{k_i}\vec{u}_i
+        = \sum_{i: k_i \geq k} a_i N^k (N^{k_i-k}\vec{u}_i)
+        \implies N^k\pqty{\vec{v} - \sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i} = \vec{0}
+    \end{equation*}
+    since \(\vec{v}_i \in C_k\) implies that
+    it could be in any of the subsets \(C_{\geq k}\), so \(k_i \geq k\).
+    The linear combination \(\sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i \in \Span B\) by definition,
+    and by the inductive hypothesis,
+    we have just shown that \(\vec{v} - \sum_{i: k_i \geq k} a_i N^{k_i-k}\vec{u}_i \in \ker N^k \subseteq \Span B\).
+    Hence \(\vec{v} \in \Span B\).
+\end{proof}
+\begin{definition}
+    The \(V_i\) as specified in the \hyperref[thm:jordan-canonical-nilpotent]{theorem above}
+    is called a Jordan block,
+    and the basis \(B \subset V\) is called a Jordan basis.
+\end{definition}
+
+\begin{theorem}[Existence of Jordan Canonical Form]\label{thm:jordan-canonical-form}
+    Suppose \(T \in \End(V)\),
+    and suppose \(m_T\) splits into linear factors in our field.
+    Then there exists a basis \({\{\vec{v}_{\lambda,i,j}\}}_{\lambda\in\Spec(T)} \subset V\)
+    such that \(\{\vec{v}_{\lambda,i,j}\} \subset V_\lambda\) is a basis.
+\end{theorem}
+\begin{proof}
+    By the \hyperref[thm:spectral]{spectral theorem},
+    it suffices to find a Jordan basis for each eigenspace \(V_\lambda\).
+    But we know that in \(V_\lambda\), \(T-\lambda\) is nilpotent,
+    so Theorem~\ref{thm:jordan-canonical-nilpotent} applies.
+\end{proof}
+\begin{remark}
+    We can summarize the process of finding a Jordan basis to be:
+    \begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
+        \item find eigenvalues \(\lambda\) (using the characteristic polynomial)
+            and dimenion of eigenspace \(\dim V_\lambda\);
+        \item compute \({(T-\lambda)}^k\), and find generalized eigenvectors;
+            pay special attention to the \(k\)'s
+            that have number of generalized eigenvectors decrease between \(k\) and \(k+1\),
+            and denote those as \(k_i\) (counted with multiplicity);
+        \item start off from the largest \(k_i\),
+            find a (linearly independent) \(\vec{u}_i\)
+            such that \({(T-\lambda)}^{k_i}\vec{u}_i = \vec{0}\),
+            and then let \(\vec{v}_{\lambda,i,j} = {(T-\lambda)}^{k_i-j}\vec{u}_i\);
+            and repeat until all \(k_i\) exhausted.
+    \end{enumerate}
+    By construction we have \((T-\lambda)\vec{v}_{\lambda,i,1} = \vec{0}\),
+    and \((T-\lambda)\vec{v}_{\lambda,i,j} = \vec{v}_{\lambda,i,j-1}\),
+    so in the basis \({\{\vec{v}_{\lambda,i,j}\}}_j\),
+    a Jordan block can be represented by the matrix
+    \begin{equation*}
+        \vb{J} =
+        \begin{bmatrix}
+            \lambda & 1 \\
+            & \lambda \\
+            & & \ddots & 1 \\
+            & & & \lambda
+        \end{bmatrix}
+    \end{equation*}
+    where we have \(\lambda\) on the main diagonal,
+    and 1 on the superdiagonal.
+\end{remark}
+\begin{theorem}[Uniqueness of Jordan Canonical Form]
+    The Jordan blocks are unique up to the reordering of blocks.
+\end{theorem}
+\begin{proof}
+    We again prove only for the nilpotent case,
+    as it extends to the general case simply using the \hyperref[thm:spectral]{spectral theorem}.
+    Suppose \(N \in \End(V)\) is nilpotent.
+    Let \(B \subset V\) be a basis, with \(m_r\) blocks of size \(r\).
+    We prove that \(m_r\) is unique.
+    Then \(\dim \ker N = \sum_r m_r\) is the number of blocks,
+    and \(\dim \ker N^2 = \sum_r m_r + \sum_{r \geq 2} m_r = m_1 + 2\sum_{r \geq 2} m_r\),
+    since all the blocks of size 1 will already be completely annihilated,
+    so in general this argument extends to
+    \(\dim \ker N^k = m_1 + 2m_2 + \cdots + (k-1)m_{k-1} + k\sum_{r \geq k} m_k\).
+    But via a simple substitution we can see that
+    \(\dim \ker N^k - k \dim \ker N = \sum_{i < k} (i-k)m_i\),
+    which uniquely determines \(m_k\) after inducting on \(k\).
+\end{proof}
