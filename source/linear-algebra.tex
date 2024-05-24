@@ -496,7 +496,7 @@
     and \(\func{\pi}{V}{U}\) is the quotient map as groups.
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(\pi\) is a linear map, and there exists a unique vector space structure on \(V/U\);
-        \item For any vector space \(Z\), if we have \(f \in \Hom(V,Z)\) and \(\ker(f) \supseteq U\),
+        \item For any vector space \(Z\), if we have \(f \in \Hom(V,Z)\) and \(\ker f \supseteq U\),
             then there exists a unique linear map \(\bar{f} \in \Hom(V/U,Z)\)
             such that \(\bar{f} \circ g = f\).
     \end{enumerate}
@@ -504,8 +504,8 @@
     This can be represented by the following commutative diagram:
     \begin{center}
         \begin{tikzcd}
-            V \arrow{d}{\pi} \arrow{r}{f} & Z \\
-            V/U \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{f}}
+            V \arrow{d}{\pi} \arrow{r}{\phi} & Z \\
+            V/U \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
         \end{tikzcd}
     \end{center}
 \end{proposition}
@@ -545,7 +545,7 @@
 
 \begin{theorem}[First Isomorphism Theorem for Vector Spaces]\label{thm:iso-1-vsp}
     Suppose \(\func{\phi}{V}{W}\) is a vector space homomorphism,
-    and \(U = \ker(\phi)\).
+    and \(U = \ker\phi\).
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(U \subseteq V\), the kernel is a subspace;
