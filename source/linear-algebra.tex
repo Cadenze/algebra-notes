@@ -1429,30 +1429,30 @@
     Then \(TP_+ = \frac{1}{2}(T^2+T) = \frac{1}{2}(I+T) = P_+\),
     and \(P_+^2 = \frac{1}{4}(T^2+2T+I) = \frac{1}{4}(2T+2I) = P_+\).
     Hence \(P_+\) is a projection operator.
-    In particular, if \(\vec{v} \in \img(P_+)\),
+    In particular, if \(\vec{v} \in \img P_+\),
     then there exists \(\vec{u}\) such that \(P_+\vec{u} = \vec{v}\);
     we have \(\vec{v} = P_+\vec{u} = TP_+\vec{u} = T\vec{v}\)
     so \(\vec{v} \in V_+\).
-    Therefore \(\img(P_+) \subseteq V_+\).
+    Therefore \(\img P_+ \subseteq V_+\).
 
     Similarly, let \(P_- = \frac{1}{2}(I-T)\).
     Then \(TP_- = \frac{1}{2}(T-T^2) = \frac{1}{2}(T-I) = -P_-\),
     and \(P_-^2 = \frac{1}{4}(I-2T+T^2) = \frac{1}{4}(2I-2T) = P_-\).
     Hence \(P_-\) is also a projection operator.
-    In particular, if \(\vec{v} \in \img(P_-)\),
+    In particular, if \(\vec{v} \in \img P_-\),
     then there exists \(\vec{u}\) such that \(P_-\vec{u} = \vec{v}\);
     we have \(\vec{v} = P_-\vec{u} = -TP_-\vec{u} = -T\vec{v}\),
     so \(\vec{v} \in V_-\).
-    Therefore \(\img(P_-) \subseteq V_-\).
+    Therefore \(\img P_- \subseteq V_-\).
 
     Observe that \(P_+ = \id - P_-\).
     Now, we see that for any \(\vec{v} \in V\),
     \(\vec{v} = P_+\vec{v} + (\id - P_+)\vec{v} = P_+\vec{v} + P_-\vec{v}\),
-    so we have \(V \subseteq \img(P_+) \oplus \img(P_-)\)
+    so we have \(V \subseteq \img P_+ \oplus \img P_-\)
     (we cannot be sure that they are equal,
     since we have not proven whether this representation is unique or not).
     But then we see that
-    \(V \subseteq \img(P_+) \oplus \img(P_-) \subseteq V_+ \oplus V_- \subseteq V\).
+    \(V \subseteq \img P_+ \oplus \img P_- \subseteq V_+ \oplus V_- \subseteq V\).
     We are sure that \(V_+,V_-\) are both nonzero
     because by defintion, \(P_+,P_-\) are nonzero.
 \end{proof}
@@ -1595,8 +1595,8 @@
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(P_+\) and \(P_-\) are both projection operators,
             i.e.\ \(P_+^2 = P_+\) and \(P_-^2 = P_-\);
-        \item \(\img(P_+) \subseteq \Sym^n U\); and
-        \item \(\img(P_-) \subseteq \Asym^n U\).
+        \item \(\img P_+ \subseteq \Sym^n U\); and
+        \item \(\img P_- \subseteq \Asym^n U\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -1626,7 +1626,7 @@
     \end{equation*}
     This proves statement (a).
 
-    Consider \(\vec{t} \in \img(P_+)\).
+    Consider \(\vec{t} \in \img P_+\).
     Then there exists some \(\vec{u}\) such that \(\vec{t} = P_+\vec{u}\).
     For any \(\sigma \in S_n\),
     \begin{equation*}
@@ -1635,7 +1635,7 @@
     so \(\vec{t} \in \Sym^n U\).
     This proves statement (b).
 
-    Consider \(\vec{t} \in \img(P_-)\).
+    Consider \(\vec{t} \in \img P_-\).
     Then there exists some \(\vec{u}\) such that \(\vec{t} = P_-\vec{u}\).
     For any \(\sigma \in S_n\),
     \begin{equation*}
@@ -2009,7 +2009,7 @@
     Then \((\det T)(\det T^{-1}) = \det(TT^{-1}) = \det\id = 1\),
     which proves statement (b).
 
-    Lastly, if \(T\) is not invertible, then \(\img(T) \subsetneq V\),
+    Lastly, if \(T\) is not invertible, then \(\img T \subsetneq V\),
     so for any \(f \in \Asym^k V'\), \(\pqty{\Asym^n T} f = 0\),
     since any set of \(n\) vectors \(T\vec{v}_n\) are linearly dependent.
     Hence \(\det T = 0\), which proves statement (c).
