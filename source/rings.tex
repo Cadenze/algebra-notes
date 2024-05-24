@@ -648,7 +648,7 @@
 \begin{definition}
     The kernel of a ring homomorphism
     is the preimage of \(0\),
-    that is, \(\ker(\phi) = \phi^{-1}(0)\).
+    that is, \(\ker\phi = \phi^{-1}(0)\).
     Note that this is a subgroup of \((R,+,0)\).
 \end{definition}
 
@@ -870,7 +870,7 @@
     and \(I \subseteq R\) be an ideal.
     Suppose \(\func{\pi}{R}{R/I}\) is the quotient homomorphism
     and \(\func{\phi}{R}{S}\) is any ring homomorphism
-    with \(I \subseteq \ker(\phi)\).
+    with \(I \subseteq \ker\phi\).
     Then there exists a unique ring homomorphism
     \(\func{\bar{\phi}}{R/I}{S}\) such that \(\phi = \bar{\phi}\circ\pi\).
 
@@ -885,7 +885,7 @@
 \begin{proof}
     We wish to prove uniqueness by assuming existence.
     Suppose \(\phi = \bar{\phi}\circ\pi = \bar{\phi}'\circ\pi\).
-    Since \(I \subseteq \ker(\phi)\),
+    Since \(I \subseteq \ker\phi\),
     all elements \(x \in I\) obey \(\phi(x) = 0\).
     Knowing that all elements in \(R\) belong in some coset \(r+I\),
     all \(r' \in r+I\) maps to \(\phi(r') = \phi(r+x) = \phi(r)+\phi(x) = \phi(r)\),
@@ -918,12 +918,12 @@
 
 \begin{theorem}[First Isomorphism Theorem for Rings]\label{thm:iso-1-ring}
     Suppose \(\func{\phi}{R}{S}\) is a ring homomorphism,
-    and \(I = \ker(\phi)\).
+    and \(I = \ker\phi\).
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(I \subseteq R\), the kernel is an ideal;
-        \item \(\phi(R) \subseteq S\), the image is a subring; and
-        \item \(\phi(R) \cong R/I\),
+        \item \(\img\phi \subseteq S\), the image is a subring; and
+        \item \(\img\phi \cong R/I\),
             the image is uniquely isomorphic to the quotient ring.
     \end{enumerate}
 
@@ -931,7 +931,7 @@
     \begin{center}
         \begin{tikzcd}
             R \arrow{rd}{\phi} \arrow{d}{\pi} & S \\
-            R/I \arrow{r}{\cong} & \phi(R) \arrow[dash]{u}
+            R/I \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
     \end{center}
 \end{theorem}
@@ -940,7 +940,7 @@
     the \hyperref[thm:iso-1-group]{first group isomorphism theorem}
     gives us that the kernel is an additive subgroup.
 
-    Now suppose some arbitrary \(x \in \ker(\phi)\), and \(y \in R\).
+    Now suppose some arbitrary \(x \in \ker\phi\), and \(y \in R\).
     Then clearly \(\phi(xy) = \phi(x)\phi(y) = 0\phi(y) = 0= 
     \phi(y)0 = \phi(y)\phi(x) = \phi(yx)\).
     This proves statement (a).
@@ -958,7 +958,7 @@
     \medskip
 
     The \hyperref[thm:univ-prop-quotient-ring]{universal property}
-    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/I}{\phi(R)}\)
+    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/I}{\img\phi}\)
     such that \(\phi = \bar{\phi}\circ\pi\),
     \(\pi\) being the quotient homomorphism.
     By the \hyperref[thm:iso-1-group]{first group isomorphism theorem},
@@ -1055,14 +1055,14 @@
     so every coset is covered by \(\phi\),
     and therefore it is an epimorphism.
 
-    We can then demonstrate that \(\ker(\phi) = S \cap I\).
+    We can then demonstrate that \(\ker\phi = S \cap I\).
     We can see that if \(x \in S \cap I\),
     then \(x \in I\), so \(\phi(x) = x+I = I\),
-    which gives us \(S \cap I \subseteq \ker(\phi)\).
-    On the other hand, if \(x \in \ker(\phi)\),
+    which gives us \(S \cap I \subseteq \ker\phi\).
+    On the other hand, if \(x \in \ker\phi\),
     then \(\phi(x) = x+I \subseteq I\),
-    which requires \(x \in I\), giving us \(\ker(\phi) \subseteq S \cap I\).
-    Hence \(\ker(\phi) = S \cap I\).
+    which requires \(x \in I\), giving us \(\ker\phi \subseteq S \cap I\).
+    Hence \(\ker\phi = S \cap I\).
 
     Lastly, we apply the \hyperref[thm:iso-2-ring]{first isomorphism theorem},
     and prove that there exists a unique homomorphism
@@ -1117,7 +1117,7 @@
 
     Suppose \(S' \subseteq R/I\) is a subring.
     We can look at the preimage \(\pi^{-1}(S')\),
-    which since \(0 \in S'\), we have \(S' \supseteq \ker(\pi) = I\).
+    which since \(0 \in S'\), we have \(S' \supseteq \ker\pi = I\).
     Notice that the preimage of a ring is still a ring,
     because the correspondence given by
     the \hyperref[thm:iso-4-group]{fourth group (monoid) isomorphism theorem}
@@ -1140,7 +1140,7 @@
 
     Suppose \(J' \subseteq R/I\) is an ideal.
     We can look at the preimage \(\pi^{-1}(J')\),
-    which since \(0 \in J'\), we have \(J' \supseteq \ker(\pi) = I\).
+    which since \(0 \in J'\), we have \(J' \supseteq \ker\pi = I\).
     Notice that the preimage \(\pi^{-1}(J') = J' + I\) is an ideal,
     which is given by Proposition~\ref{prop:ideal-operations}.
     Hence we have the preimage being an ideal \(J\),
@@ -1161,15 +1161,15 @@
     and clearly this element \(r+I\) in the \(I\)-cosets must get sent to it,
     alongside all other elements in that \(I\)-coset.
 
-    We claim the kernel is \(\ker(\phi) = J/I\).
-    Observe that \(\ker(\eta) = J\) and \(\ker(\pi) = I\),
+    We claim the kernel is \(\ker\phi = J/I\).
+    Observe that \(\ker\eta = J\) and \(\ker\pi = I\),
     so \(\phi\) must map all the \(I\)-cosets
     that are represented by elements of \(J\) into \(0\).
 
     Lastly, we invoke the \hyperref[thm:iso-1-ring]{first isomorphism theorem},
-    which gives us \(\ker(\phi) = J/I \subseteq R/I\),
+    which gives us \(\ker\phi = J/I \subseteq R/I\),
     making our quotient \((R/I)/(J/I)\) valid,
-    and also that \((R/I)/\ker(\phi) = (R/I)/(J/I) \cong R/J\),
+    and also that \((R/I)/\ker\phi = (R/I)/(J/I) \cong R/J\),
     proving statement (e).
 \end{proof}
 
@@ -1194,11 +1194,11 @@
 \begin{definition}
     Suppose \(R\) is a ring,
     and \(\func{\zeta}{\bZ}{R}\) the canonical homomorphism.
-    If \(\zeta\) is injective, % then the kernel is \(\ker(\zeta) = \{0\}\),
+    If \(\zeta\) is injective, % then the kernel is \(\ker\zeta = \{0\}\),
     % so \(\zeta(\bZ) \subseteq R\), and
     we call \(R\) having characteristic 0.
     If on the other hand \(\zeta\) is not injective,
-    then the kernel clearly must be some ideal \(\ker(\zeta) = n\bZ\),
+    then the kernel clearly must be some ideal \(\ker\zeta = n\bZ\),
     % so \(R \cong \bZ/n\bZ\),
     and we call \(R\) having characteristic \(n\).
 \end{definition}
@@ -1241,11 +1241,11 @@
     Suppose \(F\) is a field,
     and \(\func{\zeta}{\bZ}{F}\) is the canonical homomorphism.
     Then either \(\zeta\) is injective,
-    or \(\ker(\zeta) = p\bZ\) for some prime \(p\).
+    or \(\ker\zeta = p\bZ\) for some prime \(p\).
 \end{lemma}
 \begin{proof}
     If \(\zeta\) is not injective,
-    then clearly the kernel is some \(\ker(\zeta) = n\bZ\).
+    then clearly the kernel is some \(\ker\zeta = n\bZ\).
     Suppose, by way of contradiction, that \(n = ab\) such that \(1 < a,b < n\).
     Then \(0 = \zeta(n) = \zeta(ab) = \zeta(a)\zeta(b)\),
     and since \(a,b\) are not elements of \(n\bZ\),
@@ -1530,9 +1530,9 @@
     and \(R[x]\) is a polynomial ring.
     For some arbitrary \(u \in S\),
     consider the evaluation morphism \(\vfunc{\eta_u}{R[x]}{S}{x}{u}\).
-    If the kernel is \(\ker(\eta_u) = \{0\}\),
+    If the kernel is \(\ker\eta_u = \{0\}\),
     then \(R[u] \cong R[x]\), and we call \(u\) transcendental;
-    if on the other hand, the kernel \(I = \ker(\eta_u) \neq \{0\}\),
+    if on the other hand, the kernel \(I = \ker\eta_u \neq \{0\}\),
     then \(R[u] \cong R[x]/I\), and we call \(u\) algebraic,
     in the sense that \(u\) satisfies polynomials,
     in particular the ones in \(I\).
@@ -1749,7 +1749,7 @@
 \end{theorem}
 \begin{proof}
     Let \(\eta_u\) be the evaluation morphism.
-    If \(f(u) = 0\), then \(f(x) \in \ker(\eta_u)\),
+    If \(f(u) = 0\), then \(f(x) \in \ker\eta_u\),
     which is an ideal.
     % We use the fact that
     % \hyperref[thm:pid-ufd]{elements in a PID are uniquely factorable}
@@ -1757,7 +1757,7 @@
     Since \(F[x]\) is a PID by Corollary~\ref{cor:field-polynomial-pid},
     these ideals are generated by a single element,
     and we claim that it is \((x-u)\).
-    Clearly \(u-u = 0\) also \((x-u) \in \ker(\eta_u)\),
+    Clearly \(u-u = 0\) also \((x-u) \in \ker\eta_u\),
     and it is the lowest degree.
 
     We can repeat this process until we cannot find elements in a kernel anymore.
