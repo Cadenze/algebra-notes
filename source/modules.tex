@@ -159,3 +159,105 @@
     Suppose \(M\) is an \(R\)-module.
     The annihilator of \(M\) is \(\Ann M = \{r \in R: rM = 0\}\).
 \end{definition}
+
+
+\section{Free Modules}
+
+\begin{definition}
+    Suppose \(M\) is an \(R\)-module.
+    \(M\) is free if there is a basis \(X \subset M\);
+    that is, \(X\) generates \(M\) (analogous to spanning)
+    and \(X\) is linearly independent.
+\end{definition}
+\begin{remark}
+    Throughout this chapter,
+    we assume that any free module must be finitely generated;
+    that is, they are free modules of finite rank.
+\end{remark}
+\begin{lemma}
+    For any free \(R\)-module \(M\), \(M \cong R^n\).
+\end{lemma}
+\begin{proof}
+    Consider the basis \({\{x_i\}}_{i=1}^n \subset M\).
+    Let us construct the homomorphism \(\vfunc{\phi}{R^n}{M}{(a_1,\hdots,a_n)}{\sum a_i x_i}\).
+    Linearity is obvious.
+    \begin{equation*}
+        \phi(c(a_1,\hdots,a_n)+(b_1,\hdots,b_n))
+        = \sum (ca_i + b_i)x_i
+        = c \sum a_i x_i + \sum b_i x_i
+        = c\phi(a_1,\hdots,a_n) + \phi(b_1,\hdots,b_n)
+    \end{equation*}
+    Injectivity is given by linear independence.
+    Surjectivity is given by spanning.
+\end{proof}
+
+\begin{lemma}\label{lem:free-module-homomorphism}
+    Suppose \(M\) is a free \(R\)-module, \(N\) is any \(R\)-module,
+    and \(X \subset M\) is a basis.
+    Then \(\func{\phi}{M}{N}\) is wholly determined by the values \(\phi(x)\) for all \(x \in X\).
+\end{lemma}
+\begin{proof}
+    Consider the basis \({\{x_i\}}_{i=1}^n \subset M\).
+    If \(\phi(x_i) = \psi(x_i)\) for all \(x_i\),
+    then any \(m = \sum a_i x_i\) must have an image
+    \(\phi(m) = \sum a_i \phi(x_i) = \psi(m)\).
+\end{proof}
+\begin{theorem}
+    Suppose \(M\) is a free \(R\)-module, and \(N\) is any \(R\)-module,
+    and \(X \subset M\) is a basis.
+    Given any \(x \in X\) and correspondingly \(n_x \in N\),
+    there exists a unique \(\func{\phi}{M}{N}\) with \(\phi(x) = n_x\).
+\end{theorem}
+\begin{proof}
+    The \hyperref[lem:free-module-homomorphism]{lemma above} proves existence.
+    If there exists \(\phi \neq \psi\) that both fit this property,
+    the \hyperref[lem:free-module-homomorphism]{lemma above}
+    tells us that their images are the same.
+\end{proof}
+\begin{definition}
+    Suppose \(\func{\phi}{R^n}{R^m}\) is a homomorphism between free \(R\)-modules.
+    If \({\{x_i\}}_{i=1}^n \subset R^n\) is a basis,
+    then we can write \(\phi(x_i) = (a_{1i},\hdots,a_{mi})\),
+    and the entries \((a_{ij})\) is the matrix representation of \(\phi\).
+\end{definition}
+
+\begin{theorem}
+    Suppose \(R\) is a (nontrivial) commutative ring.
+    Then \(R^m \cong R^n\) implies \(m = n\).
+\end{theorem}
+\begin{proof}
+    Let us have an isomorphism \(\func{\phi}{R^m}{R^n}\)
+    Suppose, by way of contradiction, that \(m \neq n\).
+    Without loss of generality let us assume that \(m < n\).
+    There exists some inverse \(\func{\psi}{R^n}{R^m}\),
+    and in particular, \(\phi\psi = \id\) on \(R^n\).
+    But we know that we can extend \(\phi\) to some \(\func{\bar{\phi}}{R^m \oplus R^{n-m}}{R^n}\),
+    with \(\eval{\bar{\phi}}_{R^{n-m}} = 0\),
+    and similarly we can write \(\func{\bar{\psi}}{R^n}{R^m \oplus R^{n-m}}\)
+    by padding it with zeroes.
+    Let \(\bar{\phi}\) and \(\bar{\psi}\) have matrices \(\vb{A}\) and \(\vb{B}\) respectively.
+    Then as \(\vb{A}\vb{B} = \vb{I}\), we have \((\det\vb{A})(\det\vb{B}) = 1\).
+    But by construction, the padding of zeroes on \(\bar{\psi}\)
+    is going to leave us with rows of zeroes on \(\vb{B}\),
+    which implies \(\det\vb{B} = 0\).
+    Hence \(0 = 1\), and we have reached a contradiction.
+\end{proof}
+\begin{remark}
+    This proof only works for commutative rings,
+    as the notion of a determinant does not exist without commutativity.
+\end{remark}
+\begin{corollary}
+    Suppose \(F\) is a field.
+    Then \(F^m \cong F^n\) implies \(m = n\).
+\end{corollary}
+\begin{proof}
+    Fields are commutative rings.
+\end{proof}
+\begin{definition}
+    The dimension of a vector space is the cardinality of its basis.
+\end{definition}
+\begin{remark}
+    Any such ring with this property is said to have an invariant basis number,
+    which means its rank is well-defined;
+    this is analogous to the dimension vector space being well-defined.
+\end{remark}
