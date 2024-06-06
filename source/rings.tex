@@ -10,8 +10,7 @@
     with the following three properties:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \((R,+,0)\) forms an abelian group;
-        \item \((R^\times,\cdot,1)\),
-            where \(R^\times = R - \{0\}\) forms a monoid; and
+        \item \((R - \{0\},\cdot,1)\) forms a monoid; and
         \item \(\forall \{a,x,y\} \subset R\),
             the distributive laws \(a(x+y) = ax + ay\)
             and \((x+y)a = xa + ya\) hold.
@@ -32,7 +31,7 @@
     Then \(S \subseteq R\) is a subring if:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \((S,+,0) \subseteq (R,+,0)\) is a subgroup; and
-        \item \((S^\times,\cdot,1) \subseteq (R^\times,\cdot,1)\) is a submonoid.
+        \item \((S - \{0\},\cdot,1) \subseteq (R - \{0\},\cdot,1)\) is a submonoid.
     \end{enumerate}
 \end{definition}
 
@@ -67,7 +66,7 @@
     with the properties that:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(\func{f}{(R_1,+,0)}{(R_2,+,0)}\) is a group homomorphism; and
-        \item \(\func{f}{(R_1^\times,\cdot,1)}{(R_2^\times,\cdot,1)}\)
+        \item \(\func{f}{(R_1 - \{0\},\cdot,1)}{(R_2 - \{0\},\cdot,1)}\)
             is a monoid homomorphism.
     \end{enumerate}
 \end{definition}
@@ -122,18 +121,18 @@
 \end{remark}
 
 \begin{definition}
-    If the multiplicative monoid \((R^\times,\cdot,1)\) is a group,
+    If the multiplicative monoid \((R - \{0\},\cdot,1)\) is a group,
     i.e.\ there exists multiplicative inverses for every element,
     then \(R\) is a division ring.
 \end{definition}
 \begin{definition}
-    If the multiplicative monoid \((R^\times,\cdot,1)\) is an abelian group,
+    If the multiplicative monoid \((R - \{0\},\cdot,1)\) is an abelian group,
     i.e.\ there exists multiplicative inverses,
     and multiplication is commutative,
     then \(R\) is a field.
 \end{definition}
 \begin{definition}
-    If the multiplicative monoid \((R^\times,\cdot,1)\) is commutative,
+    If the multiplicative monoid \((R - \{0\},\cdot,1)\) is commutative,
     then \(R\) is a commutative ring.
 \end{definition}
 \begin{proposition}[Binomial Theorem]\label{prop:binom}
@@ -209,13 +208,13 @@
     that \(2\) is a unit.
 \end{remark}
 \begin{proposition}\label{prop:ring-unit-subgroup}
-    The set of units in \(R\) is a subgroup
-    of the multiplicative monoid \((R^\times,\cdot,1)\).
+    \(R^\times\), the set of units in \(R\) is a subgroup
+    of the multiplicative monoid \((R - \{0\},\cdot,1)\).
 \end{proposition}
 \begin{proof}
     Suppose \(x,y\) are units; then \(x^{-1},y^{-1}\) exist.
     By definition of a unit, \(0\) is not a unit,
-    so all units are in \(R^\times\).
+    so all units are in \(R - \{0\}\).
     There is closure, since \({(xy)}^{-1} = y^{-1}x^{-1}\).
     Associativity is inherited,
     and \(1\) is its own inverse by definition.
@@ -641,7 +640,7 @@
     with the properties
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(\func{\phi}{(R,+,0)}{(S,+,0)}\) is a group homomorphism; and
-        \item \(\func{\phi}{(R^\times,\cdot,1)}{(S^\times,\cdot,1)}\)
+        \item \(\func{\phi}{(R - \{0\},\cdot,1)}{(S - \{0\},\cdot,1)}\)
             is a monoid homomorphism.
     \end{enumerate}
 \end{definition}
@@ -1328,7 +1327,7 @@
     telling us that \(F \cong F'\) are isomorphic.
 
     Now we prove existence.
-    Suppose we have tuples \((x,y) \in R \times R^\times\),
+    Suppose we have tuples \((x,y) \in R \times (R - \{0\})\),
     i.e.\ the standard condition that the denominator does not equal 0.
     We shall define an equivalence relation
     \((a,b) \sim (c,d)\) if \(ad = bc\).
@@ -1341,8 +1340,8 @@
     so \(adcf = bcde\), when cancelling out \(cd\) we have \(af = be\),
     which implies \((a,f) \sim (b,e)\) (transitive).
 
-    We define \(F = (R \times R^\times)/{\sim}\),
-    i.e.\ elements are \((x,y) \in R \times R^\times\)
+    We define \(F = (R \times (R - \{0\}))/{\sim}\),
+    i.e.\ elements are \((x,y) \in R \times (R - \{0\})\)
     without unique representation.
     We shall denote elements of \(F\) as \(\overline{(x,y)} \in F\).
     This forms a ring with addition and multiplication defined as
@@ -1360,7 +1359,7 @@
     We define \(\vfunc{\iota}{R}{F}{x}{\overline{(x,1)}}\),
     and for some arbitrary \(\func{\phi}{R}{S}\),
     let \(\vfunc{\bar{\phi}}{F}{S}{\overline{(x,y)}}{\phi(x){\phi(y)}^{-1}}\).
-    We check that for arbitrary \((x,y) \in R \times R^\times\),
+    We check that for arbitrary \((x,y) \in R \times (R - \{0\})\),
     \begin{equation*}
         \bar{\phi}(\iota(x)){\bar{\phi}(\iota(y))}^{-1}
         = \bar{\phi}\overline{(x,1)}{\bar{\phi}\overline{(y,1)}}^{-1}
@@ -2109,7 +2108,7 @@
 
 \begin{definition}
     Suppose \(R\) is a commutative integral domain.
-    For some \(\alpha \in R^\times\),
+    For some \(\alpha \in R - \{0\}\),
     if there exists some \(\{\beta,\gamma\} \subset R\) not units
     such that \(\alpha = \beta\gamma\),
     we say \(\alpha\) factors in \(R\).
@@ -2142,7 +2141,7 @@
 \begin{definition}
     Suppose \(R\) is a commutative integral domain.
     \(R\) is a unique factorization domain (UFD)
-    if all \(\alpha \in R^\times\) can be factorized into
+    if all \(\alpha \in R - \{0\}\) can be factorized into
     \(\alpha = \prod_{i=1}^n p_i\) where \(p_i\) are irreducible elements,
     and this factorization is unique up to reordering of elements,
     and multiplication by units.
@@ -2151,7 +2150,7 @@
     \(R\) is a UFD if the following two conditions hold:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \textit{Divisor chain.}
-            Given any \(a_1 \in R^\times\),
+            Given any \(a_1 \in R - \{0\}\),
             there exists no infinite proper divisor chain
             such that \(a_{i+1}\) properly divides \(a_i\); and
         \item \textit{\hyperref[lem:euclid]{Primeness.}}
@@ -2185,7 +2184,7 @@
 \end{remark}
 
 \begin{definition}
-    Suppose \(R\) is a commutative domain, and \(p \in R^\times\).
+    Suppose \(R\) is a commutative domain, and \(p \in R - \{0\}\).
     We call \(p\) prime if \(p \mid ab\)
     implies either \(p \mid a\) or \(p \mid b\).
     In a similar vein, suppose \(P \subsetneq R\) is an ideal,
@@ -2234,7 +2233,7 @@
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a commutative domain, and \(\{a,b\} \subset R^\times\).
+    Suppose \(R\) is a commutative domain, and \(\{a,b\} \subset R - \{0\}\).
     \(d \in R\) is a greatest common denominator of \(a\) and \(b\),
     denoted \(d = \gcd(a,b)\),
     if \(d \mid a\) and \(d \mid b\),
@@ -2366,7 +2365,7 @@
     Suppose \(R\) is a commutative domain.
     We call \(R\) a Euclidean domain if there exists a long division algorithm
     \(\func{\delta}{R}{\bZ}\),
-    such that for all \(a,b \in R^\times\),
+    such that for all \(a,b \in R - \{0\}\),
     we can find \(q,r \in R\) with \(a = qb + r\),
     where \(\delta(r) < \delta(b)\),
     and \(\delta(x) = 0\) if and only if \(x = 0\).
