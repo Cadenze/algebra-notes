@@ -266,7 +266,7 @@
 
 \section{Isomorphism Theorems}
 
-\begin{theorem}[Universal Property of Quotient Submodules]
+\begin{theorem}[Universal Property of Quotient Submodules]\label{thm:univ-prop-quotient-mod}
     Let \(M,N\) be \(R\)-modules, and \(K \subseteq M\) be a submodule.
     Suppose \(\func{\pi}{M}{M/K}\) is the quotient homomorphism
     and \(\func{\phi}{M}{N}\) is any module homomorphism, with \(K \subseteq \ker\phi\).
@@ -284,6 +284,31 @@
 \begin{proof}
     We first assume that \(\bar{\phi}\) exists and attempt to prove its uniqueness.
     Suppose \(\phi = \bar{\phi}\circ\pi = \bar{\phi}'\circ\pi\).
+    Since \(K \subseteq \ker\phi\),
+    all elements \(k \in K\) obey \(\phi(k) = 0\).
+    Knowing all elements in \(M\) belong in some coset \(m+K\),
+    all \(m' \in m+K\) maps to \(\phi(m') = \phi(m+k) = \phi(m) + \phi(k) = \phi(m)\),
+    which tells us the image of each coset is \(\phi(m+K) = \{\phi(m)\}\).
+    Now, seeing that \(\pi\) maps \(m' \mapsto m+K\),
+    by definition of a quotient mapping,
+    if \(\bar{\phi}\neq\bar{\phi}'\),
+    there must be one such coset \(m+K\) that
+    \(\bar{\phi}(m+K) \neq \bar{\phi}'(m+K)\) disagrees on.
+    However, this is a contradiction,
+    because for all \(m' \in m+I \subseteq M\),
+    \(\bar{\phi}'(m+K) = \bar{\phi}'(\pi(m')) = \phi(m') = \bar{\phi}(\pi(m')) = \bar{\phi}(m+K)\),
+    contradicting the inequality that we have above.
+    Hence we have established uniqueness of \(\bar{\phi}\).
+
+    We will now prove existence by constructing such a homomorphism.
+    Let \(\vfunc{\bar{\phi}}{M/K}{N}{m+K}{\phi(m)}\).
+    Suppose some arbitrary element \(m' \in m+K \subseteq M\) is in an arbitrary coset.
+    Then we know that there exists \(k \in K\) such that \(m' = m+k\),
+    which gives us
+    \begin{equation*}
+        \phi(m') = \phi(m+k) = \phi(m)+\phi(k) = \phi(m)
+        = \bar{\phi}(m+K) = \bar{\phi}(\pi(m'))
+    \end{equation*}
 \end{proof}
 
 \begin{theorem}[First Isomorphism Theorem for Modules]\label{thm:iso-1-mod}
@@ -311,7 +336,15 @@
     Then \(r\phi(x)+\phi(y) = \phi(rx)+\phi(y) = \phi(rx+y)\).
     This proves part (b).
 
-    
+    By the \hyperref[thm:univ-prop-quotient-mod]{universal property},
+    we have a unique homomorphism \(\vfunc{\bar{\phi}}{M/K}{\img\phi}{m+K}{\phi(m)}\),
+    which is surjective by definition of image.
+    If we have \(\bar{\phi}(m+K) = \bar{\phi}(n+K)\),
+    then \(\phi(m) = \phi(n)\),
+    so \(m-n \in \ker\phi = K\),
+    and they must be from the same coset,
+    which proves injectivity.
+    We have statement (c).
 \end{proof}
 
 
