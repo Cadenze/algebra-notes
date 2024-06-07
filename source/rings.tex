@@ -1395,24 +1395,142 @@
     then indicates that \((R,m)\) forms a local ring.
 \end{proof}
 
-\subsection*{Nilradicals}
+\subsection*{Radicals and Nilradicals}
 
 \begin{definition}
     Suppose \(R\) is a ring.
-    The set of nilpotent elements is called the nilradical of \(R\).
+    The set of nilpotent elements \(\Nil(R)\) is called the nilradical of \(R\).
 \end{definition}
-\begin{theorem}
-    Suppose \(R\) is a ring, and \(N\) its nilradical.
-    Then \(N\) is an ideal, and \(R/N\) is reduced.
-\end{theorem}
+\begin{lemma}
+    The nilradical \(\Nil(R)\) is an ideal.
+\end{lemma}
 \begin{proof}
-    
+    Consider two nilpotent elements \(x,y\).
+    Then there exists some \(m,n\) such that \(x^m = y^n = 0\).
+    Then \({(x+y)}^{m+n} = \sum_{r=0}^{m+n} \binom{m+n}{r} x^r y^{m+n-r}\) is also nilpotent,
+    since every term is there involves either \(x^m\) or \(y^n\).
+
+    Consider nilpotent \(x\) and \(r \in R\).
+    Then if \(x^n = 0\), then \({(rx)}^n = r^n x^n = 0\).
 \end{proof}
 \begin{theorem}
+    Suppose \(R\) is a ring, and \(N = \Nil(R)\) its nilradical.
+    Then \(R/N\) is reduced.
+\end{theorem}
+\begin{proof}
+    Consider any \([x] \in R/N\) that is nilpotent \({[x]}^n = 0\).
+    Then we know that \(x^n \in N\) is in the kernel,
+    but by definition there exists some \(m\) such that \(x^{nm} = 0\).
+    This shows that \(x \in N\), so \([x] = 0\).
+\end{proof}
+\begin{theorem}\label{thm:nilradical-intersection-prime}
     The nilradical is the intersection of all prime ideals.
 \end{theorem}
 \begin{proof}
-    
+    Let \(N = \Nil(R)\).
+    Consider \(x \in N\). Then \(x^n = 0 \in P\) for any \(P\) prime ideal,
+    which implies that \(x \in P\).
+    This shows that \(N \subseteq \bigcap P\).
+
+    On the other hand, if \(x \notin N\),
+    then consider the set of all ideals that contains powers of \(x\),
+    \(\Sigma = \{I \subseteq R: \forall n > 0,\, x^n \notin I\}\).
+    Obviously \((0) \in \Sigma\).
+    Now consider the any arbitrary chain of ideals \(I_1 \subseteq I_2 \subseteq \cdots\).
+    We claim that this is bounded above by the union
+    \(I = \bigcup_{i=1}^\infty I_i \in \Sigma\).
+    Clearly \(x^n \notin I\), because if it is, \(x^n \in I_i\) for some \(i\).
+    We then apply \hyperref[ax:zorn]{Zorn's lemma} to see that there is a maximal element of \(\Sigma\),
+    which we shall call \(P\).
+
+    We wish to show that \(P\) is prime.
+    Consider any arbitrary \(y,z \notin P\).
+    Then we see that \((y)+P\) and \((z)+P\) cannot be in \(\Sigma\)
+    because it would otherwise violate maximality,
+    which implies there exists some \(m,n\) such that \(x^m \in (y)+P\) and \(x^n \in (z)+P\).
+    Hence we know that \(x^{m+n} \in (yz)+P\),
+    and therefore \(yz \notin P\), so \(P\) is indeed prime.
+    In particular, \(x \notin P\) since \(x\) cannot reside in any element of \(\Sigma\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(I \subseteq R\) is an ideal.
+    The radical of \(I\) is \(\sqrt{I} = \{x \in R: \exists n > 0,\, x^n \in I\}\).
+\end{definition}
+\begin{lemma}
+    \(\sqrt{I}\) is an ideal.
+\end{lemma}
+\begin{proof}
+    Consider any \(x,y \in \sqrt{I}\).
+    Then there exists some \(x^m \in I\) and \(y^n \in I\).
+    so by the same argument as the nilradical \({(x+y)}^{m+n} \in I\),
+    and hence \(x+y \in \sqrt{I}\).
+
+    Consider any \(x \in \sqrt{I}\) and \(r \in R\).
+    Then there exists some \(x^n \in I\),
+    and \({(rx)}^n = r^n x^n \in I\), so \(rx \in \sqrt{I}\).
+\end{proof}
+\begin{theorem}
+    The radical \(\sqrt{I}\) is the intersection of all prime ideals that contain \(I\).
+\end{theorem}
+\begin{proof}
+    By the \hyperref[thm:iso-3-ring]{third isomorphism theorem},
+    there is an ideal \(\sqrt{I}/I \subseteq R/I\).
+    Observe that \(\sqrt{I}/I = \{[x] \in R/I: \exists n > 0,\, x^n \in I = [0]\}\),
+    so \(\sqrt{I}/I = \Nil(R/I)\) is the nilradical.
+    By Theorem~\ref{thm:nilradical-intersection-prime},
+    \(\sqrt{I}/I\) is in the intersection of all prime ideals in \(R/I\).
+
+    It now suffices to prove that
+    the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    preserves prime ideals an intersections.
+    Suppose \(J \subseteq R\) is a prime ideal containing \(I\).
+    Then if \(x,y \notin J\), then \(xy \notin J\), in particular \(x,y \notin I\);
+    so \([x],[y] \notin J/I\), and \([xy] \notin J/I\).
+    Hence \(J/I \subseteq R/I\) is a prime ideal.
+    In reverse, let \(J/I \subseteq R/I\) be a prime ideal.
+    If \([x],[y] \notin J/I\), and \([xy] \notin J/I\),
+    then the preimages cannot be in \(J\),
+    so \(J \subseteq R\) is a prime ideal.
+
+    Similarly, suppose \({\{J_i\}}_i\) are ideals of \(R\) containing \(I\).
+    If \(x \in J_i\) for all \(i\),
+    then \([x] \in J_i/I\) for all \(i\),
+    so it preserves intersection.
+    For the reverse we can suppose if \({\{J_i/I\}}_i\) are ideals of \(R/I\),
+    and if \([x] \in J_i/I\) for all \(i\),
+    then the preimages must be in \(J_i\),
+    so we are done.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring.
+    The Jacobson radical of \(R\) is the intersection of all maximal ideals,
+    \(\mca{R} = \bigcap m\).
+\end{definition}
+\begin{remark}
+    The nilradical is inside the Jacobson radical.
+\end{remark}
+\begin{lemma}
+    Suppose \(R\) is a ring, \(\mca{R}\) is its Jacobson radical.
+    Any element \(x \in \mca{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
+\end{lemma}
+\begin{proof}
+    Suppose \(x \in \mca{R}\),
+    and by way of contradiction, that there is some \(y\) such that \(1 - xy\) is not a unit.
+    Then \((1-xy) \neq (1)\) is a proper ideal by Proposition~\ref{prop:unit-one-ideal},
+    so it must be contained within a maximal ideal \(m\) by Corollary~\ref{cor:proper-in-maximal}.
+    But since \(x \in \mca{R} \subseteq m\), then \(xy \in m\), so \(1 \in m\),
+    which is a contradiction.
+
+    Now suppose for all \(y\), \(1 - xy\) are units,
+    but by way of contradiction, that \(x \notin \mca{R}\).
+    Then there is some maximal ideal \(m\) that \(x\) does not reside in.
+    By maximality of this \(m\), we know that \(m + (x) = (1)\),
+    In particular, there is some \(u \in m\) and \(y \in R\) such that \(u + xy = 1\),
+    and we see that \(u = 1-xy \in m\) is a unit.
+    But units cannot reside in \(m\), because otherwise \(1 \in m\),
+    which is a contradiction.
 \end{proof}
 
 
