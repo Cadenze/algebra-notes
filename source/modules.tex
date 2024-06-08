@@ -332,9 +332,13 @@
     Then \(\phi(rx+y) = \phi(rx) + \phi(y) = r\phi(x) + \phi(y) = 0\).
     This proves part (a).
 
+    \medskip
+
     Now suppose \(\{\phi(x),\phi(y)\} \subset \img\phi\).
     Then \(r\phi(x)+\phi(y) = \phi(rx)+\phi(y) = \phi(rx+y)\).
     This proves part (b).
+
+    \medskip
 
     By the \hyperref[thm:univ-prop-quotient-mod]{universal property},
     we have a unique homomorphism \(\vfunc{\bar{\phi}}{M/K}{\img\phi}{m+K}{\phi(m)}\),
@@ -345,6 +349,105 @@
     and they must be from the same coset,
     which proves injectivity.
     We have statement (c).
+\end{proof}
+
+\begin{theorem}[Second Isomorphism Theorem for Modules]\label{thm:iso-2-mod}
+    Suppose \(M\) is an \(R\)-module,
+    and \(N,P \subseteq M\) are submodules.
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(N+P = \{n+p: n \in N,\, s \in S\} \subseteq M\), the sum is a subring;
+        \item \(P \subseteq N+P\), the summands are submodules of the sum;
+        \item \(N \cap P \subseteq N\), the intersection is a submodule; and
+        \item \((N+P)/P \cong N/(N \cap P)\), these two quotients are isomorphic.
+    \end{enumerate}
+
+    This is represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            M \arrow[dash]{d} \\
+            N+P \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
+            (N+P)/P \arrow[leftrightarrow]{rd}{\cong} \\
+            P \arrow[dash]{rd} & N \arrow{r}{\pi'} \arrow[dash]{d} &
+            N/(N \cap P) \\
+            & N \cap P
+        \end{tikzcd}
+    \end{center}
+\end{theorem}
+\begin{proof}
+    By the \hyperref[thm:iso-2-group]{second group isomorphism theorem},
+    \(N+P\) already forms an additive group.
+    Scalar multiplication is inherited directly from distribution in \(M\).
+    This proves statement (a).
+
+    \medskip
+
+    There is an embedding \(\vfunc{\iota}{P}{N+P}{p}{0+p}\).
+    Injectivity is obvious because if \(0+p = 0\), then \(p=0\).
+    This proves statement (b).
+
+    \medskip
+
+    If \(N \cap P\) is a module,
+    then the natural embedding of \(N \cap P \to N\) gives us the submodule.
+    Hence it suffices to check that the intersection forms a module.
+    By the \hyperref[thm:iso-2-group]{second group isomorphism theorem},
+    \(N \cap P\) already forms an additive group.
+    Scalar multiplication is inherited each from \(N\) and \(P\).
+    This proves statement (c).
+
+    \medskip
+
+    By statements (b) \& (c), the two quotients here are well-formed.
+    We now attempt to construct a homomorphism \(\vfunc{\phi}{N}{(N+P)/P}{n}{n+P}\).
+    We demonstrate that this is a valid homomorphism, by showing that
+    \begin{equation*}
+        \phi(r(m+n)) = r(m+n) + P = (rm+P) + (rn+P)
+        = r((m+P) + (n+P)) = r(\phi(m)+\phi(n))
+    \end{equation*}
+
+    We now want to show that \(\phi\) is surjective.
+    The elements \(n+p \in N+P\) must belong to some coset \(n+p+P\),
+    which we see is equivalent to \(n+P\).
+    By definition, \(\phi\) maps \(n \mapsto n+P\),
+    and we have surjectivity.
+
+    We can then demonstrate that \(\ker\phi = N \cap P\).
+    We can then see that if \(x \in N \cap P\),
+    then \(x \in P\), so \(\phi(x) = x+P = P\),
+    which gives us that \(N \cap P \subseteq \ker\phi\).
+    On the other hand, if \(x \in \ker\phi\),
+    then \(\phi(x) = x+P \subseteq P\),
+    which implies \(x \in P\),
+    giving the reverse inclusion.
+    This proves statement (d).
+\end{proof}
+
+\begin{theorem}[Third Isomorphism Theorem for Modules]\label{thm:iso-3-mod}
+    Suppose \(M\) is an \(R\)-module,
+    and \(N \subseteq M\) is a submodule.
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(L\) is a submodule such that \(N \subseteq L \subseteq M\),
+            then \(L/N \subseteq M/N\) is a submodule;
+        \item a submodule of \(M/N\) must be of the form \(L/N\)
+            such that \(L\) is a submodule with \(N \subseteq L \subseteq M\); and
+        \item if \(L\) is a submodule such that \(N \subseteq L \subseteq M\),
+            then \((M/N)/(L/N) \cong M/L\).
+    \end{enumerate}
+
+    This is represented by the following commutative diagrams:
+    \begin{center}
+        \begin{tikzcd}
+            M \arrow{r} \arrow[dash]{d} \arrow{rd} &
+            M/L \arrow[leftrightarrow]{rd}{\cong} \\
+            L \arrow[dash]{rd} & M/N \arrow{r} \arrow{d} & (M/N)/(L/N) \\
+            & L/N
+        \end{tikzcd}
+    \end{center}
+\end{theorem}
+\begin{proof}
+    
 \end{proof}
 
 
