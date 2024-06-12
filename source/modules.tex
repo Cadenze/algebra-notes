@@ -447,7 +447,54 @@
     \end{center}
 \end{theorem}
 \begin{proof}
-    
+    We first see that \(N\) is also a submodule of \(L\),
+    so that \(M/N\) and \(L/N\) are both well-formed.
+    It is now easy to see that under the quotient homomorphism \(\func{\pi}{M}{M/N}\),
+    \(L \mapsto L/N\),
+    so by the \hyperref[thm:iso-1-mod]{first isomorphism theorem},
+    \(L/N\) is a submodule.
+    This proves statement (a).
+
+    \medskip
+
+    Consider a submodule \(L' \subseteq M/N\).
+    Since \(0 \in L'\),
+    the preimage \(\pi^{-1}(L') \supseteq \ker\pi = N\).
+    Notice that the preimage is a submodule \(L\),
+    as we have for \(x,y \in \pi^{-1}(L') = L\),
+    \(\pi(rx+y) = r\pi(x) + \pi(y) \in L'\).
+    Hence we have \(L' = \pi(L) = L/N\).
+    This proves statement (b).
+
+    \medskip
+
+    We can now attempt to construct a homomorphism \(\func{\phi}{M/N}{M/L}\).
+    by sending \(m+N \mapsto m+L\).
+    This is valid because by the \hyperref[thm:univ-prop-quotient-mod]{universal property},
+    given \(\func{\pi}{M}{M/N}\) and \(\func{\eta}{M}{M/L}\),
+    there exists a unique homomorphism \(\phi\)
+    such that \(\eta = \phi\circ\pi\).
+    This is surjective by Theorem~\ref{thm:composite-surjective}.
+
+    We claim that the kernel is \(\ker\phi = L/N\).
+    Observe that \(\ker\eta = L\) and \(\ker\pi = N\),
+    so \(\phi\) must map all the \(N\)-cosets that are represented by elements of \(L\) into 0.
+
+    Lastly, we invoke the \hyperref[thm:iso-1-mod]{first isomorphism theorem},
+    which gives us \((M/N)/(L/N) \cong M/L\) as desired.
+    This proves statement (c).
+\end{proof}
+
+\begin{theorem}[Fourth Isomorphism Theorem for Modules]\label{thm:iso-4-mod}
+    Suppose \(M\) is an \(R\)-module,
+    and \(N \subseteq M\) is a submodule,
+    with \(\func{\pi}{M}{M/N}\) being the quotient homomorphism.
+    Then \(\pi\) is a bijection between the submodules of \(M/N\)
+    and the submodules of \(M\) containing \(N\).
+\end{theorem}
+\begin{proof}
+    This is merely a corollary of the \hyperref[thm:iso-3-mod]{third isomorphism theorem}.
+    Statements (a) and (b) prove such a correspondence of submodules.
 \end{proof}
 
 

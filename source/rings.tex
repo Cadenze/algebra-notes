@@ -1161,7 +1161,7 @@
 
     Suppose \(J' \subseteq R/I\) is an ideal.
     We can look at the preimage \(\pi^{-1}(J')\),
-    which since \(0 \in J'\), we have \(J' \supseteq \ker\pi = I\).
+    which since \(0 \in J'\), we have \(\pi^{-1}(J') \supseteq \ker\pi = I\).
     Notice that the preimage \(\pi^{-1}(J') = J' + I\) is an ideal,
     which is given by Proposition~\ref{prop:ideal-operations}.
     Hence we have the preimage being an ideal \(J\),
@@ -1174,13 +1174,9 @@
     \(\vfunc{\phi}{R/I}{R/J}{r+I}{r+J}\).
     This is valid because
     by the \hyperref[thm:univ-prop-quotient-ring]{universal property},
-    we have \(\func{\pi}{R}{R/I}\) and \(\func{\eta}{R}{R/I}\),
+    we have \(\func{\pi}{R}{R/I}\) and \(\func{\eta}{R}{R/J}\),
     so there is a unique homomorphism that makes \(\eta = \phi\circ\pi\).
-    We can show that this is surjective,
-    since the \(J\)-cosets partition \(R\),
-    so each \(J\)-coset must have some element \(r+J\) that represents it,
-    and clearly this element \(r+I\) in the \(I\)-cosets must get sent to it,
-    alongside all other elements in that \(I\)-coset.
+    This is surjective by Theorem~\ref{thm:composite-surjective}.
 
     We claim the kernel is \(\ker\phi = J/I\).
     Observe that \(\ker\eta = J\) and \(\ker\pi = I\),
