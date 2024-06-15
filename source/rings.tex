@@ -1645,6 +1645,67 @@
     gives you the exact number of soldiers.
 \end{remark}
 
+\subsection*{Quotient Ideals}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(I,J\) are ideals.
+    The quotient ideal is \((I:J) = \{x \in R : xJ \subseteq I\}\).
+\end{definition}
+\begin{lemma}
+    \((I:J)\) indeed forms an ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(x,y \in (I:J)\).
+    Then \((x+y)J = xJ + yJ \subseteq I\),
+    so \(x+y \in (I:J)\).
+
+    Consider \(x \in (I:J)\) and \(r \in R\).
+    Then we have \((xr)J = x(rJ) \subseteq xJ \subseteq I\),
+    so \(xr \in (I:J)\).
+\end{proof}
+\begin{proposition}
+    The following properties hold for quotient ideals:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(I \subseteq (I:J)\);
+        \item \((I:J)J \subseteq I\);
+        \item \((I:I) = (1)\); and
+        \item \(((I:J):K) = (I:JK) = ((I:K):J)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For (a), if \(x \in I\), then \(xJ \subseteq xR \subseteq I\),
+    so \(x \in (I:J)\).
+
+    For (b), consider \(x \in (I:J)\) and \(y \in J\).
+    Then \(xJ \subseteq I\), and in particular \(xy \in I\).
+
+    For (c), we see that \(1I = I\), so \(1 \in (I:I)\).
+
+    For (d), consider \(x \in ((I:J):K)\).
+    Then \(xK \in (I:J)\),
+    which implies that \(xJK \in I\),
+    which exactly follows the definition of \(x \in (I:JK)\).
+    This proof is exactly the same in the reverse direction.
+\end{proof}
+
+\subsection*{Extensions and Contractions}
+
+\begin{definition}
+    Suppose \(\func{\phi}{R}{S}\) is any ring homomorphism.
+    Let \(I \subseteq R\) and \(J \subseteq S\) be ideals.
+    \(\phi(I) \subseteq S\) might not be an ideal,
+    so we define the ideal it generates \((\phi(I)) \subseteq I\)
+    to be the extension of \(I\).
+\end{definition}
+\begin{remark}
+    \(\phi^{-1}(J) \subseteq R\) is always an ideal,
+    and if \(J\) prime, \(\phi^{-1}(J)\) is also prime.
+\end{remark}
+\begin{definition}
+    Suppose \(\func{\phi}{R}{S}\) is a ring monomorphism.
+    If \(J \subseteq S\), we say \(\phi^{-1}(J) = J \cap R\) is the contraction of \(J\).
+\end{definition}
+
 
 \section{Field of Fractions}
 
