@@ -13,7 +13,7 @@
         \item \((M,+,0)\) forms an abelian group;
         \item scalar multiplication
             \(\vfunc{\cdot}{R \times M}{M}{(\alpha,m)}{\alpha m}\),
-            and in particular \(1m\);
+            and in particular \(1m = m\);
         \item \(\forall\{\alpha,\beta\} \in R,\, \forall\{m,n\} \subset M\),
             the distributive laws \((\alpha+\beta)(m+n)
             = \alpha m+\alpha n+\beta m+\beta n\) hold; and
@@ -155,9 +155,75 @@
         \item \(M\) is torsion-free if \(rm = 0\) implies either \(r = 0\) or \(m = 0\).
     \end{enumerate}
 \end{definition}
-\begin{definition}
+
+\begin{proposition}
+    Suppose \(R\) is a commutative ring, and \(M,N\) are \(R\)-modules.
+    Then \(\Hom_R(M,N)\) is also an \(R\)-module.
+\end{proposition}
+\begin{proof}
+    Clearly \(\Hom_R(M,N)\) forms an abelian group with
+    \((\phi+\psi)(x) = \phi(x)+\psi(x)\),
+    which guarantees associativity.
+    The zero homomorphism is \(0(x) = 0\) for all \(x\),
+    which gives us the inverse \((-\phi)(x) = -\phi(x)\).
+
+    Scalar multiplication is \((r\phi)(x) = r\phi(x)\).
+    Then our distributive laws hold with
+    \((r+s)(\phi+\psi)(x) = (r+s)\phi(x) + (r+s)\psi(x) = r\phi(x) + s\phi(x) + r\psi(x) + s\psi(x)\).
+    Associativity holds with \((rs)\phi(x) = rs\phi(x) = r(s\phi)(x)\).
+\end{proof}
+\begin{proposition}
+    Suppose \(R\) is a commutative ring.
+    The category \(\textbf{Mod}_R\) consisting of all \(R\)-modules
+    and module homomorphisms form a category.
+\end{proposition}
+\begin{proof}
+    Module homomorphisms compose and are associative,
+    and the identity morphism is \(\id(x) = x\).
+\end{proof}
+\begin{proposition}
     Suppose \(M\) is an \(R\)-module.
-    The annihilator of \(M\) is \(\Ann M = \{r \in R: rM = 0\}\).
+    There exists a functor \(\textbf{Mod}_R \to \textbf{Mod}_R\)
+    that maps \(N \mapsto \Hom_R(M,N)\)
+    and maps \(\func{\phi}{N}{L}\) to \(\func{\tilde{\phi}}{\Hom_R(M,N)}{\Hom_R(M,L)}\).
+\end{proposition}
+\begin{proof}
+    We can define \(\tilde{\phi}\) as \(\psi \mapsto \phi\circ\psi\).
+    Then this obviously preserves composition,
+    and identity \(\tilde{\id}\) is now \(\psi \mapsto \id\circ\psi = \psi\).
+\end{proof}
+\begin{proposition}
+    \(\Hom_R(R,N) \cong N\).
+\end{proposition}
+\begin{proof}
+    Consider some arbitrary \(n \in N\).
+    We demonstrate that there exists only one homomorphism \(\phi_n \in \Hom_R(R,N)\)
+    that maps \(1 \mapsto n\).
+    This can be seen since for any \(r \in R\),
+    \(\phi(r) = r\phi(1) = rn\) is uniquely defined.
+
+    Now consider the homomorphism \(N \to \Hom_R(R,N)\),
+    where \(n \mapsto \phi_n\).
+    Injectivity is obvious, since \(\phi_m = \phi_n\) implies \(1 \mapsto m = n\).
+    For surjectivity, consider any arbitrary \(\phi \in \Hom_R(R,N)\).
+    It must map \(1\) to some element \(n \in N\),
+    which allows us to immediately conclude that \(n \mapsto \phi = \phi_n\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(L\) is an \(R\)-module,
+    and \(M,N \subseteq L\) are submodules.
+    The quotient ideal \((M:N) = \{x \in R : xN \subseteq M\}\).
+\end{definition}
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    The annihilator of \(N\) is \(\Ann_R(N) = (0:N) = \{x \in R : xN = 0\}\).
+\end{definition}
+
+\begin{definition}
+    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
+    The direct product is \(\prod_i M_i = \{{(m_i)}_{i \in S}\}\),
+    and the direct sum is \(\bigoplus_i M_i = \{{(m_i)_{i \in S}}\}\) with finite support.
 \end{definition}
 
 
@@ -513,6 +579,8 @@
 
 \section{Modules over Principal Ideal Domains}
 
+\subsection*{Structure Theorems}
+
 \begin{theorem}\label{thm:pid-submodule-free}
     Suppose \(R\) is a PID,
     and \(M \subseteq R^n\) is a submodule.
@@ -605,11 +673,11 @@
     so we have our desired divisibility.
 \end{proof}
 
-\begin{theorem}[Structure Theorem for Modules over a PID]\label{thm:structure-invariant}
+\begin{theorem}[Existence of Invariant Factor Form]\label{thm:structure-invariant}
     Suppose \(R\) is a PID,
     and \(M\) is a finitely generated \(R\)-module.
     Then we can write our module as a direct sum of free and torsion parts,
-    \(M \cong R^s \oplus \bigoplus_{i=1}^r R/(d_i)\), where \(d_i \mid d_{i+1}\).
+    \(M \cong R^s \oplus \bigoplus_{i=1}^r R/(a_i)\), where \(a_i \mid a_{i+1}\).
     This decomposition is unique.
 \end{theorem}
 \begin{proof}
@@ -635,12 +703,8 @@
 
     Uniqueness will be proven in the \hyperref[thm:structure-divisor]{theorem below}.
 \end{proof}
-\begin{remark}
-    This decomposition with the divisor chain is commonly known
-    as the invariant factor form.
-\end{remark}
 
-\begin{theorem}[Structure Theorem for Modules over a PID]\label{thm:structure-divisor}
+\begin{theorem}[Existence of Elementary Divisor Form]\label{thm:structure-divisor}
     Suppose \(R\) is a PID,
     and \(M\) is a finitely generated \(R\)-module.
     Then we can write our module as a direct sum of free and torsion parts,
@@ -659,7 +723,7 @@
     \end{equation*}
     by the \hyperref[thm:chinese]{Chinese remainder theorem}.
     Hence for each invariant factor decomposition,
-    we have a elementary divisor decomposotion (this form).
+    we have a elementary divisor decomposition (this form).
 
     On the other hand, consider an elementary divisor decomposition
     \(\prod_{ij} R/(p_i^{\alpha_{ij}})\), where \(p_i\) are distinct,
@@ -667,7 +731,24 @@
     Then by divisibility of the invariant factor decompostion,
     the largest \(a_n\) can be associated with \(\prod_i R/(p_i^{\alpha_{i1}})\),
     and then inductively creating the smaller \(a_n\).
-    Hence we have a unique way to translate between the two forms,
-    and by unique factorization, this current form is unique,
-    so the correspondence tells us that elementary divisors must also be unique.
+    Hence we have a unique way to translate between the two forms.
 \end{proof}
+
+\begin{definition}
+    \(\Tor(M)\) is the torsion part of \(M\),
+    i.e.\ \(\Tor(M) \cong \bigoplus_{i=1}^r R/(a_i) \cong \bigoplus_{i=1}^r R/(p_i^{\alpha_i})\).
+\end{definition}
+
+\begin{theorem}[Uniqueness of Forms]\label{thm:structure-uniqueness}
+    Suppose \(R\) is a PID,
+    and \(M,N\) are finitely generated \(R\)-modules.
+    Then \(M \cong N\) if and only if they have the same free rank
+    and the same list of invariant factors or elementary divisors.
+\end{theorem}
+\begin{proof}
+    Suppose \(M \cong N\).
+
+    The reverse direction is obvious.
+\end{proof}
+
+\subsection*{Canonical Forms}
