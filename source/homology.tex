@@ -9,48 +9,24 @@
     and attempt to gain insight in algbera instead using these same ideas.
 \end{remark}
 
+\begin{remark}
+    Assume all rings \(R\) are commutative, unless otherwise noted.
+\end{remark}
+
 
 \section{Exact Sequences}\label{sec:exact-sequence}
 
 \begin{definition}
-    Suppose \({\{C_i\}}_{i \in I}\) are \(R\)-modules.
-    A chain complex \((C_\bullet,d_\bullet)\) is a chain of modules
-    alongside their connecting homomorphisms
+    Suppose \({\{M_i\}}_{i\in\bZ}\) is a sequence of \(R\)-modules,
+    with connecting homomorphisms \({\{\phi_i\}}_{i\in\bZ}\), forming
     \begin{equation*}
-        C_\bullet: \qquad
         \begin{tikzcd}
-            \cdots \arrow{r} & C_{i+1} \arrow{r}{d_{i+1}} &
-            C_i \arrow{r}{d_i} & C_{i-1} \arrow{r} & \cdots
+            \cdots \arrow{r} & M_{i-1} \arrow{r}{\phi_i} &
+            M_i \arrow{r}{\phi_{i+1}} & M_{i+1} \arrow{r} & \cdots
         \end{tikzcd}
     \end{equation*}
-    where \(d^2 = d_n \circ d_{n+1} = 0\).
-    The \(i\)-chains are \(C_i\),
-    the \(i\)-cycles are \(\ker d_i \subseteq C_i\),
-    and the \(i\)-boundaries are \(\img d_{i+1} \subseteq C_i\).
-\end{definition}
-\begin{definition}
-    Suppose \((C_\bullet,d_\bullet)\) is a chain complex.
-    The \(i\)th homology is \(H_i(C_\bullet) = \ker d_i/\img d_{i+1}\).
-    The chain complex is acyclic or an exact sequence if \(H_i = 0\) for all \(i\).
-\end{definition}
-
-\begin{definition}
-    The dual to a chain complex is a cochain complex \((C^\bullet,d^\bullet)\)
-    \begin{equation*}
-        C^\bullet: \qquad
-        \begin{tikzcd}
-            \cdots \arrow{r} & C^{i-1} \arrow{r}{d^{i-1}} &
-            C^i \arrow{r}{d^i} & C^{i+1} \arrow{r} & \cdots
-        \end{tikzcd}
-    \end{equation*}
-    where \(d^2 = d^n \circ d^{n-1} = 0\).
-    The \(i\)-cochains are \(C^i\),
-    the \(i\)-cocycles are \(\ker d^i \subseteq C^i\),
-    and the \(i\)-coboundaries are \(\img d^{i-1} \subseteq C^i\).
-\end{definition}
-\begin{definition}
-    Suppose \((C^\bullet,d^\bullet)\) is a cochain complex.
-    The \(i\)th cohomology is \(H^i(C^\bullet) = \ker d^i/\img d^{i-1}\).
+    We say the sequence is exact at \(M_i\) if \(\img\phi_i = \ker\phi_{i-1}\);
+    and the sequence is exact if it is exact at every position.
 \end{definition}
 
 \begin{proposition}\label{prop:exact-injective}\label{prop:exact-surjective}
@@ -695,6 +671,75 @@
 \end{corollary}
 \begin{proof}
     Simply combine the diagrams of the two \hyperref[lem:four]{four lemmas}.
+\end{proof}
+
+
+\section{Chain Complexes}
+
+\begin{definition}
+    Suppose \({\{C_i\}}_{i\in\bZ}\) are \(R\)-modules.
+    A chain complex \((C_\bullet,d_\bullet)\) is a chain of modules
+    alongside their connecting homomorphisms
+    \begin{equation*}
+        C_\bullet: \qquad
+        \begin{tikzcd}
+            \cdots \arrow{r} & C_{i+1} \arrow{r}{d_{i+1}} &
+            C_i \arrow{r}{d_i} & C_{i-1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    where \(d^2 = d_n \circ d_{n+1} = 0\).
+    The \(i\)-chains are \(C_i\),
+    the \(i\)-cycles are \(\ker d_i \subseteq C_i\),
+    and the \(i\)-boundaries are \(\img d_{i+1} \subseteq C_i\).
+\end{definition}
+\begin{definition}
+    Suppose \((C_\bullet,d_\bullet)\) is a chain complex.
+    The \(i\)th homology is \(H_i(C_\bullet) = \ker d_i/\img d_{i+1}\).
+    The chain complex is acyclic or an exact sequence if \(H_i = 0\) for all \(i\).
+\end{definition}
+
+\begin{definition}
+    The dual to a chain complex is a cochain complex \((C^\bullet,d^\bullet)\)
+    \begin{equation*}
+        C^\bullet: \qquad
+        \begin{tikzcd}
+            \cdots \arrow{r} & C^{i-1} \arrow{r}{d^{i-1}} &
+            C^i \arrow{r}{d^i} & C^{i+1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    where \(d^2 = d^n \circ d^{n-1} = 0\).
+    The \(i\)-cochains are \(C^i\),
+    the \(i\)-cocycles are \(\ker d^i \subseteq C^i\),
+    and the \(i\)-coboundaries are \(\img d^{i-1} \subseteq C^i\).
+\end{definition}
+\begin{definition}
+    Suppose \((C^\bullet,d^\bullet)\) is a cochain complex.
+    The \(i\)th cohomology is \(H^i(C^\bullet) = \ker d^i/\img d^{i-1}\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(C_\bullet,D_\bullet\) are chain complexes of \(R\)-modules.
+    A map of complexes \(\func{f_\bullet}{C_\bullet}{D_\bullet}\)
+    are a set of module homomorphisms \(\func{f_i}{C_i}{D_i}\)
+    such that the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & C_{i+1} \arrow{r} \arrow{d}{f_{i+1}} &
+            C_i \arrow{r} \arrow{d}{f_i} & C_{i-1} \arrow{r} \arrow{d}{f_{i-1}} & \cdots \\
+            \cdots \arrow{r} & D_{i+1} \arrow{r} & D_i \arrow{r} & D_{i-1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    The category \(\textbf{Ch}_R\) consisting of all chain complexes of \(R\)-modules \(C_\bullet\)
+    and map of complexes \(\func{f_\bullet}{C_\bullet}{D_\bullet}\) forms an abelian category.
+\end{proposition}
+\begin{proof}
+    Composition and association of homomorphisms are obvious,
+    since they are inherited from module homomorphisms.
+    The identity morphisms is simply \(\func{\id_\bullet}{C_\bullet}{C_\bullet}\)
+    with \(\func{\id_i}{C_i}{C_i}\) being the usual identity.
 \end{proof}
 
 
