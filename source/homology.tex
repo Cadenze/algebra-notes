@@ -740,6 +740,69 @@
     since they are inherited from module homomorphisms.
     The identity morphisms is simply \(\func{\id_\bullet}{C_\bullet}{C_\bullet}\)
     with \(\func{\id_i}{C_i}{C_i}\) being the usual identity.
+
+    Then abelianness of the category is inherited from
+    \hyperref[prop:module-ab-cat]{the abelianness of \(\textbf{Mod}_R\)}.
+    The kernel and cokernel complexes are then constructed the same way
+    as in the proof of the \hyperref[lem:snake]{snake lemma}.
+\end{proof}
+
+\begin{proposition}
+    The \(i\)th homology is a functor \(\func{H_i}{\textbf{Ch}_R}{\textbf{Mod}_R}\).
+\end{proposition}
+\begin{proof}
+    We have already defined the map between objects,
+    so it suffices to define \(\func{H_i(f_\bullet)}{H_i(C_\bullet)}{H_i(D_\bullet)}\).
+    Consider the following part of a commutative diagram.
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & C_{i+1} \arrow{r} \arrow{d}{f_{i+1}} &
+            C_i \arrow{r} \arrow{d}{f_i} & C_{i-1} \arrow{r} \arrow{d}{f_{i-1}} & \cdots \\
+            \cdots \arrow{r} & D_{i+1} \arrow{r} & D_i \arrow{r} & D_{i-1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+
+    We first show that \(f\) maps kernels to kernels.
+    Suppose \(c_i \in \ker d_i\).
+    Then \((d \circ f)(c_i) = (f \circ d)(c_i) = f(0) = 0 \in D_{i-1}\).
+    Hence \(f(c_i) \in \ker d_i\) too.
+
+    We then show that \(f\) maps images to images.
+    Suppose \(c_i \in \img d_{i+1}\).
+    Then there exists \(c_{i+1} \in C_{i+1}\) such that \(d(c_{i+1}) = c_i\).
+    But we have \((d \circ f)(c_{i+1}) = (f \circ d)(c_{i+1}) = f(c_i)\),
+    so \(f(c_i) \in \img d_{i+1}\) too.
+
+    We can then show that \(H_i(f_\bullet)[c_i] = [f(c_i)]\) is a valid definition.
+    But we have exactly proven that \(c_i \in [0] = \img d_{i+1}\)
+    implies \(f(c_i) \in [0] = \img d_{i+1}\) as desired.
+\end{proof}
+\begin{definition}
+    \(\func{f_\bullet}{C_\bullet}{D_\bullet}\) is a quasi-isomorphism
+    if all of the homology functors \(\func{H_i(f_\bullet)}{H_i(C_\bullet)}{H_i(D_\bullet)}\) are isomorphisms.
+\end{definition}
+
+\begin{definition}
+    Suppose \(M\) is an \(R\)-module.
+    A resolution of \(M\) is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & C_2 \arrow{r} & C_1 \arrow{r} & C_0 \arrow{r} &
+            M \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    For any property \(P\) of modules,
+    a \(P\) resolution is a resolution such that all \(C_i\) have this property \(P\).
+\end{definition}
+\begin{lemma}
+    Every module has a free resolution.
+\end{lemma}
+\begin{proof}
+    By the \hyperref[ax:choice]{axiom of choice},
+    suppose we have generators \({\{m_j\}}_{j \in I} \subset M\).
+    Then we can set \(C_0 = \bigoplus m_j R\).
+    Inductively, we can generate \({\{k_j\}}_{j \in I} \subset \ker C_i\),
+    and then set \(C_{j+1} = \bigoplus k_j R\).
 \end{proof}
 
 

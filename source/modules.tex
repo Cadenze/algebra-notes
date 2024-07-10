@@ -171,7 +171,7 @@
     \end{enumerate}
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:module-hom}
     Suppose \(R\) is a commutative ring, and \(M,N\) are \(R\)-modules.
     Then \(\Hom_R(M,N)\) is also an \(R\)-module.
 \end{proposition}
@@ -187,16 +187,19 @@
     \((r+s)(\phi+\psi)(x) = (r+s)\phi(x) + (r+s)\psi(x) = r\phi(x) + s\phi(x) + r\psi(x) + s\psi(x)\).
     Associativity holds with \((rs)\phi(x) = rs\phi(x) = r(s\phi)(x)\).
 \end{proof}
-\begin{proposition}\label{prop:module-functor}
+\begin{proposition}\label{prop:module-ab-cat}
     Suppose \(R\) is a commutative ring.
     The category \(\textbf{Mod}_R\) consisting of all \(R\)-modules
-    and module homomorphisms form a category.
+    and module homomorphisms form an abelian category.
 \end{proposition}
 \begin{proof}
     Module homomorphisms compose and are associative,
     and the identity morphism is \(\id(x) = x\).
+
+    Then \(\Hom(M,N)\) is an \(R\)-module by the \hyperref[prop:module-hom]{above proposition}
+    which in particular, is an additive abelian group.
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:module-hom-functor}
     Suppose \(M\) is an \(R\)-module.
     There exists a functor \(\textbf{Mod}_R \to \textbf{Mod}_R\)
     that maps \(N \mapsto \Hom_R(M,N)\)
