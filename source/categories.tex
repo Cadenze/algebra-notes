@@ -32,6 +32,13 @@
 \end{remark}
 
 \begin{definition}
+    A morphism \(f \in \Hom(X,Y)\) is a monomorphism or monic
+    if \(f \circ g = f \circ h\) implies \(g = h\) for any \(g,h\).
+    A morphism \(f \in \Hom(X,Y)\) is an epimorphism or epic
+    if \(g \circ f = h \circ f\) implies \(g = h\) for any \(g,h\).
+\end{definition}
+
+\begin{definition}
     A morphism \(f \in \Hom(X,Y)\) is an isomorphism
     if it has an inverse \(g \in \Hom(Y,X)\)
     such that \(f \circ g = \id_Y\) and \(g \circ f = \id_X\).
@@ -118,7 +125,7 @@
 \end{remark}
 
 \begin{definition}
-    Consider a categeory \(\mca{C}\).
+    Consider a category \(\mca{C}\).
     The opposite category is \(\mca{C}^\text{op}\)
     consists of the same objects, but all morphisms reversed.
 \end{definition}
@@ -139,7 +146,7 @@
     and in the opposite category, \(\func{F(\phi)}{F(X)}{F(Y)}\).
 \end{proof}
 
-\subsubsection*{Subobject}
+\subsection*{Subobject and Quotient Object}
 
 \begin{remark}
     We first generalize the notion of a subset to any categorical object.
@@ -177,8 +184,6 @@
 %     That bijection is our desired map \(\bar{\phi}\).
 % \end{proof}
 
-\subsubsection*{Quotient Object}
-
 \begin{remark}
     The dual to a subobject is a quotient object.
 \end{remark}
@@ -198,7 +203,7 @@
 
 \section{Products}
 
-\subsubsection*{Product}
+\subsection*{Product}
 
 \begin{definition}
     Suppose \(X,Y\) are two objects.
@@ -251,7 +256,7 @@
     \end{center}
 \end{definition}
 
-\subsubsection*{Coproduct}
+\subsection*{Coproduct}
 
 \begin{remark}
     The coproduct is the dual to the product.
@@ -309,7 +314,7 @@
     \end{center}
 \end{definition}
 
-\subsubsection*{Pullback}
+\subsection*{Pullback}
 
 \begin{definition}
     Suppose \(W,X,Y\) are three objects.
@@ -335,7 +340,7 @@
     \end{center}
 \end{definition}
 
-\subsubsection*{Pushout}
+\subsection*{Pushout}
 
 \begin{remark}
     The pushout is the dual to the pullback.
@@ -367,57 +372,7 @@
 
 \section{Limits}
 
-\subsubsection*{Direct Limit}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
-    and the index set \(I\) is ordered with the relation \(\leq\).
-    A direct system over \(I\) is when \(i \leq j\),
-    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f_{ii} = \id_{X_i}\); and
-        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
-            X_j \arrow{r}[swap]{f_{jk}} & X_k
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
-    The direct limit of this system is an object \(\dirlim X_i\)
-    that satisfies the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
-            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
-        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
-            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
-            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
-            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
-            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\subsubsection*{Inverse Limit}
-
-\begin{remark}
-    The inverse system and inverse limit
-    is dual to the direct system and direct limit.
-\end{remark}
+\subsection*{Inverse Limit}
 
 \begin{definition}
     Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
@@ -462,8 +417,141 @@
     \end{center}
 \end{definition}
 
+\subsection*{Direct Limit}
 
-% \section{Universal Algebra}
+\begin{remark}
+    The direct system and direct limit
+    is dual to the inverse system and inverse limit.
+\end{remark}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
+    and the index set \(I\) is ordered with the relation \(\leq\).
+    A direct system over \(I\) is when \(i \leq j\),
+    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f_{ii} = \id_{X_i}\); and
+        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
+            X_j \arrow{r}[swap]{f_{jk}} & X_k
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
+    The direct limit of this system is an object \(\dirlim X_i\)
+    that satisfies the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
+            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
+        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
+            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
+            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
+            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{center}
+        \begin{tikzcd}
+            & Z \\
+            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
+            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
+            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
+        \end{tikzcd}
+    \end{center}
+\end{definition}
 
 
-% \section{Categorical Constructions}
+\section{Types of Categories}
+
+\begin{definition}
+    An object \(X\) is an initial object of a category
+    if there exists a morphism from \(X\) to any object \(Y\) in the category.
+    An object \(X\) is a terminal object of a category
+    if there exists a morphism from any object \(Y\) in the category to \(X\).
+    An object \(0\) is the null object of a category
+    if it is both initial and terminal.
+\end{definition}
+
+\begin{definition}
+    A kernel of a morphism \(f \in \Hom(X,Y)\)
+    is an object \(\ker f\) along with a morphism \(\func{\iota}{\ker f}{X}\)
+    such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(f\circ\iota = 0\); and
+        \item for any object \(Z\), if \(\func{\phi}{Z}{X}\) is a homomorphism such that \(f\circ\phi = 0\),
+            then there exists a unique \(\func{\bar{\phi}}{Z}{\ker f}\)
+            such that \(\phi = \iota\circ\bar{\phi}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram.
+    \begin{equation*}
+        \begin{tikzcd}
+            & Y \\
+            & X \arrow{u}[swap]{f} \\
+            Z \arrow[dashrightarrow]{rr}[swap]{\exists!\bar{\phi}} \arrow{ur}[swap]{\phi} \arrow[bend left]{uur}{0} &&
+            \ker f \arrow{ul}{\iota} \arrow[bend right]{uul}[swap]{0}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    A cokernel of a morphism \(f \in \Hom(X,Y)\)
+    is an object \(\coker f\) along with a morphism \(\func{\pi}{Y}{\coker f}\)
+    such that
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\pi\circ f = 0\); and
+        \item for any object \(Z\), if \(\func{\phi}{Y}{Z}\) is a homomorphism such that \(\phi\circ f = 0\),
+            then there exists a unique \(\func{\bar{\phi}}{\coker f}{Z}\)
+            such that \(\phi = \bar{\phi}\circ\pi\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram.
+    \begin{equation*}
+        \begin{tikzcd}
+            & X \arrow[bend right]{ddl}[swap]{0} \arrow[bend left]{ddr}{0} \arrow{d}{f} \\
+            & Y \arrow{dl}{\phi} \arrow{dr}[swap]{\pi} \\
+            Z && \coker f \arrow[dashrightarrow]{ll}{\exists!\bar{\phi}}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    A category is preadditive if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item the homomorphisms \(\Hom(X,Y)\) form an abelian group; and
+        \item the composition map \(\func{\circ}{\Hom(X,Y)\times\Hom(Y,Z)}{\Hom(X,Z)}\)
+            is a bilinear group homomorphism.
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    A category is additive if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item it is preadditive; and
+        \item any finite product \(\prod_{i=1}^n A_i\) or coproduct \(\bigoplus_{i=1}^n A_i\) is also an object.
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    A category is abelian if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item it is additive;
+        \item for any morphism \(f \in \Hom(X,Y)\), \(\ker f\) and \(\coker f\) exists; and
+        \item any monomorphism corresponds to a kernel,
+            while any epimorphism corresponds to a cokernel.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A category \(\mca{C}\) is monoidal if
+    there exists a tensor product \(\func{\otimes}{\mca{C}\times\mca{C}}{\mca{C}}\)
+    and a monoidal unit \(I \in \Ob(\mca{C})\) such that, up to isomorphism,
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item the tensor product is associative \(X \otimes (Y \otimes Z) \cong (X \otimes Y) \otimes Z\); and
+        \item the unit is both left and right cancellative \(I \otimes X \cong X \cong X \otimes I\).
+    \end{enumerate}
+\end{definition}
