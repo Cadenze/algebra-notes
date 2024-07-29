@@ -6,33 +6,33 @@
     that is, the multiplication \(ab = ba\).
 \end{remark}
 
-\begin{remark}
-    We recommend the reader to first familiarize themselves
-    with Section~\ref{sec:exact-sequence} on exact sequences and functors,
-    as they will regularly show up in proofs in commutative algebra.
-\end{remark}
-
 
 \section{Fractions}
+
+\subsection*{Ring of Fractions}
 
 \begin{definition}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     Then the ring of fractions is \(S^{-1}R = \{r/s : r \in R, s \in S\}/{\sim}\),
     where the equivalence relation is given by \(r_1/s_1 = r_2/s_2\)
-    if there exists some \(s \in S\) such that \(s(r_1s_2 - r_2s_1) = 0\).
+    if there exists some nonzero \(s \in S\) such that \(s(r_1s_2 - r_2s_1) = 0\).
 \end{definition}
 \begin{proposition}
     There exists a ring homomorphism \(\vfunc{\iota}{R}{S^{-1}R}{n}{n/1}\).
 \end{proposition}
 \begin{proof}
-    
+    Observe that the ring homomorphism axioms are satisfied as
+    \(\iota(0) = 0/1 = 0\),
+    \(\iota(1) = 1/1 = 1\),
+    \(\iota(r)\iota(s) = (r/1)(s/1) = rs/1 = \iota(rs)\),
+    and \(\iota(r)+\iota(s) = (r/1)+(s/1) = (r+s)/1 = \iota(r+s)\).
 \end{proof}
 \begin{lemma}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     If \(s \in S\), then \(s\) is a unit in \(S^{-1}R\).
 \end{lemma}
 \begin{proof}
-    
+    \(s(1/s) = (s/1)(1/s) = 1\).
 \end{proof}
 \begin{lemma}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
@@ -40,13 +40,13 @@
     such that \(sr = 0\) in \(R\).
 \end{lemma}
 \begin{proof}
-    
+    By definition, \(r = r/1 = 0/1 = 0\) if and only if \(s(r-0) = sr = 0\).
 \end{proof}
 
 \begin{theorem}[Universal Property of Ring of Fractions]
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     The ring of fractions is \(S^{-1}R\), if:
-    \begin{enumerate}
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item there exists a homomorphism \(\func{\iota}{R}{S^{-1}R}\); and
         \item for any ring \(T\), if \(\func{\phi}{R}{T}\) is a homomorphism that sends \(s \in S\) to a unit,
             then there exists a unique \(\func{\bar{\phi}}{S^{-1}R}{T}\)
@@ -62,15 +62,26 @@
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit the diagram.
+    Then they disagree on some \(r/s\).
+    But then we have
+    \begin{equation*}
+        s\bar{\phi}(r/s) = \bar{\phi}(r/1) = (\bar{\phi}\circ\iota)(r)
+        = \phi(r) = (\bar{\phi}'\circ\iota)(r) = \bar{\phi}'(r/1) = s\bar{\phi}(r/s)
+    \end{equation*}
+    which is a contradiction.
+
+    Now, we can simply define \(\bar{\phi}(r/s) = \phi(r){(\phi(s))}^{-1}\) as desired.
 \end{proof}
 
 \begin{proposition}
-    Suppose \(R\) is a domain, and \(S\) is the set of units in \(R\).
+    Suppose \(R\) is a domain, and \(S = R - \{0\}\) is the set of nonzero elements in \(R\).
     Then \(S^{-1}R\) is the field of fractions.
 \end{proposition}
 \begin{proof}
-    
+    See existence of field of fractions in Theorem~\ref{thm:existence-field-of-fractions}.
+    In particular, we have \(a/b = c/d\) when \(ad = bc\) is sufficient,
+    since \(s(ad - bc) = 0\) is equivalent to \(ad - bc = 0\) since we are in an integral domain.
 \end{proof}
 
 \begin{definition}
@@ -83,8 +94,15 @@
     \((R_p,pR_p)\) forms a local ring.
 \end{proposition}
 \begin{proof}
-    
+    Consider any \(r/s \in R_p - pR_p\).
+    We claim that \(r \notin p\),
+    since if it is, \(r/s = r(1/s) \in pR_p\) which is a contradiction.
+    Hence \(r \in R - p\), and \(s/r \in R_p\).
+    But we have just proven that every element in \(R_p - pR_p\) is a unit,
+    so by Proposition~\ref{prop:local-ring-units} \((R_p,pR_p)\) is a local ring.
 \end{proof}
+
+\subsection*{Module of Fractions}
 
 \begin{definition}
     Suppose \(S^{-1}R\) is a ring of fractions, and \(M\) be an \(R\)-module.
@@ -97,7 +115,10 @@
     where \(\ker\iota = \{m : \exists s \in S, ms = 0\}\).
 \end{proposition}
 \begin{proof}
-    
+    Observe that the module homomorphism axioms are satisfied as
+    \(\iota(0) = 0/1 = 0\) and
+    \(r\iota(m)+\iota(n) = r(m/1)+(n/1) = (rm)/1+(n/1) = (rm+n)/1 = \iota(rm+n)\).
+    Obviously, \(\iota(m) = m/1 = 0\) only if \(s(m1 - 0) = sm = 0\).
 \end{proof}
 
 \begin{proposition}
@@ -106,84 +127,165 @@
     is a functor.
 \end{proposition}
 \begin{proof}
-    
+    We already see that it sends modules to modules from our definition of module of fractions,
+    so it suffices to see that it maps module homomorphisms.
+    Suppose \(\func{\phi}{M}{N}\) is a module homomorphism.
+    Then we can simply define \(\vfunc{\phi}{S^{-1}M}{S^{-1}N}{m/s}{\phi(m)/s}\).
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-exact}
     \(S^{-1}\) is an exact functor.
 \end{theorem}
 \begin{proof}
-    
+    Consider the exact sequence \(M \overset{f}{\to} N \overset{g}{\to} P\).
+    See that if \((g \circ f)(m) = 0\),
+    then obviously \((g \circ f)(m/s) = (g \circ f)(m)/s = 0\).
+    This gives image in kernel.
+
+    Now consider \(n/s \in S^{-1}N\) such that \(g(n)/s = 0\).
+    But then that implies there exists \(s'\) such that \(s'g(n) = 0\);
+    i.e.\ \(s'n \in \ker g\).
+    By exactness, there exists \(m \in M\) such that \(f(m) = s'n\),
+    and we can get \(f(m/(ss')) = f(m)/ss' = s'n/ss' = n/s\).
+    This gives kernel in image.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:fraction-properties}
     Suppose \(P\) is an \(R\)-module,
     and \(M,N \subseteq P\) are submodules.
     The following properties hold for modules of fractions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S^{-1}(M+N) \cong S^{-1}M + S^{-1}N \subseteq S^{-1}P\);
-        \item \(S^{-1}(M \cap N) \cong S^{-1}M \cap S^{-1}N \subseteq S^{-1}P\); and
+        \item \(S^{-1}(M+N) = S^{-1}M + S^{-1}N \subseteq S^{-1}P\);
+        \item \(S^{-1}(M \cap N) = S^{-1}M \cap S^{-1}N \subseteq S^{-1}P\); and
         \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N \subseteq S^{-1}P\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    
+    For (a), there is a natural isomorphism \((m+n)/s \mapsto m/s + n/s\),
+    since the inverse map is \(m/s + n/s \mapsto (m+n)/s\) obviously.
+
+    For (b), observe that if \(m \in M \cap N\),
+    \(m/s \in S^{-1}M\) and \(m/s S^{-1}N\) as desired.
+    On the other hand, consider \(m/s \in S^{-1}M\) and \(n/t \in S^{-1}N\),
+    and \(m/s = n/t\).
+    then there exists some \(u \in S\) such that \(u(tm-sn)\)
+
+    For (c), consider the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & N \arrow{r} & M \arrow{r} & M/N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Since \(S^{-1}\) is exact by Theorem~\ref{thm:fraction-exact},
+    we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & S^{-1}N \arrow{r} & S^{-1}M \arrow{r} & S^{-1}(M/N) \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    and Proposition~\ref{prop:short-exact-sequence}
+    gives us that \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N\) as desired.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-isomorphism}
     There is an isomorphism \(S^{-1}R \otimes M \cong S^{-1}M\).
 \end{theorem}
 \begin{proof}
-    
+    We prove that \(S^{-1}M\) fits the universal property of \(S^{-1}R \otimes M\).
+    Suppose we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            S^{-1}R \times M \arrow{r}{\mu} \arrow{rd}{\phi} &
+            S^{-1}M \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+    with \(\mu(r/s,m) = (rm)/s\).
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit this diagram.
+    Then we know they must disagree on some \(\bar{\phi}(m/s)\neq\bar{\phi}'(m/s)\).
+    But observe that
+    \begin{equation*}
+        \bar{\phi}\pqty{\frac{m}{s}} = (\bar{\phi}\circ\mu)\pqty{\frac{1}{s},m}
+        = \phi\pqty{\frac{1}{s},m} = (\bar{\phi}'\circ\mu)\pqty{\frac{1}{s},m}
+        = \bar{\phi}'\pqty{\frac{m}{s}}
+    \end{equation*}
+    which is a contraction.
+    This gives us uniqueness.
+    Now, we can readily define \(\bar{\phi}(m/s) = \phi(1/s,m)\),
+    and observe that \(\bar{\phi}(rm/s) = \phi(1/s,rm) = r\phi(1/s,m) = \phi(r/s,m)\)
+    indeed by bilinearity.
+    This gives us existence.
 \end{proof}
 \begin{corollary}
     \(S^{-1}R\) is a flat \(R\)-module.
 \end{corollary}
 \begin{proof}
-    
+    The \hyperref[thm:fraction-isomorphism]{theorem above}
+    gives us that \(S^{-1} = S^{-1}R \otimes \cdot\) as functors.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(S^{-1}R \otimes \cdot\) is also exact.
 \end{proof}
+
+% \begin{definition}
+%     Suppose \(R,A\) are rings.
+%     \(N\) is an \(R,A\)-bimodule if it is both an \(R\)-module and an \(A\)-module.
+% \end{definition}
+% \begin{proposition}
+%     Suppose \(M\) is an \(R\)-module,
+%     \(N\) is an \(R,A\)-bimodule,
+%     and \(P\) is an \(A\)-module.
+%     Then \(M \otimes_R N \otimes_A P\) is an \(R,A\)-bimodule.
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
 
 \begin{proposition}
     Suppose \(M,N\) are (appropriate) \(R\)-modules.
     The following properties hold for modules of fractions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S^{-1}(M \oplus N) \cong S^{-1}M \oplus S^{-1}N\);
-        \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N\); and
+        \item \(S^{-1}(M \oplus N) \cong S^{-1}M \oplus S^{-1}N\); and
         \item \(S^{-1}(M \otimes N) \cong S^{-1}M \otimes S^{-1}N\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    
-\end{proof}
-\begin{proposition}
-    \(M\) is a flat \(R\)-module if and only if \(S^{-1}M\) is a flat \(S^{-1}R\)-module.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
+    For (a), this is a special case of Proposition~\ref{prop:fraction-properties},
+    where the sum \(M + N\) is direct if we consider \(M,N \subseteq M \oplus N\).
 
-\begin{definition}
-    Suppose \(R,A\) are rings.
-    \(N\) is an \(R,A\)-bimodule if it is both an \(R\)-module and an \(A\)-module.
-\end{definition}
-\begin{proposition}
-    Suppose \(M\) is an \(R\)-module,
-    \(N\) is an \(R,A\)-bimodule,
-    and \(P\) is an \(A\)-module.
-    Then \(M \otimes_R N \otimes_A P\) is an \(R,A\)-bimodule.
+    For (b), we have
+    \begin{equation*}
+        S^{-1}M \otimes S^{-1}N \cong (S^{-1}R \otimes M) \otimes (S^{-1}R \otimes N)
+        \cong S^{-1}R \otimes S^{-1}R \otimes (M \otimes N)
+        \cong S^{-1}R \otimes (M \otimes N)
+        \cong S^{-1}(M \otimes N)
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:localization-flat}
+    \(M\) is a flat \(R\)-module implies \(S^{-1}M\) is a flat \(S^{-1}R\)-module.
 \end{proposition}
 \begin{proof}
-    
+    If \(M \otimes \cdot\) is an exact functor,
+    then \(M \otimes (S^{-1}R \otimes \cdot) \cong S^{-1}M \otimes \cdot\) is an exact functor.
 \end{proof}
+% \begin{proposition}
+%     Suppose \(R\) is a ring, \(M\) is an \(R\)-module,
+%     \(p \subseteq M\) is prime,
+%     and \(M_p\) is a localization.
+%     If \(M\) is flat, then \(M_p\) is also flat.
+%     If \(M\) is finitely generated, then \(M_p\) is flat if and only if it is free.
+% \end{proposition}
+% \begin{proof}
+%     The first statement is a simple corollary of the \hyperref[prop:localization-flat]{proposition above}.
+    
+%     For the second statement, first suppose \(M_p \cong R_p \otimes M\) is flat
+%     (such an isomorphism is guaranteed by Theorem~\ref{thm:fraction-isomorphism}).
+%     Then for any exact sequence
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             0 \arrow{r}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{proof}
 
-\begin{proposition}
-    Suppose \(R\) is a ring, \(M\) is an \(R\)-module,
-    and \(M_p\) is a localization.
-    If \(M\) is flat, then \(M_p\) is also flat.
-    If \(M\) is finitely generated, then \(M_p\) is flat if and only if it is free.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
 \begin{definition}
     Suppose \(M\) is an \(R\)-module, and \(M_p\) some localization.
     We say a module property is local when
