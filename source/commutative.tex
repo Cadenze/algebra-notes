@@ -239,7 +239,7 @@
     
 % \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:fraction-tensor}
     Suppose \(M,N\) are (appropriate) \(R\)-modules.
     The following properties hold for modules of fractions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -293,7 +293,7 @@
     We say a module property is max-local when
     \(M\) has that property if and only if \(M_p\) for all maximal \(p \subseteq R\) has that property.
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:local-max-local}
     Suppose \(M,N\) are \(R\)-modules, and \(\func{\phi}{M}{N}\) is a homomorphism.
     Then the following properties are local and max-local:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -303,22 +303,101 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
+    We will prove the three statements in similar fashion,
+    by first proving the forward direction of local,
+    and then the reverse direction of max-local.
+    Finally, using the fact that \hyperref[thm:maximal-prime-radical]{maximal ideals are prime},
+    prime localizations having a property immediately implies
+    maximal localizations must also have said property.
+
+    \medskip
+
+    First off, it is obvious that \(M = 0\)
+    implies \(M_p = 0\) for all prime \(p \subseteq R\).
+
+    We will prove the reverse of max-locality via contraposition.
+    Suppose \(M \neq 0\).
+    Consider some nonzero element \(m \in M\)
+    and its annihilator \(I = \Ann m \subsetneq (1) = R\).
+    By Corollary~\ref{cor:proper-in-maximal},
+    \(I \subseteq p\) for some maximal ideal \(p \subseteq R\).
+    Then we claim that \(m \in M_p\) is nonzero,
+    because if it is, then there is some element \(r \in R - p\) that kills \(m\),
+    which contradicts that \(\Ann m \subseteq p\).
+    This proves that there is some nonzero \(M_p\),
+    and we have proven statement (a).
+
+    \medskip
+
+    Suppose \(0 \to M \overset{\phi}{\to} N\) is exact.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(0 \to M_p \overset{\phi}{\to} N_p\) is also exact.
     
+    Suppose \(0 \to M_p \overset{\phi}{\to} N_p\) is exact for all maximal \(p \subseteq R\).
+    Consider the exact sequence \(0 \to \ker\phi \to M \overset{\phi}{\to} N\).
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(0 \to {(\ker\phi)}_p \to M_p \overset{\phi}{\to} N_p\) is also exact,
+    which implies \({(\ker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    and by max-locality in (a), \(\ker\phi = 0\) as desired.
+    We have proven statement (b).
+    
+    \medskip
+    
+    Suppose \(M \overset{\phi}{\to} N \to 0\) is exact.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(M_p \overset{\phi}{\to} N_p \to 0\) is also exact.
+    
+    Suppose \(M_p \overset{\phi}{\to} N_p \to 0\) is exact for all maximal \(p \subseteq R\).
+    Consider the exact sequence \(M \overset{\phi}{\to} N \to \coker\phi \to 0\).
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(M_p \overset{\phi}{\to} N_p \to {(\coker\phi)}_p \to 0\) is also exact,
+    which implies \({(\coker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    and by max-locality in (a), \(\coker\phi = 0\) as desired.
+    We have proven statement (c).
 \end{proof}
 \begin{theorem}
     Flatness is local and max-local.
 \end{theorem}
 \begin{proof}
-    
+    We prove in the same manner as the \hyperref[lem:local-max-local]{lemma above}.
+    Suppose \(M\) is flat.
+    Then \(M_p\) is flat for all prime \(p\) by Proposition~\ref{prop:localization-flat}.
+
+    Using the fact that \hyperref[thm:maximal-prime-radical]{maximal ideals are prime},
+    prime localizations being flat immediately implies
+    maximal localizations must also be flat.
+
+    Now suppose \(M_p\) is flat for all maximal \(p \subseteq R\).
+    If \(N \to P\) is injective,
+    then \(N_p \to P_p\) is injective by the \hyperref[lem:local-max-local]{lemma above},
+    and by flatness, \(M_p \otimes N_p \to M_p \otimes P_p\) is injective.
+    By Proposition~\ref{prop:fraction-tensor},
+    this is equivalent to saying \({(M \otimes N)}_p \to {(M \otimes P)}_p\) is injective.
+    Using the \hyperref[lem:local-max-local]{lemma above} again,
+    \(M \otimes N \to M \otimes P\) is injective,
+    which tells us that \(M\) is flat (Lemma~\ref{lem:flat-equivalence}).
 \end{proof}
 
-\begin{proposition}
+\subsection*{Extensions and Contractions}
+
+\begin{lemma}
     Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
     If \(I \subseteq R\), its extension is \(I \otimes S^{-1}R = S^{-1}I\).
     If \(J \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(J)\).
-\end{proposition}
+\end{lemma}
 \begin{proof}
-    
+    Suppose \(r \in I\).
+    Then for any \(s \in S\), \((1/s)r = r/s \in (\phi(I))\),
+    so we have \(S^{-1}I \subseteq (\phi(I))\).
+    Now suppose \(\sum r_i/s_i \in (\phi(I))\).
+    We can assume \(r_i \in I\),
+    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in (\phi(I))\),
+    and \(t_i r_i \in IR \subseteq I\).
+    We write this with a common denominator \(\sum r_i/s_i = r/s\),
+    and we can immediately conclude that \(r\) is a sum of \(r_i\) and \(s_i\)s,
+    so \(r \in I\).
+
+    The contraction is by definition.
 \end{proof}
 \begin{theorem}
     There is a bijective correspondence between 
@@ -329,7 +408,30 @@
     and \(s \in S \subseteq R\) corresponds to \((1) \subseteq S^{-1}R\).
 \end{theorem}
 \begin{proof}
-    
+    We already know that if \(J \subseteq S^{-1}R\) is prime,
+    then its contraction is also prime,
+    so it suffices to prove that if \(I \subseteq R\) prime, then \(S^{-1}I\) prime.
+    Suppose \(I \subseteq R\) prime.
+    Then \(R/I\) is an integral domain (Theorem~\ref{thm:prime-quotient-domain}).
+    Hence \(S^{-1}(R/I) \cong S^{-1}R/S^{-1}I\) (Proposition~\ref{prop:fraction-properties}),
+    and we see that this is an integral domain (or 0)
+    as \([rr']/s = 0\) implies \([rr'] = 0\),
+    and \(R/I\) being a domain follows.
+    We can then conclude that \(S^{-1}I \subseteq S^{-1}R\) is prime (Theorem~\ref{thm:prime-quotient-domain}).
+
+    Consider \(J \subseteq S^{-1}R\) any ideal.
+    If \(r/s \in J\), then \(s(r/s) = r \in J\),
+    so \(r \in I = \phi^{-1}(J)\), and \(r/s \in S^{-1}I\).
+    We have that \(J \subseteq S^{-1}I\).
+    Now, if \(r/s \in S^{-1}I =  S^{-1}(\phi^{-1}(J))\),
+    then \(r \in \phi^{-1}(J)\),
+    hence any \(s \in S\) yields \(r/s \in J\).
+    We have correspondence.
+
+    We now see that the possibility that \(S^{-1}(R/I) = 0\)
+    only in the case where \(S \cap I \neq \emptyset\).
+    Wer can see that \([r]/s = 0\) only when there exists \(t \in S\) such that \(ts[r] = 0\),
+    but for this to happen, there must be some \(t \in I\) to kill off \([r]\).
 \end{proof}
 
 
