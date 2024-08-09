@@ -1629,7 +1629,7 @@
     Suppose \(N\) is an \(R\)-module,
     and \(\cdot\otimes N\) is the functor that tensors by \(N\).
     The following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(N\) is flat;
         \item \(\cdot\otimes N\) sends exact sequences to exact sequences;
         \item \(\cdot\otimes N\) sends short exact sequences to short exact sequences;
@@ -1639,17 +1639,17 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    Firstly, (a) if and only if (c) by the definition of flatness and exactness.
-    Then, (c) implies (b) by Proposition~\ref{prop:exact-functor-sequence};
-    and (b) implies (c) simply because short exact sequences are a type of exact sequence.
+    Firstly, (i) if and only if (iii) by the definition of flatness and exactness.
+    Then, (iii) implies (ii) by Proposition~\ref{prop:exact-functor-sequence};
+    and (ii) implies (iii) simply because short exact sequences are a type of exact sequence.
 
-    Now, (c) implies (d) because the first nonzero homomorphism in a short exact sequence is injective;
-    and (d) implies (c) because the \hyperref[thm:tensor-right-exact]{theorem above}
+    Now, (iii) implies (iv) because the first nonzero homomorphism in a short exact sequence is injective;
+    and (iv) implies (iii) because the \hyperref[thm:tensor-right-exact]{theorem above}
     guarantees exactness on the right two modules,
     while injectivity takes care of the first.
-    (d) also implies (e) trivially.
+    (iv) also implies (v) trivially.
 
-    Lastly, we shall prove (e) implies (d).
+    Lastly, we shall prove (v) implies (iv).
     Suppose \(\func{\phi}{M}{P}\) is injective.
     Consider some arbitrary element \(\sum m_i \otimes n_i \in \ker(\phi\otimes\id)\),
     such that \(\sum \phi(m_i) \otimes n_i = 0 \in P \otimes N\).

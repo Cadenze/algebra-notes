@@ -399,7 +399,7 @@
 
     The contraction is by definition.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-correspondence}
     There is a bijective correspondence between 
     the prime ideals of \(R\) that do not intersect with \(S\),
     and the prime ideals of \(S^{-1}R\).
@@ -566,24 +566,42 @@
     Then we immediately have that the associated primes are uniquely determined by \(I\).
 \end{proof}
 
-\begin{proposition}
-    Suppose \(S \subseteq R\) is a multiplicative monoid,
+% \begin{proposition}
+%     Suppose \(S \subseteq R\) is a multiplicative monoid,
+%     and \(\mfk{q}\) is a \(\mfk{p}\)-primary ideal.
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item If \(S\cap\mfk{p} \neq \emptyset\), then \(S^{-1}\mfk{q} = S^{-1}R\); and
+%         \item if \(S\cap\mfk{p} = \emptyset\), then \(S^{-1}\mfk{q}\) is \(S^{-1}\mfk{p}\)-primary,
+%             and \(S^{-1}\mfk{q}\) contracts to \(\mfk{q}\).
+%     \end{enumerate}
+% \end{proposition}
+% \begin{proof}
+%     Consider \(s \in S\cap\mfk{p}\).
+%     We have some \(s^n \in S\cap\mfk{q}\) due to \(\sqrt{\mfk{q}} = \mfk{p}\).
+%     Then this element in the extension is \(s^n \in S^{-1}\mfk{q}\),
+%     so \(s^n/s^n = 1 \in S^{-1}\mfk{q}\),
+%     showing that \(S^{-1}\mfk{q} = S^{-1}R\).
+%     This proves statement (a).
 
-\end{proposition}
-\begin{definition}
-    Suppose \(I\) is a decomposable ideal,
-    and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
-    This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq p_i\)
-    is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
-\end{definition}
-\begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
-    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i \mfk{q}_i\).
-    Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
-    Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
-\end{theorem}
-\begin{proof}
+%     If \(S\cap\mfk{p} = \emptyset\), consider \(s \in S\).
+%     If \(rs \in \mfk{q}\), as \(\mfk{q}\) is primary,
+%     \(s^n \notin \mfk{q}\), so \(r \in \mfk{q}\).
+%     By Theorem~\ref{thm:fraction-correspondence}, 
+% \end{proof}
+% \begin{definition}
+%     Suppose \(I\) is a decomposable ideal,
+%     and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
+%     This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq p_i\)
+%     is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
+% \end{definition}
+% \begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
+%     Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i \mfk{q}_i\).
+%     Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
+%     Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
+% \end{theorem}
+% \begin{proof}
     
-\end{proof}
+% \end{proof}
 
 
 \section{Integral Dependence}
