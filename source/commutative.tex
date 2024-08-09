@@ -446,14 +446,27 @@
     \(q\) is primary if and only if every zero divisor in \(R/q\) is nilpotent.
 \end{proposition}
 \begin{proof}
+    Suppose \(q\) is primary.
+    Consider a zero divisor \([y] \in R/q\).
+    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in q\),
+    which implies either \(x \in q\) (which we assumed is not the case),
+    or \(y^n \in q\), i.e.\ \([y^n] = 0\).
     
+    Suppose every zero divisor \([y] \in R/q\) is nilpotent, with \([y^n] = 0\).
+    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in q\),
+    and \(y^n \in q\) as desired.
 \end{proof}
 \begin{theorem}
     Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
     If \(q\) is primary, then \(\sqrt{q}\) is prime.
 \end{theorem}
 \begin{proof}
-    
+    If \(xy \in \sqrt{q}\),
+    then \({(xy)}^m = x^m y^m \in q\).
+    But as \(q\) is primary, this implies either \(x^m \in q\) or \(y^{mn} \in q\).
+    By definition of the radical, this implies either \(x \in \sqrt{q}\) or \(y \in \sqrt{q}\).
 \end{proof}
 \begin{definition}
     Suppose \(q\) is primary.
@@ -461,11 +474,18 @@
 \end{definition}
 
 \begin{lemma}
-    Suppose \({\{q_i\}}_{i \in S}\) is a family of \(p\)-primary ideals.
-    Then \(\bigcap_{i \in S} q_i\) is also \(p\)-primary.
+    Suppose \({\{q_i\}}_{i=1}^n\) is a family of \(p\)-primary ideals.
+    Then \(\bigcap_{i=1}^n q_i\) is also \(p\)-primary.
 \end{lemma}
 \begin{proof}
-    
+    We first check that \(q = \bigcap q_i\) is indeed primary.
+    Consider \(xy \in q\).
+    If \(x \notin q\), and hence \(x \notin q_i\),
+    then we have \(y^{m_i} \in q_i\),
+    and hence \(y^{\max m_i} \in q\).
+
+    A quick application of Proposition~\ref{prop:radical-properties} then gives
+    \(\sqrt{\bigcap q_i} = \bigcap \sqrt{q_i} = \bigcap p = p\).
 \end{proof}
 \begin{definition}
     Suppose \(q \subseteq R\) is an ideal.
@@ -474,42 +494,92 @@
     and hence \(q_i\) should not be inside any \(q_j\).
     We call such a decomposition the minimal or irredundant decomposition.
 \end{definition}
-\begin{lemma}
-    Suppose \(q_i\) is \(p_i\)-primary, and \(x \in R\).
+\begin{remark}
+    Note that in general we cannot guarantee the existence of a primary decomposition.
+\end{remark}
+
+\begin{lemma}\label{lem:quotient-primary}
+    Suppose \(q\) is \(p\)-primary, and \(x \in R\).
     We have the following:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if \(x \in q_i\), then \((q_i:x) = (1)\); and
-        \item if \(x \notin q_i\), then \((q_i:x)\) is \(p_i\)-primary.
+        \item if \(x \in q\), then \((q:x) = (1)\); and
+        \item if \(x \notin q\), then \((q:x)\) is \(p\)-primary.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    
+    Almost by definition, \(xR \subset q\),
+    so \((q:x) = R\), and we have statement (a).
+
+    Consider \(yz \in (q:x)\), and without loss of generality \(y \notin (q:x)\);
+    we wish to prove that \(z^n \in (q:x)\).
+    Now, by definition of the quotient we have \(xyz \in q\),
+    and as \(x \notin q\) and \(y \notin q\), \(xy \notin q\),
+    which forces us to conclude that \(z^n \in q \subseteq (q:x)\)
+    (Proposition~\ref{prop:quotient-ideal-properties}).
+    This shows that \((q:x)\) is indeed primary.
+    We now show that \(\sqrt{(q:x)} = p\).
+    Observe that for any element \(y \in (q:x)\), \(xy \in q\).
+    As \(x \notin q\), we have \(y^n \in q\), so \(y \in \sqrt{q} = p\).
+    We have exactly shown that \((q:x) \subseteq p\).
+    But we have \(p = \sqrt{q} \subseteq \sqrt{(q:x)} \subseteq \sqrt{p} = p\),
+    and we have equality.
+    This proves statement (b).
 \end{proof}
-\begin{lemma}
-    Suppose \(p = \bigcap_i J_i\) for a family of ideals.
+\begin{lemma}\label{lem:prime-intersection}
+    Suppose a prime ideal \(p = \bigcap_i J_i\) for a family of ideals.
     Then \(p = J_i\) for some \(i\).
 \end{lemma}
 \begin{proof}
-    
+    Suppose, by way of contradiction, that \(p \subsetneq J_i\) for all \(i\).
+    For each \(i\), we choose some \(x_i \in J_i - p\).
+    Then we have \(\prod x_i \in \prod J_i \subseteq \bigcap J_i\),
+    but as each \(x_i \notin p\), this product \(\prod x_i \notin p\).
+    This contradicts our assumed equality,
+    and we conclude that \(J_i \subseteq p\).
+    The reverse inclusion \(p = \bigcap J_i \subseteq J_i\) is given trivially.
+    We have equality.
 \end{proof}
 \begin{theorem}[First Uniqueness Theorem for Primary Decompositions]
     Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
     Then the associated primes \(p_i = \sqrt{q_i}\) are unique up to reordering.
 \end{theorem}
 \begin{proof}
-    
+    Consider the set of ideals \({\{\sqrt{(I:x)}\}}_{x \in R}\).
+    We prove that the prime ideals in that set is exactly \({\{p_i\}}_i\).
+    In the forward inclusion, suppose we have an arbitrary \(x \in R\).
+    If \(x \in I\), then \(\sqrt{(I:x)} = \sqrt{(1)} = (1)\).
+    If not, by Lemma~\ref{lem:quotient-primary}, then it is the prime ideal
+    \begin{equation*}
+        p = \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
+        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_i} p_i
+    \end{equation*}
+    using Propositions~\ref{prop:radical-properties}~\&~\ref{prop:quotient-ideal-properties}.
+    From the \hyperref[lem:prime-intersection]{lemma above},
+    we know that \(p = p_i\) for some \(i\).
+    Now for the reverse inclusion, consider some \(x \in \bigcap_{j \neq i} q_j - q_i\).
+    Then \(x \notin q_i\) and \(x \in q_j\) for every other \(j \neq i\),
+    so we have
+    \begin{equation*}
+        \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
+        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_j} p_j = p_i
+    \end{equation*}
+    Then we immediately have that the associated primes are uniquely determined by \(I\).
 \end{proof}
 
+\begin{proposition}
+    Suppose \(S \subseteq R\) is a multiplicative monoid,
+
+\end{proposition}
 \begin{definition}
     Suppose \(I\) is a decomposable ideal,
-    and \({\{p_i\}}_{i \in S}\) is a subset of the associated prime ideals.
-    This set of ideals is isolated if any associated prime \(p \subseteq p_i\)
-    is also in this subset \(p \in {\{p_i\}}_{i \in S}\).
+    and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
+    This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq p_i\)
+    is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
 \end{definition}
 \begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
-    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
-    Let \({\{q_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
-    Then \(\bigcap_{i_k} q_{i_k}\) is uniquely determined independent of the decomposition.
+    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i \mfk{q}_i\).
+    Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
+    Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
 \end{theorem}
 \begin{proof}
     

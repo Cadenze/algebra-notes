@@ -1466,7 +1466,7 @@
     Then there exists some \(x^n \in I\),
     and \({(rx)}^n = r^n x^n \in I\), so \(rx \in \sqrt{I}\).
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:radical-intersection-prime}
     The radical \(\sqrt{I}\) is the intersection of all prime ideals that contain \(I\).
 \end{theorem}
 \begin{proof}
@@ -1497,6 +1497,50 @@
     and if \([x] \in J_i/I\) for all \(i\),
     then the preimages must be in \(J_i\),
     so we are done.
+\end{proof}
+\begin{proposition}\label{prop:radical-properties}
+    The following properties hold for radicals:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(I \subseteq \sqrt{I}\);
+        \item \(\sqrt{I} = \sqrt{\sqrt{I}}\);
+        \item \(\sqrt{IJ} = \sqrt{I \cap J} = \sqrt{I} \cap \sqrt{J}\); and
+        \item \(\sqrt{I} = (1)\) if and only if \(I = (1)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(x \in I\).
+    Clearly \(x^1 = x \in I\) by definition.
+    This proves statement (a).
+
+    Using statement (a), we already have \(\sqrt{I} \subseteq \sqrt{\sqrt{I}}\),
+    and it suffices to prove the reverse inclusion.
+    Suppose \(x \in \sqrt{\sqrt{I}}\).
+    Then there exists \(n > 0\) such that \(x^n \in \sqrt{I}\),
+    which implies there exists \(m > 0\) such that \({(x^n)}^m = x^{nm} \in I\),
+    hence \(x \in \sqrt{I}\).
+    This proves statement (b).
+
+    Suppose \(x \in \sqrt{IJ}\).
+    Then there exists \(n > 0\) such that \(x^n \in IJ \subseteq I \cap J\)
+    (Proposition~\ref{prop:ideal-operations}),
+    which indicates that \(x \in \sqrt{I \cap J}\).
+    Now suppose \(x \in \sqrt{I \cap J}\).
+    Then there exists \(n > 0\) such that \(x^n \in I \cap J \subseteq I\),
+    which inducates that \(x \in \sqrt{I}\).
+    Similarly, we have \(x \in \sqrt{J}\) as desired.
+    Finally suppose \(x \in \sqrt{I} \cap \sqrt{J}\).
+    Then there exists \(m,n > 0\) such that \(x^m \in I\) and \(x^n \in J\).
+    In particular, \(x^{m+n} = x^m x^n \in IJ\).
+    Hence we have \(\sqrt{IJ} \subseteq \sqrt{I \cap J} \subseteq \sqrt{I} \cap \sqrt{J} \subseteq \sqrt{IJ}\),
+    which gives us equality.
+    This proves statement (c).
+
+    Suppose \(\sqrt{I} = (1)\).
+    Then this implies \(1 \in \sqrt{I}\),
+    so there exists \(n > 0\) such that \(1^n = 1 \in I\),
+    and hence \(I = (1)\).
+    The reverse inclusion is given by statement (a).
+    This proves statement (d).
 \end{proof}
 
 \begin{definition}
@@ -1663,13 +1707,14 @@
     Then we have \((xr)J = x(rJ) \subseteq xJ \subseteq I\),
     so \(xr \in (I:J)\).
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:quotient-ideal-properties}
     The following properties hold for quotient ideals:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(I \subseteq (I:J)\);
         \item \((I:J)J \subseteq I\);
-        \item \((I:I) = (1)\); and
-        \item \(((I:J):K) = (I:JK) = ((I:K):J)\).
+        \item \((I:I) = (1)\);
+        \item \(((I:J):K) = (I:JK) = ((I:K):J)\); and
+        \item \(\pqty{\bigcap I_i:J} = \bigcap (I_i:J)\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -1686,6 +1731,14 @@
     which implies that \(xJK \in I\),
     which exactly follows the definition of \(x \in (I:JK)\).
     This proof is exactly the same in the reverse direction.
+
+    For (e), consider \(x \in \pqty{\bigcap I_i:J}\).
+    Then \(xJ \subseteq \bigcap I_i \subseteq I_i\) for every \(i\),
+    and we have \(x \in (I_i:J)\) for all \(i\).
+    Now consider \(x \in \bigcap (I_i:J)\).
+    Then \(xJ \subseteq I_i\) for every \(i\),
+    i.e.\ \(xJ \subseteq \bigcap I_i\),
+    which is exactly \(x \in (\bigcap I_i:J)\).
 \end{proof}
 
 \subsection*{Extensions and Contractions}
