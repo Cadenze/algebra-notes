@@ -17,7 +17,7 @@
     \end{enumerate}
 \end{definition}
 \begin{proposition}
-    In a nondegenerate ring \(R\), where \(R \neq \{0\}\), \(0 \neq 1\).
+    In a nondegenerate ring \(R\), where \(R \neq 0\), \(0 \neq 1\).
 \end{proposition}
 \begin{proof}
     For all \(x \in R\), we know \(0 = x + (-x)\).
@@ -25,6 +25,10 @@
     Then we have \(x = 1x = (x+(-x))x = x^2 + (-x^2) = 0\),
     implying that \(R = \{0\}\).
 \end{proof}
+\begin{remark}
+    For reasons that we will later make clear,
+    we will sometimes denote the degenerate ring simply as 0.
+\end{remark}
 
 \begin{definition}
     Suppose \((R,+,\cdot,0,1)\) is a ring.
@@ -742,26 +746,26 @@
 \begin{theorem}\label{thm:field-props}
     Suppose \(R,S\) are nondegenerate rings.
     The following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(R\) is a field;
         \item \(R\) has only two distinct ideals \((0)\) and \((1)\); and
         \item Every ring homomorphism \(\func{\phi}{R}{S}\) is injective.
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    We first prove that (a) implies (c).
+    We first prove that (i) implies (iii).
     Let \(R\) be a field, and consider \(\phi(r) = 0\).
     Notice that if \(r\) has an inverse,
     then \(\phi(r)\phi(r^{-1}) = \phi(1) = 1\),
     which contradicts that \(\phi(r) = 0\).
     Hence \(r = 0\), and \(\phi\) is injective.
 
-    We now prove that (c) implies (b), via contraposition.
+    We now prove that (iii) implies (ii), via contraposition.
     Consider a nonzero ideal \(I \subseteq R\).
     We have the quotient map \(\func{\pi}{R}{R/I}\),
     which is clearly not injective.
     
-    We shall lastly prove (b) implies (a), again via contraposition.
+    We shall lastly prove (ii) implies (i), again via contraposition.
     Suppose \(R\) is not a field.
     Then there exists some nonzero \(x \in R\) that is not a unit,
     so by definition \(x \notin (0)\),
@@ -3035,7 +3039,7 @@
     Let \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in R[x]\)
     be a polynomial.
     If the coefficients
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(a_i \in P\) for all \(0 \leq i \leq n-1\),
             all coefficients but the leading term in the ideal;
         \item \(a_n \notin P\) leading term not in the ideal; and
@@ -3050,7 +3054,7 @@
         g(x) = c_k x^k + c_{k-1}x^{k-1} + \cdots + c_1 x + c_0 \qquad
         h(x) = d_\ell x^\ell + d_{\ell-1}x^{\ell-1} + \cdots + d_1 x + d_0
     \end{equation*}
-    By condition (a) \& (c),
+    By condition (i) \& (iii),
     only one of \(c_0\) and \(d_0\) is in \(P\),
     so without loss of generality let \(c_0 \in P\) and \(d_0 \notin P\).
 
@@ -3059,12 +3063,12 @@
     so by way of strong induction,
     suppose \(c_0,c_1,\hdots,c_{i-1} \in P\).
     Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i \in P\)
-    by condition (a),
+    by condition (i),
     and every term in the sum except for the first term is in \(P\) by assumption,
     as \(d_0 \notin P\), we must have \(c_i \in P\).
 
     But \(c_k \in P\) implies \(a_n = c_k d_\ell \in P\),
-    which contradicts condition (b).
+    which contradicts condition (ii).
     Hence \(f(x)\) is irreducible in \(R[x]\).
 \end{proof}
 
@@ -3072,7 +3076,7 @@
     Suppose we have a polynomial with integer coefficients
     \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in \bZ[x]\).
     If there exists a prime \(p\) such that
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(p \mid a_i\) for all \(0 \leq i \leq n-1\),
             \(p\) dividing all coefficients but the leading term;
         \item \(p \nmid a_n\) does not divide the leading term; and
