@@ -183,14 +183,14 @@
 \begin{theorem}\label{thm:algebraic-finite-extension}
     Suppose \(K/F\) is a field extension, and \(a \in K\) some element.
     The following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(a\) is algebraic over \(F\);
         \item \(F(a)\) is a finite extension of \(F\); and
         \item \(F[a] = F(a)\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    We first prove that (a) implies (c).
+    We first prove that (i) implies (iii).
     Since \(a\) is algebraic, there is some minimal polynomial
     \(a^n + \lambda_1 a^{n-1} + \cdots + \lambda_n = 0\) for \(\lambda_i \in F\).
     But we can rewrite the above as
@@ -211,14 +211,14 @@
     \(F[a] \subseteq F(a)\) by definition
     and we have equality.
     
-    We now prove that (c) implies (b).
+    We now prove that (iii) implies (ii).
     For any \(i \geq 0\), \(a^{n+i}\) is in the \(F\)-span of \({\{a^j\}}_{j=0}^{n-1}\).
     and since we write elements in \(F(a) = F[a]\)
     as linear combinations of powers of \(a\),
     the degree of those elements must be at most \(n\),
     hence \([F(a):F]\) is finite.
 
-    Lastly we prove that (b) implies (a).
+    Lastly we prove that (ii) implies (i).
     Suppose \(F(a)\) is a finite extension.
     Then \({\{a^i\}}_{i=0}^\infty \subseteq F(a)\) is a linearly dependent set.
     We shall find the smallest \(ell\) such that
@@ -426,7 +426,7 @@
 \begin{lemma}
     Suppose \(F\) is a field.
     Then the following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item The only algebraic extension of \(F\) is itself;
         \item The only finite extension of \(F\) is itself;
         \item If \(K/F\) is an extension,
@@ -436,20 +436,20 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    (a) implies (b) is the contrapositive of Corollary~\ref{cor:algebraic-finite-extension}.
+    (i) implies (ii) is the contrapositive of Corollary~\ref{cor:algebraic-finite-extension}.
 
-    (b) implies (c) because if there exists another \(F\)-algebraic element \(a \in K-F\),
+    (ii) implies (iii) because if there exists another \(F\)-algebraic element \(a \in K-F\),
     then there is a finite extension \(F(a)/F\).
 
-    (c) implies (d) since if \(f(x) \in F[x]\) and \(a\) is a root,
+    (iii) implies (iv) since if \(f(x) \in F[x]\) and \(a\) is a root,
     then \(a\) is algebraic over \(F\), and must be in \(F\).
     Induct on order of \(f\).
 
-    (d) implies (e) trivially true.
+    (iv) implies (v) trivially true.
 
-    (e) implies (d) simply by induction on degree of \(f\).
+    (v) implies (iv) simply by induction on degree of \(f\).
 
-    (d) implies (a) since if there are other algebraic extensions,
+    (iv) implies (i) since if there are other algebraic extensions,
     then that means there is some polynomial that does not have a root in \(F\).
 \end{proof}
 \begin{definition}
@@ -528,6 +528,9 @@
     In particular, splitting fields of \(p(x) \in F[x]\) over \(F\)
     are \(F\)-isomorphic.
 \end{theorem}
+\begin{proof}
+    
+\end{proof}
 
 
 \section{Separability}
