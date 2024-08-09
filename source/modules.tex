@@ -243,6 +243,10 @@
     The direct product is \(\prod_i M_i = \{{(m_i)}_{i \in S}\}\),
     and the direct sum is \(\bigoplus_i M_i = \{{(m_i)_{i \in S}}\}\) with finite support.
 \end{definition}
+\begin{remark}
+    These two fulfill the same universal properties as in Section~\ref{sec:vsp-constructions},
+    since the proofs are exactly the same.
+\end{remark}
 
 
 \section{Free Modules}
@@ -730,6 +734,1116 @@
     The \hyperref[cor:nakayama-quotient]{corollary of Nakayama's lemma}
     then tells us that \(M = N\).
 \end{proof}
+
+
+\section{Exact Sequences}\label{sec:exact-sequence}
+
+\begin{remark}
+    We digress, and move on to exact sequences for a short while.
+    These are usual for proving properties about modules and abelian groups.
+\end{remark}
+\begin{remark}
+    Assume all rings are commutative in this section.
+\end{remark}
+
+\begin{definition}
+    Suppose \({\{M_i\}}_{i\in\bZ}\) is a sequence of \(R\)-modules,
+    with connecting homomorphisms \({\{\phi_i\}}_{i\in\bZ}\), forming
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_{i-1} \arrow{r}{\phi_i} &
+            M_i \arrow{r}{\phi_{i+1}} & M_{i+1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    We say the sequence is exact at \(M_i\) if \(\img\phi_i = \ker\phi_{i-1}\);
+    and the sequence is exact if it is exact at every position.
+\end{definition}
+
+\begin{proposition}\label{prop:exact-injective}\label{prop:exact-surjective}
+    We have the following two characterizations of homomorphisms:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(0 \to M \to N\) exact if and only if \(M \to N\) is injective; and
+        \item \(M \to N \to 0\) exact if and only if \(M \to N\) is surjective.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(\func{\phi}{M}{N}\) is injective.
+    Then \(\ker\phi/\img 0 = \ker\phi = 0\) as desired.
+    If it is not injective instead, then \(\ker\phi/0 = \ker\phi \neq 0\) as desired.
+
+    Suppose \(\func{\phi}{M}{N}\) is surjective.
+    Then \(\ker 0/\img\phi = N/N = 0\) as desired.
+    If it is not surjective, then \(\ker 0/\img\phi \neq N/N = 0\) as desired.
+\end{proof}
+
+\begin{definition}
+    A short exact sequence is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{r} & M_2 \arrow{r} & M_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{proposition}\label{prop:short-exact-sequence}
+    Such a sequence is a short exact sequence if and only if \(M_3 \cong M_2/M_1\).
+\end{proposition}
+\begin{proof}
+    Suppose the sequence is exact, with \(\func{f}{M_1}{M_2}\) and \(\func{g}{M_2}{M_3}\).
+    We know that \(f\) is an embedding of \(M_1 \subseteq M_2\) by Proposition~\ref{prop:exact-injective}.
+    Then \(\ker g/\img f = \ker g/M_1 = 0\), so \(\ker g = M_1\).
+    The \hyperref[thm:iso-1-mod]{first isomorphism theorem} then tells us that
+    \(M_3 \cong M_2/\ker g = M_2/M_1\).
+\end{proof}
+\begin{theorem}\label{thm:cut-exact-sequence}
+    Every exact sequence can be cut into short exact sequences.
+\end{theorem}
+\begin{proof}
+    Suppose we have the exact sequence
+    \begin{equation*}
+        M_\bullet: \qquad
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_{i+1} \arrow{r}{\phi_{i+1}} &
+            M_i \arrow{r}{\phi_i} & M_{i-1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    We claim that the following diagram commutes
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_{i+1} \arrow{rr}{\phi_{i+1}} \arrow{rd}{\phi_{i+1}} &&
+            \textcolor{red}{M_i} \arrow{rr}{\phi_i} \arrow[color=red]{rd}{\phi_i} &&
+            M_{i-1} \arrow{r} & \cdots \\
+            \cdots && \textcolor{red}{\ker\phi_i} \arrow[color=red]{ru}{\iota_i} \arrow{rd} &&
+            \textcolor{red}{\ker\phi_{i-1}} \arrow{ru}{\iota_{i-1}} \arrow[color=red]{rd} && \cdots \\
+            \cdots & \textcolor{red}{0} \arrow[color=red]{ru} && 0 \arrow{ru} &&
+            \textcolor{red}{0} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    and the red sequence is exact.
+    \(\iota_i\) is the natural inclusion map,
+    so clearly \(\phi_{i+1} = \iota_i \circ \phi_{i+1}\).
+    By exactness at \(M_i\), we have \(\ker\phi_{i-1} = \img\phi_i\).
+    But then the first homomorphism theorem gives us that \(\img\phi_i \cong M_i/\ker\phi_i\),
+    which by Proposition~\ref{prop:short-exact-sequence} we know is short exact.
+\end{proof}
+
+\begin{lemma}\label{lem:additive-characteristic}
+    Suppose \(C\) is a class of \(R\)-modules,
+    closed under images and kernels.
+    Let \(\func{\lambda}{C}{\bZ}\) be additive.
+    If we have a short exact sequence in \(C\),
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_3 \arrow{r} & M_2 \arrow{r} & M_1 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    then \(-\lambda(M_1) + \lambda(M_2) - \lambda(M_3) = 0\).
+\end{lemma}
+\begin{proof}
+    By Proposition~\ref{prop:short-exact-sequence}, we have \(M_1 \cong M_2/M_3\),
+    so \(M_2 \cong M_1 \oplus M_3\), hence \(\lambda(M_2) = \lambda(M_1) + \lambda(M_3)\).
+\end{proof}
+\begin{theorem}\label{thm:additive-characteristic}
+    An exact sequence in \(C\) yields \(\sum_{i=1}^n {(-1)}^i \lambda(M_i) = 0\).
+\end{theorem}
+\begin{proof}
+    Let us proceed by induction,
+    since the case of \(n=3\) is already proven
+    by the \hyperref[lem:additive-characteristic]{lemma above}.
+    We shall cut up our sequence using Theorem~\ref{thm:cut-exact-sequence}.
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_3 \arrow{rr} \arrow{rd} &&
+            \textcolor{red}{M_2} \arrow[color=red]{r}{\phi_2} &
+            \textcolor{red}{M_1} \arrow[color=red]{r} & \textcolor{red}{0} \\
+            && \textcolor{red}{\ker\phi_2} \arrow[color=red]{ru} \arrow{rd} \\
+            & \textcolor{red}{0} \arrow[color=red]{ru} && 0
+        \end{tikzcd}
+    \end{equation*}
+    The red sequence is exact.
+    Of course, \(M_3 \to \ker\phi_2 \to 0\) is also exact
+    because it is by definition surjective (Proposition~\ref{prop:exact-surjective}).
+    Hence by the inductive hypothesis,
+    \(\lambda(\ker\phi_2) + \sum_{i=3}^n {(-1)}^i \lambda(M_i) = 0\);
+    and in a short exact sequence,
+    \(-\lambda(M_1) + \lambda(M_2) - \lambda(\ker\phi_2) = 0\).
+    Adding the two equations together yields our desired result.
+\end{proof}
+\begin{remark}
+    The Euler characteristic \(\chi\) obeys, by this same reasoning,
+    \begin{equation*}
+        \chi(\sigma) = \sum_{i=1}^n {(-1)}^i \dim(V_i) = 0
+    \end{equation*}
+\end{remark}
+
+\begin{definition}
+    Consider a functor \(\func{F}{\textbf{Mod}_R}{\textbf{Mod}_R}\).
+    \(F\) is exact if it sends short exact sequences to short exact sequences.
+    \(F\) is right-exact if it sends an exact \(M_3 \to M_2 \to M_1 \to 0\)
+    to an exact \(F(M_3) \to F(M_2) \to F(M_1) \to 0\).
+    \(F\) is left-exact if it sends an exact \(0 \to M_3 \to M_2 \to M_1\)
+    to an exact \(0 \to F(M_3) \to F(M_2) \to F(M_1)\).
+\end{definition}
+\begin{proposition}\label{prop:exact-functor-sequence}
+    Any exact functor sends exact sequences to exact sequences.
+\end{proposition}
+\begin{proof}
+    % It suffices to prove that any sequence \(M_3 \to M_2 \to M_1\), exact at \(M_2\),
+    % gets sent to some sequence \(F(M_3) \to F(M_2) \to F(M_1)\), exact at \(F(M_2)\).
+    Suppose we have the exact sequence
+    \begin{equation*}
+        M_\bullet: \qquad
+        \begin{tikzcd}
+            \cdots \arrow{r} & M_{i+1} \arrow{r}{\phi_{i+1}} &
+            M_i \arrow{r}{\phi_i} & M_{i-1} \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    and we wish to show that
+    \begin{equation*}
+        F(M_\bullet): \qquad
+        \begin{tikzcd}
+            \cdots \arrow{r} & F(M_{i+1}) \arrow{r}{F(\phi_{i+1})} &
+            F(M_i) \arrow{r}{F(\phi_i)} & F(M_{i-1}) \arrow{r} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    is exact at \(F(M_i)\).
+    By Theorem~\ref{thm:cut-exact-sequence},
+    the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} &
+            \textcolor{teal}{M_{i+1}} \arrow{rr}{\phi_{i+1}} \arrow[color=teal]{rd}{\phi_{i+1}} &&
+            \textcolor{red}{M_i} \arrow{rr}{\phi_i} \arrow[color=red]{rd}{\phi_i} &&
+            \textcolor{teal}{M_{i-1}} \arrow{r} & \cdots \\
+            \cdots && \textcolor{red}{\ker\phi_i} \arrow[color=red]{ru}{\iota_i} \arrow[color=teal]{rd} &&
+            \textcolor{red}{\ker\phi_{i-1}} \arrow[color=teal]{ru}{\iota_{i-1}} \arrow[color=red]{rd} && \cdots \\
+            \cdots & \textcolor{red}{0} \arrow[color=red]{ru} && \textcolor{teal}{0} \arrow[color=teal]{ru} &&
+            \textcolor{red}{0} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    and the red and teal sequences are exact.
+    Applying the functor \(F\),
+    the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            \cdots \arrow{r} &
+            \textcolor{teal}{F(M_{i+1})} \arrow{rr}{F(\phi_{i+1})} \arrow[color=teal]{rd}{F(\phi_{i+1})} &&
+            \textcolor{red}{F(M_i)} \arrow{rr}{F(\phi_i)} \arrow[color=red]{rd}{F(\phi_i)} &&
+            \textcolor{teal}{F(M_{i-1})} \arrow{r} & \cdots \\
+            \cdots && \textcolor{red}{F(\ker\phi_i)} \arrow[color=red]{ru}{F(\iota_i)} \arrow[color=teal]{rd} &&
+            \textcolor{red}{F(\ker\phi_{i-1})} \arrow[color=teal]{ru}{F(\iota_{i-1})} \arrow[color=red]{rd} && \cdots \\
+            \cdots & \textcolor{red}{0} \arrow[color=red]{ru} && \textcolor{teal}{0} \arrow[color=teal]{ru} &&
+            \textcolor{red}{0} & \cdots
+        \end{tikzcd}
+    \end{equation*}
+    and the red and teal sequences are once again exact
+    (since the two teal sequences are part of a short exact sequence).
+
+    We can now see that \(\img F(\phi_{i+1}) = \img F(\iota_i\circ\phi_{i+1})\).
+    But since \(F(\phi_{i+1})\) is surjective onto \(F(\ker\phi_i)\)
+    (teal sequence under Proposition~\ref{prop:exact-surjective}),
+    \(\img F(\iota_i\circ\phi_{i+1}) = \img F(\iota_i)\).
+    By exactness of the red sequence, \(\img F(\iota_i) = \ker F(\phi_i)\).
+    As \(F(\iota_{i-1})\) is injective 
+    (teal sequence under Proposition~\ref{prop:exact-injective} again),
+    \(\ker F(\phi_i) = \ker F(\iota_{i-1}\circ\phi_i)\).
+    Lastly, \(\ker F(\iota_{i-1}\circ\phi_i) = \ker F(\phi_i)\) for the black arrow on top.
+    Combining these together we have our desired \(\img F(\phi_{i+1}) = \ker F(\phi_i)\).
+\end{proof}
+
+\begin{theorem}\label{thm:hom-functor-exact}
+    Suppose \(M\) is an \(R\)-module.
+    Let us consider two functors
+    \(\Hom_R(N,\cdot): N \mapsto \Hom_R(N,M)\) and \(\Hom(\cdot,N): N \mapsto \Hom_R(M,N)\).
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(0 \to M_3 \to M_2 \to M_1\) is exact
+            if and only if \(0 \to \Hom(N,M_3) \to \Hom(N,M_2) \to \Hom(N,M_1)\) is exact; and
+        \item \(M_3 \to M_2 \to M_1 \to 0\) is exact
+            if and only if \(\Hom(M_3,N) \gets \Hom(M_2,N) \gets \Hom(M_1,N) \gets 0\) is exact.
+    \end{enumerate}
+    In particular, \(\Hom_R(N,\cdot)\) is a covariant left-exact functor,
+    and \(\Hom(\cdot,N)\) is a contravariant right-exact functor.
+\end{theorem}
+\begin{proof}
+    It is easy to see that if \(\func{\phi}{M}{M'}\),
+    then under the \(\Hom(N,\cdot)\) functor,
+    this maps to \(\func{\phi\circ\cdot}{\Hom(N,M)}{\Hom(N,M')}\),
+    as we need to append a map \(M \to M'\);
+    this gives us covariance.
+
+    Consider the sequence
+    \begin{equation*}
+        M_\bullet: \qquad
+        \begin{tikzcd}
+            0 \arrow{r} & M_3 \arrow{r}{f} & M_2 \arrow{r}{g} & M_1
+        \end{tikzcd}
+    \end{equation*}
+    Suppose \(M_\bullet\) is exact, and let us show that \(\Hom(N,M_\bullet)\) is also exact.
+    We first show that \(f\circ\cdot\) is injective.
+    If \(\phi\neq\phi'\), then observe that there exists some \(x\) such that \(\phi(x) \neq \phi'(x)\),
+    and since \(f\) is injective, \((f\circ\phi)(x) \neq (f\circ\phi')(x)\).
+    Hence \(f\circ\phi \neq f\circ\phi'\) as desired.
+    Now we show that \(\img(f\circ\cdot) = \ker(g\circ\cdot)\).
+    Notice \(\ker(g\circ\cdot) = \{\phi: \img\phi \subseteq \ker g\}\) by definition,
+    and \(\img(f\circ\cdot) = \{\phi: \img\phi \subseteq \img f\}\),
+    since any function we put into \(f\circ\cdot\) cannot exceed the image,
+    and \(f\) is a bijection from \(M_3 \to \img f\),
+    so \(f^{-1}\circ\phi\) is the desired map.
+    This proves the forward direction of (a).
+
+    Now suppose \(\Hom(N,M_\bullet)\) is exact for all \(N\),
+    and show that \(M_\bullet\) is also exact.
+    We have the exact sequence
+    \begin{equation*}
+        \Hom(N,M_\bullet): \qquad
+        \begin{tikzcd}
+            0 \arrow{r} & \Hom(N,M_3) \arrow{r}{f\circ\cdot} &
+            \Hom(N,M_2) \arrow{r}{g\circ\cdot} & \Hom(N,M_1)
+        \end{tikzcd}
+    \end{equation*}
+    Let \(N = \ker f\).
+    Consider the embedding \(\func{\iota}{\ker f}{M_3}\), and the zero map.
+    We can see that by definition of the kernel, \(f\circ\iota = 0 = f\circ 0\),
+    so by injectivity of \(f\circ\cdot\),
+    we are forced to conclude that \(\iota = 0\),
+    which implies \(\ker f = 0\), and \(f\) is injective.
+    We now let \(N = \ker g\), and show that \(\ker g \subseteq \img f\).
+    Consider the embedding \(\func{\iota}{\ker g}{M_2}\).
+    By definition of the kernel, \(g\circ\iota = 0\),
+    so we are forced to conclude that \(\iota \in \ker(g\circ\cdot) = \img(f\circ\cdot)\).
+    As we said in the previous paragraph, this gives us \(\img\iota \subseteq \img f\),
+    which since \(\iota\) is an injection, \(\ker g \cong \img\iota \subseteq \img f\).
+    We finally let \(N = M_3\), and show that \(\img f \subseteq \ker g\).
+    Since we know that \(g\circ f\circ\cdot = 0\),
+    in particular \(g\circ f\circ\id = g\circ f = 0\).
+    This gives us \(\img f \subseteq \ker g\).
+    This proves the reverse direction of (a).
+
+    \medskip
+
+    It is easy to see that if \(\func{\phi}{M}{M'}\),
+    then under the \(\Hom(\cdot,N)\) functor,
+    this maps to \(\func{\cdot\circ\phi}{\Hom(M',N)}{\Hom(M,N)}\),
+    as we need to prepend a map \(M \to M'\);
+    this gives us contravariance.
+
+    Consider the sequence
+    \begin{equation*}
+        M_\bullet: \qquad
+        \begin{tikzcd}
+            M_3 \arrow{r}{f} & M_2 \arrow{r}{g} & M_1 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Suppose \(M_\bullet\) is exact, and let us show that \(\Hom(M_\bullet,N)\) is also exact.
+    We first show that \(\cdot\circ g\) is injective.
+    If \(\phi\neq\phi'\), then there exists some \(x\) such that \(\phi(x) \neq \phi'(x)\),
+    and since \(g\) is surjective, there exists some \(y\) such that \(g(y) = x\).
+    Hence \((\phi\circ g)(y) \neq (\phi'\circ g)(y)\),
+    and \(\phi\circ g \neq \phi'\circ g\) as desired.
+    Now we show that \(\img(\cdot\circ g) = \ker(\cdot\circ f)\).
+    Notice \(\ker(\cdot\circ f) = \{\phi: \img f \subseteq \ker\phi\}\) by definition,
+    and \(\img(\cdot\circ g) = \{\phi: \ker g \subseteq \ker\phi\}\),
+    since any function \(\psi\circ g\) can only potentially send more elements to zero,
+    and the \hyperref[thm:univ-prop-quotient-mod]{universal property of quotients}
+    guarantees that \(\phi\) factors through \(g\).
+    This proves the forward direction of (b).
+
+    Now suppose \(\Hom(M_\bullet,N)\) is exact for all \(N\),
+    and show that \(M_\bullet\) is also exact.
+    We have the exact sequence
+    \begin{equation*}
+        \Hom(M_\bullet,N): \qquad
+        \begin{tikzcd}
+            \Hom(M_3,N) & \Hom(M_2,N) \arrow{l}[swap]{\cdot\circ f} &
+            \Hom(M_1,N) \arrow{l}[swap]{\cdot\circ g} & 0 \arrow{l}
+        \end{tikzcd}
+    \end{equation*}
+    Let \(N = \coker g\), and consider the quotient map \(\func{\pi}{M_1}{\coker g}\).
+    Then by definition of the kernel, \(\pi\circ g = 0 = 0\circ g\),
+    so by injectivity of \(\cdot\circ g\),
+    we are forced to conclude that \(\pi = 0\),
+    which implies \(\img g = M_1\), and \(g\) surjective.
+    We now let \(N = \coker f\), and show that \(\ker g \subseteq \img f\).
+    Consider the projection \(\func{\pi}{M_2}{\coker f}\).
+    By definition of the kernel, \(\pi\circ f = 0\),
+    so we are forced to conclude that \(\pi \in \ker(\cdot\circ f) = \img(\cdot\circ g)\).
+    As we said in the previous paragraph, this gives us \(\ker g \subseteq \ker\pi\),
+    and by definition, we have \(\ker g \subseteq \ker\pi = \img f\).
+    We finally let \(N = M_1\), and show that \(\img f \subseteq \ker g\).
+    Since we know that \(\cdot\circ g\circ f = 0\),
+    in particular \(\id\circ g\circ f = g\circ f = 0\).
+    This gives us \(\img f \subseteq \ker g\).
+    This proves the reverse direction of (b).
+\end{proof}
+
+\begin{theorem}[Snake Lemma]\label{thm:snake}\label{lem:snake}
+    Suppose we have two exact sequences,
+    and the black parts of the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            \textcolor{teal}{0} \arrow[color=teal]{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow[color=olive]{r} & \textcolor{olive}{0}
+        \end{tikzcd}
+    \end{equation*}
+    Then the black parts of the following sequence is exact.
+    \begin{equation*}
+        \begin{tikzcd}
+            \textcolor{teal}{0} \arrow[color=teal]{r} &
+            \ker f \arrow{r} & \ker g \arrow{r} & \ker h \arrow{r}{\delta} &
+            \coker f \arrow{r} & \coker g \arrow{r} & \coker h \arrow[color=olive]{r} &
+            \textcolor{olive}{0}
+        \end{tikzcd}
+    \end{equation*}
+    Additionally,
+    \begin{enumerate}[itemsep=0mm]
+        \item[\textcolor{teal}{(a)}] if \(M_1 \to M_2\) is injective, then \(\ker f \to \ker g\) is also injective; and
+        \item[\textcolor{olive}{(b)}] if \(N_2 \to N_3\) is surjective, then \(\coker g \to \coker h\) is also surjective.
+    \end{enumerate}
+
+    This can be summarized by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            & 0 \arrow{d} & 0 \arrow{d} & 0 \arrow{d} \\
+            \textcolor{teal}{0} \arrow[color=teal]{r} & \textcolor{red}{\ker f} \arrow{d} \arrow[color=red]{r} &
+            \textcolor{red}{\ker g} \arrow{d} \arrow[color=red]{r} \arrow[ddd, phantom, ""{coordinate, name=Z}] &
+            \textcolor{red}{\ker h} \arrow{d}
+            \arrow[rounded corners, dashrightarrow, color=red, to path={
+                -- ([xshift=12ex]\tikztostart.east)
+                |- (Z) [near end]\tikztonodes
+                -| ([xshift=-12ex]\tikztotarget.west)
+                -- (\tikztotarget)
+            }]{dddll}[at start]{\delta} \\
+            \textcolor{teal}{0} \arrow[color=teal]{r} &
+            M_1 \arrow[crossing over, "f" description]{d} \arrow{r} &
+            M_2 \arrow[crossing over, "g" description]{d} \arrow{r} &
+            M_3 \arrow[crossing over, "h" description]{d} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{d} \arrow{r} &
+            N_2 \arrow{d} \arrow{r} & N_3 \arrow{d} \arrow[color=olive]{r} &
+            \textcolor{olive}{0} \\
+            & \textcolor{red}{\coker f} \arrow{d} \arrow[color=red]{r} &
+            \textcolor{red}{\coker g} \arrow{d} \arrow[color=red]{r} &
+            \textcolor{red}{\coker h} \arrow{d} \arrow[color=olive]{r} &
+            \textcolor{olive}{0} \\
+            & 0 & 0 & 0
+        \end{tikzcd}
+    \end{equation*}
+    where the red sequence is exact, and the teal and olive parts are optional.
+\end{theorem}
+\begin{proof}
+    Let us denote \(\mu\) as the morphisms between \(M_\bullet\),
+    and \(\nu\) as the morphisms between \(N_\bullet\).
+
+    We first construct the homomorphism \(\func{\delta}{\ker h}{\coker f}\).
+    Consider some \(m_3 \in \ker h \subseteq M_3\).
+    Since \(M_2 \to M_3\) is surjective,
+    there is some \(m_2 \in M_2\) such that \(\mu(m_2) = m_3\).
+    Now let us denote \(n_2 = g(m_2)\).
+    We can see that by the diagram,
+    \(\nu(n_2) = (\nu\circ g)(m_2) = (h\circ\mu)(m_2) = h(m_3) = 0\).
+    Now by exactness, \(n_2 \in \ker(N_2 \to N_3) = \img(N_1 \to N_2)\),
+    there exists some \(n_1 \in N_1\) such that \(\nu(n_1) = n_2\).
+    We shall then define \(\vfunc{\delta}{\ker h}{\coker f}{m_3}{[n_1]}\),
+    where \([n_1]\) denotes the equivalence class of \(n_1\) in \(\coker f = N_1/\img f\).
+    Let us now check that \(\delta\) is indeed well-defined.
+    Suppose we have chosen another \(m_2' \in M_2\) such that \(\mu(m_2') = m_3\).
+    Then exactness yields \(m_2-m_2' \in \ker(M_2 \to M_3) = \img(M_1 \to M_2)\),
+    where we can say there exists some \(\tilde{m}_1 \in M_1\) such that \(\mu(\tilde{m}_1) = m_2-m_2'\).
+    Let us now define \(n_2' = g(m_2')\).
+    Observe that \(\nu(n_2-n_2') = (\nu\circ g)(m_2-m_2') = (h\circ\mu)(m_2-m_2') = h(0) = 0\).
+    By exactness, there is some \(\tilde{n}_1 \in N_1\) such that \(\nu(\tilde{n}_1) = n_2-n_2'\).
+    But then we see that \(\nu(\tilde{n}_1-f(\tilde{m}_1)) = 0 \in N_2\)
+    since they both map into the same object,
+    so by injectivity, \(f(\tilde{m}_1) = \tilde{n}_1\).
+    Lastly, we can see that by exactness, \([\tilde{n}_1] = [f(\tilde{m}_1)] = [0]\),
+    so the choice of elements do not affect our definition.
+
+    We then inherit the maps \(\ker f \to \ker g \to \ker h\) from \(M_1 \to M_2 \to M_3\).
+    Let us quickly check that this is a valid definition.
+    Suppose \(m_1 \in \ker f \subseteq M_1\).
+    We claim that \(m_2 = \mu(m_1) \in \ker g \subseteq M_2\).
+    We have \(f(m_1) = 0\), so \(g(m_2) = (g\circ\mu)(m_1) = (\nu\circ f)(m_1) = \nu(0) = 0\) as desired.
+    This validates \(\ker f \to \ker g\).
+    To validate \(\ker g \to \ker h\),
+    simply substitute \(M_1 \mapsto M_2\), \(M_2 \mapsto M_3\), \(f \mapsto g\), and \(g \mapsto h\).
+
+    We also wish to define \(\coker f \to \coker g \to \coker h\)
+    by sending the coset representatives to coset representatives in \(N_1 \to N_2 \to N_3\);
+    i.e.\ \(\bar{\nu}[n] = [\nu(n)]\).
+    Let us quickly check that this is also a valid definition.
+    Suppose \(n_1,n_1' \in N_1\) such that \(n_1' \in [n_1]\).
+    Let \(\nu(n_1) = n_2\) and \(\nu(n_1') = n_2'\).
+    Then we have \(n_1-n_1' \in [0] = \img f\),
+    so there exists some \(\tilde{m}_1 \in M_1\) such that \(f(\tilde{m}_1) = n_1-n_1'\).
+    But the diagram tells us that
+    \((g\circ\mu)(\tilde{m}_1) = (\nu\circ f)(\tilde{m}_1) = \nu(n_1-n_1') = n_2-n_2'\),
+    so \(n_2-n_2' \in \img g = [0]\) indeed.
+    This validates \(\func{\bar{\nu}}{\coker f}{\coker g}\).
+    By similarity as seen in the other diagram,
+    this also validates \(\func{\bar{\nu}}{\coker g}{\coker h}\).
+
+    We prove exactness at \(\ker f\);
+    that is, \(\func{\mu}{\ker f}{\ker g}\) is injective,
+    assuming \(\func{\mu}{M_1}{M_2}\) is injective.
+    This is obvious, since the homomorphism is inherited.
+
+    We prove exactness at \(\ker g\);
+    that is, \(\img(\ker f \to \ker g) = \ker(\ker g \to \ker h)\).
+    Firstly, the forward inclusion is obvious,
+    since for any \(m_1 \in \ker f \subseteq M_1\),
+    exactness in \(M_\bullet\) gives \(\mu^2(m_1) = 0\).
+    Secondly, for the reverse inclusion,
+    suppose we have an element \(m_2 \in \ker g \subseteq M_2\) such that \(\mu(m_2) = 0\).
+    By exactness of \(M_\bullet\), there exists \(m_1 \in M_1\) such that \(\mu(m_1) = m_2\).
+    But since \((\nu\circ f)(m_1) = (g\circ\mu)(m_1) = g(m_2) = 0\),
+    by injectivity of \(N_1 \to N_2\), \(f(m_1) = 0\).
+    Hence \(m_1 \in \ker f\), and \(m_2 \in \img(\ker f \to \ker g)\).
+
+    We prove exactness at \(\ker h\);
+    that is, \(\img(\ker g \to \ker h) = \ker\delta\).
+    Firstly, for the forward inclusion,
+    suppose we have \(m_2 \in \ker g \subseteq M_2\) and \(m_3 \in \ker h \subseteq M_3\)
+    such that \(\mu(m_2) = m_3\).
+    Then we see that \(n_2 = g(m_2) = 0\),
+    so by injectivity of \(N_1 \to N_2\),
+    the \(n_1 \in N_1\) such that \(\nu(n_1) = n_2 = 0\) implies \(n_1 = 0\),
+    so \(\delta(m_3) = 0 \in \coker f\).
+    Secondly, for the reverse inclusion,
+    suppose \([n_1] = \delta(m_3) = 0\) for some \(m_3 \in \ker h \subseteq M_3\).
+    Let us denote \(m_2\) and \(n_2\) as in the definition of \(\delta\),
+    and note that in particular \(g(m_2) = n_2\).
+    But now, we have that \(n_1 \in \img f\) so there exists some \(m_1 \in M_1\)
+    such that \(f(m_1) = n_1\).
+    We can define \(m_2' = \mu(m_1) \in M_2\), and see that \(\mu^2(m_1) = 0\).
+    In particular, we have \(g(m_2) = (g\circ\mu)(m_1) = (\nu\circ f)(m_1) = \nu(n_1) = n_2\).
+    We can now see that \(\mu(m_2-m_2') = m_3\),
+    and it suffices to prove that \(m_2-m_2' \in \ker g\).
+    This is given since \(g(m_2-m_2') = n_2 - n_2 = 0\).
+    
+    We prove exactness at \(\coker f\);
+    that is, \(\img\delta = \ker(\coker f \to \coker g)\).
+    Firstly, for the forward inclusion,
+    suppose we have \(n_1 \in N_1\)
+    such that there exists \(m_3 \in \ker h\) with \(\delta(m_3) = [n_1]\).
+    Let us denote \(m_2\) and \(n_2\) as in the definition of \(\delta\),
+    and in particular, \(g(m_2) = n_2\).
+    This exactly tells us that \(n_2 \in \img g\),
+    so \(n_2 \in [0]\).
+    Now as \(\nu(n_1) = n_2\), we have \(\bar{\nu}[n_1] = [n_2] = [0]\) as desired.
+    Secondly, for the reverse inclusion,
+    suppose \(\bar{\nu}[n_1] = [0]\) for some \(n_1 \in N_1\).
+    Then \(\nu(n_1) = n_2 \in \img g\),
+    so there exists \(m_2 \in M_2\) such that \(g(m_2) = n_2\).
+    Let us denote \(\mu(m_2) = m_3 \in M_3\).
+    We claim that this \(\delta(m_3) = [n_1]\).
+    Observe that in the definition of \(\delta\) we proved that
+    we can choose any \(m_2 \in M_2\) such that \(\mu(m_2) = m_3\),
+    and the corresponding \([n_1]\) that we get will be the same.
+    Hence the \([n_1]\) that we started with is the correct one.
+
+    We prove exactness at \(\coker g\);
+    that is, \(\img(\coker f \to \coker g) = \ker(\coker g \to \coker h)\).
+    Firstly, the forward inclusion is obvious,
+    since for any \([m_1] \in \coker f\),
+    \(\bar{\nu}^2[m_1] = [\nu^2(m_1)] = [0] \in \coker h\)
+    by exactness in \(N_\bullet\).
+    Secondly, for the reverse inclusion,
+    suppose we have an element \([n_2] \in \coker g\) such that \(\bar{\nu}[n_2] = [0]\).
+    Consider \(\nu(n_2) = n_3 \in N_3\), and in particular \(n_3 \in [0]\).
+    Then we know that \(n_3 \in \img h\),
+    so there exists \(m_3 \in M_3\) such that \(h(m_3) = n_3\).
+    By surjectivity of \(M_2 \to M_3\),
+    there exists \(m_2 \in M_2\) such that \(\mu(m_2) = m_3\).
+    Let us define \(n_2' = g(m_2)\),
+    and see that \(\nu(n_2-n_2') = n_3-(\nu\circ g)(m_2) = n_3-(h\circ\mu)(m_2) = n_3 - h(m_3) = n_3-n_3 = 0\).
+    Hence by exactness of \(N_\bullet\),
+    there is \(\tilde{n}_1 \in N_1\) such that \(\nu(\tilde{n}_1) = n_2-n_2'\).
+    But observe that \(n_2' \in \img g\), so \([n_2-n_2'] = [n_2]-[n_2'] = [n_2]-[0] = [n_2]\),
+    and we have \(\bar{\nu}[\tilde{n}_1] = [\nu(\tilde{n}_1)] = [n_2-n_2'] = [n_2]\).
+
+    We prove exactness at \(\coker h\);
+    that is, \(\func{\bar{\nu}}{\coker g}{\coker h}\) is surjective,
+    assuming \(\func{\nu}{N_2}{N_3}\) is surjective.
+    This is obvious, since if \(n_3 = \nu(n_2)\),
+    then any \([n_3] = [\nu(n_2)] = \bar{\nu}[n_2]\).1
+\end{proof}
+
+\begin{corollary}
+    Suppose we have two short exact sequences,
+    and the following diagram commutes.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_1 \arrow{d}{f} \arrow{r} &
+            M_2 \arrow{d}{g} \arrow{r} & M_3 \arrow{d}{h} \arrow{r} & 0 \\
+            0 \arrow{r} & N_1 \arrow{r} & N_2 \arrow{r} & N_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Then if any two of \(f,g,h\) are isomorphisms,
+    then the third one must also be an isomorphism.
+\end{corollary}
+\begin{proof}
+    Suppose \(f,g\) are isomorphisms.
+    Then \(\ker f = \ker g = \coker f = \coker g = 0\),
+    and by the \hyperref[lem:snake]{snake lemma}, we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & 0 \arrow{r} & 0 \arrow{r} & \ker h \arrow{r}{\delta} &
+            0 \arrow{r} & 0 \arrow{r} & \coker h \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Hence clearly we have \(\ker h = \coker h = 0\).
+    
+    Suppose \(f,h\) are isomorphisms.
+    Then \(\ker f = \ker h = \coker f = \coker h = 0\),
+    and by the \hyperref[lem:snake]{snake lemma}, we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & 0 \arrow{r} & \ker g \arrow{r} & 0 \arrow{r}{\delta} &
+            0 \arrow{r} & \coker g \arrow{r} & 0 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Hence clearly we have \(\ker g = \coker g = 0\).
+    
+    Suppose \(g,h\) are isomorphisms.
+    Then \(\ker g = \ker h = \coker g = \coker h = 0\),
+    and by the \hyperref[lem:snake]{snake lemma}, we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \ker f \arrow{r} & 0 \arrow{r} & 0 \arrow{r}{\delta} &
+            \coker f \arrow{r} & 0 \arrow{r} & 0 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Hence clearly we have \(\ker f = \coker f = 0\).
+\end{proof}
+
+\begin{lemma}[Four Lemmas]\label{lem:four}
+    Suppose we have two exact sequences of four objects each,
+    and homomorphisms \(f_\bullet\) between the two sequences.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(f_2,f_4\) are injective, and \(f_1\) is surjective,
+            then \(f_3\) is injective.
+            \begin{equation*}
+                \begin{tikzcd}
+                    & 0 \arrow{d} & 0 \arrow[dashrightarrow]{d} & 0 \arrow{d} \\
+                    M_1 \arrow{r} \arrow{d}{f_1} & M_2 \arrow{r} \arrow{d}{f_2} &
+                    M_3 \arrow{r} \arrow{d}{f_3} & M_4 \arrow{d}{f_4} \\
+                    N_1 \arrow{r} \arrow{d} & N_2 \arrow{r} & N_3 \arrow{r} & N_4 \\
+                    0
+                \end{tikzcd}
+            \end{equation*}
+        \item If \(f_2,f_4\) are surjective, and \(f_5\) is injective,
+            then \(f_3\) is surjective.
+            \begin{equation*}
+                \begin{tikzcd}
+                    & & & 0 \arrow{d} \\
+                    M_2 \arrow{r} \arrow{d}{f_2} & M_3 \arrow{r} \arrow{d}{f_3} &
+                    M_4 \arrow{d}{f_4} \arrow{r} & M_5 \arrow{d}{f_5} \\
+                    N_2 \arrow{r} \arrow{d} & N_3 \arrow{r} \arrow[dashrightarrow]{d} &
+                    N_4 \arrow{r} \arrow{d} & N_5 \\
+                    0 & 0 & 0
+                \end{tikzcd}
+            \end{equation*}
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Let us denote \(\mu\) as the morphisms between \(M_\bullet\),
+    and \(\nu\) as the morphisms between \(N_\bullet\).
+
+    For (a), we wish to prove that given some element \(m_3 \in M_3\),
+    if \(f(m_3) = 0\), then \(m_3 = 0\).
+    Consider such an \(m_3 \in M_3\).
+    Then we have \((f\circ\mu)(m_3) = (\nu\circ f)(m_3) = \nu(0) = 0\).
+    But as \(f_4\) is injective, \(\mu(m_3) = 0\),
+    so by exactness of \(M_\bullet\),
+    there exists some \(m_2 \in M_2\) such that \(\mu(m_2) = m_3\).
+    Denote \(n_2 = f(m_2)\).
+    Now we have \(\nu(n_2) = (\nu\circ f)(m_2) = (f\circ\mu)(m_2) = f(m_3) = 0\),
+    and hence by exactness of \(N_\bullet\),
+    there exists \(n_1 \in N_1\) such that \(\nu(n_1) = n_2\).
+    Since \(f_1\) is surjective, we can find \(m_1 \in M_1\) such that \(f(m_1) = n_1\).
+    Observe that \((f\circ\mu)(m_1) = (\nu\circ f)(m_1) = \nu(n_1) = n_2 = f(m_2)\),
+    so due to injectivity of \(f_2\), \(\mu(m_1) = m_2\).
+    Now by exactness of \(M_\bullet\), \(m_3 = \mu(m_2) = \mu^2(m_1) = 0\) as desired.
+
+    For (b), we wish to prove that given any \(n_3 \in N_3\),
+    there exists \(m_3 \in M_3\) such that \(f(m_3) = n_3\).
+    Let \(n_4 = \nu(n_3)\).
+    By surjectivity of \(f_4\), there exists \(m_4 \in M_4\) such that \(f(m_4) = n_4\).
+    Due to exactness of \(N_\bullet\), we have \(\nu(n_4) = \nu^2(n_3) = 0\).
+    Then \((f\circ\mu)(m_4) = (\nu\circ f)(m_4) = \nu(n_4) = 0\),
+    so as \(f_5\) injective, \(\mu(m_4) = 0\).
+    Since \(M_\bullet\) is exact, there exists \(m_3' \in M_3\) such that \(\mu(m_3') = m_4\).
+    Allow us to denote \(f(m_3') = n_3'\).
+    Since we have \(\nu(n_3-n_3') = n_4 - (\nu\circ f)(m_3') = n_4 - (f\circ\mu)(m_3') = n_4 - f(m_4) = n_4-n_4 = 0\),
+    by exactness in \(N_\bullet\) again,
+    there exists some \(\tilde{n}_2 \in N_2\) such that \(\nu(\tilde{n}_2) = n_3-n_3'\).
+    By surjectivity of \(f_2\), we have \(\tilde{m}_2 \in M_2\) such that \(f(\tilde{m}_2) = \tilde{n}_2\).
+    Let \(\tilde{m}_3 = \mu(\tilde{m}_2)\).
+    We have \(f(\tilde{m}_3) = (f\circ\mu)(\tilde{m}_2) = (\nu\circ f)(\tilde{m}_2) = \nu(\tilde{n}_2) = n_3-n_3'\),
+    so there exists some \(m_3 = \tilde{m}_3 + m_3' \in M_3\)
+    such that \(f(m_3) = n_3-n_3'+n_3' = n_3\).
+\end{proof}
+
+\begin{corollary}[Five Lemma]\label{cor:five}\label{lem:five}
+    Suppose we have two exact sequences of five objects each,
+    and homomorphisms \(f_\bullet\) between the two sequences.
+    If \(f_1\) is surjective, \(f_2,f_4\) are isomorphisms, and \(f_5\) is injective,
+    then \(f_3\) is an isomorphism.
+    \begin{equation*}
+        \begin{tikzcd}
+            & 0 \arrow{d} & 0 \arrow[dashrightarrow]{d} & 0 \arrow{d} & 0 \arrow{d} \\
+            M_1 \arrow{r} \arrow{d}{f_1} & M_2 \arrow{r} \arrow{d}{f_2} &
+            M_3 \arrow{r} \arrow{d}{f_3} & M_4 \arrow{r} \arrow{d}{f_4} & M_5 \arrow{d}{f_5} \\
+            N_1 \arrow{r} \arrow{d} & N_2 \arrow{r} \arrow{d} &
+            N_3 \arrow{r} \arrow[dashrightarrow]{d} & N_4 \arrow{r} \arrow{d} & N_5 \\
+            0 & 0 & 0 & 0
+        \end{tikzcd}
+    \end{equation*}
+\end{corollary}
+\begin{proof}
+    Simply combine the diagrams of the two \hyperref[lem:four]{four lemmas}.
+\end{proof}
+
+
+\section{Tensor Products}
+
+\begin{remark}
+    Throughout this section, suppose all rings are commutative,
+    unless otherwise noted.
+\end{remark}
+
+\begin{definition}[Universal Property of the Tensor Product]
+    % Suppose \(M,N\) are \(R\)-modules.
+    % Then the tensor product \(M \otimes_R N = M \otimes N\) is an \(R\)-module.
+    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
+    The tensor product of \(R\)-modules is defined by the following universal property:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item there exists a projection \(\func{\pi}{\prod_{i \in S} M_i}{\bigotimes_{i \in S} M_i}\)
+            that is linear at every \(M_i\);
+        \item for any module \(P\) and any \(i\)-linear map \(\func{\phi}{\prod_{i \in S} M_i}{P}\),
+            there exists a unique homomorphism \(\func{\bar{\phi}}{\bigotimes_{i \in S} M_i}{P}\).
+    \end{enumerate}
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod_{i \in S} M_i \arrow{r}{\pi} \arrow{dr}{\phi} &
+            \bigotimes_{i \in S} M_i \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{theorem}
+    The tensor product of modules exists and is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    By the same argument as the uniqueness of the tensor product in vector spaces
+    (Theorem~\ref{thm:tensor-unique}~\&~\ref{thm:tensor-exists}),
+    and replace all mentions of vector space with \(R\)-module.
+    They also induce the same set of natural homomorphisms.
+\end{proof}
+
+\begin{lemma}
+    Suppose \({\{M_i, N_i\}}_{i \in S}\) are \(R\)-modules,
+    and \(\func{f_i}{M_i}{N_i}\) are homomorphisms.
+    Then \(\vfunc{\bigotimes f_i}{\bigotimes M_i}{\bigotimes N_i}{\bigotimes m_i}{\bigotimes f_i(m_i)}\)
+    is a module homomorphism.
+\end{lemma}
+\begin{proof}
+    One can trace through the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod M_i \arrow{r} \arrow{d}[swap]{\prod f_i} \arrow{dr} &
+            \bigotimes M_i \arrow[dashrightarrow]{d}{\exists!} \\
+            \prod N_i \arrow{r} & \bigotimes N_i
+        \end{tikzcd}
+    \end{equation*}
+\end{proof}
+\begin{theorem}\label{thm:tensor-isomorphisms}
+    There are canonical isomorphisms
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(M \otimes N \cong N \otimes M\) by exchanging positions;
+        \item \(R \otimes N \cong N\) by multiplication;
+        \item \((M \otimes N) \otimes P \cong M \otimes N \otimes P \cong M \otimes (N \otimes P)\); and
+        \item the tensor distributes over the direct sum
+            \((M \oplus N) \otimes P \cong (M \otimes P) \oplus (N \otimes P)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    For (a), we can simply trace through the following diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            M \times N \arrow{r} \arrow[leftrightarrow]{d}{\cong} &
+            M \otimes N \arrow[harpoon', dashed, shift right=0.25ex]{d}[xshift=-.5ex, yshift=.5ex, swap]{\exists!} \\
+            N \times M \arrow{r} &
+            N \otimes M \arrow[harpoon', dashed, shift right=0.25ex]{u}
+        \end{tikzcd}
+    \end{equation*}
+    By uniqueness we know that the harpoons combine to form the identity morphism both ways.
+
+    For (b), we prove that \(N\) fits the universal property of \(R \otimes N\).
+    Suppose we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            R \times N \arrow{r}{\mu} \arrow{rd}{\phi} &
+            N \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+    with \(\mu(r,n) = rn\).
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit this diagram.
+    Then we know they must disagree on some \(\bar{\phi}(n) \neq \bar{\phi}'(n)\).
+    But observe that
+    \begin{equation*}
+        \bar{\phi}(n) = (\bar{\phi}\circ\mu)(1,n) = \phi(1,n)
+        = (\bar{\phi}'\circ\mu)(1,n) = \bar{\phi}'(n)
+    \end{equation*}
+    which is a contradiction.
+    This gives us uniqueness.
+    Now, we can readily define \(\bar{\phi}(n) = \phi(1,n)\),
+    and observe that \(\bar{\phi}(rn) = \phi(1,rn) = r\phi(1,n) = \phi(r,n)\) indeed by bilinearity.
+    This gives us existence.
+
+    For (c), consider the diagram formed by the homomorphisms from the direct to tensor products:
+    \begin{equation*}
+        \begin{tikzcd}
+            M \times N \times P \arrow{r} \arrow{d} &
+            M \otimes N \otimes P \arrow[harpoon', dashed, shift right=0.25ex]{d}[xshift=-.5ex, yshift=.5ex, swap]{\exists!} \\
+            (M \otimes N) \times P \arrow{r} &
+            (M \otimes N) \otimes P \arrow[harpoon', dashed, shift right=0.25ex]{u}
+        \end{tikzcd}
+    \end{equation*}
+    By uniqueness we know that the harpoons combine to form the identity morphism both ways.
+    The proof is identical with associativity on the right.
+
+    For (d), we prove that \((M \otimes P) \oplus (N \otimes P)\) fits the universal property.
+    Suppose we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            (M \oplus N) \times P \arrow{r}{\pi} \arrow{rd}{\phi} &
+            (M \otimes P) \oplus (N \otimes P) \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+    with \(\pi(m+n,p) = m \otimes p + n \otimes p\).
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit this diagram.
+    Then we should have some element that they disagree on,
+    which cannot happen since
+    \begin{equation*}
+        \bar{\phi}(m \otimes p + n \otimes p')
+        = \bar{\phi}(\pi(m,p)+\pi(n,p'))
+        = \phi((m,p)+(n,p'))
+        = \bar{\phi}'(\pi(m,p)+\pi(n,p'))
+        = \bar{\phi}'(m \otimes p + n \otimes p')
+    \end{equation*}
+    This gives us uniqueness.
+    Now, we can readily define \(\bar{\phi}(m \otimes p + n \otimes p') = \phi(m,p) + \phi(n,p)\).
+    This is well-defined,
+    since bilinearity is given by
+    \begin{align*}
+        \phi(r(m+n),p)
+        &= \bar{\phi}(\pi(rm,p)+\pi(rn,p))
+        =  \bar{\phi}(rm \otimes p + rn \otimes p)
+        = \bar{\phi}(m \otimes rp + n \otimes rp) \\
+        &= \bar{\phi}(\pi(m,rp)+\pi(n,rp))
+        = \phi(m+n,rp)
+    \end{align*}
+\end{proof}
+\begin{corollary}
+    \(\textbf{Mod}_R\) is a symmetric monoidal category;
+    that is, \((\textbf{Mod}_R,\otimes)\) is a commutative monoid.
+\end{corollary}
+\begin{proof}
+    This follows from the \hyperref[thm:tensor-isomorphisms]{theorem above}.
+    Existence of the tensor product gives closure,
+    part~(a) gives commutativity,
+    part~(b) gives identity,
+    and part~(c) gives associativity.
+\end{proof}
+
+\subsection*{Flatness and Exactness}
+
+\begin{lemma}\label{lem:tensor-hom-equivalence}
+    \(\Hom(M \otimes N, P) \cong \Hom(M,\Hom(N,P))\),
+    which is the set of bilinear maps from \(M \times N \to P\).
+\end{lemma}
+\begin{proof}
+    It is clear that \(\Hom(M \otimes N, P)\) is the set of bilinear maps,
+    as the tensor product is universal for bilinearity.
+    
+    We shall now explicitly construct an isomorphism between the two modules.
+    Suppose \(\func{\phi}{M \otimes N}{P}\) is a homomorphism.
+    Then fixing some \(m \in M\), \(\phi(m\otimes\cdot) \in \Hom(N,P)\).
+    Let our map be \(\phi \mapsto (m \mapsto \phi(m\otimes\cdot))\).
+    We now find an inverse for this map.
+    Suppose \(\vfunc{\psi}{M}{\Hom(N,P)}{m}{\psi_m}\).
+    Then we wish to map this to the bilinear map \(\phi(m,n) = \psi_m(n)\).
+    A simple verification shows that indeed these are inverses.
+    \begin{align*}
+        \phi &\mapsto (m \mapsto \phi(m \otimes n)) \mapsto ((m \otimes n) \mapsto \phi(m \otimes n)) = \phi \\
+        \psi &\mapsto \psi_m(n) \mapsto (m \mapsto \psi_m) = \psi
+    \end{align*}
+\end{proof}
+\begin{theorem}\label{thm:tensor-right-exact}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functor \(\vfunc{\cdot\otimes N}{\textbf{Mod}_R}{\textbf{Mod}_R}{M}{M \otimes N}\)
+    that tensors by \(N\).
+    Then \(\cdot\otimes N\) is right-exact.
+\end{theorem}
+\begin{proof}
+    Suppose that
+    \begin{equation*}
+        \begin{tikzcd}
+            M_1 \arrow{r} & M_2 \arrow{r} & M_3 \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    Then applying the functor \(\Hom(\cdot,\Hom(N,P))\),
+    by Theorem~\ref{thm:hom-functor-exact},
+    \begin{equation*}
+        \begin{tikzcd}
+            \Hom(M_1,\Hom(N,P)) & \Hom(M_2,\Hom(N,P)) \arrow{l} & \Hom(M_3,\Hom(N,P)) \arrow{l} & 0 \arrow{l}
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    But by the \hyperref[lem:tensor-hom-equivalence]{lemma above},
+    this is just
+    \begin{equation*}
+        \begin{tikzcd}
+            \Hom(M_1 \otimes N,P) & \Hom(M_2 \otimes N,P) \arrow{l} & \Hom(M_3 \otimes N,P) \arrow{l} & 0 \arrow{l}
+        \end{tikzcd}
+    \end{equation*}
+    Applying Theorem~\ref{thm:hom-functor-exact} in reverse gives us that
+    \begin{equation*}
+        \begin{tikzcd}
+            M_1 \otimes N \arrow{r} & M_2 \otimes N \arrow{r} & M_3 \otimes N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact as desired.
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    We say \(N\) is flat if tensoring by \(N\) is exact.
+\end{definition}
+\begin{lemma}\label{lem:flat-equivalence}
+    Suppose \(N\) is an \(R\)-module,
+    and \(\cdot\otimes N\) is the functor that tensors by \(N\).
+    The following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(N\) is flat;
+        \item \(\cdot\otimes N\) sends exact sequences to exact sequences;
+        \item \(\cdot\otimes N\) sends short exact sequences to short exact sequences;
+        \item \(\cdot\otimes N\) sends an injective map to an injective map; and
+        \item \(\cdot\otimes N\) sends an injective map of finitely generated modules
+            to an injective map of finitely generated modules.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Firstly, (i) if and only if (iii) by the definition of flatness and exactness.
+    Then, (iii) implies (ii) by Proposition~\ref{prop:exact-functor-sequence};
+    and (ii) implies (iii) simply because short exact sequences are a type of exact sequence.
+
+    Now, (iii) implies (iv) because the first nonzero homomorphism in a short exact sequence is injective;
+    and (iv) implies (iii) because the \hyperref[thm:tensor-right-exact]{theorem above}
+    guarantees exactness on the right two modules,
+    while injectivity takes care of the first.
+    (iv) also implies (v) trivially.
+
+    Lastly, we shall prove (v) implies (iv).
+    Suppose \(\func{\phi}{M}{P}\) is injective.
+    Consider some arbitrary element \(\sum m_i \otimes n_i \in \ker(\phi\otimes\id)\),
+    such that \(\sum \phi(m_i) \otimes n_i = 0 \in P \otimes N\).
+    Consider \(M_0 \subseteq M\), the submodule generated by \(\{m_i\}\),
+    and \(N_0 \subseteq N\), the submodule generated by \(\{\phi(m_i)\}\).
+    If \(\phi_0 = \eval{\phi}_{M_0}\) is the restriction,
+    then observe that \(\phi_0\) is injective on finitely generated modules,
+    so \(\phi_0\otimes\id\) is also injective,
+    and hence in particular, \(\sum \phi_0(m_i) \otimes n_i = 0\)
+    impies \(\sum m_i \otimes n_i = 0\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(N\) is an \(R\)-module.
+    Consider the functors \(\Hom(N,\cdot): M \mapsto \Hom(N,M)\) and \(\Hom(\cdot,N): M \mapsto \Hom(M,N)\).
+    \(N\) is a projective module if \(\Hom(N,\cdot)\) is exact,
+    and an injective module of \(\Hom(\cdot,N)\) is exact.
+\end{definition}
+\begin{proposition}\label{prop:projective-module}
+    Suppose \(P\) is an \(R\)-module,
+    and \(M \to N\) is a surjective homomorphism.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(P\) is projective;
+        \item \(\Hom(P,M) \to \Hom(P,N)\) is surjective; and
+        \item the following diagram commutes:
+            \begin{equation*}
+                \begin{tikzcd}
+                    & P \arrow[dashrightarrow]{dl}[swap]{\exists} \arrow{d} \\
+                    M \arrow{r} & N \arrow{r} & 0
+                \end{tikzcd}
+            \end{equation*}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(\func{\phi}{M}{N}\).
+    Then we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \ker\phi \arrow{r} & M \arrow{r}{\phi} & N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Since \(P\) is projective, we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \Hom(P,\ker\phi) \arrow{r} &
+            \Hom(P,M) \arrow{r}{\cdot\circ\phi} & \Hom(P,N) \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    so surjectivity is guaranteed.
+    This proves (i) implies (ii).
+
+    Then, suppose \(\func{\cdot\circ\phi}{\Hom(P,M)}{\Hom(P,N)}\) is surjective.
+    Notice how \(\Hom(P,\cdot)\) is readily left-exact (Theorem~\ref{thm:hom-functor-exact}),
+    so the statement that \(\func{\cdot\circ\phi}{\Hom(P,M)}{\Hom(P,N)}\) is surjective
+    suffices to show full exactness.
+    This proves (ii) implies (i).
+
+    Again, suppose \(\func{\cdot\circ\phi}{\Hom(P,M)}{\Hom(P,N)}\) is surjective.
+    Consider any homomorphism \(\func{\nu}{P}{N}\).
+    Then by surjectivity there exists a homomorphism \(\func{\mu}{P}{M}\)
+    such that \(\mu\circ\phi = \nu\) as desired.
+    This proves (ii) implies (iii).
+    
+    Lastly, suppose the diagram commutes.
+    Then for any \(\nu \in \Hom(P,N)\),
+    there exists some \(\mu \in \Hom(P,M)\)
+    such that \(\mu\circ\phi = \nu\) as desired.
+    This proves (iii) implies (ii).
+\end{proof}
+\begin{proposition}
+    Suppose \(I\) is an \(R\)-module,
+    and \(M \to N\) is a injective homomorphism.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(I\) is injective;
+        \item \(\Hom(N,I) \to \Hom(M,I)\) is surjective; and
+        \item the following diagram commutes:
+            \begin{equation*}
+                \begin{tikzcd}
+                    & I \\
+                    0 \arrow{r} & M \arrow{u} \arrow{r} & N \arrow[dashrightarrow]{ul}[swap]{\exists}
+                \end{tikzcd}
+            \end{equation*}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(\func{\phi}{M}{N}\).
+    Then we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M \arrow{r}{\phi} & N \arrow{r} & \coker\phi \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Since \(I\) is injective, we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 & \Hom(M,I) \arrow{l} & \Hom(N,I) \arrow{l}[swap]{\phi\circ\cdot} &
+            \Hom(\coker\phi,I) \arrow{l} & 0 \arrow{l}
+        \end{tikzcd}
+    \end{equation*}
+    so surjectivity is guaranteed.
+    This proves (i) implies (ii).
+
+    Then, suppose \(\func{\phi\circ\cdot}{\Hom(N,I)}{\Hom(M,I)}\) is surjective.
+    Since \(\Hom(\cdot,I)\) is readily right-exact (Theorem~\ref{thm:hom-functor-exact}),
+    the statement that \(\cdot\circ\phi\) is surjective suffices to show full exactness.
+    This proves (ii) implies (i).
+
+    Again, suppose \(\func{\phi\circ\cdot}{\Hom(M,I)}{\Hom(N,I)}\) is surjective.
+    Consider any homomorphism \(\func{\mu}{M}{I}\).
+    By surjectivity, there exists \(\func{\nu}{N}{I}\)
+    such that \(\phi\circ\nu = \mu\) as desired.
+    This proves (ii) implies (iii).
+
+    Lastly, suppose the diagram commutes.
+    Then for any \(\mu \in \Hom(M,I)\),
+    there exists \(\nu \in \Hom(N,I)\) such that \(\phi\circ\nu = \mu\) as desired.
+    This proves (iii) implies (ii).
+\end{proof}
+
+% \begin{proposition}
+%     We have the following subclasses of modules:
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item free modules are projective;
+%         \item projective modules are flat; and
+%         \item flat modules are torsion-free. 
+%     \end{enumerate}
+% \end{proposition}
+\begin{proposition}
+    Free modules are projective.
+\end{proposition}
+\begin{proof}
+    Suppose \(F\) is a free module,
+    and \(\func{\phi}{M}{N}\) is surjective.
+    Let \({\{x_i\}}_{i \in I} \subset F\) be a basis,
+    and \(\func{\nu}{F}{N}\) be some homomorphism.
+    As \(\phi\) is surjective, for each \(\nu(x_i)\)
+    there exists \(m_i \in M\) such that \(\phi(m_i) = \nu(x_i)\).
+    It suffices to define \(\mu(x_i) = m_i\).
+    We are done after a quick application of Proposition~\ref{prop:projective-module}.
+\end{proof}
+
+\subsection*{Algebras}
+
+\begin{definition}
+    Suppose \(R \to S\) is a ring homomorphism.
+    Then \(S\) is an \(R\)-algebra.
+\end{definition}
+\begin{definition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(R\)-algebra homomorphisms are
+    \begin{equation*}
+        \begin{tikzcd}
+            S \arrow{r} & T \\
+            R \arrow{u} \arrow{r}{\id} & R \arrow{u}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{proposition}\label{prop:algebras-are-modules}
+    \(R\)-algebras are \(R\)-modules.
+\end{proposition}
+\begin{proof}
+    Rings are naturally additive abelian groups,
+    and also have distributive laws.
+    Scalar multiplication is given by \(rs = \phi(r)s\) for \(\func{\phi}{S}{T}\),
+    which then allows us to get associativity for free.
+\end{proof}
+
+\begin{proposition}
+    Suppose \(S,T\) are \(R\)-algebras.
+    Then \(S \otimes T\) is also an \(R\)-algebra.
+\end{proposition}
+\begin{proof}
+    From the \hyperref[prop:algebras-are-modules]{previous proposition},
+    we already know that \(S \otimes T\) is an \(R\)-module.
+    We can then define ring multiplication in the tensor product as
+    \((s \otimes t)(s' \otimes t') = ss' \otimes tt'\).
+
+    We quickly check all the properties of multiplication in a ring.
+    \((1 \otimes 1)(s \otimes t) = s \otimes t\) gives identity,
+    and associativity is inherited from \(S\) and \(T\) individually.
+\end{proof}
+
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra.
+    Then any \(S\)-module is also an \(R\)-module.
+    This is the restriction of \(M\).
+\end{definition}
+\begin{definition}
+    Suppose \(S\) is an \(R\)-algebra, and \(M\) is an \(R\)-module.
+    Then \(M \otimes S\) is an \(S\)-module.
+    This is the extension of \(M\).
+\end{definition}
 
 
 \section{Modules over Principal Ideal Domains}

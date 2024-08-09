@@ -189,7 +189,7 @@
 \end{proof}
 
 
-\section{General Constructions}
+\section{General Constructions}\label{sec:vsp-constructions}
 
 \subsection*{Direct Sum}
 
@@ -329,6 +329,28 @@
     The same argument can be used to conclude that \(\bar{\phi}\circ\bar{\phi}' = \id\).
     Hence \(\bar{\phi}^{-1} = \bar{\phi}'\),
     and we have isomorphism.
+\end{proof}
+
+\begin{proposition}
+    Suppose \({\{V_i\}}_{i \in I},{\{W_i\}}_{i \in I}\) are two families of vector spaces,
+    and \(\func{f_i}{V_i}{W_i}\) are homomorphisms connecting them.
+    Then \(\vfunc{\bigoplus f_i}{\bigoplus V_i}{\bigoplus W_i}{\sum v_i}{\sum f_i(v_i)}\)
+    is a vector space homomorphism.
+\end{proposition}
+\begin{proof}
+    We can first observe from the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            V_i \arrow{r} \arrow{d}[swap]{f_i} \arrow{rd} &
+            \bigoplus V_i \arrow[dashrightarrow]{d}{\exists!} \\
+            W_i \arrow{r} & \bigoplus W_i
+        \end{tikzcd}
+    \end{equation*}
+    Considering some \(\sum v_i \in \bigoplus V_i\),
+    there are corresponding \(v_i \in V_i\) for each \(i\) embedded into it.
+    Then immediately we see that we have \(f_i(v_i) \in W_i\),
+    and we can embed all of those to form \(\sum f_i(v_i) \in \bigoplus W_i\),
+    which means our dashed homomorphism is our desired one.
 \end{proof}
 
 \begin{proposition}\label{prop:vsp-sum-iso}
@@ -474,6 +496,27 @@
     the direct sum can only have finite support with respect to its basis,
     but the direct product can have infinite support.
 \end{remark}
+
+\begin{proposition}
+    Suppose \({\{V_i\}}_{i \in I},{\{W_i\}}_{i \in I}\) are two families of vector spaces,
+    and \(\func{f_i}{V_i}{W_i}\) are homomorphisms connecting them.
+    Then \(\vfunc{\prod f_i}{\prod V_i}{\prod W_i}{(v_i)}{\prod (f_i(v_i))}\)
+    is a vector space homomorphism.
+\end{proposition}
+\begin{proof}
+    One can trace through the commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            V_i \arrow{d}[swap]{f_i} &
+            \prod V_i \arrow{l} \arrow{ld} \arrow[dashrightarrow]{d}{\exists!} \\
+            W_i & \prod W_i \arrow{l}
+        \end{tikzcd}
+    \end{equation*}
+    and see that if we have a product \((v_i) \in \prod V_i\),
+    then this projects onto each \(v_i \in V_i\),
+    mapping them to \(f_i(v_i) \in W_i\).
+    But this can exactly be projected by \((f_i(v_i)) \in \prod W_i\) as desired.
+\end{proof}
 
 \begin{proposition}
     We have the following canonical isomorphisms:
@@ -903,7 +946,7 @@
     \end{center}
 \end{definition}
 
-\begin{theorem}[Uniqueness of Tensor Product]
+\begin{theorem}[Uniqueness of Tensor Product]\label{thm:tensor-unique}
     The tensor product is unique up to isomorphism.
 \end{theorem}
 \begin{proof}
@@ -927,7 +970,7 @@
     This gives us isomorphism.
 \end{proof}
 
-\begin{theorem}[Existence of Tensor Product]
+\begin{theorem}[Existence of Tensor Product]\label{thm:tensor-exists}
     Suppose \({\{V_i\}}_{i \in I}\) is a family of vector spaces,
     Consider the vector space \(T\) of formal linear combinations of vectors
     \({\{{(\vec{v}_i)}_{i \in I} : \vec{v}_i \in V_i\}}\).

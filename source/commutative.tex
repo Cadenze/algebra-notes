@@ -6,215 +6,33 @@
     that is, the multiplication \(ab = ba\).
 \end{remark}
 
-\begin{remark}
-    We recommend the reader to first familiarize themselves
-    with Section~\ref{sec:exact-sequence} on exact sequences and functors,
-    as they will regularly show up in proofs in commutative algebra.
-\end{remark}
-
-
-\section{Tensor Products}
-
-\begin{definition}[Universal Property of the Tensor Product]
-    % Suppose \(M,N\) are \(R\)-modules.
-    % Then the tensor product \(M \otimes_R N = M \otimes N\) is an \(R\)-module.
-    Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
-    The tensor product of \(R\)-modules is defined by the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists a projection \(\func{\pi}{\prod_{i \in S} M_i}{\bigotimes_{i \in S} M_i}\)
-            that is linear at every \(M_i\);
-        \item for any module \(P\) and any \(i\)-linear map \(\func{\phi}{\prod_{i \in S} M_i}{P}\),
-            there exists a unique homomorphism \(\func{\bar{\phi}}{\bigotimes_{i \in S} M_i}{P}\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{equation*}
-        \begin{tikzcd}
-            \prod_{i \in S} M_i \arrow{r}{\pi} \arrow{dr}{\phi} &
-            \bigotimes_{i \in S} M_i \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            & P
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
-\begin{theorem}
-    The tensor product of modules exists and is unique up to isomorphism.
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Suppose \({\{M_i, N_i\}}_{i \in S}\) are \(R\)-modules,
-    and \(\func{f_i}{M_i}{N_i}\) are homomorphisms.
-    Then \(\vfunc{\bigotimes f_i}{\bigotimes M_i}{\bigotimes N_i}{\bigotimes m_i}{\bigotimes f_i(m_i)}\)
-    is a module homomorphism.
-\end{definition}
-\begin{theorem}
-    There are canonical isomorphisms
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(M \otimes N \cong N \otimes M\) by exchanging positions;
-        \item \(R \otimes N \cong N\) by multiplication;
-        \item \((M \otimes N) \otimes P \cong M \otimes N \otimes P \cong M \otimes (N \otimes P)\); and
-        \item the tensor distributes over the direct sum
-            \((M \oplus N) \otimes P \cong (M \otimes P) \oplus (N \otimes P)\).
-    \end{enumerate}
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-\begin{corollary}
-    \(\textbf{Mod}_R\) is a symmetric monoidal category;
-    that is, \((\textbf{Mod}_R,\otimes)\) is a commutative monoid.
-\end{corollary}
-\begin{proof}
-    
-\end{proof}
-
-\begin{lemma}
-    \(\Hom(M \otimes N, P) \cong \Hom(M,\Hom(N,P))\),
-    which is the set of bilinear maps from \(M \times N \to P\).
-\end{lemma}
-\begin{proof}
-    
-\end{proof}
-\begin{theorem}
-    Suppose \(N\) is an \(R\)-module.
-    Consider the functor \(\vfunc{F}{\textbf{Mod}_R}{\textbf{Mod}_R}{M}{M \otimes N}\)
-    that tensors by \(N\).
-    Then \(F\) is right-exact.
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Suppose \(N\) is an \(R\)-module.
-    We say \(N\) is flat if tensoring by \(N\) is exact.
-\end{definition}
-\begin{lemma}
-    Suppose \(N\) is an \(R\)-module,
-    and \(F\) is the functor that tensors by \(N\).
-    The following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(N\) is flat;
-        \item \(F\) sends exact sequences to exact sequences;
-        \item \(F\) sends short exact sequences to short exact sequences;
-        \item \(F\) sends an injective map to an injective map; and
-        \item \(F\) sends an injective map of finitely generated modules
-        to an injective map of finitely generated modules.
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Suppose \(N\) is an \(R\)-module.
-    Consider the functors \(F: M \mapsto \Hom(N,M)\) and \(G: M \mapsto \Hom(M,N)\).
-    \(N\) is a projective module if \(F\) is exact,
-    and an injective module of \(G\) is exact.
-\end{definition}
-\begin{proposition}
-    Suppose \(P\) is a projective \(R\)-module,
-    and \(M \to N\) is a surjective homomorphism.
-    Then \(\Hom(P,M) \to \Hom(P,N)\) is surjective,
-    and the following diagram holds:
-    \begin{equation*}
-        \begin{tikzcd}
-            & P \arrow[dashrightarrow]{dl}[swap]{\exists!} \arrow{d} \\
-            M \arrow{r} & N \arrow{r} & 0
-        \end{tikzcd}
-    \end{equation*}
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-\begin{proposition}
-    Suppose \(I\) is an injective \(R\)-module,
-    and \(M \to N\) is a injective homomorphism.
-    Then \(\Hom(M,I) \to \Hom(N,I)\) is injective,
-    and the following diagram holds:
-    \begin{equation*}
-        \begin{tikzcd}
-            & I \\
-            0 \arrow{r} & M \arrow{u} \arrow{r} & N \arrow[dashrightarrow]{ul}[swap]{\exists!}
-        \end{tikzcd}
-    \end{equation*}
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-
-\begin{proposition}
-    Free modules are projective,
-    projective modules are flat,
-    and flat modules are torsion-free.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Suppose \(R \to S\) is a ring homomorphism.
-    Then \(S\) is an \(R\)-algebra.
-\end{definition}
-\begin{definition}
-    Suppose \(S,T\) are \(R\)-algebras.
-    Then \(R\)-algebra homomorphisms are
-    \begin{equation*}
-        \begin{tikzcd}
-            S \arrow{r} & T \\
-            R \arrow{u} \arrow{r}{\id} & R \arrow{u}
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
-\begin{proposition}
-    \(R\)-algebras are \(R\)-modules.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-
-\begin{proposition}
-    Suppose \(S,T\) are \(R\)-algebras.
-    Then \(S \otimes T\) is also an \(R\)-algebra.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-
-\begin{definition}
-    Suppose \(S\) is an \(R\)-algebra.
-    Then any \(S\)-module is also an \(R\)-module.
-    This is the restriction of \(M\).
-\end{definition}
-\begin{definition}
-    Suppose \(S\) is an \(R\)-algebra, and \(M\) is an \(R\)-module.
-    Then \(M \otimes S\) is an \(S\)-module.
-    This is the extension of \(M\).
-\end{definition}
-
 
 \section{Fractions}
+
+\subsection*{Ring of Fractions}
 
 \begin{definition}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     Then the ring of fractions is \(S^{-1}R = \{r/s : r \in R, s \in S\}/{\sim}\),
     where the equivalence relation is given by \(r_1/s_1 = r_2/s_2\)
-    if there exists some \(s \in S\) such that \(s(r_1s_2 - r_2s_1) = 0\).
+    if there exists some nonzero \(s \in S\) such that \(s(r_1s_2 - r_2s_1) = 0\).
 \end{definition}
 \begin{proposition}
     There exists a ring homomorphism \(\vfunc{\iota}{R}{S^{-1}R}{n}{n/1}\).
 \end{proposition}
 \begin{proof}
-    
+    Observe that the ring homomorphism axioms are satisfied as
+    \(\iota(0) = 0/1 = 0\),
+    \(\iota(1) = 1/1 = 1\),
+    \(\iota(r)\iota(s) = (r/1)(s/1) = rs/1 = \iota(rs)\),
+    and \(\iota(r)+\iota(s) = (r/1)+(s/1) = (r+s)/1 = \iota(r+s)\).
 \end{proof}
 \begin{lemma}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     If \(s \in S\), then \(s\) is a unit in \(S^{-1}R\).
 \end{lemma}
 \begin{proof}
-    
+    \(s(1/s) = (s/1)(1/s) = 1\).
 \end{proof}
 \begin{lemma}
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
@@ -222,13 +40,13 @@
     such that \(sr = 0\) in \(R\).
 \end{lemma}
 \begin{proof}
-    
+    By definition, \(r = r/1 = 0/1 = 0\) if and only if \(s(r-0) = sr = 0\).
 \end{proof}
 
 \begin{theorem}[Universal Property of Ring of Fractions]
     Suppose \(R\) is a ring, \(S \subseteq R\) is a multiplicative monoid.
     The ring of fractions is \(S^{-1}R\), if:
-    \begin{enumerate}
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item there exists a homomorphism \(\func{\iota}{R}{S^{-1}R}\); and
         \item for any ring \(T\), if \(\func{\phi}{R}{T}\) is a homomorphism that sends \(s \in S\) to a unit,
             then there exists a unique \(\func{\bar{\phi}}{S^{-1}R}{T}\)
@@ -244,15 +62,26 @@
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit the diagram.
+    Then they disagree on some \(r/s\).
+    But then we have
+    \begin{equation*}
+        s\bar{\phi}(r/s) = \bar{\phi}(r/1) = (\bar{\phi}\circ\iota)(r)
+        = \phi(r) = (\bar{\phi}'\circ\iota)(r) = \bar{\phi}'(r/1) = s\bar{\phi}(r/s)
+    \end{equation*}
+    which is a contradiction.
+
+    Now, we can simply define \(\bar{\phi}(r/s) = \phi(r){(\phi(s))}^{-1}\) as desired.
 \end{proof}
 
 \begin{proposition}
-    Suppose \(R\) is a domain, and \(S\) is the set of units in \(R\).
+    Suppose \(R\) is a domain, and \(S = R - \{0\}\) is the set of nonzero elements in \(R\).
     Then \(S^{-1}R\) is the field of fractions.
 \end{proposition}
 \begin{proof}
-    
+    See existence of field of fractions in Theorem~\ref{thm:existence-field-of-fractions}.
+    In particular, we have \(a/b = c/d\) when \(ad = bc\) is sufficient,
+    since \(s(ad - bc) = 0\) is equivalent to \(ad - bc = 0\) since we are in an integral domain.
 \end{proof}
 
 \begin{definition}
@@ -265,8 +94,15 @@
     \((R_p,pR_p)\) forms a local ring.
 \end{proposition}
 \begin{proof}
-    
+    Consider any \(r/s \in R_p - pR_p\).
+    We claim that \(r \notin p\),
+    since if it is, \(r/s = r(1/s) \in pR_p\) which is a contradiction.
+    Hence \(r \in R - p\), and \(s/r \in R_p\).
+    But we have just proven that every element in \(R_p - pR_p\) is a unit,
+    so by Proposition~\ref{prop:local-ring-units} \((R_p,pR_p)\) is a local ring.
 \end{proof}
+
+\subsection*{Module of Fractions}
 
 \begin{definition}
     Suppose \(S^{-1}R\) is a ring of fractions, and \(M\) be an \(R\)-module.
@@ -279,7 +115,10 @@
     where \(\ker\iota = \{m : \exists s \in S, ms = 0\}\).
 \end{proposition}
 \begin{proof}
-    
+    Observe that the module homomorphism axioms are satisfied as
+    \(\iota(0) = 0/1 = 0\) and
+    \(r\iota(m)+\iota(n) = r(m/1)+(n/1) = (rm)/1+(n/1) = (rm+n)/1 = \iota(rm+n)\).
+    Obviously, \(\iota(m) = m/1 = 0\) only if \(s(m1 - 0) = sm = 0\).
 \end{proof}
 
 \begin{proposition}
@@ -288,84 +127,165 @@
     is a functor.
 \end{proposition}
 \begin{proof}
-    
+    We already see that it sends modules to modules from our definition of module of fractions,
+    so it suffices to see that it maps module homomorphisms.
+    Suppose \(\func{\phi}{M}{N}\) is a module homomorphism.
+    Then we can simply define \(\vfunc{\phi}{S^{-1}M}{S^{-1}N}{m/s}{\phi(m)/s}\).
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-exact}
     \(S^{-1}\) is an exact functor.
 \end{theorem}
 \begin{proof}
-    
+    Consider the exact sequence \(M \overset{f}{\to} N \overset{g}{\to} P\).
+    See that if \((g \circ f)(m) = 0\),
+    then obviously \((g \circ f)(m/s) = (g \circ f)(m)/s = 0\).
+    This gives image in kernel.
+
+    Now consider \(n/s \in S^{-1}N\) such that \(g(n)/s = 0\).
+    But then that implies there exists \(s'\) such that \(s'g(n) = 0\);
+    i.e.\ \(s'n \in \ker g\).
+    By exactness, there exists \(m \in M\) such that \(f(m) = s'n\),
+    and we can get \(f(m/(ss')) = f(m)/ss' = s'n/ss' = n/s\).
+    This gives kernel in image.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:fraction-properties}
     Suppose \(P\) is an \(R\)-module,
     and \(M,N \subseteq P\) are submodules.
     The following properties hold for modules of fractions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S^{-1}(M+N) \cong S^{-1}M + S^{-1}N \subseteq S^{-1}P\);
-        \item \(S^{-1}(M \cap N) \cong S^{-1}M \cap S^{-1}N \subseteq S^{-1}P\); and
+        \item \(S^{-1}(M+N) = S^{-1}M + S^{-1}N \subseteq S^{-1}P\);
+        \item \(S^{-1}(M \cap N) = S^{-1}M \cap S^{-1}N \subseteq S^{-1}P\); and
         \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N \subseteq S^{-1}P\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    
+    For (a), there is a natural isomorphism \((m+n)/s \mapsto m/s + n/s\),
+    since the inverse map is \(m/s + n/s \mapsto (m+n)/s\) obviously.
+
+    For (b), observe that if \(m \in M \cap N\),
+    \(m/s \in S^{-1}M\) and \(m/s S^{-1}N\) as desired.
+    On the other hand, consider \(m/s \in S^{-1}M\) and \(n/t \in S^{-1}N\),
+    and \(m/s = n/t\).
+    then there exists some \(u \in S\) such that \(u(tm-sn)\)
+
+    For (c), consider the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & N \arrow{r} & M \arrow{r} & M/N \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Since \(S^{-1}\) is exact by Theorem~\ref{thm:fraction-exact},
+    we have the exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & S^{-1}N \arrow{r} & S^{-1}M \arrow{r} & S^{-1}(M/N) \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    and Proposition~\ref{prop:short-exact-sequence}
+    gives us that \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N\) as desired.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-isomorphism}
     There is an isomorphism \(S^{-1}R \otimes M \cong S^{-1}M\).
 \end{theorem}
 \begin{proof}
-    
+    We prove that \(S^{-1}M\) fits the universal property of \(S^{-1}R \otimes M\).
+    Suppose we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            S^{-1}R \times M \arrow{r}{\mu} \arrow{rd}{\phi} &
+            S^{-1}M \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            & P
+        \end{tikzcd}
+    \end{equation*}
+    with \(\mu(r/s,m) = (rm)/s\).
+    Suppose there exists \(\bar{\phi}\neq\bar{\phi}'\) that both fit this diagram.
+    Then we know they must disagree on some \(\bar{\phi}(m/s)\neq\bar{\phi}'(m/s)\).
+    But observe that
+    \begin{equation*}
+        \bar{\phi}\pqty{\frac{m}{s}} = (\bar{\phi}\circ\mu)\pqty{\frac{1}{s},m}
+        = \phi\pqty{\frac{1}{s},m} = (\bar{\phi}'\circ\mu)\pqty{\frac{1}{s},m}
+        = \bar{\phi}'\pqty{\frac{m}{s}}
+    \end{equation*}
+    which is a contraction.
+    This gives us uniqueness.
+    Now, we can readily define \(\bar{\phi}(m/s) = \phi(1/s,m)\),
+    and observe that \(\bar{\phi}(rm/s) = \phi(1/s,rm) = r\phi(1/s,m) = \phi(r/s,m)\)
+    indeed by bilinearity.
+    This gives us existence.
 \end{proof}
 \begin{corollary}
     \(S^{-1}R\) is a flat \(R\)-module.
 \end{corollary}
 \begin{proof}
-    
+    The \hyperref[thm:fraction-isomorphism]{theorem above}
+    gives us that \(S^{-1} = S^{-1}R \otimes \cdot\) as functors.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(S^{-1}R \otimes \cdot\) is also exact.
 \end{proof}
 
-\begin{proposition}
+% \begin{definition}
+%     Suppose \(R,A\) are rings.
+%     \(N\) is an \(R,A\)-bimodule if it is both an \(R\)-module and an \(A\)-module.
+% \end{definition}
+% \begin{proposition}
+%     Suppose \(M\) is an \(R\)-module,
+%     \(N\) is an \(R,A\)-bimodule,
+%     and \(P\) is an \(A\)-module.
+%     Then \(M \otimes_R N \otimes_A P\) is an \(R,A\)-bimodule.
+% \end{proposition}
+% \begin{proof}
+    
+% \end{proof}
+
+\begin{proposition}\label{prop:fraction-tensor}
     Suppose \(M,N\) are (appropriate) \(R\)-modules.
     The following properties hold for modules of fractions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S^{-1}(M \oplus N) \cong S^{-1}M \oplus S^{-1}N\);
-        \item \(S^{-1}(M/N) \cong S^{-1}M/S^{-1}N\); and
+        \item \(S^{-1}(M \oplus N) \cong S^{-1}M \oplus S^{-1}N\); and
         \item \(S^{-1}(M \otimes N) \cong S^{-1}M \otimes S^{-1}N\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    
-\end{proof}
-\begin{proposition}
-    \(M\) is a flat \(R\)-module if and only if \(S^{-1}M\) is a flat \(S^{-1}R\)-module.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
+    For (a), this is a special case of Proposition~\ref{prop:fraction-properties},
+    where the sum \(M + N\) is direct if we consider \(M,N \subseteq M \oplus N\).
 
-\begin{definition}
-    Suppose \(R,A\) are rings.
-    \(N\) is an \(R,A\)-bimodule if it is both an \(R\)-module and an \(A\)-module.
-\end{definition}
-\begin{proposition}
-    Suppose \(M\) is an \(R\)-module,
-    \(N\) is an \(R,A\)-bimodule,
-    and \(P\) is an \(A\)-module.
-    Then \(M \otimes_R N \otimes_A P\) is an \(R,A\)-bimodule.
+    For (b), we have
+    \begin{equation*}
+        S^{-1}M \otimes S^{-1}N \cong (S^{-1}R \otimes M) \otimes (S^{-1}R \otimes N)
+        \cong S^{-1}R \otimes S^{-1}R \otimes (M \otimes N)
+        \cong S^{-1}R \otimes (M \otimes N)
+        \cong S^{-1}(M \otimes N)
+    \end{equation*}
+\end{proof}
+\begin{proposition}\label{prop:localization-flat}
+    \(M\) is a flat \(R\)-module implies \(S^{-1}M\) is a flat \(S^{-1}R\)-module.
 \end{proposition}
 \begin{proof}
-    
+    If \(M \otimes \cdot\) is an exact functor,
+    then \(M \otimes (S^{-1}R \otimes \cdot) \cong S^{-1}M \otimes \cdot\) is an exact functor.
 \end{proof}
+% \begin{proposition}
+%     Suppose \(R\) is a ring, \(M\) is an \(R\)-module,
+%     \(p \subseteq M\) is prime,
+%     and \(M_p\) is a localization.
+%     If \(M\) is flat, then \(M_p\) is also flat.
+%     If \(M\) is finitely generated, then \(M_p\) is flat if and only if it is free.
+% \end{proposition}
+% \begin{proof}
+%     The first statement is a simple corollary of the \hyperref[prop:localization-flat]{proposition above}.
+    
+%     For the second statement, first suppose \(M_p \cong R_p \otimes M\) is flat
+%     (such an isomorphism is guaranteed by Theorem~\ref{thm:fraction-isomorphism}).
+%     Then for any exact sequence
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             0 \arrow{r}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{proof}
 
-\begin{proposition}
-    Suppose \(R\) is a ring, \(M\) is an \(R\)-module,
-    and \(M_p\) is a localization.
-    If \(M\) is flat, then \(M_p\) is also flat.
-    If \(M\) is finitely generated, then \(M_p\) is flat if and only if it is free.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
 \begin{definition}
     Suppose \(M\) is an \(R\)-module, and \(M_p\) some localization.
     We say a module property is local when
@@ -373,7 +293,7 @@
     We say a module property is max-local when
     \(M\) has that property if and only if \(M_p\) for all maximal \(p \subseteq R\) has that property.
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:local-max-local}
     Suppose \(M,N\) are \(R\)-modules, and \(\func{\phi}{M}{N}\) is a homomorphism.
     Then the following properties are local and max-local:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -383,24 +303,103 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
+    We will prove the three statements in similar fashion,
+    by first proving the forward direction of local,
+    and then the reverse direction of max-local.
+    Finally, using the fact that \hyperref[thm:maximal-prime-radical]{maximal ideals are prime},
+    prime localizations having a property immediately implies
+    maximal localizations must also have said property.
+
+    \medskip
+
+    First off, it is obvious that \(M = 0\)
+    implies \(M_p = 0\) for all prime \(p \subseteq R\).
+
+    We will prove the reverse of max-locality via contraposition.
+    Suppose \(M \neq 0\).
+    Consider some nonzero element \(m \in M\)
+    and its annihilator \(I = \Ann m \subsetneq (1) = R\).
+    By Corollary~\ref{cor:proper-in-maximal},
+    \(I \subseteq p\) for some maximal ideal \(p \subseteq R\).
+    Then we claim that \(m \in M_p\) is nonzero,
+    because if it is, then there is some element \(r \in R - p\) that kills \(m\),
+    which contradicts that \(\Ann m \subseteq p\).
+    This proves that there is some nonzero \(M_p\),
+    and we have proven statement (a).
+
+    \medskip
+
+    Suppose \(0 \to M \overset{\phi}{\to} N\) is exact.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(0 \to M_p \overset{\phi}{\to} N_p\) is also exact.
     
+    Suppose \(0 \to M_p \overset{\phi}{\to} N_p\) is exact for all maximal \(p \subseteq R\).
+    Consider the exact sequence \(0 \to \ker\phi \to M \overset{\phi}{\to} N\).
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(0 \to {(\ker\phi)}_p \to M_p \overset{\phi}{\to} N_p\) is also exact,
+    which implies \({(\ker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    and by max-locality in (a), \(\ker\phi = 0\) as desired.
+    We have proven statement (b).
+    
+    \medskip
+    
+    Suppose \(M \overset{\phi}{\to} N \to 0\) is exact.
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(M_p \overset{\phi}{\to} N_p \to 0\) is also exact.
+    
+    Suppose \(M_p \overset{\phi}{\to} N_p \to 0\) is exact for all maximal \(p \subseteq R\).
+    Consider the exact sequence \(M \overset{\phi}{\to} N \to \coker\phi \to 0\).
+    Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
+    \(M_p \overset{\phi}{\to} N_p \to {(\coker\phi)}_p \to 0\) is also exact,
+    which implies \({(\coker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    and by max-locality in (a), \(\coker\phi = 0\) as desired.
+    We have proven statement (c).
 \end{proof}
 \begin{theorem}
     Flatness is local and max-local.
 \end{theorem}
 \begin{proof}
-    
+    We prove in the same manner as the \hyperref[lem:local-max-local]{lemma above}.
+    Suppose \(M\) is flat.
+    Then \(M_p\) is flat for all prime \(p\) by Proposition~\ref{prop:localization-flat}.
+
+    Using the fact that \hyperref[thm:maximal-prime-radical]{maximal ideals are prime},
+    prime localizations being flat immediately implies
+    maximal localizations must also be flat.
+
+    Now suppose \(M_p\) is flat for all maximal \(p \subseteq R\).
+    If \(N \to P\) is injective,
+    then \(N_p \to P_p\) is injective by the \hyperref[lem:local-max-local]{lemma above},
+    and by flatness, \(M_p \otimes N_p \to M_p \otimes P_p\) is injective.
+    By Proposition~\ref{prop:fraction-tensor},
+    this is equivalent to saying \({(M \otimes N)}_p \to {(M \otimes P)}_p\) is injective.
+    Using the \hyperref[lem:local-max-local]{lemma above} again,
+    \(M \otimes N \to M \otimes P\) is injective,
+    which tells us that \(M\) is flat (Lemma~\ref{lem:flat-equivalence}).
 \end{proof}
 
-\begin{proposition}
+\subsection*{Extensions and Contractions}
+
+\begin{lemma}
     Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
     If \(I \subseteq R\), its extension is \(I \otimes S^{-1}R = S^{-1}I\).
     If \(J \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(J)\).
-\end{proposition}
+\end{lemma}
 \begin{proof}
-    
+    Suppose \(r \in I\).
+    Then for any \(s \in S\), \((1/s)r = r/s \in (\phi(I))\),
+    so we have \(S^{-1}I \subseteq (\phi(I))\).
+    Now suppose \(\sum r_i/s_i \in (\phi(I))\).
+    We can assume \(r_i \in I\),
+    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in (\phi(I))\),
+    and \(t_i r_i \in IR \subseteq I\).
+    We write this with a common denominator \(\sum r_i/s_i = r/s\),
+    and we can immediately conclude that \(r\) is a sum of \(r_i\) and \(s_i\)s,
+    so \(r \in I\).
+
+    The contraction is by definition.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:fraction-correspondence}
     There is a bijective correspondence between 
     the prime ideals of \(R\) that do not intersect with \(S\),
     and the prime ideals of \(S^{-1}R\).
@@ -409,7 +408,30 @@
     and \(s \in S \subseteq R\) corresponds to \((1) \subseteq S^{-1}R\).
 \end{theorem}
 \begin{proof}
-    
+    We already know that if \(J \subseteq S^{-1}R\) is prime,
+    then its contraction is also prime,
+    so it suffices to prove that if \(I \subseteq R\) prime, then \(S^{-1}I\) prime.
+    Suppose \(I \subseteq R\) prime.
+    Then \(R/I\) is an integral domain (Theorem~\ref{thm:prime-quotient-domain}).
+    Hence \(S^{-1}(R/I) \cong S^{-1}R/S^{-1}I\) (Proposition~\ref{prop:fraction-properties}),
+    and we see that this is an integral domain (or 0)
+    as \([rr']/s = 0\) implies \([rr'] = 0\),
+    and \(R/I\) being a domain follows.
+    We can then conclude that \(S^{-1}I \subseteq S^{-1}R\) is prime (Theorem~\ref{thm:prime-quotient-domain}).
+
+    Consider \(J \subseteq S^{-1}R\) any ideal.
+    If \(r/s \in J\), then \(s(r/s) = r \in J\),
+    so \(r \in I = \phi^{-1}(J)\), and \(r/s \in S^{-1}I\).
+    We have that \(J \subseteq S^{-1}I\).
+    Now, if \(r/s \in S^{-1}I =  S^{-1}(\phi^{-1}(J))\),
+    then \(r \in \phi^{-1}(J)\),
+    hence any \(s \in S\) yields \(r/s \in J\).
+    We have correspondence.
+
+    We now see that the possibility that \(S^{-1}(R/I) = 0\)
+    only in the case where \(S \cap I \neq \emptyset\).
+    Wer can see that \([r]/s = 0\) only when there exists \(t \in S\) such that \(ts[r] = 0\),
+    but for this to happen, there must be some \(t \in I\) to kill off \([r]\).
 \end{proof}
 
 
@@ -424,14 +446,27 @@
     \(q\) is primary if and only if every zero divisor in \(R/q\) is nilpotent.
 \end{proposition}
 \begin{proof}
+    Suppose \(q\) is primary.
+    Consider a zero divisor \([y] \in R/q\).
+    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in q\),
+    which implies either \(x \in q\) (which we assumed is not the case),
+    or \(y^n \in q\), i.e.\ \([y^n] = 0\).
     
+    Suppose every zero divisor \([y] \in R/q\) is nilpotent, with \([y^n] = 0\).
+    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in q\),
+    and \(y^n \in q\) as desired.
 \end{proof}
 \begin{theorem}
     Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
     If \(q\) is primary, then \(\sqrt{q}\) is prime.
 \end{theorem}
 \begin{proof}
-    
+    If \(xy \in \sqrt{q}\),
+    then \({(xy)}^m = x^m y^m \in q\).
+    But as \(q\) is primary, this implies either \(x^m \in q\) or \(y^{mn} \in q\).
+    By definition of the radical, this implies either \(x \in \sqrt{q}\) or \(y \in \sqrt{q}\).
 \end{proof}
 \begin{definition}
     Suppose \(q\) is primary.
@@ -439,11 +474,18 @@
 \end{definition}
 
 \begin{lemma}
-    Suppose \({\{q_i\}}_{i \in S}\) is a family of \(p\)-primary ideals.
-    Then \(\bigcap_{i \in S} q_i\) is also \(p\)-primary.
+    Suppose \({\{q_i\}}_{i=1}^n\) is a family of \(p\)-primary ideals.
+    Then \(\bigcap_{i=1}^n q_i\) is also \(p\)-primary.
 \end{lemma}
 \begin{proof}
-    
+    We first check that \(q = \bigcap q_i\) is indeed primary.
+    Consider \(xy \in q\).
+    If \(x \notin q\), and hence \(x \notin q_i\),
+    then we have \(y^{m_i} \in q_i\),
+    and hence \(y^{\max m_i} \in q\).
+
+    A quick application of Proposition~\ref{prop:radical-properties} then gives
+    \(\sqrt{\bigcap q_i} = \bigcap \sqrt{q_i} = \bigcap p = p\).
 \end{proof}
 \begin{definition}
     Suppose \(q \subseteq R\) is an ideal.
@@ -452,46 +494,114 @@
     and hence \(q_i\) should not be inside any \(q_j\).
     We call such a decomposition the minimal or irredundant decomposition.
 \end{definition}
-\begin{lemma}
-    Suppose \(q_i\) is \(p_i\)-primary, and \(x \in R\).
+\begin{remark}
+    Note that in general we cannot guarantee the existence of a primary decomposition.
+\end{remark}
+
+\begin{lemma}\label{lem:quotient-primary}
+    Suppose \(q\) is \(p\)-primary, and \(x \in R\).
     We have the following:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if \(x \in q_i\), then \((q_i:x) = (1)\); and
-        \item if \(x \notin q_i\), then \((q_i:x)\) is \(p_i\)-primary.
+        \item if \(x \in q\), then \((q:x) = (1)\); and
+        \item if \(x \notin q\), then \((q:x)\) is \(p\)-primary.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    
+    Almost by definition, \(xR \subset q\),
+    so \((q:x) = R\), and we have statement (a).
+
+    Consider \(yz \in (q:x)\), and without loss of generality \(y \notin (q:x)\);
+    we wish to prove that \(z^n \in (q:x)\).
+    Now, by definition of the quotient we have \(xyz \in q\),
+    and as \(x \notin q\) and \(y \notin q\), \(xy \notin q\),
+    which forces us to conclude that \(z^n \in q \subseteq (q:x)\)
+    (Proposition~\ref{prop:quotient-ideal-properties}).
+    This shows that \((q:x)\) is indeed primary.
+    We now show that \(\sqrt{(q:x)} = p\).
+    Observe that for any element \(y \in (q:x)\), \(xy \in q\).
+    As \(x \notin q\), we have \(y^n \in q\), so \(y \in \sqrt{q} = p\).
+    We have exactly shown that \((q:x) \subseteq p\).
+    But we have \(p = \sqrt{q} \subseteq \sqrt{(q:x)} \subseteq \sqrt{p} = p\),
+    and we have equality.
+    This proves statement (b).
 \end{proof}
-\begin{lemma}
-    Suppose \(p = \bigcap_i J_i\) for a family of ideals.
+\begin{lemma}\label{lem:prime-intersection}
+    Suppose a prime ideal \(p = \bigcap_i J_i\) for a family of ideals.
     Then \(p = J_i\) for some \(i\).
 \end{lemma}
 \begin{proof}
-    
+    Suppose, by way of contradiction, that \(p \subsetneq J_i\) for all \(i\).
+    For each \(i\), we choose some \(x_i \in J_i - p\).
+    Then we have \(\prod x_i \in \prod J_i \subseteq \bigcap J_i\),
+    but as each \(x_i \notin p\), this product \(\prod x_i \notin p\).
+    This contradicts our assumed equality,
+    and we conclude that \(J_i \subseteq p\).
+    The reverse inclusion \(p = \bigcap J_i \subseteq J_i\) is given trivially.
+    We have equality.
 \end{proof}
 \begin{theorem}[First Uniqueness Theorem for Primary Decompositions]
     Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
     Then the associated primes \(p_i = \sqrt{q_i}\) are unique up to reordering.
 \end{theorem}
 \begin{proof}
-    
+    Consider the set of ideals \({\{\sqrt{(I:x)}\}}_{x \in R}\).
+    We prove that the prime ideals in that set is exactly \({\{p_i\}}_i\).
+    In the forward inclusion, suppose we have an arbitrary \(x \in R\).
+    If \(x \in I\), then \(\sqrt{(I:x)} = \sqrt{(1)} = (1)\).
+    If not, by Lemma~\ref{lem:quotient-primary}, then it is the prime ideal
+    \begin{equation*}
+        p = \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
+        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_i} p_i
+    \end{equation*}
+    using Propositions~\ref{prop:radical-properties}~\&~\ref{prop:quotient-ideal-properties}.
+    From the \hyperref[lem:prime-intersection]{lemma above},
+    we know that \(p = p_i\) for some \(i\).
+    Now for the reverse inclusion, consider some \(x \in \bigcap_{j \neq i} q_j - q_i\).
+    Then \(x \notin q_i\) and \(x \in q_j\) for every other \(j \neq i\),
+    so we have
+    \begin{equation*}
+        \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
+        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_j} p_j = p_i
+    \end{equation*}
+    Then we immediately have that the associated primes are uniquely determined by \(I\).
 \end{proof}
 
-\begin{definition}
-    Suppose \(I\) is a decomposable ideal,
-    and \({\{p_i\}}_{i \in S}\) is a subset of the associated prime ideals.
-    This set of ideals is isolated if any associated prime \(p \subseteq p_i\)
-    is also in this subset \(p \in {\{p_i\}}_{i \in S}\).
-\end{definition}
-\begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
-    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
-    Let \({\{q_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
-    Then \(\bigcap_{i_k} q_{i_k}\) is uniquely determined independent of the decomposition.
-\end{theorem}
-\begin{proof}
+% \begin{proposition}
+%     Suppose \(S \subseteq R\) is a multiplicative monoid,
+%     and \(\mfk{q}\) is a \(\mfk{p}\)-primary ideal.
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item If \(S\cap\mfk{p} \neq \emptyset\), then \(S^{-1}\mfk{q} = S^{-1}R\); and
+%         \item if \(S\cap\mfk{p} = \emptyset\), then \(S^{-1}\mfk{q}\) is \(S^{-1}\mfk{p}\)-primary,
+%             and \(S^{-1}\mfk{q}\) contracts to \(\mfk{q}\).
+%     \end{enumerate}
+% \end{proposition}
+% \begin{proof}
+%     Consider \(s \in S\cap\mfk{p}\).
+%     We have some \(s^n \in S\cap\mfk{q}\) due to \(\sqrt{\mfk{q}} = \mfk{p}\).
+%     Then this element in the extension is \(s^n \in S^{-1}\mfk{q}\),
+%     so \(s^n/s^n = 1 \in S^{-1}\mfk{q}\),
+%     showing that \(S^{-1}\mfk{q} = S^{-1}R\).
+%     This proves statement (a).
+
+%     If \(S\cap\mfk{p} = \emptyset\), consider \(s \in S\).
+%     If \(rs \in \mfk{q}\), as \(\mfk{q}\) is primary,
+%     \(s^n \notin \mfk{q}\), so \(r \in \mfk{q}\).
+%     By Theorem~\ref{thm:fraction-correspondence}, 
+% \end{proof}
+% \begin{definition}
+%     Suppose \(I\) is a decomposable ideal,
+%     and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
+%     This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq p_i\)
+%     is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
+% \end{definition}
+% \begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
+%     Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i \mfk{q}_i\).
+%     Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
+%     Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
+% \end{theorem}
+% \begin{proof}
     
-\end{proof}
+% \end{proof}
 
 
 \section{Integral Dependence}
