@@ -659,18 +659,22 @@
 \end{definition}
 
 \begin{definition}
-    Suppose \(R\) is a ring, and \(I \subseteq R\).
-    \(I\) is an ideal if it fits the following criteria:
+    Suppose \(R\) is a ring, and \(\mfk{a} \subseteq R\).
+    \(\mfk{a}\) is an ideal if it fits the following criteria:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(I \subseteq (R,+,0)\) is a subgroup; and
-        \item \(\forall x \in I, \forall y \in R, \{xy,yx\} \subset I\).
+        \item \(\mfk{a} \subseteq (R,+,0)\) is a subgroup; and
+        \item \(\forall x \in \mfk{a}, \forall y \in R, \{xy,yx\} \subset \mfk{a}\).
     \end{enumerate}
-    A left ideal is defined with only \(yx \in I\),
-    and a right ideal is defined with only \(xy \in I\).
+    A left ideal is defined with only \(yx \in \mfk{a}\),
+    and a right ideal is defined with only \(xy \in \mfk{a}\).
 \end{definition}
 \begin{remark}
     Note that an ideal does not necessarily contain the unit \(1\),
     and therefore is not always a ring.
+    In fact, if an ideal contains \(1\), it is the entire ring.
+\end{remark}
+\begin{remark}
+    We will follow the convention where we denote ideals with the lowercase Fraktur font \(\mfk{a}\).
 \end{remark}
 
 \begin{definition}
@@ -718,26 +722,26 @@
 \end{proof}
 
 \begin{lemma}
-    Suppose \(R\) is a ring, and \(I \subseteq R\) is an ideal.
-    Then \(R/I\) forms a ring via \((x+I)(y+I) = (xy+I)\).
+    Suppose \(R\) is a ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    Then \(R/\mfk{a}\) forms a ring via \([x][y] = [xy]\).
 \end{lemma}
 \begin{proof}
-    Clearly \((R,+,0)/I\) readily forms an additive group,
-    since \(I\) is an additive subgroup,
+    Clearly \((R,+,0)/\mfk{a}\) readily forms an additive group,
+    since \(\mfk{a}\) is an additive subgroup,
     and Proposition~\ref{prop:abelian-subgroup-normal}
     informs us that it is normal.
 
-    Now suppose \(\{r,r'\} \subset I\).
-    Clearly \((x+r)(y+r') = xy + xr' + ry + rr' \in I\),
-    since the last three terms are all in \(I\);
+    Now suppose \(r,r' \in \mfk{a}\).
+    Clearly \((x+r)(y+r') = xy + xr' + ry + rr' \in \mfk{a}\),
+    since the last three terms are all in \(\mfk{a}\);
     we are guaranteed closure.
-    Next up the multiplicative unit is \(1+I\),
-    which since \((1+I)(x+I) = 1x+I = x+I = x1+I = (x+I)(1+I)\)
+    Next up the multiplicative unit is \([1]\),
+    which since \([1][x] = [1x] = [x] = [x1] = [x][1]\)
     gives us the identity.
     Associativity is inherited.
 \end{proof}
 \begin{corollary}
-    \(\vfunc{\pi}{R}{R/I}{x}{x+I}\) is the quotient homomorphism.
+    \(\vfunc{\pi}{R}{R/\mfk{a}}{x}{[x]}\) is the quotient homomorphism.
 \end{corollary}
 \begin{proof}
     All properties are inherited, and it forms a ring.
@@ -774,96 +778,95 @@
 
 \begin{proposition}\label{prop:ideal-operations}
     Suppoose \(R\) is a ring,
-    and \(I_i\) are ideals.
+    and \(\mfk{a}_i\) are ideals.
     Then the following are ideals:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item an arbitrary intersection \(\bigcap_i I_i\);
-        \item an arbitrary sum with finite support \(\sum_i I_i = \{\sum_\text{finite} x_i : x_i \in I_i\}\); and
-        \item a finite product \(\prod_{i=1}^n I_i = \pqty{\prod_{i=1}^n x_i : x_i \in I_i} \subseteq \bigcap_{i=1}^n I_i\).
+        \item an arbitrary intersection \(\bigcap_i \mfk{a}_i\);
+        \item an arbitrary sum with finite support \(\sum_i \mfk{a}_i = \{\sum_\text{finite} x_i : x_i \in \mfk{a}_i\}\); and
+        \item a finite product \(\prod_{i=1}^n \mfk{a}_i = \pqty{\prod_{i=1}^n x_i : x_i \in \mfk{a}_i} \subseteq \bigcap_{i=1}^n \mfk{a}_i\).
     \end{enumerate}
     % \(I \cap J\), \(I + J = \{x+y : x \in I, y \in J\}\),
     % and \(IJ = \{\sum_i x_i y_i : x_i \in I, y_i \in J\}
     % \subseteq I \cap J\) are all ideals.
 \end{proposition}
 \begin{proof}
-    Suppose \(\{x,y\} \subset \bigcap_i I_i\). Then clearly
+    Suppose \(\{x,y\} \subset \bigcap_i \mfk{a}_i\). Then clearly
     \hyperref[lem:intersection-subgroup]{the intersection is a subgroup}.
-    Moreover, by closure of each of \(I_i\),
-    \(xy\) is in each of \(I_i\).
-    This proves \(\bigcap_i I_i\) is an ideal.
+    Moreover, by closure of each of \(\mfk{a}_i\),
+    \(xy\) is in each of \(\mfk{a}_i\).
+    This proves \(\bigcap_i \mfk{a}_i\) is an ideal.
 
     % Suppose \(\{x,x'\} \subset I\), and \(\{y,y'\} \subset J\).
-    Suppose \(\Bqty{\sum_i x_i, \sum_j y_j} \in I_i\).
+    Suppose \(\Bqty{\sum_i x_i, \sum_j y_j} \in \mfk{a}_i\).
     % Any \((x+y)+(x'+y') = (x+x')+(y+y') \in I+J\),
     the sum of two finite sum is still a finite sum,
     associativity is given by \(R\),
     % \(0 \in I\) and \(0 \in J\) so \(0 = 0+0 \in I+J\),
-    the empty sum is in \(\sum_i I_i\),
-    and inverse is clearly \(-\sum_i x_i \in \sum_i I_i\);
-    \(\sum_i I_i\) is therefore an additive subgroup.
-    Moreover, \(\pqty{\sum_i x_i}\pqty{\sum_j y_j} = \sum_{i,j} x_i y_j \in \sum_i I_i\),
-    since \(x_i \sum_j y_j \in I_i\).
-    This proves \(\sum_i I_i\) is an ideal.
+    the empty sum is in \(\sum_i \mfk{a}_i\),
+    and inverse is clearly \(-\sum_i x_i \in \sum_i \mfk{a}_i\);
+    \(\sum_i \mfk{a}_i\) is therefore an additive subgroup.
+    Moreover, \(\pqty{\sum_i x_i}\pqty{\sum_j y_j} = \sum_{i,j} x_i y_j \in \sum_i \mfk{a}_i\),
+    since \(x_i \sum_j y_j \in \mfk{a}_i\).
+    This proves \(\sum_i \mfk{a}_i\) is an ideal.
 
     Lastly, we only need to prove the case of two ideals,
     since an inductive argument completes the proof.
-    Suppose \(x \in I\) and \(y \in J\).
+    Suppose \(x \in \mfk{a}\) and \(y \in \mfk{b}\).
     We have closure simply by the summation definition,
     associativity is inherited from \(R\),
-    the empty sum is \(0 \in IJ\),
+    the empty sum is \(0 \in \mfk{ab}\),
     and the inverse is just \(\sum_i -x_i y_i\),
-    which since \(-x_i \in I\), gives us the inverse;
-    \(IJ\) is therefore an additive subgroup.
-    It is also clear that this is in \(I\) and in \(J\).
+    which since \(-x_i \in \mfk{a}\), gives us the inverse;
+    It is also clear that this is in \(\mfk{a}\) and in \(\mfk{b}\).
     Moreover, \((\sum_i x_i y_i)(\sum_j x_j y_j)
     = \sum_{ij} x_i y_i x_j y_j\)
-    and since \(y_i x_j y_j \in J\),
+    and since \(y_i x_j y_j \in \mfk{b}\),
     we have closure under multiplication.
-    This proves \(IJ\) is an ideal.
+    This proves \(\mfk{ab}\) is an ideal.
 \end{proof}
 \begin{proposition}\label{prop:ideal-distributive}
-    Suppose \(I,J,K\) are three ideals.
+    Suppose \(\mfk{a,b,c}\) are three ideals.
     We have the two following distributive properties:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(I(J+K) = IJ + IK\); and
-        \item \(I \cap (J+K) \supseteq I \cap J + I \cap K\),
-            with equality only if \(J \subseteq I\) or \(K \subseteq I\).
+        \item \(\mfk{a(b+c)} = \mfk{ab} + \mfk{ac}\); and
+        \item \(\mfk{a \cap (b+c)} \supseteq \mfk{a \cap b} + \mfk{a \cap c}\),
+            with equality only if \(\mfk{b} \subseteq \mfk{a}\) or \(\mfk{c} \subseteq \mfk{a}\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    Suppoose \(x \in I\), \(y \in J\), and \(z \in K\).
+    Suppoose \(x \in \mfk{a}\), \(y \in \mfk{b}\), and \(z \in \mfk{c}\).
     Then any \(x(y+z) = xy + xz\).
     This proves statement (a).
 
-    Suppose \(x \in I \cap J\), and \(y \in I \cap K\).
-    Then \(x+y \in J+K\) obviously,
-    and under additive closure of \(I\), \(x+y \in I\).
-    Now let us add the assumption of \(J \subseteq I\).
-    Suppose \(z \in I \cap (J+K)\).
-    Then \(z = x+y\) for some \(x \in J\) and \(y \in K\),
-    If \(x \in I\), then \(y \in I\) by closure.
+    Suppose \(x \in \mfk{a \cap b}\), and \(y \in \mfk{a \cap c}\).
+    Then \(x+y \in \mfk{b+c}\) obviously,
+    and under additive closure of \(\mfk{a}\), \(x+y \in \mfk{a}\).
+    Now let us add the assumption of \(\mfk{b} \subseteq \mfk{a}\).
+    Suppose \(z \in \mfk{a \cap (b+c)}\).
+    Then \(z = x+y\) for some \(x \in \mfk{b}\) and \(y \in \mfk{c}\),
+    If \(x \in \mfk{a}\), then \(y \in \mfk{a}\) by closure.
     This proves statement (b).
 \end{proof}
 \begin{proposition}\label{prop:nested-ideals}
-    Suppose \(I_1 \subseteq I_2 \subseteq \cdots \subseteq
-    I_n \subseteq \cdots\) is an ascending chain of ideals.
-    Then \(I = \bigcup_{i=1}^\infty I_i\) is an ideal.
+    Suppose \(\mfk{a}_1 \subseteq \mfk{a}_2 \subseteq \cdots \subseteq
+    \mfk{a}_n \subseteq \cdots\) is an ascending chain of ideals.
+    Then \(\mfk{a} = \bigcup_{i=1}^\infty \mfk{a}_i\) is an ideal.
 \end{proposition}
 \begin{proof}
-    Suppose \(\{x,y\} \subset I\).
-    Then \(x \in I_m\) and \(y \in I_n\) for some \(m,n\).
-    Without loss of generality let \(I_m \subseteq I_n\),
-    then \(\{x,y\} \subset I_n\),
-    so we have closure inside \(I_n\), and hence inside \(I\).
+    Suppose \(\{x,y\} \subset \mfk{a}\).
+    Then \(x \in \mfk{a}_m\) and \(y \in \mfk{a}_n\) for some \(m,n\).
+    Without loss of generality let \(\mfk{a}_m \subseteq \mfk{a}_n\),
+    then \(\{x,y\} \subset \mfk{a}_n\),
+    so we have closure inside \(\mfk{a}_n\), and hence inside \(\mfk{a}\).
     Associativity is as per usual inherited from \(R\).
-    The identity \(0 \in I_1 \subseteq I\).
-    And lastly, if \(x \in I\), then \(x \in I_n\) for some \(n\),
-    so \(-x \in I_n \subseteq I\).
-    This proves that \(I\) is an additive subgroup.
+    The identity \(0 \in \mfk{a}_1 \subseteq \mfk{a}\).
+    And lastly, if \(x \in \mfk{a}\), then \(x \in \mfk{a}_n\) for some \(n\),
+    so \(-x \in \mfk{a}_n \subseteq \mfk{a}\).
+    This proves that \(\mfk{a}\) is an additive subgroup.
     
-    Now suppose \(x \in I\), and \(r \in R\).
-    Clearly \(x \in I_n\) for some \(n\)
-    and therefore \(xr \in I_n \subseteq I\).
+    Now suppose \(x \in \mfk{a}\), and \(r \in R\).
+    Clearly \(x \in \mfk{a}_n\) for some \(n\)
+    and therefore \(xr \in \mfk{a}_n \subseteq \mfk{a}\).
 \end{proof}
 
 
@@ -871,13 +874,13 @@
     Suppose \(R\) is a ring, and \(S \subseteq R\) a subset.
     The ideal generated by \(S\) is
     \((S) = \{\sum_i r_i s_i r_i' : s_i \in S, \{r_i,r_i'\} \subset R\}\).
-    We call an ideal \(I\) finitely generated
-    if \(I = (S)\) for some finite \(S\).
+    We call an ideal \(\mfk{a}\) finitely generated
+    if \(\mfk{a} = (S)\) for some finite \(S\).
 \end{definition}
 \begin{remark}
     Ideals are typically generated by a set of generators \(x_i \in S\),
     so elements are of the form
-    \(I = \{\sum_i r_i x_i : r_i \in R, x_i \in S\}\).
+    \(\mfk{a} = \{\sum_i r_i x_i : r_i \in R, x_i \in S\}\).
     A Noetherian ring is a ring with every ideal being finitely generated.
 \end{remark}
 
@@ -892,73 +895,73 @@
 
 \begin{theorem}[Universal Property of Quotient Rings]\label{thm:univ-prop-quotient-ring}
     Let \(R,S\) be commutative rings,
-    and \(I \subseteq R\) be an ideal.
-    Suppose \(\func{\pi}{R}{R/I}\) is the quotient homomorphism
+    and \(\mfk{a} \subseteq R\) be an ideal.
+    Suppose \(\func{\pi}{R}{R/\mfk{a}}\) is the quotient homomorphism
     and \(\func{\phi}{R}{S}\) is any ring homomorphism
-    with \(I \subseteq \ker\phi\).
+    with \(\mfk{a} \subseteq \ker\phi\).
     Then there exists a unique ring homomorphism
-    \(\func{\bar{\phi}}{R/I}{S}\) such that \(\phi = \bar{\phi}\circ\pi\).
+    \(\func{\bar{\phi}}{R/\mfk{a}}{S}\) such that \(\phi = \bar{\phi}\circ\pi\).
 
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             R \arrow{r}{\phi} \arrow{d}{\pi} & S \\
-            R/I \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
+            R/\mfk{a} \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     We wish to prove uniqueness by assuming existence.
     Suppose \(\phi = \bar{\phi}\circ\pi = \bar{\phi}'\circ\pi\).
-    Since \(I \subseteq \ker\phi\),
-    all elements \(x \in I\) obey \(\phi(x) = 0\).
-    Knowing that all elements in \(R\) belong in some coset \(r+I\),
-    all \(r' \in r+I\) maps to \(\phi(r') = \phi(r+x) = \phi(r)+\phi(x) = \phi(r)\),
+    Since \(\mfk{a} \subseteq \ker\phi\),
+    all elements \(x \in \mfk{a}\) obey \(\phi(x) = 0\).
+    Knowing that all elements in \(R\) belong in some coset \([r]\),
+    all \(r' \in [r]\) maps to \(\phi(r') = \phi(r+x) = \phi(r)+\phi(x) = \phi(r)\),
     which tells us the image of each coset
-    is a single element \(\phi(r+I) = \{\phi(r)\}\).
-    Now, seeing that \(\pi \) maps \(r' \mapsto r+I\), its coset,
+    is a single element \(\phi([r]) = \{\phi(r)\}\).
+    Now, seeing that \(\pi\) maps \(r' \mapsto [r]\), its coset,
     by definition of a quotient mapping,
     if \(\bar{\phi} \neq \bar{\phi}'\),
-    there must be one such coset \(r+I\)
-    that \(\bar{\phi}(r+I) \neq \bar{\phi}'(r+I)\) disagrees on.
+    there must be one such coset \([r]\)
+    that \(\bar{\phi}([r]) \neq \bar{\phi}'([r])\) disagrees on.
     However, this is a contradiction,
-    because for all \(r' \in r+I \subseteq R\),
-    \(\bar{\phi}'(r+I) = \bar{\phi}'(\pi(r')) = \phi(r')
-    = \bar{\phi}(\pi(r')) = \bar{\phi}(r+I)\),
+    because for all \(r' \in [r] \subseteq R\),
+    \(\bar{\phi}'([r]) = \bar{\phi}'(\pi(r')) = \phi(r')
+    = \bar{\phi}(\pi(r')) = \bar{\phi}([r])\),
     contradicting with our assumed inequality above.
     Hence we have established uniqueness of \(\bar{\phi}\).
 
     We will now prove existence by constructing such a homomorphism.
-    Let \(\vfunc{\bar{\phi}}{R/I}{S}{r+I}{\phi(r)}\),
-    mapping all cosets \(r+I\) to the function output of its coset representative.
-    Suppose some arbitrary element \(r' \in r+I \subseteq R\)
+    Let \(\vfunc{\bar{\phi}}{R/\mfk{a}}{S}{[r]}{\phi(r)}\),
+    mapping all cosets \([r]\) to the function output of its coset representative.
+    Suppose some arbitrary element \(r' \in [r] \subseteq R\)
     in an arbitrary coset.
-    Then we know that there exists \(x \in I\) such that \(r' = r+x\),
+    Then we know that there exists \(x \in \mfk{a}\) such that \(r' = r+x\),
     which allows us to conclude that
     \begin{equation*}
         \phi(r') = \phi(r+x) = \phi(r) + \phi(x)
-        = \phi(r) = \bar{\phi}(r+I) = \bar{\phi}(\pi(r'))
+        = \phi(r) = \bar{\phi}([r]) = \bar{\phi}(\pi(r'))
     \end{equation*}
 \end{proof}
 
 \begin{theorem}[First Isomorphism Theorem for Rings]\label{thm:iso-1-ring}
     Suppose \(\func{\phi}{R}{S}\) is a ring homomorphism,
-    and \(I = \ker\phi\).
+    and \(\mfk{a} = \ker\phi\).
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(I \subseteq R\), the kernel is an ideal;
+        \item \(\mfk{a} \subseteq R\), the kernel is an ideal;
         \item \(\img\phi \subseteq S\), the image is a subring; and
-        \item \(\img\phi \cong R/I\),
+        \item \(\img\phi \cong R/\mfk{a}\),
             the image is uniquely isomorphic to the quotient ring.
     \end{enumerate}
 
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             R \arrow{rd}{\phi} \arrow{d}{\pi} & S \\
-            R/I \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
+            R/\mfk{a} \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     By the simple fact that \(\phi\) is also an additive group homomorphism,
@@ -983,7 +986,7 @@
     \medskip
 
     The \hyperref[thm:univ-prop-quotient-ring]{universal property}
-    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/I}{\img\phi}\)
+    guarantees a unique homomorphism \(\func{\bar{\phi}}{R/\mfk{a}}{\img\phi}\)
     such that \(\phi = \bar{\phi}\circ\pi\),
     \(\pi\) being the quotient homomorphism.
     By the \hyperref[thm:iso-1-group]{first group isomorphism theorem},
@@ -994,68 +997,68 @@
 
 \begin{theorem}[Second Isomorphism Theorem for Rings]\label{thm:iso-2-ring}
     Suppose \(R\) is a ring, \(S \subseteq R\) some subring,
-    and \(I \subseteq R\) an ideal.
+    and \(\mfk{a} \subseteq R\) an ideal.
     We have:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S + I = \{s+x : x \in S, x \in I\} \subseteq R\),
+        \item \(S + \mfk{a} = \{s+x : s \in S, x \in \mfk{a}\} \subseteq R\),
             the sum is a subring;
-        \item \(I \subseteq S + I\), the ideal is also and ideal of the sum;
-        \item \(S \cap I \subseteq S\),
+        \item \(\mfk{a} \subseteq S + \mfk{a}\), the ideal is also and ideal of the sum;
+        \item \(S \cap \mfk{a} \subseteq S\),
             the intersection is an ideal of the subring; and
-        \item \((S+I)/I \cong S/(S \cap I)\),
+        \item \((S+\mfk{a})/\mfk{a} \cong S/(S \cap \mfk{a})\),
             these two quotients are isomorphic.
     \end{enumerate}
 
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             R \arrow[dash]{d} \\
-            S+I \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
-            (S+I)/I \arrow[leftrightarrow]{rd}{\cong} \\
-            I \arrow[dash]{rd} & S \arrow{r}{\pi'} \arrow[dash]{d} &
-            S/(S \cap I) \\
-            & S \cap I
+            S+\mfk{a} \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
+            (S+\mfk{a})/\mfk{a} \arrow[leftrightarrow]{rd}{\cong} \\
+            \mfk{a} \arrow[dash]{rd} & S \arrow{r}{\pi'} \arrow[dash]{d} &
+            S/(S \cap \mfk{a}) \\
+            & S \cap \mfk{a}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     By the \hyperref[thm:iso-2-group]{second group isomorphism theorem},
-    \(S+I\) forms an additive subgroup.
-    For \(\{s,s'\} \subset S\) and \(\{x,x'\} \subset I\),
-    we see that \((s+x)(s'+x') = ss' + xs' + sx' + xx' \in S+I\),
-    since \(ss' \in S\) and \(xs' + sx' + xx' \in I\),
+    \(S+\mfk{a}\) forms an additive subgroup.
+    For \(\{s,s'\} \subset S\) and \(\{x,x'\} \subset \mfk{a}\),
+    we see that \((s+x)(s'+x') = ss' + xs' + sx' + xx' \in S+\mfk{a}\),
+    since \(ss' \in S\) and \(xs' + sx' + xx' \in \mfk{a}\),
     which gives us closure.
     Associativity is inherited from \(R\),
-    and the identity is \(0+1 \in S+I\).
+    and the identity is \(1+0 \in S+\mfk{a}\).
     This proves statement (a).
 
     \medskip
 
-    \(I\) already forms a group,
-    and clearly \(I = 0+I \subseteq S+I\),
+    \(\mfk{a}\) already forms a group,
+    and clearly \(\mfk{a} = 0+\mfk{a} \subseteq S+\mfk{a}\),
     so it is already a subgroup.
     By definition of an ideal,
-    for all \(x \in I\) and \(y \in R\), \(\{xy,yx\} \subset I\),
-    so more specifically this holds for \(y \in S+I \subseteq R\).
+    for all \(x \in \mfk{a}\) and \(y \in R\), \(\{xy,yx\} \subset \mfk{a}\),
+    so more specifically this holds for \(y \in S+\mfk{a} \subseteq R\).
     This proves statement (b).
 
     \medskip
 
-    Suppose \(\{x,x'\} \in S \cap I\).
-    Then \(x+x' \in S \cap I\),
+    Suppose \(\{x,x'\} \in S \cap \mfk{a}\).
+    Then \(x+x' \in S \cap \mfk{a}\),
     since there is closure for both \(S\) as a group,
-    and \(I\) as an ideal (which is also a group).
+    and \(\mfk{a}\) as an ideal (which is also a group).
     Associativity is always inherited,
-    and the identity is \(0 = \in S \cap I\)
-    as \(0 \in S\) and \(0 \in I\) by definition.
-    Lastly, additive inverses always exist in a subgroups \(S,I\),
-    so \(-x \in S \cap I\).
-    Hence \(S \cap I \subseteq S\) is a subgroup.
+    and the identity is \(0 = \in S \cap \mfk{a}\)
+    as \(0 \in S\) and \(0 \in \mfk{a}\) by definition.
+    Lastly, additive inverses always exist in a subgroups \(S,\mfk{a}\),
+    so \(-x \in S \cap \mfk{a}\).
+    Hence \(S \cap \mfk{a} \subseteq S\) is a subgroup.
 
     Now, we need to check the multiplicative condition.
-    Suppose \(x \in S \cap I\), and \(y \in S\).
+    Suppose \(x \in S \cap \mfk{a}\), and \(y \in S\).
     We see that by the definition of a subring, \(\{xy,yx\} \subset S\);
-    but also \(\{xy,yx\} \subset I\) since \(I \subseteq R\) is an ideal,
+    but also \(\{xy,yx\} \subset \mfk{a}\) since \(\mfk{a} \subseteq R\) is an ideal,
     so it also works for elements \(y \in S \subseteq R\).
     This proves statement (c).
 
@@ -1063,86 +1066,86 @@
 
     By statements (b) \& (c), these two quotients are well-formed.
     We now attempt to construct a homomorphism
-    \(\vfunc{\phi}{S}{(S+I)/I}{s}{s+I}\).
+    \(\vfunc{\phi}{S}{(S+\mfk{a})/\mfk{a}}{s}{s+\mfk{a}}\).
     We demonstrate that this a valid homomorphism,
     by showing that
     \begin{gather*}
-        \phi(s_1 s_2) = (s_1 s_2)+I = (s_1 + I)(s_2 + I) = \phi(s_1)\phi(s_2) \\
-        \phi(s_1+s_2) = s_1+s_2+I = (s_1+I) + (s_2+I) = \phi(s_1) + \phi(s_2)
+        \phi(s_1 s_2) = [s_1 s_2] = [s_1][s_2] = \phi(s_1)\phi(s_2) \\
+        \phi(s_1+s_2) = [s_1+s_2] = [s_1] + [s_2] = \phi(s_1) + \phi(s_2)
     \end{gather*}
     since \(s_1, s_2\) are elements of \(R\),
     so same logic as the quotient ring epimorphism applies.
 
     We now want to show that \(\phi\) is surjective.
-    The elements \(s+x \in S+I\) must belong in some coset \(s+x+I\),
-    which we now see is equivalent to \(s+I\).
-    By definition, \(\phi\) maps \(s \mapsto s+I\),
+    The elements \(s+x \in S+\mfk{a}\) must belong in some coset \([s+x]\),
+    which we now see is equivalent to \([s]\).
+    By definition, \(\phi\) maps \(s \mapsto [s]\),
     so every coset is covered by \(\phi\),
     and therefore it is an epimorphism.
 
-    We can then demonstrate that \(\ker\phi = S \cap I\).
-    We can see that if \(x \in S \cap I\),
-    then \(x \in I\), so \(\phi(x) = x+I = I\),
-    which gives us \(S \cap I \subseteq \ker\phi\).
+    We can then demonstrate that \(\ker\phi = S \cap \mfk{a}\).
+    We can see that if \(x \in S \cap \mfk{a}\),
+    then \(x \in \mfk{a}\), so \(\phi(x) = [x] = [0]\),
+    which gives us \(S \cap \mfk{a} \subseteq \ker\phi\).
     On the other hand, if \(x \in \ker\phi\),
-    then \(\phi(x) = x+I \subseteq I\),
-    which requires \(x \in I\), giving us \(\ker\phi \subseteq S \cap I\).
-    Hence \(\ker\phi = S \cap I\).
+    then \(\phi(x) = [x] \subseteq [0]\),
+    which requires \(x \in \mfk{a}\), giving us \(\ker\phi \subseteq S \cap \mfk{a}\).
+    Hence \(\ker\phi = S \cap \mfk{a}\).
 
     Lastly, we apply the \hyperref[thm:iso-2-ring]{first isomorphism theorem},
     and prove that there exists a unique homomorphism
-    between \(S/(S \cap I) \cong (S+I)/I\).
+    between \(S/(S \cap \mfk{a}) \cong (S+\mfk{a})/\mfk{a}\).
 \end{proof}
 
 \begin{theorem}[Third Isomorphism Theorem for Rings]\label{thm:iso-3-ring}
-    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal. Then:
+    Suppose \(R\) is a ring, \(\mfk{a} \subseteq R\) an ideal. Then:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if \(S\) is a subring such that \(I \subseteq S \subseteq R\),
-            then \(S/I \subseteq R/I\) is a subring;
-        \item a subring of \(R/I\) must be of the form \(S/I\)
-            such that \(S\) is a subring with \(I \subseteq S \subseteq R\);
-        \item if \(J\) is an ideal such that \(I \subseteq J \subseteq R\),
-            then \(J/I \subseteq R/I\) is an ideal;
-        \item an ideal of \(R/I\) must be of the form \(J/I\)
-            such that \(J \subseteq R\) is an ideal
-            with \(I \subseteq J \subseteq R\); and
-        \item if \(J \subseteq R\) is an ideal such that \(I \subseteq J \subseteq R\),
-            then \((R/I)/(J/I) \cong R/J\).
+        \item if \(S\) is a subring such that \(\mfk{a} \subseteq S \subseteq R\),
+            then \(S/\mfk{a} \subseteq R/\mfk{a}\) is a subring;
+        \item a subring of \(R/\mfk{a}\) must be of the form \(S/\mfk{a}\)
+            such that \(S\) is a subring with \(\mfk{a} \subseteq S \subseteq R\);
+        \item if \(\mfk{b}\) is an ideal such that \(\mfk{a} \subseteq \mfk{b} \subseteq R\),
+            then \(\mfk{b/a} \subseteq R/\mfk{a}\) is an ideal;
+        \item an ideal of \(R/\mfk{a}\) must be of the form \(\mfk{b/a}\)
+            such that \(\mfk{b} \subseteq R\) is an ideal
+            with \(\mfk{a} \subseteq \mfk{b} \subseteq R\); and
+        \item if \(\mfk{b} \subseteq R\) is an ideal such that \(\mfk{a} \subseteq \mfk{b} \subseteq R\),
+            then \((R/\mfk{a})/(\mfk{b/a}) \cong R/\mfk{b}\).
     \end{enumerate}
 
     This is represented by the following commutative diagrams:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
-            R \arrow[dash]{d} \arrow{r} & R/I \arrow[dash]{d} \\
+            R \arrow[dash]{d} \arrow{r} & R/\mfk{a} \arrow[dash]{d} \\
             % & G \arrow{d}{\pi'} \arrow{r}{\pi} & G/N \arrow{d}{\pi'} \\
-            S \arrow{r} & S/I % & K \arrow{r}{\pi} & K/N
+            S \arrow{r} & S/\mfk{a} % & K \arrow{r}{\pi} & K/N
         \end{tikzcd} \qquad
         \begin{tikzcd}
             R \arrow{r} \arrow[dash]{d} \arrow{rd} &
-            R/J \arrow[leftrightarrow]{rd}{\cong} \\
-            J \arrow[dash]{rd} & R/I \arrow{r} \arrow{d} & (R/I)/(J/I) \\
-            & J/I
+            R/\mfk{b} \arrow[leftrightarrow]{rd}{\cong} \\
+            \mfk{b} \arrow[dash]{rd} & R/\mfk{a} \arrow{r} \arrow{d} & (R/\mfk{a})/(\mfk{b/a}) \\
+            & \mfk{b/a}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
-    We first have to prove that \(I \subseteq S\),
+    We first have to prove that \(\mfk{a} \subseteq S\),
     which is obvious because it is already an additive subgroup,
-    and \(\{xy,yx\} \in I\) for all \(x \in I\) and \(y \in R\)
+    and \(\{xy,yx\} \in \mfk{a}\) for all \(x \in \mfk{a}\) and \(y \in R\)
     can be restricted to \(y \in S \subseteq R\).
 
     It is now easy to see that
-    with the quotient homomorphism \(\func{\pi}{R}{R/I}\),
-    the image of the subring \(\pi(S) = S/I\),
+    with the quotient homomorphism \(\func{\pi}{R}{R/\mfk{a}}\),
+    the image of the subring \(\pi(S) = S/\mfk{a}\),
     so by the \hyperref[thm:iso-1-group]{first isomorphism theorem}
-    \(S/I\) forms a subring.
+    \(S/\mfk{a}\) forms a subring.
     This proves statement (a).
 
     \medskip
 
-    Suppose \(S' \subseteq R/I\) is a subring.
+    Suppose \(S' \subseteq R/\mfk{a}\) is a subring.
     We can look at the preimage \(\pi^{-1}(S')\),
-    which since \(0 \in S'\), we have \(S' \supseteq \ker\pi = I\).
+    which since \(0 \in S'\), we have \(S' \supseteq \ker\pi = \mfk{a}\).
     Notice that the preimage of a ring is still a ring,
     because the correspondence given by
     the \hyperref[thm:iso-4-group]{fourth group (monoid) isomorphism theorem}
@@ -1152,55 +1155,55 @@
 
     \medskip
 
-    We now look at the quotient homomorphism \(\func{\pi}{R}{R/I}\),
-    especially the image of the larger ideal \(\pi(J) = J/I\).
+    We now look at the quotient homomorphism \(\func{\pi}{R}{R/\mfk{a}}\),
+    especially the image of the larger ideal \(\pi(\mfk{b}) = \mfk{b/a}\).
     By the \hyperref[thm:iso-1-group]{first group isomorphism theorem},
-    \(\pi(J)\) forms an additive group,
-    and if \(x \in J\) and \(r \in R\),
-    \(\pi(x)\pi(r) = \pi(xr) \in \pi(J) = J/I\),
+    \(\pi(\mfk{b})\) forms an additive group,
+    and if \(x \in \mfk{b}\) and \(r \in R\),
+    \(\pi(x)\pi(r) = \pi(xr) \in \pi(\mfk{b}) = \mfk{b/a}\),
     and similarly this holds for \(\pi(r)\pi(x)\).
-    Hence \(J/I\) is an ideal, proving statement (c).
+    Hence \(\mfk{b/a}\) is an ideal, proving statement (c).
 
     \medskip
 
-    Suppose \(J' \subseteq R/I\) is an ideal.
-    We can look at the preimage \(\pi^{-1}(J')\),
-    which since \(0 \in J'\), we have \(\pi^{-1}(J') \supseteq \ker\pi = I\).
-    Notice that the preimage \(\pi^{-1}(J') = J' + I\) is an ideal,
+    Suppose \(\mfk{b'} \subseteq R/\mfk{a}\) is an ideal.
+    We can look at the preimage \(\pi^{-1}(\mfk{b'})\),
+    which since \(0 \in \mfk{b'}\), we have \(\pi^{-1}(\mfk{b'}) \supseteq \ker\pi = \mfk{a}\).
+    Notice that the preimage \(\pi^{-1}(\mfk{b'}) = \mfk{b'} + \mfk{a}\) is an ideal,
     which is given by Proposition~\ref{prop:ideal-operations}.
-    Hence we have the preimage being an ideal \(J\),
-    so \(J' = \pi(J) = J/I\),
+    Hence we have the preimage being an ideal \(\mfk{b}\),
+    so \(\mfk{b'} = \pi(\mfk{b}) = \mfk{b/a}\),
     proving statement (d).
 
     \medskip
 
     We can now attempt to construct a homomorphism
-    \(\vfunc{\phi}{R/I}{R/J}{r+I}{r+J}\).
+    \(\vfunc{\phi}{R/\mfk{a}}{R/\mfk{b}}{r+\mfk{a}}{r+\mfk{b}}\).
     This is valid because
     by the \hyperref[thm:univ-prop-quotient-ring]{universal property},
-    we have \(\func{\pi}{R}{R/I}\) and \(\func{\eta}{R}{R/J}\),
+    we have \(\func{\pi}{R}{R/\mfk{a}}\) and \(\func{\eta}{R}{R/\mfk{b}}\),
     so there is a unique homomorphism that makes \(\eta = \phi\circ\pi\).
     This is surjective by Theorem~\ref{thm:composite-surjective}.
 
-    We claim the kernel is \(\ker\phi = J/I\).
-    Observe that \(\ker\eta = J\) and \(\ker\pi = I\),
-    so \(\phi\) must map all the \(I\)-cosets
-    that are represented by elements of \(J\) into \(0\).
+    We claim the kernel is \(\ker\phi = \mfk{b/a}\).
+    Observe that \(\ker\eta = \mfk{b}\) and \(\ker\pi = \mfk{a}\),
+    so \(\phi\) must map all the \(\mfk{a}\)-cosets
+    that are represented by elements of \(\mfk{b}\) into \(0\).
 
     Lastly, we invoke the \hyperref[thm:iso-1-ring]{first isomorphism theorem},
-    which gives us \(\ker\phi = J/I \subseteq R/I\),
-    making our quotient \((R/I)/(J/I)\) valid,
-    and also that \((R/I)/\ker\phi = (R/I)/(J/I) \cong R/J\),
+    which gives us \(\ker\phi = \mfk{b/a} \subseteq R/\mfk{a}\),
+    making our quotient \((R/\mfk{a})/(\mfk{b/a})\) valid,
+    and also that \((R/\mfk{a})/\ker\phi = (R/\mfk{a})/(\mfk{b/a}) \cong R/\mfk{b}\),
     proving statement (e).
 \end{proof}
 
 \begin{theorem}[Fourth Isomorphism Theorem for Rings]\label{thm:iso-4-ring}
-    Suppose \(R\) is a ring, \(I \subseteq R\) some ideal,
-    and \(\vfunc{\pi}{R}{R/I}{x}{x+I}\) the quotient homomorphism.
-    Then \(\pi\) is a bijection between the subrings of \(R/I\)
-    and the subrings of \(R\) containing \(I\);
-    and is also a bijection between ideals of \(R/I\)
-    and ideals (and subrings) of \(R\) containing \(I\).
+    Suppose \(R\) is a ring, \(\mfk{a} \subseteq R\) some ideal,
+    and \(\vfunc{\pi}{R}{R/\mfk{a}}{x}{[x]}\) the quotient homomorphism.
+    Then \(\pi\) is a bijection between the subrings of \(R/\mfk{a}\)
+    and the subrings of \(R\) containing \(\mfk{a}\);
+    and is also a bijection between ideals of \(R/\mfk{a}\)
+    and ideals (and subrings) of \(R\) containing \(\mfk{a}\).
 \end{theorem}
 \begin{proof}
     This is merely a corollary of
@@ -1222,28 +1225,28 @@
 \end{definition}
 
 \begin{definition}
-    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
-    \(I\) is maximal if \(I \neq R\),
-    and there does not exist any intermediate ideals \(J\)
-    such that \(I \subseteq J \subseteq R\).
+    Suppose \(R\) is a ring, \(\mfk{m} \subseteq R\) an ideal.
+    \(\mfk{m}\) is maximal if \(\mfk{m} \neq R\),
+    and there does not exist any intermediate ideals \(\mfk{a}\)
+    such that \(\mfk{m} \subseteq \mfk{a} \subseteq R\).
 \end{definition}
 \begin{theorem}\label{thm:maximal-quotient-field}
     Suppose \(R\) is a ring,
-    and \(I \subseteq R\) an ideal.
-    \(I\) is maximal if and only if \(R/I\) is a field.
+    and \(\mfk{m} \subseteq R\) an ideal.
+    \(\mfk{m}\) is maximal if and only if \(R/\mfk{m}\) is a field.
 \end{theorem}
 \begin{proof}
-    Since \(I\) maximal ideal,
-    there does not exist any intermediate ideal \(J \subseteq R\).
+    Since \(\mfk{m}\) maximal ideal,
+    there does not exist any intermediate ideal \(\mfk{a} \subseteq R\).
     By the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
-    there is no intermediate ideal \(J/I\)
-    between the quotient ring \(R/I\) and \(I/I = \{0\}\).
+    there is no intermediate ideal \(\mfk{a}/\mfk{m}\)
+    between the quotient ring \(R/\mfk{m}\) and \(\mfk{m}/\mfk{m} = 0\).
 
-    Suppose \(R/I\) is a field.
+    Suppose \(R/\mfk{m}\) is a field.
     Then there are no nonzero proper ideals by Theorem~\ref{thm:field-props},
-    and there are no intermediate ideals \(I \subseteq J \subseteq R\)
+    and there are no intermediate ideals \(\mfk{m} \subseteq \mfk{a} \subseteq R\)
     due to the \hyperref[thm:iso-3-ring]{third isomorphism theorem}.
-    \(I\) must be maximal.
+    \(\mfk{m}\) must be maximal.
 \end{proof}
 
 \begin{definition}
@@ -1252,47 +1255,47 @@
     that is, the complement of \(I\) is closed under multiplication.
 \end{definition}
 \begin{theorem}\label{thm:prime-quotient-domain}
-    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
-    \(I\) is prime if and only if \(R/I\) is a domain.
+    Suppose \(R\) is a ring, \(\mfk{p} \subseteq R\) an ideal.
+    \(\mfk{p}\) is prime if and only if \(R/\mfk{p}\) is a domain.
 \end{theorem}
 \begin{proof}
-    For the foward direction, suppose \(I\) is a prime ideal.
-    By way of contradiction, let \(R/I\) not be a domain,
-    so there exists nonzero \(x+I, y+I\) such that \((x+I)(y+I) = xy+I = I\).
-    But since \(xy \in I\),
-    the product of the two generated ideals \((x)(y) \subseteq I\),
-    so either \((x) \subseteq I\), which implies \(x \in I\),
-    or \((y) \subseteq I\), which implies \(y \in I\),
-    contradicting our assumption of nonzero \(x,y\).
+    For the foward direction, suppose \(\mfk{p}\) is a prime ideal.
+    By way of contradiction, let \(R/\mfk{p}\) not be a domain,
+    so there exists nonzero \([x], [y]\) such that \([x][y] = [xy] = [0]\).
+    But since \(xy \in \mfk{p}\),
+    the product of the two generated ideals \((x)(y) \subseteq \mfk{p}\),
+    so either \((x) \subseteq \mfk{p}\), which implies \(x \in \mfk{p}\),
+    or \((y) \subseteq \mfk{p}\), which implies \(y \in \mfk{p}\),
+    contradicting our assumption of nonzero \([x],[y]\).
 
-    For the reverse direction, suppose \(R/I\) is an integral domain.
-    Then for all \(\{x,y\} \subset R\), \((x+I)(y+I) = xy+I = I\),
-    \(xy \in I\) implies either \(x \in I\) or \(y \in I\).
+    For the reverse direction, suppose \(R/\mfk{p}\) is an integral domain.
+    Then for all \(\{x,y\} \subset R\), \([x][y] = [xy] = [0]\),
+    \(xy \in \mfk{p}\) implies either \(x \in \mfk{p}\) or \(y \in \mfk{p}\).
     % By way of contradiction, let \(I\) not be prime,
     % so there exists two ideals \(J,K\) such that \(JK \subseteq I\),
     % but neither \(J,K\) are subideals of \(I\).
-    For any two ideals \(JK \subseteq I\),
-    every \(jk \in I\) for \(j \in J\) and \(k \in K\).
-    Without loss of generality, suppose \(J\) not a subideal of \(I\),
-    so there exists some \(j_0 \in J\) such that \(j \notin I\).
-    Then clearly since \(j_0 k \in I\) for all \(k \in K\),
-    \(k \in I\), so \(K \subseteq I\).
-    Hence \(I\) is prime.
+    For any two ideals \(\mfk{ab} \subseteq \mfk{p}\),
+    every \(ab \in \mfk{p}\) for \(a \in \mfk{a}\) and \(b \in \mfk{b}\).
+    Without loss of generality, suppose \(\mfk{a}\) not a subideal of \(\mfk{p}\),
+    so there exists some \(a_0 \in \mfk{a}\) such that \(a_0 \notin \mfk{p}\).
+    Then clearly since \(a_0 b \in \mfk{p}\) for all \(b \in \mfk{b}\),
+    \(b \in \mfk{p}\), so \(\mfk{b} \subseteq \mfk{p}\).
+    Hence \(\mfk{p}\) is prime.
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
-    \(I\) is radical if for all \(x \in R\) and \(x^n \in I\), then \(x \in I\).
+    Suppose \(R\) is a ring, \(\mfk{r} \subseteq R\) an ideal.
+    \(\mfk{r}\) is radical if for all \(x \in R\) and \(x^n \in \mfk{r}\), then \(x \in \mfk{r}\).
 \end{definition}
 \begin{theorem}\label{thm:radical-quotient-reduced}
-    Suppose \(R\) is a ring, \(I \subseteq R\) an ideal.
-    \(I\) is radical if and only if \(R/I\) is reduced.
+    Suppose \(R\) is a ring, \(\mfk{r} \subseteq R\) an ideal.
+    \(\mfk{r}\) is radical if and only if \(R/\mfk{r}\) is reduced.
 \end{theorem}
 \begin{proof}
-    Suppose \(I\) is not radical;
-    then there exists some \(x \notin I\) such that \(x^n \in I\).
-    Hence there exists some nonzero \([x] \in R/I\) such that \({[x]}^n = 0\),
-    and \(R/I\) is not reduced.
+    Suppose \(\mfk{r}\) is not radical;
+    then there exists some \(x \notin \mfk{r}\) such that \(x^n \in \mfk{r}\).
+    Hence there exists some nonzero \([x] \in R/\mfk{r}\) such that \({[x]}^n = 0\),
+    and \(R/\mfk{r}\) is not reduced.
     The reverse argument holds the same way since all those logical steps are bidirectional.
 \end{proof}
 
@@ -1301,16 +1304,16 @@
 \end{theorem}
 \begin{proof}
     We first prove that maximal ideals are prime.
-    Suppose \(I \subseteq R\) is maximal.
-    Then \(R/I\) is a field by Theorem~\ref{thm:maximal-quotient-field},
+    Suppose \(\mfk{m} \subseteq R\) is maximal.
+    Then \(R/\mfk{m}\) is a field by Theorem~\ref{thm:maximal-quotient-field},
     and because fields are domains,
-    \(I\) is prime by Theorem~\ref{thm:prime-quotient-domain}.
+    \(\mfk{m}\) is prime by Theorem~\ref{thm:prime-quotient-domain}.
 
     We then prove that prime ideals are radical.
-    Suppose \(I \subseteq R\) is prime.
-    Then \(R/I\) is a domain by Theorem~\ref{thm:prime-quotient-domain},
+    Suppose \(\mfk{p} \subseteq R\) is prime.
+    Then \(R/\mfk{p}\) is a domain by Theorem~\ref{thm:prime-quotient-domain},
     and because domains are reduced (since any nilpotent element would be a zero divisor),
-    \(I\) is reduced by Theorem~\ref{thm:radical-quotient-reduced}.
+    \(\mfk{p}\) is reduced by Theorem~\ref{thm:radical-quotient-reduced}.
 \end{proof}
 
 \begin{theorem}[Krull's Theorem]\label{thm:maximal-ideal-exists}\label{thm:krull}
@@ -1320,12 +1323,12 @@
     Let \(\Sigma\) be the set of all proper ideals of some ring \(R\).
     Let this set be partially ordered by \(\subseteq\), the subset relation.
     We first see that \(\Sigma\neq\emptyset\) due to \((0) \in \Sigma\).
-    We then claim that every chain \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots\)
-    is contained within the union \(I = \bigcup_i I_i \in \Sigma\).
-    By Proposition~\ref{prop:nested-ideals}, \(I\) is an ideal,
-    and by definition, \(I_i \subseteq I\).
-    We also see that \(I \neq R\) because if \(1 \in I\),
-    then \(1 \in I_i\) for some \(i\), which gives us a contradiction.
+    We then claim that every chain \(\mfk{a}_1 \subseteq \mfk{a}_2 \subseteq \mfk{a}_3 \subseteq \cdots\)
+    is contained within the union \(\mfk{a} = \bigcup_i \mfk{a}_i \in \Sigma\).
+    By Proposition~\ref{prop:nested-ideals}, \(\mfk{a}\) is an ideal,
+    and by definition, \(\mfk{a}_i \subseteq \mfk{a}\).
+    We also see that \(\mfk{a} \neq R\) because if \(1 \in \mfk{a}\),
+    then \(1 \in \mfk{a}_i\) for some \(i\), which gives us a contradiction.
     Hence by \hyperref[ax:zorn]{Zorn's lemma}, there is a maximal element, a maximal ideal.
 \end{proof}
 \begin{corollary}\label{cor:proper-in-maximal}
@@ -1349,50 +1352,50 @@
 
 \begin{definition}
     Suppose \(R\) is a ring.
-    \(R\) is a local ring if it has a unique maximal ideal \(m \subseteq R\).
+    \(R\) is a local ring if it has a unique maximal ideal \(\mfk{m} \subseteq R\).
 \end{definition}
 \begin{theorem}
-    Suppose \((R,m)\) forms a local ring.
-    Then \(R-m\) is the group of units in \(R\).
+    Suppose \((R,\mfk{m})\) forms a local ring.
+    Then \(R-\mfk{m}\) is the group of units in \(R\).
 \end{theorem}
 \begin{proof}
     Suppose \(x \in R\) is not a unit.
     Then Proposition~\ref{prop:unit-one-ideal} tells us that \((x) \neq (1)\),
     so it must be a proper ideal,
-    and Corollary~\ref{cor:proper-in-maximal} indicates \(x \in M\).
-    Hence \(R-m\) is a subset of the group of units.
+    and Corollary~\ref{cor:proper-in-maximal} indicates \(x \in \mfk{m}\).
+    Hence \(R-\mfk{m}\) is a subset of the group of units.
 
     If \(x \in R\) is a unit,
     then Proposition~\ref{prop:unit-one-ideal} tells us that \((x) = (1)\),
-    so if \(x \in I\) some ideal, \((x) \subseteq I = (1)\),
+    so if \(x \in \mfk{a}\) some ideal, \((x) \subseteq \mfk{a} = (1)\),
     which cannot be maximal.
-    Hence the group of units is a subset of \(R-m\).
+    Hence the group of units is a subset of \(R-\mfk{m}\).
 \end{proof}
 \begin{proposition}\label{prop:local-ring-units}
-    Suppose \(R\) is a ring, and \(I \subseteq R\) is a proper ideal.
-    If every \(x \in R-I\) is a unit, then \((R,I)\) is a local ring.
+    Suppose \(R\) is a ring, and \(\mfk{m} \subseteq R\) is a proper ideal.
+    If every \(x \in R-\mfk{m}\) is a unit, then \((R,\mfk{m})\) is a local ring.
 \end{proposition}
 \begin{proof}
-    Consider any arbitrary proper ideal \(J \subsetneq R\).
-    \(J\) contains no units, so \(J \subseteq I\),
-    and hence \(I\) is the unique maximal ideal.
+    Consider any arbitrary proper ideal \(\mfk{a} \subsetneq R\).
+    \(\mfk{a}\) contains no units, so \(\mfk{a} \subseteq \mfk{m}\),
+    and hence \(\mfk{m}\) is the unique maximal ideal.
 \end{proof}
 \begin{proposition}
-    Suppose \(R\) is a ring, and \(m \subseteq R\) is a maximal ideal.
-    If for every \(x \in m\), \(1+x\) is a unit, then \((R,m)\) is a local ring.
+    Suppose \(R\) is a ring, and \(\mfk{m} \subseteq R\) is a maximal ideal.
+    If for every \(x \in \mfk{m}\), \(1+x\) is a unit, then \((R,\mfk{m})\) is a local ring.
 \end{proposition}
 \begin{proof}
-    Consider any \(x \in R-m\).
-    Since \(m\) is a maximal ideal,
-    the ideal generated by \(x\) and all the elements in \(m\)
-    must be the whole ring \((x,m) = (1)\).
-    Then by definition there exists \(r \in R\) and \(\mu \in m\) such that \(rx-\mu = 1\)
+    Consider any \(x \in R-\mfk{m}\).
+    Since \(\mfk{m}\) is a maximal ideal,
+    the ideal generated by \(x\) and all the elements in \(\mfk{m}\)
+    must be the whole ring \((x,\mfk{m}) = (1)\).
+    Then by definition there exists \(r \in R\) and \(\mu \in \mfk{m}\) such that \(rx-\mu = 1\)
     (note that the choice of sign with \(-\mu\) is by convenience).
     But under our assumption, \(rx = 1+\mu\) is a unit,
     so there exists some \(y\) such that \((rx)y = (ry)x = 1\),
     and \(x\) is a unit.
     The \hyperref[prop:local-ring-units]{proposition above}
-    then indicates that \((R,m)\) forms a local ring.
+    then indicates that \((R,\mfk{m})\) forms a local ring.
 \end{proof}
 
 \subsection*{Radicals and Nilradicals}
@@ -1414,135 +1417,136 @@
     Then if \(x^n = 0\), then \({(rx)}^n = r^n x^n = 0\).
 \end{proof}
 \begin{theorem}
-    Suppose \(R\) is a ring, and \(N = \Nil(R)\) its nilradical.
-    Then \(R/N\) is reduced.
+    Suppose \(R\) is a ring, and \(\mfk{n} = \Nil(R)\) its nilradical.
+    Then \(R/\mfk{n}\) is reduced.
 \end{theorem}
 \begin{proof}
-    Consider any \([x] \in R/N\) that is nilpotent \({[x]}^n = 0\).
-    Then we know that \(x^n \in N\) is in the kernel,
+    Consider any \([x] \in R/\mfk{n}\) that is nilpotent \({[x]}^n = 0\).
+    Then we know that \(x^n \in \mfk{n}\) is in the kernel,
     but by definition there exists some \(m\) such that \(x^{nm} = 0\).
-    This shows that \(x \in N\), so \([x] = 0\).
+    This shows that \(x \in \mfk{n}\), so \([x] = 0\).
 \end{proof}
 \begin{theorem}\label{thm:nilradical-intersection-prime}
     The nilradical is the intersection of all prime ideals.
 \end{theorem}
 \begin{proof}
-    Let \(N = \Nil(R)\).
-    Consider \(x \in N\). Then \(x^n = 0 \in P\) for any \(P\) prime ideal,
-    which implies that \(x \in P\).
-    This shows that \(N \subseteq \bigcap P\).
+    Let \(\mfk{n} = \Nil(R)\).
+    Consider \(x \in \mfk{n}\). Then \(x^n = 0 \in \mfk{p}\) for any \(\mfk{p}\) prime ideal,
+    which implies that \(x \in \mfk{p}\).
+    This shows that \(\mfk{n} \subseteq \bigcap \mfk{p}\).
 
-    On the other hand, if \(x \notin N\),
-    then consider the set of all ideals that contains powers of \(x\),
-    \(\Sigma = \{I \subseteq R: \forall n > 0,\, x^n \notin I\}\).
+    On the other hand, if \(x \notin \mfk{n}\),
+    then consider the set of all ideals that do not contain any powers of \(x\),
+    \(\Sigma = \{\mfk{a} \subseteq R: \forall n > 0,\, x^n \notin \mfk{a}\}\).
     Obviously \((0) \in \Sigma\).
-    Now consider the any arbitrary chain of ideals \(I_1 \subseteq I_2 \subseteq \cdots\).
+    Now consider the any arbitrary chain of ideals \(\mfk{a}_1 \subseteq \mfk{a}_2 \subseteq \cdots\).
     We claim that this is bounded above by the union
-    \(I = \bigcup_{i=1}^\infty I_i \in \Sigma\).
-    Clearly \(x^n \notin I\), because if it is, \(x^n \in I_i\) for some \(i\).
+    \(\mfk{a} = \bigcup_{i=1}^\infty \mfk{a}_i \in \Sigma\).
+    Clearly \(x^n \notin \mfk{a}\), because if it is, \(x^n \in \mfk{a}_i\) for some \(i\).
     We then apply \hyperref[ax:zorn]{Zorn's lemma} to see that there is a maximal element of \(\Sigma\),
-    which we shall call \(P\).
+    which we shall call \(\mfk{p}\).
 
-    We wish to show that \(P\) is prime.
-    Consider any arbitrary \(y,z \notin P\).
-    Then we see that \((y)+P\) and \((z)+P\) cannot be in \(\Sigma\)
+    We wish to show that \(\mfk{p}\) is prime.
+    Consider any arbitrary \(y,z \notin \mfk{p}\).
+    Then we see that \((y)+\mfk{p}\) and \((z)+\mfk{p}\) cannot be in \(\Sigma\)
     because it would otherwise violate maximality,
-    which implies there exists some \(m,n\) such that \(x^m \in (y)+P\) and \(x^n \in (z)+P\).
-    Hence we know that \(x^{m+n} \in (yz)+P\),
-    and therefore \(yz \notin P\), so \(P\) is indeed prime.
-    In particular, \(x \notin P\) since \(x\) cannot reside in any element of \(\Sigma\).
+    which implies there exists some \(m,n\) such that \(x^m \in (y)+\mfk{p}\) and \(x^n \in (z)+\mfk{p}\).
+    Hence we know that \(x^{m+n} \in (yz)+\mfk{p}\),
+    and therefore \(yz \notin \mfk{p}\), so \(\mfk{p}\) is indeed prime.
+    In particular, \(x \notin \mfk{p}\) since \(x\) cannot reside in any element of \(\Sigma\).
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a ring, and \(I \subseteq R\) is an ideal.
-    The radical of \(I\) is \(\sqrt{I} = \{x \in R: \exists n > 0,\, x^n \in I\}\).
+    Suppose \(R\) is a ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    The radical of \(\mfk{a}\) is \(\sqrt{\mfk{a}} = \{x \in R: \exists n > 0,\, x^n \in \mfk{a}\}\).
 \end{definition}
 \begin{lemma}
-    \(\sqrt{I}\) is an ideal.
+    \(\sqrt{\mfk{a}}\) is an ideal.
 \end{lemma}
 \begin{proof}
-    Consider any \(x,y \in \sqrt{I}\).
-    Then there exists some \(x^m \in I\) and \(y^n \in I\).
-    so by the same argument as the nilradical \({(x+y)}^{m+n} \in I\),
-    and hence \(x+y \in \sqrt{I}\).
+    Consider any \(x,y \in \sqrt{\mfk{a}}\).
+    Then there exists some \(x^m \in \mfk{a}\) and \(y^n \in \mfk{a}\).
+    so by the same argument as the nilradical \({(x+y)}^{m+n} \in \mfk{a}\),
+    and hence \(x+y \in \sqrt{\mfk{a}}\).
 
-    Consider any \(x \in \sqrt{I}\) and \(r \in R\).
-    Then there exists some \(x^n \in I\),
-    and \({(rx)}^n = r^n x^n \in I\), so \(rx \in \sqrt{I}\).
+    Consider any \(x \in \sqrt{\mfk{a}}\) and \(r \in R\).
+    Then there exists some \(x^n \in \mfk{a}\),
+    and \({(rx)}^n = r^n x^n \in \mfk{a}\), so \(rx \in \sqrt{\mfk{a}}\).
 \end{proof}
 \begin{theorem}\label{thm:radical-intersection-prime}
-    The radical \(\sqrt{I}\) is the intersection of all prime ideals that contain \(I\).
+    The radical \(\sqrt{\mfk{a}}\) is the intersection of all prime ideals that contain \(\mfk{a}\).
 \end{theorem}
 \begin{proof}
     By the \hyperref[thm:iso-3-ring]{third isomorphism theorem},
-    there is an ideal \(\sqrt{I}/I \subseteq R/I\).
-    Observe that \(\sqrt{I}/I = \{[x] \in R/I: \exists n > 0,\, x^n \in I = [0]\}\),
-    so \(\sqrt{I}/I = \Nil(R/I)\) is the nilradical.
+    there is an ideal \(\sqrt{\mfk{a}}/\mfk{a} \subseteq R/\mfk{a}\).
+    Observe that \(\sqrt{\mfk{a}}/\mfk{a} = \{[x] \in R/\mfk{a}: \exists n > 0,\, x^n \in \mfk{a} = [0]\}\),
+    so \(\sqrt{\mfk{a}}/\mfk{a} = \Nil(R/\mfk{a})\) is the nilradical.
     By Theorem~\ref{thm:nilradical-intersection-prime},
-    \(\sqrt{I}/I\) is in the intersection of all prime ideals in \(R/I\).
+    \(\sqrt{\mfk{a}}/\mfk{a}\) is in the intersection of all prime ideals in \(R/\mfk{a}\).
 
     It now suffices to prove that
     the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
     preserves prime ideals an intersections.
-    Suppose \(J \subseteq R\) is a prime ideal containing \(I\).
-    Then if \(x,y \notin J\), then \(xy \notin J\), in particular \(x,y \notin I\);
-    so \([x],[y] \notin J/I\), and \([xy] \notin J/I\).
-    Hence \(J/I \subseteq R/I\) is a prime ideal.
-    In reverse, let \(J/I \subseteq R/I\) be a prime ideal.
-    If \([x],[y] \notin J/I\), and \([xy] \notin J/I\),
-    then the preimages cannot be in \(J\),
-    so \(J \subseteq R\) is a prime ideal.
+    Suppose \(\mfk{p} \subseteq R\) is a prime ideal containing \(\mfk{a}\).
+    Then if \(x,y \notin \mfk{p}\), then \(xy \notin \mfk{p}\), in particular \(x,y \notin \mfk{a}\);
+    so \([x],[y] \notin \mfk{p/a}\), and \([xy] \notin \mfk{p/a}\).
+    Hence \(\mfk{p/a} \subseteq R/\mfk{a}\) is a prime ideal.
+    In reverse, let \(\mfk{p/a} \subseteq R/\mfk{a}\) be a prime ideal.
+    If \([x],[y] \notin \mfk{p/a}\), and \([xy] \notin \mfk{p/a}\),
+    then the preimages cannot be in \(\mfk{p}\),
+    so \(\mfk{p} \subseteq R\) is a prime ideal.
 
-    Similarly, suppose \({\{J_i\}}_i\) are ideals of \(R\) containing \(I\).
-    If \(x \in J_i\) for all \(i\),
-    then \([x] \in J_i/I\) for all \(i\),
+    Similarly, suppose \({\{\mfk{b}_i\}}_i\) are ideals of \(R\) containing \(\mfk{a}\).
+    If \(x \in \mfk{b}_i\) for all \(i\),
+    then \([x] \in \mfk{b}_i/\mfk{a}\) for all \(i\),
     so it preserves intersection.
-    For the reverse we can suppose if \({\{J_i/I\}}_i\) are ideals of \(R/I\),
-    and if \([x] \in J_i/I\) for all \(i\),
-    then the preimages must be in \(J_i\),
+    For the reverse we can suppose if \({\{\mfk{b}_i/\mfk{a}\}}_i\) are ideals of \(R/\mfk{a}\),
+    and if \([x] \in \mfk{b}_i/\mfk{a}\) for all \(i\),
+    then the preimages must be in \(\mfk{b}_i\),
     so we are done.
 \end{proof}
 \begin{proposition}\label{prop:radical-properties}
     The following properties hold for radicals:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(I \subseteq \sqrt{I}\);
-        \item \(\sqrt{I} = \sqrt{\sqrt{I}}\);
-        \item \(\sqrt{IJ} = \sqrt{I \cap J} = \sqrt{I} \cap \sqrt{J}\); and
-        \item \(\sqrt{I} = (1)\) if and only if \(I = (1)\).
+        \item \(\mfk{a} \subseteq \sqrt{\mfk{a}}\);
+        \item \(\sqrt{\mfk{a}} = \sqrt{\sqrt{\mfk{a}}}\);
+        \item \(\sqrt{\mfk{ab}} = \sqrt{\mfk{a \cap b}} = \sqrt{\mfk{a}} \cap \sqrt{\mfk{b}}\); and
+        \item \(\sqrt{\mfk{a}} = (1)\) if and only if \(\mfk{a} = (1)\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    Suppose \(x \in I\).
-    Clearly \(x^1 = x \in I\) by definition.
+    Suppose \(x \in \mfk{a}\).
+    Clearly \(x^1 = x \in \mfk{a}\) by definition.
     This proves statement (a).
 
-    Using statement (a), we already have \(\sqrt{I} \subseteq \sqrt{\sqrt{I}}\),
+    Using statement (a), we already have \(\sqrt{\mfk{a}} \subseteq \sqrt{\sqrt{\mfk{a}}}\),
     and it suffices to prove the reverse inclusion.
-    Suppose \(x \in \sqrt{\sqrt{I}}\).
-    Then there exists \(n > 0\) such that \(x^n \in \sqrt{I}\),
-    which implies there exists \(m > 0\) such that \({(x^n)}^m = x^{nm} \in I\),
-    hence \(x \in \sqrt{I}\).
+    Suppose \(x \in \sqrt{\sqrt{\mfk{a}}}\).
+    Then there exists \(n > 0\) such that \(x^n \in \sqrt{\mfk{a}}\),
+    which implies there exists \(m > 0\) such that \({(x^n)}^m = x^{nm} \in \mfk{a}\),
+    hence \(x \in \sqrt{\mfk{a}}\).
     This proves statement (b).
 
-    Suppose \(x \in \sqrt{IJ}\).
-    Then there exists \(n > 0\) such that \(x^n \in IJ \subseteq I \cap J\)
+    Suppose \(x \in \sqrt{\mfk{ab}}\).
+    Then there exists \(n > 0\) such that \(x^n \in \mfk{ab} \subseteq \mfk{a \cap b}\)
     (Proposition~\ref{prop:ideal-operations}),
-    which indicates that \(x \in \sqrt{I \cap J}\).
-    Now suppose \(x \in \sqrt{I \cap J}\).
-    Then there exists \(n > 0\) such that \(x^n \in I \cap J \subseteq I\),
-    which inducates that \(x \in \sqrt{I}\).
-    Similarly, we have \(x \in \sqrt{J}\) as desired.
-    Finally suppose \(x \in \sqrt{I} \cap \sqrt{J}\).
-    Then there exists \(m,n > 0\) such that \(x^m \in I\) and \(x^n \in J\).
-    In particular, \(x^{m+n} = x^m x^n \in IJ\).
-    Hence we have \(\sqrt{IJ} \subseteq \sqrt{I \cap J} \subseteq \sqrt{I} \cap \sqrt{J} \subseteq \sqrt{IJ}\),
+    which indicates that \(x \in \sqrt{\mfk{a \cap b}}\).
+    Now suppose \(x \in \sqrt{\mfk{a \cap b}}\).
+    Then there exists \(n > 0\) such that \(x^n \in \mfk{a \cap b} \subseteq \mfk{a}\),
+    which inducates that \(x \in \sqrt{\mfk{a}}\).
+    Similarly, we have \(x \in \sqrt{\mfk{b}}\) as desired.
+    Finally suppose \(x \in \sqrt{\mfk{a}} \cap \sqrt{\mfk{b}}\).
+    Then there exists \(m,n > 0\) such that \(x^m \in \mfk{a}\) and \(x^n \in \mfk{b}\).
+    In particular, \(x^{m+n} = x^m x^n \in \mfk{ab}\).
+    Hence we have \(\sqrt{\mfk{ab}} \subseteq \sqrt{\mfk{a \cap b}} \subseteq
+    \sqrt{\mfk{a}} \cap \sqrt{\mfk{b}} \subseteq \sqrt{\mfk{ab}}\),
     which gives us equality.
     This proves statement (c).
 
-    Suppose \(\sqrt{I} = (1)\).
-    Then this implies \(1 \in \sqrt{I}\),
-    so there exists \(n > 0\) such that \(1^n = 1 \in I\),
-    and hence \(I = (1)\).
+    Suppose \(\sqrt{\mfk{a}} = (1)\).
+    Then this implies \(1 \in \sqrt{\mfk{a}}\),
+    so there exists \(n > 0\) such that \(1^n = 1 \in \mfk{a}\),
+    and hence \(\mfk{a} = (1)\).
     The reverse inclusion is given by statement (a).
     This proves statement (d).
 \end{proof}
@@ -1550,42 +1554,42 @@
 \begin{definition}
     Suppose \(R\) is a ring.
     The Jacobson radical of \(R\) is the intersection of all maximal ideals,
-    \(\mca{R} = \bigcap m\).
+    \(\mfk{R} = \bigcap \mfk{m}\).
 \end{definition}
 \begin{remark}
     The nilradical is inside the Jacobson radical.
 \end{remark}
 \begin{lemma}\label{lem:1-xy-unit}
-    Suppose \(R\) is a ring, \(\mca{R}\) is its Jacobson radical.
-    Any element \(x \in \mca{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
+    Suppose \(R\) is a ring, \(\mfk{R}\) is its Jacobson radical.
+    Any element \(x \in \mfk{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
 \end{lemma}
 \begin{proof}
-    Suppose \(x \in \mca{R}\),
+    Suppose \(x \in \mfk{R}\),
     and by way of contradiction, that there is some \(y\) such that \(1 - xy\) is not a unit.
     Then \((1-xy) \neq (1)\) is a proper ideal by Proposition~\ref{prop:unit-one-ideal},
-    so it must be contained within a maximal ideal \(m\) by Corollary~\ref{cor:proper-in-maximal}.
-    But since \(x \in \mca{R} \subseteq m\), then \(xy \in m\), so \(1 \in m\),
+    so it must be contained within a maximal ideal \(\mfk{m}\) by Corollary~\ref{cor:proper-in-maximal}.
+    But since \(x \in \mfk{R} \subseteq \mfk{m}\), then \(xy \in \mfk{m}\), so \(1 \in \mfk{m}\),
     which is a contradiction.
 
     Now suppose for all \(y\), \(1 - xy\) are units,
-    but by way of contradiction, that \(x \notin \mca{R}\).
-    Then there is some maximal ideal \(m\) that \(x\) does not reside in.
-    By maximality of this \(m\), we know that \(m + (x) = (1)\),
-    In particular, there is some \(u \in m\) and \(y \in R\) such that \(u + xy = 1\),
-    and we see that \(u = 1-xy \in m\) is a unit.
-    But units cannot reside in \(m\), because otherwise \(1 \in m\),
+    but by way of contradiction, that \(x \notin \mfk{R}\).
+    Then there is some maximal ideal \(\mfk{m}\) that \(x\) does not reside in.
+    By maximality of this \(\mfk{m}\), we know that \(\mfk{m} + (x) = (1)\),
+    In particular, there is some \(u \in \mfk{m}\) and \(y \in R\) such that \(u + xy = 1\),
+    and we see that \(u = 1-xy \in \mfk{m}\) is a unit.
+    But units cannot reside in \(\mfk{m}\), because otherwise \(\mfk{m} = R\),
     which is a contradiction.
 \end{proof}
 
 \subsection*{Coprimality}
 
 \begin{definition}
-    Suppose \(I,J\) are two ideals.
-    They are coprime if \(I+J = (1)\).
+    Suppose \(\mfk{a,b}\) are two ideals.
+    They are coprime if \(\mfk{a}+\mfk{b} = (1)\).
 \end{definition}
 \begin{theorem}\label{thm:coprime-product-intersection}
-    Suppose \({\{J_i\}}_{i=1}^n\) are pairwise coprime ideals.
-    Then \(\bigcap_{i=1}^n J_i = \prod_{i=1}^n J_i\).
+    Suppose \({\{\mfk{a}_i\}}_{i=1}^n\) are pairwise coprime ideals.
+    Then \(\bigcap_{i=1}^n \mfk{a}_i = \prod_{i=1}^n \mfk{a}_i\).
 \end{theorem}
 \begin{proof}
     From Proposition~\ref{prop:ideal-operations},
@@ -1593,29 +1597,30 @@
     so it suffices to only prove the reverse inclusion.
 
     Let us first consider the case of \(n = 2\).
-    Since we know that \(J_1+J_2 = (1)\),
+    Since we know that \(\mfk{a}_1+\mfk{a}_2 = (1)\),
     we can exploit this property using the \hyperref[prop:ideal-distributive]{distributive properties}.
     \begin{equation*}
-        J_1 \cap J_2 = (J_1 \cap J_2)R = (J_1 \cap J_2)(J_1+J_2)
-        = (J_1 \cap J_2)J_1 + (J_1 \cap J_2)J_2
-        \subseteq J_2 J_1 + J_1 J_2
-        \subseteq J_1 J_2
+        \mfk{a}_1 \cap \mfk{a}_2 = (\mfk{a}_1 \cap \mfk{a}_2)R
+        = (\mfk{a}_1 \cap \mfk{a}_2)(\mfk{a}_1 + \mfk{a}_2)
+        = (\mfk{a}_1 \cap \mfk{a}_2)\mfk{a}_1 + (\mfk{a}_1 \cap \mfk{a}_2)\mfk{a}_2
+        \subseteq \mfk{a}_2 \mfk{a}_1 + \mfk{a}_1 \mfk{a}_2
+        \subseteq \mfk{a}_1 \mfk{a}_2
     \end{equation*}
 
     We now inductively prove this for \(n \geq 2\),
-    by assuming that \(J = \bigcap_{i=1}^{n-1} J_i = \prod_{i=1}^{n-1} J_i\),
-    and proving that \(J \cap J_n \subseteq J J_n\).
-    But the exact same proof above works if we have \(J+J_n = (1)\).
-    Consider, for each \(i\), some \(x_i \in J_i\).
+    by assuming that \(\mfk{a} = \bigcap_{i=1}^{n-1} \mfk{a}_i = \prod_{i=1}^{n-1} \mfk{a}_i\),
+    and proving that \(\mfk{a} \cap \mfk{a}_n \subseteq \mfk{a} \mfk{a}_n\).
+    But the exact same proof above works if we have \(\mfk{a} + \mfk{a}_n = (1)\).
+    Consider, for each \(i\), some \(x_i \in \mfk{a}_i\).
     Then by pairwise coprimality,
-    we can find some corresponding \(y_i \in J_n\) such that \(x_i+y_i = 1\).
+    we can find some corresponding \(y_i \in \mfk{a}_n\) such that \(x_i+y_i = 1\).
     But we can then see that
     \begin{equation*}
         \prod_{i=1}^{n-1} x_i = \prod_{i=1}^{n-1} (1-y_i) = 1 - y
     \end{equation*}
     where \(y\) is a sum of products of \(y_i\),
-    which is clearly in \(J_n\),
-    so \(J+J_n = (1)\).
+    which is clearly in \(\mfk{a}_n\),
+    so \(\mfk{a} + \mfk{a}_n = (1)\).
 \end{proof}
 
 \begin{definition}
@@ -1623,21 +1628,21 @@
     The direct product is \(\prod_{i \in S} R_i = \{(r_1,r_2,\hdots) : r_i \in R_i\}\).
 \end{definition}
 \begin{lemma}\label{lem:ideal-projections}
-    Suppose \(R\) is a ring, and \(\{J_i\}\) is a family of ideals.
-    Let us define the homomorphism \(\vfunc{\phi}{R}{\prod_i R/J_i}{r}{{(r+J_i)}_{i \in S}}\).
-    Then we have \(\ker\phi = \bigcap_i J_i\),
-    and \(\img\phi = R/\bigcap_i J_i\).
+    Suppose \(R\) is a ring, and \(\{\mfk{a}_i\}\) is a family of ideals.
+    Let us define the homomorphism \(\vfunc{\phi}{R}{\prod_i R/\mfk{a}_i}{r}{{(r+\mfk{a}_i)}_{i \in S}}\).
+    Then we have \(\ker\phi = \bigcap_i \mfk{a}_i\),
+    and \(\img\phi = R/\bigcap_i \mfk{a}_i\).
 \end{lemma}
 \begin{proof}
-    Consider \(x \in \bigcap_i J_i\).
-    Then clearly \(\phi(x) = {(x+J_i)}_i = {(J_i)}_i\)
+    Consider \(x \in \bigcap_i \mfk{a}_i\).
+    Then clearly \(\phi(x) = {(x+\mfk{a}_i)}_i = {(\mfk{a}_i)}_i\)
     which are exactly the cosets of 0.
-    We have \(\bigcap_i J_i \subseteq \ker\phi\).
+    We have \(\bigcap_i \mfk{a}_i \subseteq \ker\phi\).
 
     But now observe any element \(x \in \ker\phi\).
-    Then we need \(\phi(x) = {(J_i)}_i\),
-    so it must belong to the zero \(J_i\)-coset,
-    hence \(x \in J_i\).
+    Then we need \(\phi(x) = {(\mfk{a}_i)}_i\),
+    so it must belong to the zero \(\mfk{a}_i\)-coset,
+    hence \(x \in \mfk{a}_i\).
     We have the reverse inclusion,
     which combined with the above gives equality.
 
@@ -1646,31 +1651,31 @@
     which gives us \(\img\phi = R/\ker\phi\).
 \end{proof}
 \begin{theorem}[Chinese Remainder Theorem]\label{thm:chinese}
-    Suppose \(R\) is a ring, and \({\{J_i\}}_{i=1}^n\) is a family of ideals.
-    Consider the homomorphism \(\func{\phi}{R}{\prod_i R/J_i}\).
-    Then \(\phi\) is surjective if and only if \({\{J_i\}}_{i=1}^n\) are pairwise coprime.
-    In that case, \(\prod_i R/J_i \cong R/\prod_i J_i\).
+    Suppose \(R\) is a ring, and \({\{\mfk{a}_i\}}_{i=1}^n\) is a family of ideals.
+    Consider the homomorphism \(\func{\phi}{R}{\prod_i R/\mfk{a}_i}\).
+    Then \(\phi\) is surjective if and only if \({\{\mfk{a}_i\}}_{i=1}^n\) are pairwise coprime.
+    In that case, \(\prod_i R/\mfk{a}_i \cong R/\prod_i \mfk{a}_i\).
 \end{theorem}
 \begin{proof}
     Suppose \(\phi\) is surjective.
     Then in particular, there exists \(x \in R\)
     such that \(\phi(x) = (1,0,\hdots,0)\).
-    This gives us that \(x \in 1 + J_1\) and \(x \in J_2\).
-    Hence there exists \(j_1 \in J_1\) and \(j_2 \in J_2\)
-    such that \(1 + j_1 = j_2\),
-    which gives us \(J_1 + J_2 = (1)\).
+    This gives us that \(x \in 1 + \mfk{a}_1\) and \(x \in \mfk{a}_2\).
+    Hence there exists \(a_1 \in \mfk{a}_1\) and \(a_2 \in \mfk{a}_2\)
+    such that \(1 + a_1 = a_2\),
+    which gives us \(\mfk{a}_1 + \mfk{a}_2 = (1)\).
     This proof can be repeated with arbitrary indices replacing 1 and 2.
 
-    Suppose \({\{J_i\}}_{i=1}^n\) are pairwise coprime.
-    Then there exists \(x_i \in J_i\) and \(y_i \in J_1\)
+    Suppose \({\{\mfk{a}_i\}}_{i=1}^n\) are pairwise coprime.
+    Then there exists \(x_i \in \mfk{a}_i\) and \(y_i \in \mfk{a}_1\)
     such that \(x_i + y_i = 1\).
     Using the same argument as Theorem~\ref{thm:coprime-product-intersection},
     there exists
     \begin{equation*}
         b_1 = \prod_{i=2}^n x_i = \prod_{i=2}^n (1-y_i) = 1 - y
-        \in \prod_{i=2}^n J_i \subseteq \bigcap_{i=2}^n J_i
+        \in \prod_{i=2}^n \mfk{a}_i \subseteq \bigcap_{i=2}^n \mfk{a}_i
     \end{equation*}
-    with \(y \in J_1\).
+    with \(y \in \mfk{a}_1\).
     Hence we have found a \(b_1\) such that \(\phi(b_1) = (1,0,\hdots,0)\).
     Repeat this proof with an arbitrary index instead of 1 to obtain all \(b_i\).
     Then any arbitrary \((r_1,\hdots,r_n)\)
@@ -1678,9 +1683,9 @@
 
     Now, if \(\phi\) is surjective,
     from the \hyperref[lem:ideal-projections]{lemma above}
-    we have \(\img\phi = \prod_i R/J_i = R/\bigcap_i J_i\),
+    we have \(\img\phi = \prod_i R/\mfk{a}_i = R/\bigcap_i \mfk{a}_i\),
     and by pairwise coprimality (Theorem~\ref{thm:coprime-product-intersection}),
-    \(R/\bigcap_i J_i = R/\prod_i J_i\).
+    \(R/\bigcap_i \mfk{a}_i = R/\prod_i \mfk{a}_i\).
 \end{proof}
 \begin{remark}
     The Chinese Remainder Theorem is named after ancient China,
@@ -1696,71 +1701,72 @@
 \subsection*{Quotient Ideals}
 
 \begin{definition}
-    Suppose \(R\) is a ring, and \(I,J\) are ideals.
-    The quotient ideal is \((I:J) = \{x \in R : xJ \subseteq I\}\).
+    Suppose \(R\) is a ring, and \(\mfk{a,b}\) are ideals.
+    The quotient ideal is \((\mfk{a:b}) = \{x \in R : x\mfk{b} \subseteq \mfk{a}\}\).
 \end{definition}
 \begin{lemma}
-    \((I:J)\) indeed forms an ideal.
+    \((\mfk{a:b})\) indeed forms an ideal.
 \end{lemma}
 \begin{proof}
-    Suppose \(x,y \in (I:J)\).
-    Then \((x+y)J = xJ + yJ \subseteq I\),
-    so \(x+y \in (I:J)\).
+    Suppose \(x,y \in (\mfk{a:b})\).
+    Then \((x+y)\mfk{b} = x\mfk{b} + y\mfk{b} \subseteq \mfk{a}\),
+    so \(x+y \in (\mfk{a:b})\).
 
-    Consider \(x \in (I:J)\) and \(r \in R\).
-    Then we have \((xr)J = x(rJ) \subseteq xJ \subseteq I\),
-    so \(xr \in (I:J)\).
+    Consider \(x \in (\mfk{a:b})\) and \(r \in R\).
+    Then we have \((xr)\mfk{b} = x(r\mfk{b}) \subseteq x\mfk{b} \subseteq \mfk{a}\),
+    so \(xr \in (\mfk{a:b})\).
 \end{proof}
 \begin{proposition}\label{prop:quotient-ideal-properties}
     The following properties hold for quotient ideals:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(I \subseteq (I:J)\);
-        \item \((I:J)J \subseteq I\);
-        \item \((I:I) = (1)\);
-        \item \(((I:J):K) = (I:JK) = ((I:K):J)\); and
-        \item \(\pqty{\bigcap I_i:J} = \bigcap (I_i:J)\).
+        \item \(\mfk{a} \subseteq (\mfk{a:b})\);
+        \item \((\mfk{a:b})\mfk{b} \subseteq \mfk{a}\);
+        \item \((\mfk{a:a}) = (1)\);
+        \item \(\mfk{((a:b):c)} = \mfk{(a:bc)} = \mfk{((a:c):b)}\); and
+        \item \(\pqty{\bigcap \mfk{a}_i:\mfk{b}} = \bigcap (\mfk{a}_i:\mfk{b})\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    For (a), if \(x \in I\), then \(xJ \subseteq xR \subseteq I\),
-    so \(x \in (I:J)\).
+    For (a), if \(x \in \mfk{a}\), then \(x\mfk{b} \subseteq xR \subseteq \mfk{a}\),
+    so \(x \in (\mfk{a:b})\).
 
-    For (b), consider \(x \in (I:J)\) and \(y \in J\).
-    Then \(xJ \subseteq I\), and in particular \(xy \in I\).
+    For (b), consider \(x \in (\mfk{a:b})\) and \(y \in \mfk{b}\).
+    Then \(x\mfk{b} \subseteq \mfk{a}\), and in particular \(xy \in \mfk{a}\).
 
-    For (c), we see that \(1I = I\), so \(1 \in (I:I)\).
+    For (c), we see that \(1\mfk{a} = \mfk{a}\), so \(1 \in (\mfk{a:a})\).
 
-    For (d), consider \(x \in ((I:J):K)\).
-    Then \(xK \in (I:J)\),
-    which implies that \(xJK \in I\),
-    which exactly follows the definition of \(x \in (I:JK)\).
+    For (d), consider \(x \in \mfk{((a:b):c)}\).
+    Then \(x\mfk{c} \in (\mfk{a:b})\),
+    which implies that \(x\mfk{bc} \in \mfk{a}\),
+    which exactly follows the definition of \(x \in (\mfk{a:bc})\).
     This proof is exactly the same in the reverse direction.
 
-    For (e), consider \(x \in \pqty{\bigcap I_i:J}\).
-    Then \(xJ \subseteq \bigcap I_i \subseteq I_i\) for every \(i\),
-    and we have \(x \in (I_i:J)\) for all \(i\).
-    Now consider \(x \in \bigcap (I_i:J)\).
-    Then \(xJ \subseteq I_i\) for every \(i\),
-    i.e.\ \(xJ \subseteq \bigcap I_i\),
-    which is exactly \(x \in (\bigcap I_i:J)\).
+    For (e), consider \(x \in \pqty{\bigcap \mfk{a}_i:\mfk{b}}\).
+    Then \(x\mfk{b} \subseteq \bigcap \mfk{a}_i \subseteq \mfk{a}_i\) for every \(i\),
+    and we have \(x \in (\mfk{a}_i:\mfk{b})\) for all \(i\).
+    Now consider \(x \in \bigcap (\mfk{a}_i:\mfk{b})\).
+    Then \(x\mfk{b} \subseteq \mfk{a}_i\) for every \(i\),
+    i.e.\ \(x\mfk{b} \subseteq \bigcap \mfk{a}_i\),
+    which is exactly \(x \in (\bigcap \mfk{a}_i:\mfk{b})\).
 \end{proof}
 
 \subsection*{Extensions and Contractions}
 
 \begin{definition}
     Suppose \(\func{\phi}{R}{S}\) is any ring homomorphism.
-    Let \(I \subseteq R\) and \(J \subseteq S\) be ideals.
-    \(\phi(I) \subseteq S\) might not be an ideal,
-    so we define the ideal it generates \((\phi(I)) \subseteq I\)
-    to be the extension of \(I\).
+    Let \(\mfk{a} \subseteq R\) and \(\mfk{b} \subseteq S\) be ideals.
+    \(\phi(\mfk{a}) \subseteq S\) might not be an ideal,
+    so we define the ideal it generates \((\phi(\mfk{a})) \subseteq \mfk{a}\)
+    to be the extension of \(\mfk{a}\).
 \end{definition}
 \begin{remark}
-    \(\phi^{-1}(J) \subseteq R\) is always an ideal,
-    and if \(J\) prime, \(\phi^{-1}(J)\) is also prime.
+    \(\phi^{-1}(\mfk{b}) \subseteq R\) is always an ideal,
+    and if \(\mfk{b}\) prime, \(\phi^{-1}(\mfk{b})\) is also prime.
 \end{remark}
 \begin{definition}
     Suppose \(\func{\phi}{R}{S}\) is a ring monomorphism.
-    If \(J \subseteq S\), we say \(\phi^{-1}(J) = J \cap R\) is the contraction of \(J\).
+    If \(\mfk{b} \subseteq S\),
+    we say \(\phi^{-1}(\mfk{b}) = \mfk{b} \cap R\) is the contraction of \(\mfk{b}\).
 \end{definition}
 
 
@@ -1853,12 +1859,12 @@
             such that \(\phi = \bar{\phi}\circ\iota\).
     \end{enumerate}
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             R \arrow{r}{\phi} \arrow{d}{\iota} & S \\
             F \arrow[dashrightarrow]{ru}[swap]{\exists! \bar{\phi}}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{definition}
 \begin{theorem}[Existence and Uniqueness of Field of Fractions]\label{thm:existence-field-of-fractions}
     For any commutative domain \(R\),
@@ -1879,7 +1885,7 @@
     \(\func{\iota}{R}{F}\) injective
     such that there exists a unique \(\func{\bar{\phi}'}{F'}{F}\)
     where \(\iota = \bar{\phi}'\circ\iota'\).
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             R \arrow{r}{\iota'} \arrow{d}[swap]{\iota} &
             F' \arrow[rightharpoondown, shift right=0.25ex]{ld}%
@@ -1887,7 +1893,7 @@
             F \arrow[rightharpoondown, shift right=0.25ex]{ru}%
                 [xshift=-.5ex, yshift=.5ex, swap]{\bar{\phi}}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 
     Then following the definitions,
     we come to these two conclusions:
@@ -2092,7 +2098,7 @@
     commonly written as \(\eta_u(R[x]) = R[u] \subseteq S\).
 \end{definition}
 \begin{proposition}
-    \(R[u] \cong R[x]/I\), where \(I = \{p(x) \in R[x] : p(u) = 0\}\).
+    \(R[u] \cong R[x]/\mfk{a}\), where \(\mfk{a} = \{p(x) \in R[x] : p(u) = 0\}\).
 \end{proposition}
 \begin{proof}
     A direct consequence of
@@ -2106,24 +2112,24 @@
     consider the evaluation morphism \(\vfunc{\eta_u}{R[x]}{S}{x}{u}\).
     If the kernel is \(\ker\eta_u = \{0\}\),
     then \(R[u] \cong R[x]\), and we call \(u\) transcendental;
-    if on the other hand, the kernel \(I = \ker\eta_u \neq \{0\}\),
-    then \(R[u] \cong R[x]/I\), and we call \(u\) algebraic,
+    if on the other hand, the kernel \(\mfk{a} = \ker\eta_u \neq \{0\}\),
+    then \(R[u] \cong R[x]/\mfk{a}\), and we call \(u\) algebraic,
     in the sense that \(u\) satisfies polynomials,
-    in particular the ones in \(I\).
+    in particular the ones in \(\mfk{a}\).
 \end{definition}
 
 \begin{theorem}
     Suppose \(R \subseteq S\) both fields,
     and \(R[x]\) a polynomial ring.
-    Suppose \(I \subseteq R[x]\) is any ideal.
-    If \(I\) contains any constant \(r \in R\), \(r \neq 0\)
+    Suppose \(\mfk{a} \subseteq R[x]\) is any ideal.
+    If \(\mfk{a}\) contains any constant \(r \in R\), \(r \neq 0\)
     then it is not a substitution kernel,
     i.e.\ it cannot be the kernel for \(\eta_u\) for any \(u \in S\).
 \end{theorem}
 \begin{proof}
-    By way of contradiction, suppose \(r \in I\) and \(r \in R\), \(r \neq 0\),
+    By way of contradiction, suppose \(r \in \mfk{a}\) and \(r \in R\), \(r \neq 0\),
     and that there exists some \(u \in S\)
-    such that \(R[u] \cong R[x]/I\).
+    such that \(R[u] \cong R[x]/\mfk{a}\).
     Without loss of generality, let us choose the smallest \(r\).
     Now, this would imply that \(r = 0\) in \(S\).
     Hence \(S\) must have characteristic \(r\).
@@ -2132,7 +2138,7 @@
     But this is a contradiction,
     as this would make \(R \cong S \cong \bZ/r\bZ\);
     as \(R \subseteq R[u] \subseteq R[x] \subseteq S\),
-    then the kernel must be \(\{0\}\).
+    then the kernel must be \(0\).
 \end{proof}
 
 \begin{definition}
@@ -2166,8 +2172,6 @@
     This proves statement (b).
 \end{proof}
 
-% \begin{definition}
-% \end{definition}
 \begin{proposition}\label{prop:ring-polynomial-long-div}
     Suppose \(R\) a commutative ring,
     and \(R[x]\) its polynomial ring.
@@ -2222,8 +2226,6 @@
     in Section~\ref{sec:factorial-rings} for unique factorization domains.
 \end{remark}
 
-% \begin{definition}
-% \end{definition}
 \begin{proposition}\label{prop:field-polynomial-long-div}
     Suppose \(F\) a field, and \(F[x]\) its polynomial ring.
     Let \(f,g \in F[x]\),
@@ -2275,20 +2277,20 @@
 \end{proof}
 \begin{corollary}\label{cor:field-polynomial-pid}
     Suppose \(F\) is a field,
-    and \(I \subseteq F[x]\) any ideal.
-    Then there exists some element \(f \in I\)
-    such that it is generated by that element, \(I = (f(x))\),
-    i.e.\ all elements of \(I\) are multiples of \(f(x)\).
+    and \(\mfk{a} \subseteq F[x]\) any ideal.
+    Then there exists some element \(f \in \mfk{a}\)
+    such that it is generated by that element, \(\mfk{a} = (f(x))\),
+    i.e.\ all elements of \(\mfk{a}\) are multiples of \(f(x)\).
 \end{corollary}
 \begin{proof}
-    Pick any \(f(x) \in I\) with the lowest degree.
-    If \(g \in I\), by \hyperref[prop:field-polynomial-long-div]{long division},
-    \(g(x) = q(x)f(x) + r(x)\), which implies \(r(x) = g(x) - q(x)f(x) \in I\).
+    Pick any \(f(x) \in \mfk{a}\) with the lowest degree.
+    If \(g \in \mfk{a}\), by \hyperref[prop:field-polynomial-long-div]{long division},
+    \(g(x) = q(x)f(x) + r(x)\), which implies \(r(x) = g(x) - q(x)f(x) \in \mfk{a}\).
     But we also know that \(\deg r < \deg f\),
     which tells us that \(r(x) = 0\),
-    giving us \(g(x) = q(x)f(x) \in (f(x))\), and hence \(I \subseteq (f(x))\).
-    By definition of ideals, \((f(x)) \subseteq I\).
-    Therefore \((f(x)) = I\).
+    giving us \(g(x) = q(x)f(x) \in (f(x))\), and hence \(\mfk{a} \subseteq (f(x))\).
+    By definition of ideals, \((f(x)) \subseteq \mfk{a}\).
+    Therefore \((f(x)) = \mfk{a}\).
 \end{proof}
 
 \begin{definition}
@@ -2355,46 +2357,46 @@
     i.e.\ \(f(x)\) cannot decompose into something with a lower degree.
 \end{definition}
 \begin{theorem}\label{thm:ideal-divisibility}
-    Let \(I = (f(x))\) and \(J = (g(x))\) be two ideals in \(F[x]\).
+    Let \(\mfk{a} = (f(x))\) and \(\mfk{b} = (g(x))\) be two ideals in \(F[x]\).
     Then:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(f(x)\) is irreducible if and only if \(I\) is maximal; and
-        \item \(I \subseteq J\) if and only if \(g(x) \mid f(x)\).
+        \item \(f(x)\) is irreducible if and only if \(\mfk{a}\) is maximal; and
+        \item \(\mfk{a} \subseteq \mfk{b}\) if and only if \(g(x) \mid f(x)\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
     We first prove statement (b).
     Suppose \(g(x) \mid f(x)\).
     Then there exists \(h(x) \in F[x]\) such that \(f(x) = g(x)h(x)\),
-    and hence \(f(x) \in J = (g(x))\),
-    and any multiple of \(f(x)\), that is elements of \((f(x))\) is in \(J\);
-    therefore \(I \subseteq J\).
+    and hence \(f(x) \in \mfk{b} = (g(x))\),
+    and any multiple of \(f(x)\), that is elements of \((f(x))\) is in \(\mfk{b}\);
+    therefore \(\mfk{a} \subseteq \mfk{b}\).
 
-    Suppose \(I \subseteq J\).
-    As elements of \(J\) are multiples of \(g(x)\),
-    we know that in particular elements of \(I \subseteq J\)
+    Suppose \(\mfk{a} \subseteq \mfk{b}\).
+    As elements of \(\mfk{b}\) are multiples of \(g(x)\),
+    we know that in particular elements of \(\mfk{a} \subseteq \mfk{b}\)
     are multiples of \(g(x)\);
-    specifically, as \(f(x) \in I \subseteq J\),
+    specifically, as \(f(x) \in \mfk{a} \subseteq \mfk{b}\),
     \(g(x) \mid f(x)\).
     This proves statement (b).
 
     \medskip
 
-    Now suppose \(I\) is reducible.
+    Now suppose \(\mfk{a}\) is reducible.
     Then \(f(x) = g(x)h(x)\) some product of polynomials.
     In particular, \(g(x) \mid f(x)\), \(\deg g < \deg f\),
-    so there exists some \(J = (g(x))\) such that \(I \subsetneq J\),
-    as it is obvious that \(I\) cannot include elements of degree \(\deg g\).
-    But also \(\deg g \geq 1\), so \(J \subsetneq F[x]\),
+    so there exists some \(\mfk{b} = (g(x))\) such that \(\mfk{a} \subsetneq \mfk{b}\),
+    as it is obvious that \(\mfk{a}\) cannot include elements of degree \(\deg g\).
+    But also \(\deg g \geq 1\), so \(\mfk{b} \subsetneq F[x]\),
     so we have found an intermediate ideal,
-    and \(I\) not maximal.
+    and \(\mfk{a}\) not maximal.
 
     For the reverse direction,
-    suppose \(I\) is not maximal,
-    and there exists some \(J = (g(x))\)
-    such that \(I \subsetneq J \subsetneq F[x]\).
+    suppose \(\mfk{a}\) is not maximal,
+    and there exists some \(\mfk{b} = (g(x))\)
+    such that \(\mfk{a} \subsetneq \mfk{b} \subsetneq F[x]\).
     Then \(g(x) \mid f(x)\),
-    and as there are some elements in \(J\) but not in \(I\),
+    and as there are some elements in \(\mfk{b}\) but not in \(\mfk{a}\),
     there exists multiples of \(g(x)\) that is not a multiple of \(f(x)\).
     Hence \(\deg g < \deg f\),
     because otherwise constant multiplies would work if \(\deg g = \deg f\),
@@ -2405,11 +2407,11 @@
 
 \begin{remark}
     From \hyperref[thm:ideal-divisibility]{above},
-    if \(f(x)\) is irreducible, then \(I\) is maximal in \(F[x]\),
+    if \(f(x)\) is irreducible, then \(\mfk{a}\) is maximal in \(F[x]\),
     which by the \hyperref[thm:iso-4-ring]{fourth isomorphism theorem},
-    the only ideals of \(F[x]/I\) are itself and \(\{0\}\),
-    and Theorem~\ref{thm:field-props} tells us \(F[x]/I \supset F\) is now a field.
-    In a sense we are adding the roots of \(f(x)\) to \(F\) to form \(F[x]/I\).
+    the only ideals of \(F[x]/\mfk{a}\) are itself and \(\{0\}\),
+    and Theorem~\ref{thm:field-props} tells us \(F[x]/\mfk{a} \supset F\) is now a field.
+    In a sense we are adding the roots of \(f(x)\) to \(F\) to form \(F[x]/\mfk{a}\).
 
     Suppose \(f(x) = \prod_i g_i(x)\) factors into irreducible polynomials.
     If \(g_i(x) = x-a\) is linear, then \(a \in F\) is a root;
@@ -2418,11 +2420,11 @@
     Hence we only need to consider irreducible polynomials
     when looking for roots.
 
-    Suppose \(K = F[x]/I\), where \(I = (f(x))\) for some irreducible \(f\).
-    Notice that \(x+I \in I\) is always a solution of \(f(x)\) in \(K\),
-    as \(x-(x+I) = I\) is in the ideal by definition,
+    Suppose \(K = F[x]/\mfk{a}\), where \(\mfk{a} = (f(x))\) for some irreducible \(f\).
+    Notice that \(x+\mfk{a} \in \mfk{a}\) is always a solution of \(f(x)\) in \(K\),
+    as \(x-(x+\mfk{a}) = \mfk{a}\) is in the ideal by definition,
     which is equivalent to \(0 \in K\).
-    So if \(\alpha = x+I \in K\),
+    So if \(\alpha = x+\mfk{a} \in K\),
     we can merely factor out \(x-\alpha\) from \(f(x)\),
     and recursively use this construction to build all the roots of \(f(x)\).
 \end{remark}
@@ -2784,7 +2786,7 @@
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a commutative domain, and \(\{a,b\} \subset R - \{0\}\).
+    Suppose \(R\) is a commutative domain, and \(a,b \in R - \{0\}\).
     \(d \in R\) is a greatest common denominator of \(a\) and \(b\),
     denoted \(d = \gcd(a,b)\),
     if \(d \mid a\) and \(d \mid b\),
@@ -2852,26 +2854,25 @@
     are commutative domains with every ideal generated by a single element.
 \end{remark}
 \begin{proposition}\label{prop:pid-maximal-is-prime}
-    Suppose \(R\) is a PID, \(I \subseteq R\) is an ideal.
-    Then \(I\) is maximal if and only if \(I\) is a nonzero prime ideal.
+    Suppose \(R\) is a PID, \(\mfk{p} \subseteq R\) is an ideal.
+    Then \(\mfk{p}\) is maximal if and only if \(\mfk{p}\) is a nonzero prime ideal.
 \end{proposition}
 \begin{proof}
-    Suppose \(I\) is a maximal ideal.
-    Then by Theorem~\ref{thm:maximal-quotient-field} \(R/I\) is a field,
+    Suppose \(\mfk{p}\) is a maximal ideal.
+    Then by Theorem~\ref{thm:maximal-quotient-field} \(R/\mfk{p}\) is a field,
     which in particular it must be an integral domain.
-    Hence by Proposition~\ref{thm:prime-quotient-domain} \(I\) is a prime ideal.
+    Hence by Proposition~\ref{thm:prime-quotient-domain} \(\mfk{p}\) is a prime ideal.
 
-    Now suppose \(I\) is a nonzero prime ideal.
-    We suppose there is an intermediate ideal \(I \subseteq J \subseteq R\).
+    Now suppose \(\mfk{p}\) is a nonzero prime ideal.
+    We suppose there is an intermediate ideal \(\mfk{p} \subseteq \mfk{a} \subseteq R\).
     But because \(R\) is a PID,
-    \(I = \langle x \rangle\), \(J = \langle y \rangle\)
-    for some \(\{x,y\} \subset R\).
-    But as \(I \subseteq J\), \(x = ay\) for some \(a \in R\);
-    but by primality of \(I\), either \(a \in I\) or \(y \in I\).
-    If \(y \in I\) then \(I = J\) so \(I\) is maximal.
-    If \(a \in I\) then \(a = bx\) for some \(b \in R\),
+    \(\mfk{p} = (x)\), \(\mfk{a} = (y)\) for some \(x,y \in R\).
+    But as \(\mfk{p} \subseteq \mfk{a}\), \(x = ay\) for some \(a \in R\);
+    but by primality of \(\mfk{p}\), either \(a \in \mfk{p}\) or \(y \in \mfk{p}\).
+    If \(y \in \mfk{p}\) then \(\mfk{p} = \mfk{a}\) so \(\mfk{p}\) is maximal.
+    If \(a \in \mfk{p}\) then \(a = bx\) for some \(b \in R\),
     so \(x = bxy\), and therefore \(by = 1\).
-    \(y\) is a unit, so \(J = R\), and \(I\) is maximal.
+    \(y\) is a unit, so \(\mfk{a} = R\), and \(\mfk{p}\) is maximal.
 \end{proof}
 
 \begin{theorem}\label{thm:pid-ufd}
@@ -2883,12 +2884,12 @@
     Suppose we have an infinite ideal chain
     \((a_1) \subseteq (a_2) \subseteq \cdots \subseteq (a_r) \subseteq \cdots\).
     Then by Proposition~\ref{prop:nested-ideals},
-    \(I = \bigcup_{i=1}^\infty (a_i)\) is an ideal.
-    Notice that \(I = (b)\) must be generated by some element,
-    and since \(b \in I\), there exists some \(r\) that \(b \in (a_r)\).
+    \(\mfk{a} = \bigcup_{i=1}^\infty (a_i)\) is an ideal.
+    Notice that \(\mfk{a} = (b)\) must be generated by some element,
+    and since \(b \in \mfk{a}\), there exists some \(r\) that \(b \in (a_r)\).
     However, by definition of the infinite union,
-    \((b) \subseteq (a_r) \subseteq (a_{r_1}) \subseteq \cdots \subseteq I = (b)\).
-    Hence we are forced to conclude that \((b) = (a_r) = (a_{r+1}) = \cdots = I\),
+    \((b) \subseteq (a_r) \subseteq (a_{r_1}) \subseteq \cdots \subseteq \mfk{a} = (b)\).
+    Hence we are forced to conclude that \((b) = (a_r) = (a_{r+1}) = \cdots = \mfk{a}\),
     and every infinite chain of ideals are only proper up to a finite \(r\).
     There are no infinite chain of proper ideals.
 
@@ -2926,20 +2927,20 @@
     then \(R\) is a PID.\@
 \end{theorem}
 \begin{proof}
-    We first look at the ideal of a single element, \(I = \{0\}\);
-    clearly this is \(I = (0)\).
+    We first look at the ideal of a single element, \(\mfk{a} = 0\);
+    clearly this is \(\mfk{a} = (0)\).
 
-    Now suppose \(I\) has more than one element.
-    Choose any nonzero element \(x \in I\)
-    such that \(\delta(x) \leq \delta(y)\) for all nonzero \(y \in I\);
+    Now suppose \(\mfk{a}\) has more than one element.
+    Choose any nonzero element \(x \in \mfk{a}\)
+    such that \(\delta(x) \leq \delta(y)\) for all nonzero \(y \in \mfk{a}\);
     in other words, \(\delta(x)\) is minimal.
-    Now suppose we have some nonzero \(y \in I\).
+    Now suppose we have some nonzero \(y \in \mfk{a}\).
     We factor it with \(y = qx + r\),
-    which we know \(r = y - qx \in I\);
+    which we know \(r = y - qx \in \mfk{a}\);
     and according to the Euclidean function \(\delta(r) < \delta(x)\),
     as \(\delta(x)\) is minimal, \(\delta(r) = 0\), so \(r = 0\).
-    Hence all \(y \in I\) is a multiple of \(x\),
-    and \(I = (x)\).
+    Hence all \(y \in \mfk{a}\) is a multiple of \(x\),
+    and \(\mfk{a} = (x)\).
 \end{proof}
 \begin{corollary}\label{cor:euclidean-ufd}
     If \(R\) is a Euclidean domain,
