@@ -139,18 +139,18 @@
     All properties are inherited.
 \end{proof}
 \begin{proposition}\label{prop:quotient-ring-module}
-    Suppose \(R\) is a commutative ring, \(I \subseteq R\) an ideal,
+    Suppose \(R\) is a commutative ring, \(\mfk{a} \subseteq R\) an ideal,
     and \(M\) is an \(R\)-module.
-    Then \(M/IM\) can be characterized as an \(R/I\)-module.
+    Then \(M/\mfk{a}M\) can be characterized as an \(R/\mfk{a}\)-module.
 \end{proposition}
 \begin{proof}
-    Since \(R/I \subseteq R\),
+    Since \(R/\mfk{a} \subseteq R\),
     it suffices to prove that the inherited scalar multiplication
-    is compatible with the quotient by \(I\).
-    Consider \(m \in M\), so \([m] \in M/IM\),
-    and \(r \in R\), so \(r+I \in R/I\).
+    is compatible with the quotient by \(\mfk{a}\).
+    Consider \(m \in M\), so \([m] \in M/\mfk{a}M\),
+    and \(r \in R\), so \(r+\mfk{a} \in R/\mfk{a}\).
     \begin{equation*}
-        (r+I)[m] = r[m] + I[m] = [rm] = r[m]
+        (r+\mfk{a})[m] = r[m] + \mfk{a}[m] = [rm] = r[m]
     \end{equation*}
 \end{proof}
 
@@ -241,7 +241,7 @@
 \begin{definition}
     Suppose \({\{M_i\}}_{i \in S}\) is a family of \(R\)-modules.
     The direct product is \(\prod_i M_i = \{{(m_i)}_{i \in S}\}\),
-    and the direct sum is \(\bigoplus_i M_i = \{{(m_i)_{i \in S}}\}\) with finite support.
+    and the direct sum is \(\bigoplus_i M_i = \{{(m_i)}_{i \in S}\}\) with finite support.
 \end{definition}
 \begin{remark}
     These two fulfill the same universal properties as in Section~\ref{sec:vsp-constructions},
@@ -356,9 +356,9 @@
     Then the ideals of \(R\) are exactly the submodules of \(R\).
 \end{proposition}
 \begin{proof}
-    Consider an ideal \(I \subseteq R\).
-    Ideals are additively closed, and \(rI \subseteq I\) by definition of ring multiplication.
-    Hence \(I \subseteq R\) is a submodule.
+    Consider an ideal \(\mfk{a} \subseteq R\).
+    Ideals are additively closed, and \(r\mfk{a} \subseteq \mfk{a}\) by definition of ring multiplication.
+    Hence \(\mfk{a} \subseteq R\) is a submodule.
     The reverse argument holds exactly the same way.
 \end{proof}
 
@@ -394,7 +394,7 @@
     there must be one such coset \(m+K\) that
     \(\bar{\phi}(m+K) \neq \bar{\phi}'(m+K)\) disagrees on.
     However, this is a contradiction,
-    because for all \(m' \in m+I \subseteq M\),
+    because for all \(m' \in m+K \subseteq M\),
     \(\bar{\phi}'(m+K) = \bar{\phi}'(\pi(m')) = \phi(m') = \bar{\phi}(\pi(m')) = \bar{\phi}(m+K)\),
     contradicting the inequality that we have above.
     Hence we have established uniqueness of \(\bar{\phi}\).
@@ -419,12 +419,12 @@
         \item \(\img\phi \cong M/K\), the image is uniquely isomorphic to the quotient submodule.
     \end{enumerate}
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             M \arrow{rd}{\phi} \arrow{d}{\pi} & N \\
             M/K \arrow{r}{\cong} & \img\phi \arrow[dash]{u}
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     Suppose \(\{x,y\} \subset \ker\phi\).
@@ -462,7 +462,7 @@
     \end{enumerate}
 
     This is represented by the following commutative diagram:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             M \arrow[dash]{d} \\
             N+P \arrow[dash]{d} \arrow{r}{\pi} \arrow[dash]{rd} &
@@ -471,7 +471,7 @@
             N/(N \cap P) \\
             & N \cap P
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     By the \hyperref[thm:iso-2-group]{second group isomorphism theorem},
@@ -536,14 +536,14 @@
     \end{enumerate}
 
     This is represented by the following commutative diagrams:
-    \begin{center}
+    \begin{equation*}
         \begin{tikzcd}
             M \arrow{r} \arrow[dash]{d} \arrow{rd} &
             M/L \arrow[leftrightarrow]{rd}{\cong} \\
             L \arrow[dash]{rd} & M/N \arrow{r} \arrow{d} & (M/N)/(L/N) \\
             & L/N
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{theorem}
 \begin{proof}
     We first see that \(N\) is also a submodule of \(L\),
@@ -626,8 +626,8 @@
     Suppose \(M\) is a finitely-generated \(R\)-module,
     and suppose we have an endomorphism \(\func{\phi}{M}{M}\).
     Then there exists a monic polynomial \(\phi^n + a_1\phi^{n-1} + \cdots + a_n = 0\).
-    Moreover, if there exists \(I \subseteq R\) such that \(\img\phi \subseteq IM\),
-    then the coefficients \(a_i \in I\).
+    Moreover, if there exists an ideal \(\mfk{a} \subseteq R\) such that \(\img\phi \subseteq \mfk{a}M\),
+    then the coefficients \(a_i \in \mfk{a}\).
 \end{lemma}
 \begin{proof}
     Suppose \({\{x_i\}}_{i=1}^n\) generates \(M\).
@@ -654,23 +654,23 @@
     But \(\det T\) is exactly the characteristic polynomial of \(\phi\),
     and we have shown that \(\phi\) fulfills its own characteristic polynomial.
 
-    Consider the special case \(\phi(M) \subseteq IM\).
-    Then \(a_{ij} \in I\),
+    Consider the special case \(\phi(M) \subseteq \mfk{a}M\).
+    Then \(a_{ij} \in \mfk{a}\),
     so the coefficients of the characteristic polynomial
-    must be an expression in \(I\).
+    must be an expression in \(\mfk{a}\).
 \end{proof}
 \begin{corollary}[Nakayama's Lemma]\label{cor:nakayama}
     Suppose \(M\) is a finitely-generated \(R\)-module,
-    with \(I \subseteq R\) is an ideal, and \(IM = M\).
-    Then there exists \(x \in R\), \(x \equiv 1\pmod{I}\), such that \(xM = 0\).
+    with \(\mfk{a} \subseteq R\) is an ideal, and \(\mfk{a}M = M\).
+    Then there exists \(x \in R\), \(x \equiv 1\pmod{\mfk{a}}\), such that \(xM = 0\).
 \end{corollary}
 \begin{proof}
     Applying the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton theorem}
-    to the identity mapping \(\func{\id}{M}{M = IM}\)
+    to the identity mapping \(\func{\id}{M}{M = \mfk{a}M}\)
     tells us that there exists a polynomial relation
     \(p_{\id}(\id) = \id^n + a_1\id^{n-1} + \cdots + a_{n-1}\id + a_n = 0\),
-    with all \(a_i \in I\).
-    Then \(x = 1 + a_1 + \cdots + a_n \equiv 1 \pmod{I}\) obviously,
+    with all \(a_i \in \mfk{a}\).
+    Then \(x = 1 + a_1 + \cdots + a_n \equiv 1 \pmod{\mfk{a}}\) obviously,
     and \(xM = p_{\id}(\id)(M) = 0\).
 \end{proof}
 \begin{corollary}
@@ -680,8 +680,8 @@
 \end{corollary}
 \begin{proof}
     Consider \(M\) as finitely-generated \(R[\alpha]\)-module.
-    Let \(I = (\alpha)\).
-    Since \(\img\alpha = \alpha(M) = IM = M\),
+    Let \(\mfk{a} = (\alpha)\).
+    Since \(\img\alpha = \alpha(M) = \mfk{a}M = M\),
     by \hyperref[cor:nakayama]{Nakayama's lemma},
     there exists some \(x = 1 - \alpha f(\alpha) \equiv 1 \pmod{\alpha}\),
     such that \(xM = 0\), with \(f \in R[x]\) being a polynomial.
@@ -694,43 +694,43 @@
 
 \begin{theorem}[Nakayama's Lemma]\label{thm:nakayama}
     Suppose \(M\) is a finitely generated \(R\)-module,
-    and \(\mca{R}\) is the Jacobson radical of \(R\).
-    Let \(I \subseteq \mca{R}\) be an ideal.
-    If \(IM = M\), then \(M = 0\).
+    and \(\mfk{R}\) is the Jacobson radical of \(R\).
+    Let \(\mfk{a} \subseteq \mfk{R}\) be an ideal.
+    If \(\mfk{a}M = M\), then \(M = 0\).
 \end{theorem}
 \begin{proof}
     Using the previous statement of \hyperref[cor:nakayama]{Nakayama's lemma},
-    there exists some \(x \equiv 1 \pmod{I} \equiv 1 \pmod{\mca{R}}\)
+    there exists some \(x \equiv 1 \pmod{I} \equiv 1 \pmod{\mfk{R}}\)
     such that \(xM = 0\).
-    By Lemma~\ref{lem:1-xy-unit}, \(1-x \in \mca{R}\), so \(x\) is a unit.
+    By Lemma~\ref{lem:1-xy-unit}, \(1-x \in \mfk{R}\), so \(x\) is a unit.
     Hence \(M = x^{-1}xM = 0\).
 \end{proof}
 \begin{corollary}\label{cor:nakayama-quotient}
     Suppose \(M\) is a finitely generated \(R\)-module,
     and \(N \subseteq M\) is a submodule.
-    Let \(I \subseteq \mca{R}\) be an ideal inside the Jacobson radical of \(R\).
-    If \(IM + N = M\), then \(M = N\).
+    Let \(\mfk{a} \subseteq \mfk{R}\) be an ideal inside the Jacobson radical of \(R\).
+    If \(\mfk{a}M + N = M\), then \(M = N\).
 \end{corollary}
 \begin{proof}
     Apply \hyperref[thm:nakayama]{Nakayama's lemma} to \(M/N\).
-    Then we have \(I(M/N) + 0 = M/N\),
+    Then we have \(\mfk{a}(M/N) + 0 = M/N\),
     so \(M/N = 0\) as desired.
 \end{proof}
 
 \begin{theorem}
-    Suppose \((R,m)\) is a local ring,
+    Suppose \((R,\mfk{m})\) is a local ring,
     and \(M\) a finitely generated \(R\)-module.
-    If \({\{x_i\}}_{i=1}^n \subset M\) span \(M/mM\) as a vector space,
+    If \({\{x_i\}}_{i=1}^n \subset M\) span \(M/\mfk{m}M\) as a vector space,
     then \({\{x_i\}}_{i=1}^n\) generate \(M\).
 \end{theorem}
 \begin{proof}
     By Proposition~\ref{prop:quotient-ring-module},
-    \(M/mM\) can be characterized as a \(R/m\)-module,
+    \(M/\mfk{m}M\) can be characterized as a \(R/\mfk{m}\)-module,
     which by Theorem~\ref{thm:maximal-quotient-field} is a field,
-    so \(M/mM\) is a vector space.
+    so \(M/\mfk{m}M\) is a vector space.
     Consider \(N \subseteq M\), the submodule generated by \({\{x_i\}}_{i=1}^n\).
-    Then \(N \to M \to M/mM\) is a surjective homomorphism,
-    which implies that \(M = N + mM\).
+    Then \(N \to M \to M/\mfk{m}M\) is a surjective homomorphism,
+    which implies that \(M = N + \mfk{m}M\).
     The \hyperref[cor:nakayama-quotient]{corollary of Nakayama's lemma}
     then tells us that \(M = N\).
 \end{proof}
