@@ -85,21 +85,21 @@
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a ring, \(p \subseteq R\) is a prime ideal,
-    and \(S = R - p\).
-    Then we call \(S^{-1}R = R_p\) to be the localization of \(R\) at \(p\).
+    Suppose \(R\) is a ring, \(\mfk{p} \subseteq R\) is a prime ideal,
+    and \(S = R - \mfk{p}\).
+    Then we call \(S^{-1}R = R_\mfk{p}\) to be the localization of \(R\) at \(\mfk{p}\).
 \end{definition}
 \begin{proposition}
-    Suppose \(R\) is a ring, and \(p \subseteq R\) is a prime ideal.
-    \((R_p,pR_p)\) forms a local ring.
+    Suppose \(R\) is a ring, and \(\mfk{p} \subseteq R\) is a prime ideal.
+    \((R_\mfk{p},\mfk{p}R_\mfk{p})\) forms a local ring.
 \end{proposition}
 \begin{proof}
-    Consider any \(r/s \in R_p - pR_p\).
-    We claim that \(r \notin p\),
-    since if it is, \(r/s = r(1/s) \in pR_p\) which is a contradiction.
-    Hence \(r \in R - p\), and \(s/r \in R_p\).
-    But we have just proven that every element in \(R_p - pR_p\) is a unit,
-    so by Proposition~\ref{prop:local-ring-units} \((R_p,pR_p)\) is a local ring.
+    Consider any \(r/s \in R_\mfk{p} - \mfk{p}R_\mfk{p}\).
+    We claim that \(r \notin \mfk{p}\),
+    since if it is, \(r/s = r(1/s) \in \mfk{p}R_\mfk{p}\) which is a contradiction.
+    Hence \(r \in R - \mfk{p}\), and \(s/r \in R_\mfk{p}\).
+    But we have just proven that every element in \(R_\mfk{p} - \mfk{p}R_\mfk{p}\) is a unit,
+    so by Proposition~\ref{prop:local-ring-units} \((R_\mfk{p},\mfk{p}R_\mfk{p})\) is a local ring.
 \end{proof}
 
 \subsection*{Module of Fractions}
@@ -287,11 +287,11 @@
 % \end{proof}
 
 \begin{definition}
-    Suppose \(M\) is an \(R\)-module, and \(M_p\) some localization.
+    Suppose \(M\) is an \(R\)-module, and \(M_\mfk{p},M_\mfk{m}\) some localizations.
     We say a module property is local when
-    \(M\) has that property if and only if \(M_p\) for all prime \(p \subseteq R\) has that property.
+    \(M\) has that property if and only if \(M_\mfk{p}\) for all prime \(\mfk{p} \subseteq R\) has that property.
     We say a module property is max-local when
-    \(M\) has that property if and only if \(M_p\) for all maximal \(p \subseteq R\) has that property.
+    \(M\) has that property if and only if \(M_\mfk{m}\) for all maximal \(\mfk{m} \subseteq R\) has that property.
 \end{definition}
 \begin{lemma}\label{lem:local-max-local}
     Suppose \(M,N\) are \(R\)-modules, and \(\func{\phi}{M}{N}\) is a homomorphism.
@@ -313,7 +313,7 @@
     \medskip
 
     First off, it is obvious that \(M = 0\)
-    implies \(M_p = 0\) for all prime \(p \subseteq R\).
+    implies \(M_\mfk{p} = 0\) for all prime \(\mfk{p} \subseteq R\).
 
     We will prove the reverse of max-locality via contraposition.
     Suppose \(M \neq 0\).
@@ -331,13 +331,13 @@
 
     Suppose \(0 \to M \overset{\phi}{\to} N\) is exact.
     Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
-    \(0 \to M_p \overset{\phi}{\to} N_p\) is also exact.
+    \(0 \to M_\mfk{p} \overset{\phi}{\to} N_\mfk{p}\) is also exact.
     
-    Suppose \(0 \to M_p \overset{\phi}{\to} N_p\) is exact for all maximal \(p \subseteq R\).
+    Suppose \(0 \to M_\mfk{m} \overset{\phi}{\to} N_\mfk{m}\) is exact for all maximal \(\mfk{m} \subseteq R\).
     Consider the exact sequence \(0 \to \ker\phi \to M \overset{\phi}{\to} N\).
     Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
-    \(0 \to {(\ker\phi)}_p \to M_p \overset{\phi}{\to} N_p\) is also exact,
-    which implies \({(\ker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    \(0 \to {(\ker\phi)}_\mfk{m} \to M_\mfk{m} \overset{\phi}{\to} N_\mfk{m}\) is also exact,
+    which implies \({(\ker\phi)}_\mfk{m} = 0\) for all maximal \(\mfk{m} \subseteq R\),
     and by max-locality in (a), \(\ker\phi = 0\) as desired.
     We have proven statement (b).
     
@@ -345,13 +345,13 @@
     
     Suppose \(M \overset{\phi}{\to} N \to 0\) is exact.
     Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
-    \(M_p \overset{\phi}{\to} N_p \to 0\) is also exact.
+    \(M_\mfk{p} \overset{\phi}{\to} N_\mfk{p} \to 0\) is also exact.
     
-    Suppose \(M_p \overset{\phi}{\to} N_p \to 0\) is exact for all maximal \(p \subseteq R\).
+    Suppose \(M_\mfk{m} \overset{\phi}{\to} N_\mfk{m} \to 0\) is exact for all maximal \(\mfk{m} \subseteq R\).
     Consider the exact sequence \(M \overset{\phi}{\to} N \to \coker\phi \to 0\).
     Since \(S^{-1}\) is exact (Theorem~\ref{thm:fraction-exact}),
-    \(M_p \overset{\phi}{\to} N_p \to {(\coker\phi)}_p \to 0\) is also exact,
-    which implies \({(\coker\phi)}_p = 0\) for all maximal \(p \subseteq R\),
+    \(M_\mfk{m} \overset{\phi}{\to} N_\mfk{m} \to {(\coker\phi)}_\mfk{m} \to 0\) is also exact,
+    which implies \({(\coker\phi)}_\mfk{m} = 0\) for all maximal \(\mfk{m} \subseteq R\),
     and by max-locality in (a), \(\coker\phi = 0\) as desired.
     We have proven statement (c).
 \end{proof}
@@ -361,18 +361,18 @@
 \begin{proof}
     We prove in the same manner as the \hyperref[lem:local-max-local]{lemma above}.
     Suppose \(M\) is flat.
-    Then \(M_p\) is flat for all prime \(p\) by Proposition~\ref{prop:localization-flat}.
+    Then \(M_\mfk{p}\) is flat for all prime \(\mfk{p}\) by Proposition~\ref{prop:localization-flat}.
 
     Using the fact that \hyperref[thm:maximal-prime-radical]{maximal ideals are prime},
     prime localizations being flat immediately implies
     maximal localizations must also be flat.
 
-    Now suppose \(M_p\) is flat for all maximal \(p \subseteq R\).
+    Now suppose \(M_\mfk{m}\) is flat for all maximal \(\mfk{m} \subseteq R\).
     If \(N \to P\) is injective,
-    then \(N_p \to P_p\) is injective by the \hyperref[lem:local-max-local]{lemma above},
-    and by flatness, \(M_p \otimes N_p \to M_p \otimes P_p\) is injective.
+    then \(N_\mfk{m} \to P_\mfk{m}\) is injective by the \hyperref[lem:local-max-local]{lemma above},
+    and by flatness, \(M_\mfk{m} \otimes N_\mfk{m} \to M_\mfk{m} \otimes P_\mfk{m}\) is injective.
     By Proposition~\ref{prop:fraction-tensor},
-    this is equivalent to saying \({(M \otimes N)}_p \to {(M \otimes P)}_p\) is injective.
+    this is equivalent to saying \({(M \otimes N)}_\mfk{m} \to {(M \otimes P)}_\mfk{m}\) is injective.
     Using the \hyperref[lem:local-max-local]{lemma above} again,
     \(M \otimes N \to M \otimes P\) is injective,
     which tells us that \(M\) is flat (Lemma~\ref{lem:flat-equivalence}).
@@ -382,20 +382,20 @@
 
 \begin{lemma}
     Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
-    If \(I \subseteq R\), its extension is \(I \otimes S^{-1}R = S^{-1}I\).
-    If \(J \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(J)\).
+    If \(\mfk{a} \subseteq R\), its extension is \(\mfk{a} \otimes S^{-1}R = S^{-1}\mfk{a}\).
+    If \(\mfk{b} \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(\mfk{b})\).
 \end{lemma}
 \begin{proof}
-    Suppose \(r \in I\).
-    Then for any \(s \in S\), \((1/s)r = r/s \in (\phi(I))\),
-    so we have \(S^{-1}I \subseteq (\phi(I))\).
-    Now suppose \(\sum r_i/s_i \in (\phi(I))\).
-    We can assume \(r_i \in I\),
-    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in (\phi(I))\),
-    and \(t_i r_i \in IR \subseteq I\).
+    Suppose \(r \in \mfk{a}\).
+    Then for any \(s \in S\), \((1/s)r = r/s \in (\phi(\mfk{a}))\),
+    so we have \(S^{-1}\mfk{a} \subseteq (\phi(\mfk{a}))\).
+    Now suppose \(\sum r_i/s_i \in (\phi(\mfk{a}))\).
+    We can assume \(r_i \in \mfk{a}\),
+    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in (\phi(\mfk{a}))\),
+    and \(t_i r_i \in \mfk{a}R \subseteq \mfk{a}\).
     We write this with a common denominator \(\sum r_i/s_i = r/s\),
     and we can immediately conclude that \(r\) is a sum of \(r_i\) and \(s_i\)s,
-    so \(r \in I\).
+    so \(r \in \mfk{a}\).
 
     The contraction is by definition.
 \end{proof}
@@ -403,95 +403,96 @@
     There is a bijective correspondence between 
     the prime ideals of \(R\) that do not intersect with \(S\),
     and the prime ideals of \(S^{-1}R\).
-    In that case, \(I \subseteq R\) corresponds to its extension,
-    \(J \subseteq S^{-1}R\) corresponds to its contraction,
+    In that case, \(\mfk{a} \subseteq R\) corresponds to its extension,
+    \(\mfk{b} \subseteq S^{-1}R\) corresponds to its contraction,
     and \(s \in S \subseteq R\) corresponds to \((1) \subseteq S^{-1}R\).
 \end{theorem}
 \begin{proof}
-    We already know that if \(J \subseteq S^{-1}R\) is prime,
+    We already know that if \(\mfk{b} \subseteq S^{-1}R\) is prime,
     then its contraction is also prime,
-    so it suffices to prove that if \(I \subseteq R\) prime, then \(S^{-1}I\) prime.
-    Suppose \(I \subseteq R\) prime.
-    Then \(R/I\) is an integral domain (Theorem~\ref{thm:prime-quotient-domain}).
-    Hence \(S^{-1}(R/I) \cong S^{-1}R/S^{-1}I\) (Proposition~\ref{prop:fraction-properties}),
+    so it suffices to prove that if \(\mfk{a} \subseteq R\) prime, then \(S^{-1}\mfk{a}\) prime.
+    Suppose \(\mfk{a} \subseteq R\) prime.
+    Then \(R/\mfk{a}\) is an integral domain (Theorem~\ref{thm:prime-quotient-domain}).
+    Hence \(S^{-1}(R/\mfk{a}) \cong S^{-1}R/S^{-1}\mfk{a}\) (Proposition~\ref{prop:fraction-properties}),
     and we see that this is an integral domain (or 0)
     as \([rr']/s = 0\) implies \([rr'] = 0\),
-    and \(R/I\) being a domain follows.
-    We can then conclude that \(S^{-1}I \subseteq S^{-1}R\) is prime (Theorem~\ref{thm:prime-quotient-domain}).
+    and \(R/\mfk{a}\) being a domain follows.
+    We can then conclude that \(S^{-1}\mfk{a} \subseteq S^{-1}R\) is prime
+    (Theorem~\ref{thm:prime-quotient-domain}).
 
-    Consider \(J \subseteq S^{-1}R\) any ideal.
-    If \(r/s \in J\), then \(s(r/s) = r \in J\),
-    so \(r \in I = \phi^{-1}(J)\), and \(r/s \in S^{-1}I\).
-    We have that \(J \subseteq S^{-1}I\).
-    Now, if \(r/s \in S^{-1}I =  S^{-1}(\phi^{-1}(J))\),
-    then \(r \in \phi^{-1}(J)\),
-    hence any \(s \in S\) yields \(r/s \in J\).
+    Consider \(\mfk{b} \subseteq S^{-1}R\) any ideal.
+    If \(r/s \in \mfk{b}\), then \(s(r/s) = r \in \mfk{b}\),
+    so \(r \in \mfk{a} = \phi^{-1}(\mfk{b})\), and \(r/s \in S^{-1}\mfk{a}\).
+    We have that \(\mfk{b} \subseteq S^{-1}\mfk{a}\).
+    Now, if \(r/s \in S^{-1}\mfk{a} =  S^{-1}(\phi^{-1}(\mfk{b}))\),
+    then \(r \in \phi^{-1}(\mfk{b})\),
+    hence any \(s \in S\) yields \(r/s \in \mfk{b}\).
     We have correspondence.
 
-    We now see that the possibility that \(S^{-1}(R/I) = 0\)
-    only in the case where \(S \cap I \neq \emptyset\).
+    We now see that the possibility that \(S^{-1}(R/\mfk{a}) = 0\)
+    only in the case where \(S \cap \mfk{a} \neq \emptyset\).
     Wer can see that \([r]/s = 0\) only when there exists \(t \in S\) such that \(ts[r] = 0\),
-    but for this to happen, there must be some \(t \in I\) to kill off \([r]\).
+    but for this to happen, there must be some \(t \in \mfk{a}\) to kill off \([r]\).
 \end{proof}
 
 
 \section{Primary Decomposition}
 
 \begin{definition}
-    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
-    \(q\) is primary if \(xy \in q\) implies \(x \in q\) or \(y^n \in q\) for some \(n\).
+    Suppose \(R\) is a ring, and \(\mfk{q} \subsetneq R\) is a proper ideal.
+    \(\mfk{q}\) is primary if \(xy \in \mfk{q}\) implies \(x \in \mfk{q}\) or \(y^n \in \mfk{q}\) for some \(n\).
 \end{definition}
 \begin{proposition}
-    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
-    \(q\) is primary if and only if every zero divisor in \(R/q\) is nilpotent.
+    Suppose \(R\) is a ring, and \(\mfk{q} \subsetneq R\) is a proper ideal.
+    \(\mfk{q}\) is primary if and only if every zero divisor in \(R/\mfk{q}\) is nilpotent.
 \end{proposition}
 \begin{proof}
-    Suppose \(q\) is primary.
-    Consider a zero divisor \([y] \in R/q\).
-    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
-    But this exactly implies \(xy \in q\),
-    which implies either \(x \in q\) (which we assumed is not the case),
-    or \(y^n \in q\), i.e.\ \([y^n] = 0\).
+    Suppose \(\mfk{q}\) is primary.
+    Consider a zero divisor \([y] \in R/\mfk{q}\).
+    Then there exists some nonzero \([x] \in R/\mfk{q}\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in \mfk{q}\),
+    which implies either \(x \in \mfk{q}\) (which we assumed is not the case),
+    or \(y^n \in \mfk{q}\), i.e.\ \([y^n] = 0\).
     
-    Suppose every zero divisor \([y] \in R/q\) is nilpotent, with \([y^n] = 0\).
-    Then there exists some nonzero \([x] \in R/q\) such that \([x][y] = 0\).
-    But this exactly implies \(xy \in q\),
-    and \(y^n \in q\) as desired.
+    Suppose every zero divisor \([y] \in R/\mfk{q}\) is nilpotent, with \([y^n] = 0\).
+    Then there exists some nonzero \([x] \in R/\mfk{q}\) such that \([x][y] = 0\).
+    But this exactly implies \(xy \in \mfk{q}\),
+    and \(y^n \in \mfk{q}\) as desired.
 \end{proof}
 \begin{theorem}
-    Suppose \(R\) is a ring, and \(q \subsetneq R\) is a proper ideal.
-    If \(q\) is primary, then \(\sqrt{q}\) is prime.
+    Suppose \(R\) is a ring, and \(\mfk{q} \subsetneq R\) is a proper ideal.
+    If \(\mfk{q}\) is primary, then \(\sqrt{\mfk{q}}\) is prime.
 \end{theorem}
 \begin{proof}
-    If \(xy \in \sqrt{q}\),
-    then \({(xy)}^m = x^m y^m \in q\).
-    But as \(q\) is primary, this implies either \(x^m \in q\) or \(y^{mn} \in q\).
-    By definition of the radical, this implies either \(x \in \sqrt{q}\) or \(y \in \sqrt{q}\).
+    If \(xy \in \sqrt{\mfk{q}}\),
+    then \({(xy)}^m = x^m y^m \in \mfk{q}\).
+    But as \(\mfk{q}\) is primary, this implies either \(x^m \in \mfk{q}\) or \(y^{mn} \in \mfk{q}\).
+    By definition of the radical, this implies either \(x \in \sqrt{\mfk{q}}\) or \(y \in \sqrt{\mfk{q}}\).
 \end{proof}
 \begin{definition}
-    Suppose \(q\) is primary.
-    We say \(q\) is \(p\)-primary if \(\sqrt{q} = p\).
+    Suppose \(\mfk{q}\) is primary.
+    We say \(\mfk{q}\) is \(\mfk{p}\)-primary if \(\sqrt{\mfk{q}} = \mfk{p}\).
 \end{definition}
 
 \begin{lemma}
-    Suppose \({\{q_i\}}_{i=1}^n\) is a family of \(p\)-primary ideals.
-    Then \(\bigcap_{i=1}^n q_i\) is also \(p\)-primary.
+    Suppose \({\{\mfk{q}_i\}}_{i=1}^n\) is a family of \(\mfk{p}\)-primary ideals.
+    Then \(\bigcap_{i=1}^n \mfk{q}_i\) is also \(\mfk{p}\)-primary.
 \end{lemma}
 \begin{proof}
-    We first check that \(q = \bigcap q_i\) is indeed primary.
-    Consider \(xy \in q\).
-    If \(x \notin q\), and hence \(x \notin q_i\),
-    then we have \(y^{m_i} \in q_i\),
-    and hence \(y^{\max m_i} \in q\).
+    We first check that \(\mfk{q} = \bigcap \mfk{q}_i\) is indeed primary.
+    Consider \(xy \in \mfk{q}\).
+    If \(x \notin \mfk{q}\), and hence \(x \notin \mfk{q}_i\),
+    then we have \(y^{m_i} \in \mfk{q}_i\),
+    and hence \(y^{\max m_i} \in \mfk{q}\).
 
     A quick application of Proposition~\ref{prop:radical-properties} then gives
-    \(\sqrt{\bigcap q_i} = \bigcap \sqrt{q_i} = \bigcap p = p\).
+    \(\sqrt{\bigcap \mfk{q}_i} = \bigcap \sqrt{\mfk{q}_i} = \bigcap \mfk{p} = \mfk{p}\).
 \end{proof}
 \begin{definition}
-    Suppose \(q \subseteq R\) is an ideal.
-    If \(q = \bigcap_i q_i\), we say \(q\) is decomposable.
-    In this case, we may assume \(\sqrt{q_i} = p_i\) are distinct,
-    and hence \(q_i\) should not be inside any \(q_j\).
+    Suppose \(\mfk{q} \subseteq R\) is an ideal.
+    If \(\mfk{q} = \bigcap_i \mfk{q}_i\), we say \(\mfk{q}\) is decomposable.
+    In this case, we may assume \(\sqrt{\mfk{q}_i} = \mfk{p}_i\) are distinct,
+    and hence \(\mfk{q}_i\) should not be inside any \(\mfk{q}_j\).
     We call such a decomposition the minimal or irredundant decomposition.
 \end{definition}
 \begin{remark}
@@ -499,71 +500,71 @@
 \end{remark}
 
 \begin{lemma}\label{lem:quotient-primary}
-    Suppose \(q\) is \(p\)-primary, and \(x \in R\).
+    Suppose \(\mfk{q}\) is \(\mfk{p}\)-primary, and \(x \in R\).
     We have the following:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if \(x \in q\), then \((q:x) = (1)\); and
-        \item if \(x \notin q\), then \((q:x)\) is \(p\)-primary.
+        \item if \(x \in \mfk{q}\), then \((\mfk{q}:x) = (1)\); and
+        \item if \(x \notin \mfk{q}\), then \((\mfk{q}:x)\) is \(\mfk{p}\)-primary.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    Almost by definition, \(xR \subset q\),
-    so \((q:x) = R\), and we have statement (a).
+    Almost by definition, \(xR \subset \mfk{q}\),
+    so \((\mfk{q}:x) = R\), and we have statement (a).
 
-    Consider \(yz \in (q:x)\), and without loss of generality \(y \notin (q:x)\);
-    we wish to prove that \(z^n \in (q:x)\).
-    Now, by definition of the quotient we have \(xyz \in q\),
-    and as \(x \notin q\) and \(y \notin q\), \(xy \notin q\),
-    which forces us to conclude that \(z^n \in q \subseteq (q:x)\)
+    Consider \(yz \in (\mfk{q}:x)\), and without loss of generality \(y \notin (\mfk{q}:x)\);
+    we wish to prove that \(z^n \in (\mfk{q}:x)\).
+    Now, by definition of the quotient we have \(xyz \in \mfk{q}\),
+    and as \(x \notin \mfk{q}\) and \(y \notin \mfk{q}\), \(xy \notin \mfk{q}\),
+    which forces us to conclude that \(z^n \in \mfk{q} \subseteq (\mfk{q}:x)\)
     (Proposition~\ref{prop:quotient-ideal-properties}).
-    This shows that \((q:x)\) is indeed primary.
-    We now show that \(\sqrt{(q:x)} = p\).
-    Observe that for any element \(y \in (q:x)\), \(xy \in q\).
-    As \(x \notin q\), we have \(y^n \in q\), so \(y \in \sqrt{q} = p\).
-    We have exactly shown that \((q:x) \subseteq p\).
-    But we have \(p = \sqrt{q} \subseteq \sqrt{(q:x)} \subseteq \sqrt{p} = p\),
+    This shows that \((\mfk{q}:x)\) is indeed primary.
+    We now show that \(\sqrt{(\mfk{q}:x)} = \mfk{p}\).
+    Observe that for any element \(y \in (\mfk{q}:x)\), \(xy \in \mfk{q}\).
+    As \(x \notin \mfk{q}\), we have \(y^n \in \mfk{q}\), so \(y \in \sqrt{\mfk{p}} = \mfk{p}\).
+    We have exactly shown that \((\mfk{q}:x) \subseteq \mfk{p}\).
+    But we have \(\mfk{p} = \sqrt{\mfk{q}} \subseteq \sqrt{(\mfk{q}:x)} \subseteq \sqrt{\mfk{p}} = \mfk{p}\),
     and we have equality.
     This proves statement (b).
 \end{proof}
 \begin{lemma}\label{lem:prime-intersection}
-    Suppose a prime ideal \(p = \bigcap_i J_i\) for a family of ideals.
-    Then \(p = J_i\) for some \(i\).
+    Suppose a prime ideal \(\mfk{p} = \bigcap_i \mfk{a}_i\) for a family of ideals.
+    Then \(\mfk{p} = \mfk{a}_i\) for some \(i\).
 \end{lemma}
 \begin{proof}
-    Suppose, by way of contradiction, that \(p \subsetneq J_i\) for all \(i\).
-    For each \(i\), we choose some \(x_i \in J_i - p\).
-    Then we have \(\prod x_i \in \prod J_i \subseteq \bigcap J_i\),
-    but as each \(x_i \notin p\), this product \(\prod x_i \notin p\).
+    Suppose, by way of contradiction, that \(\mfk{p} \subsetneq \mfk{a}_i\) for all \(i\).
+    For each \(i\), we choose some \(x_i \in \mfk{a}_i - \mfk{p}\).
+    Then we have \(\prod x_i \in \prod \mfk{a}_i \subseteq \bigcap \mfk{a}_i\),
+    but as each \(x_i \notin \mfk{p}\), this product \(\prod x_i \notin \mfk{p}\).
     This contradicts our assumed equality,
-    and we conclude that \(J_i \subseteq p\).
-    The reverse inclusion \(p = \bigcap J_i \subseteq J_i\) is given trivially.
+    and we conclude that \(\mfk{a}_i \subseteq \mfk{p}\).
+    The reverse inclusion \(\mfk{p} = \bigcap \mfk{a}_i \subseteq \mfk{a}_i\) is given trivially.
     We have equality.
 \end{proof}
 \begin{theorem}[First Uniqueness Theorem for Primary Decompositions]
-    Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i q_i\).
-    Then the associated primes \(p_i = \sqrt{q_i}\) are unique up to reordering.
+    Suppose \(\mfk{q}\) is a decomposable ideal with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\).
+    Then the associated primes \(\mfk{p}_i = \sqrt{\mfk{q}_i}\) are unique up to reordering.
 \end{theorem}
 \begin{proof}
-    Consider the set of ideals \({\{\sqrt{(I:x)}\}}_{x \in R}\).
-    We prove that the prime ideals in that set is exactly \({\{p_i\}}_i\).
+    Consider the set of ideals \({\{\sqrt{(\mfk{q}:x)}\}}_{x \in R}\).
+    We prove that the prime ideals in that set is exactly \({\{\mfk{p}_i\}}_i\).
     In the forward inclusion, suppose we have an arbitrary \(x \in R\).
-    If \(x \in I\), then \(\sqrt{(I:x)} = \sqrt{(1)} = (1)\).
+    If \(x \in \mfk{q}\), then \(\sqrt{(\mfk{q}:x)} = \sqrt{(1)} = (1)\).
     If not, by Lemma~\ref{lem:quotient-primary}, then it is the prime ideal
     \begin{equation*}
-        p = \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
-        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_i} p_i
+        \mfk{p} = \sqrt{(\mfk{q}:x)} = \sqrt{\pqty{\bigcap \mfk{q}_i:x}} = \sqrt{\bigcap (\mfk{q}_i:x)}
+        = \bigcap\sqrt{(\mfk{q}_i:x)} = \bigcap_{x \notin \mfk{q}_i} \mfk{p}_i
     \end{equation*}
     using Propositions~\ref{prop:radical-properties}~\&~\ref{prop:quotient-ideal-properties}.
     From the \hyperref[lem:prime-intersection]{lemma above},
-    we know that \(p = p_i\) for some \(i\).
-    Now for the reverse inclusion, consider some \(x \in \bigcap_{j \neq i} q_j - q_i\).
-    Then \(x \notin q_i\) and \(x \in q_j\) for every other \(j \neq i\),
+    we know that \(\mfk{p} = \mfk{p}_i\) for some \(i\).
+    Now for the reverse inclusion, consider some \(x \in \bigcap_{j \neq i} \mfk{q}_j - \mfk{q}_i\).
+    Then \(x \notin \mfk{q}_i\) and \(x \in \mfk{q}_j\) for every other \(j \neq i\),
     so we have
     \begin{equation*}
-        \sqrt{(I:x)} = \sqrt{\pqty{\bigcap q_i:x}} = \sqrt{\bigcap (q_i:x)}
-        = \bigcap\sqrt{(q_i:x)} = \bigcap_{x \notin q_j} p_j = p_i
+        \sqrt{(\mfk{q}:x)} = \sqrt{\pqty{\bigcap \mfk{q}_i:x}} = \sqrt{\bigcap (\mfk{q}_i:x)}
+        = \bigcap\sqrt{(\mfk{q}_i:x)} = \bigcap_{x \notin \mfk{q}_j} \mfk{p}_j = \mfk{p}_i
     \end{equation*}
-    Then we immediately have that the associated primes are uniquely determined by \(I\).
+    Then we immediately have that the associated primes are uniquely determined by \(\mfk{q}\).
 \end{proof}
 
 % \begin{proposition}
@@ -679,8 +680,8 @@
     Suppose \(A \subseteq R\) is an integral extension of rings.
     Then we have the following two integral extensions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if \(I \subseteq R\) is an ideal, and \(J = I \cap A\),
-        then \(A/J \subseteq R/I\) is integral; and
+        \item if \(\mfk{b} \subseteq R\) is an ideal, and \(\mfk{a} = \mfk{b} \cap A\),
+        then \(A/\mfk{a} \subseteq R/\mfk{b}\) is integral; and
         \item if \(S \subseteq A\) is a multiplicative monoid,
         then \(S^{-1}A \subseteq S^{-1}R\) is integral.
     \end{enumerate}
@@ -698,17 +699,17 @@
 \end{proof}
 \begin{corollary}
     Suppose \(A \subseteq R\) is an integral extension of rings.
-    If \(q \subseteq R\) is prime, and \(p = q \cap A\) is also prime,
-    then \(p\) is maximal if and only if \(q\) is maximal.
+    If \(\mfk{q} \subseteq R\) is prime, and \(\mfk{p} = \mfk{q} \cap A\) is also prime,
+    then \(\mfk{p}\) is maximal if and only if \(\mfk{q}\) is maximal.
 \end{corollary}
 \begin{proof}
     
 \end{proof}
 \begin{theorem}
     Suppose \(A \subseteq R\) is an integral extension of rings,
-    and \(p \subseteq A\) is prime.
-    Then there exists some prime \(q \subseteq R\)
-    such that \(p = q \cap A\).
+    and \(\mfk{p} \subseteq A\) is prime.
+    Then there exists some prime \(\mfk{q} \subseteq R\)
+    such that \(\mfk{p} = \mfk{q} \cap A\).
 \end{theorem}
 \begin{proof}
     
@@ -716,20 +717,20 @@
 
 \begin{theorem}[Going Up Theorem]
     Suppose \(A \subseteq R\) is an integral extension of rings,
-    \(p_1,p_2 \subseteq A\) and \(q_1 \subseteq R\) are prime ideals,
-    with \(p_1 = q_1 \cap A\).
-    Then there exists a prime ideal \(q_2 \subseteq R\)
-    such that \(q_1 \subseteq q_2\) and \(p_2 = q_2 \cap A\).
+    \(\mfk{p}_1,\mfk{p}_2 \subseteq A\) and \(\mfk{q}_1 \subseteq R\) are prime ideals,
+    with \(\mfk{p}_1 = \mfk{q}_1 \cap A\).
+    Then there exists a prime ideal \(\mfk{q}_2 \subseteq R\)
+    such that \(\mfk{q}_1 \subseteq \mfk{q}_2\) and \(\mfk{p}_2 = \mfk{q}_2 \cap A\).
 \end{theorem}
 \begin{proof}
     
 \end{proof}
 \begin{theorem}[Going Down Theorem]
     Suppose \(A \subseteq R\) is an integral extension of rings,
-    \(p_1,p_2 \subseteq A\) and \(q_2 \subseteq R\) are prime ideals,
-    with \(p_2 = q_2 \cap A\).
-    Then there exists a prime ideal \(q_1 \subseteq R\)
-    such that \(q_1 \subseteq q_2\) and \(p_1 = q_1 \cap A\).
+    \(\mfk{p}_1,\mfk{p}_2 \subseteq A\) and \(\mfk{q}_2 \subseteq R\) are prime ideals,
+    with \(\mfk{p}_2 = \mfk{q}_2 \cap A\).
+    Then there exists a prime ideal \(\mfk{q}_1 \subseteq R\)
+    such that \(\mfk{q}_1 \subseteq \mfk{q}_2\) and \(\mfk{p}_1 = \mfk{q}_1 \cap A\).
 \end{theorem}
 \begin{proof}
     
@@ -737,7 +738,7 @@
 
 \begin{theorem}[Noetherian Normalization]
     Suppose \(K\) is an infinite field, and \(R\) is a finite-type \(K\)-algebra;
-    that is, \(R = K[x_1,\hdots,x_n]/I\).
+    that is, \(R = K[x_1,\hdots,x_n]/\mfk{a}\).
     Then there exists \({\{y_i\}}_{i=1}^m \subset R\) that are algebraically independent over \(K\),
     such that \(K[y_1,\hdots,y_m] \subseteq R\) is integral.
 \end{theorem}
@@ -799,7 +800,7 @@
     
 \end{proof}
 \begin{corollary}\label{cor:noetherian-generated}
-    \(R\) is a Noetherian ring if and only if every ideal \(I \subseteq R\) is finitely generated.
+    \(R\) is a Noetherian ring if and only if every ideal \(\mfk{a} \subseteq R\) is finitely generated.
 \end{corollary}
 \begin{proof}
     
@@ -829,8 +830,8 @@
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring,
-    and \(I \subseteq R\) an ideal.
-    Then \(R/I\) is Noetherian.
+    and \(\mfk{a} \subseteq R\) an ideal.
+    Then \(R/\mfk{a}\) is Noetherian.
 \end{corollary}
 \begin{proof}
     
@@ -853,8 +854,8 @@
 
 \begin{lemma}
     Suppose \(R\) is a ring, and \(S^{-1}R\) is a ring of fractions.
-    Then every ideal of \(S^{-1}R\) has the form \(S^{-1}I\),
-    where \(I \subseteq R\) is an ideal.
+    Then every ideal of \(S^{-1}R\) has the form \(S^{-1}\mfk{a}\),
+    where \(\mfk{a} \subseteq R\) is an ideal.
 \end{lemma}
 \begin{proof}
     
@@ -869,7 +870,7 @@
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring.
     Then \(R[x_1,\hdots,x_n]\) is Noetherian,
-    and any finite-type \(R\)-algebra \(R[x_1,\hdots,x_n]/I\) is also Noetherian.
+    and any finite-type \(R\)-algebra \(R[x_1,\hdots,x_n]/\mfk{a}\) is also Noetherian.
 \end{corollary}
 \begin{proof}
     
@@ -922,9 +923,9 @@
 \end{proof}
 \begin{corollary}[Weak Hilbert's Nullstellensatz]
     Suppose \(K\) is a field, and \(A\) is a finite-type \(K\)-algebra.
-    Let \(m \subseteq A\) be a maximal ideal.
-    Then \(A/m\) is a finite algebraic extension of \(K\).
-    If \(K = \overline{K}\), then \(A/m = K\).
+    Let \(\mfk{m} \subseteq A\) be a maximal ideal.
+    Then \(A/\mfk{m}\) is a finite algebraic extension of \(K\).
+    If \(K = \overline{K}\), then \(A/\mfk{m} = K\).
 \end{corollary}
 \begin{proof}
     
@@ -944,8 +945,8 @@
     Suppose \(K = \overline{K}\) is algebraically closed.
     Every maximal ideal of \(K[x_1,\hdots,x_n]\) is of the form
     \((x_1-a_1,\hdots,x_n-a_n)\) for some \(a_i \in K\).
-    If \(I \subsetneq K[x_1,\hdots,x_n]\) is a proper ideal,
-    then the vanishing locus \(\Van(I) \neq \emptyset\).
+    If \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\) is a proper ideal,
+    then the vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
 \end{corollary}
 \begin{proof}
     
@@ -953,36 +954,37 @@
 \begin{theorem}[Hilbert's Nullstellensatz]\label{thm:nullstellensatz}
     Suppose \(K = \overline{K}\) is an algebraically closed field,
     and \(R = K[x_1,\hdots,x_n]\) is a polynomial ring.
-    Let \(J \subseteq R\) be an ideal, and \(\Van(J)\) be its vanishing locus.
-    Then \(\Ide(\Van(J)) = \sqrt{J}\).
+    Let \(\mfk{a} \subseteq R\) be an ideal, and \(\Van(\mfk{a})\) be its vanishing locus.
+    Then \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
 \end{theorem}
 \begin{proof}
     
 \end{proof}
 
 \begin{definition}
-    Suppose \(R\) is a Noetherian ring, and \(I \subseteq R\) is an ideal.
-    \(I\) is irreducible if \(I = I_1 \cap I_2\) implies \(I = I_1\) or \(I = I_2\).
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    \(\mfk{a}\) is irreducible if \(\mfk{a} = \mfk{b} \cap \mfk{c}\)
+    implies \(\mfk{a} = \mfk{b}\) or \(\mfk{a} = \mfk{c}\).
 \end{definition}
 \begin{lemma}
     Suppose \(R\) is a Noetherian ring.
-    Then every ideal \(I \subseteq R\) is a finite intersection of irreducible ideals
-    \(I = \bigcap_{j=1}^n I_j\).
+    Then every ideal \(\mfk{a} \subseteq R\) is a finite intersection of irreducible ideals
+    \(\mfk{a} = \bigcap_{j=1}^n \mfk{a}_j\).
 \end{lemma}
 \begin{proof}
     
 \end{proof}
 \begin{lemma}
     Suppose \(R\) is a Noetherian ring.
-    If \(I \subseteq R\) is an irreducible ideal,
+    If \(\mfk{q} \subseteq R\) is an irreducible ideal,
     then it is also primary.
 \end{lemma}
 \begin{proof}
     
 \end{proof}
 \begin{proposition}
-    Suppose \(R\) is a Noetherian ring, and \(I \subseteq R\) is an ideal.
-    Then \({(\sqrt{I})}^n \subseteq I\) for some \(n\).
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    Then \({(\sqrt{\mfk{a}})}^n \subseteq \mfk{a}\) for some \(n\).
 \end{proposition}
 \begin{proof}
     
@@ -996,12 +998,12 @@
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring, and \(m \subseteq R\) is a maximal ideal.
-    Let \(q\) be a primary ideal.
+    Let \(\mfk{q}\) be a primary ideal.
     Then the following are equivalent:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(q \subseteq R\) is \(m\)-primary;
-        \item \(\sqrt{q} = m\); and
-        \item \(m^n \subseteq q \subseteq m\) for some \(n\).
+        \item \(\mfk{q} \subseteq R\) is \(\mfk{m}\)-primary;
+        \item \(\sqrt{\mfk{q}} = \mfk{m}\); and
+        \item \(\mfk{m}^n \subseteq \mfk{q} \subseteq \mfk{m}\) for some \(n\).
     \end{enumerate}
 \end{corollary}
 \begin{proof}
