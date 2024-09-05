@@ -380,24 +380,62 @@
 
 \subsection*{Extensions and Contractions}
 
-\begin{lemma}
+\begin{lemma}\label{lem:fraction-extensions}
     Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
-    If \(\mfk{a} \subseteq R\), its extension is \(\mfk{a} \otimes S^{-1}R = S^{-1}\mfk{a}\).
-    If \(\mfk{b} \subseteq S^{-1}R\), its contraction is \(\phi^{-1}(\mfk{b})\).
+    If \(\mfk{a} \subseteq R\), its extension is \(\mfk{a}^e = \mfk{a} \otimes S^{-1}R = S^{-1}\mfk{a}\).
+    Conversely, every ideal in \(S^{-1}R\) is an extension of some ideal.
 \end{lemma}
 \begin{proof}
     Suppose \(r \in \mfk{a}\).
-    Then for any \(s \in S\), \((1/s)r = r/s \in (\phi(\mfk{a}))\),
-    so we have \(S^{-1}\mfk{a} \subseteq (\phi(\mfk{a}))\).
-    Now suppose \(\sum r_i/s_i \in (\phi(\mfk{a}))\).
+    Then for any \(s \in S\), \((1/s)r = r/s \in \mfk{a}^e\),
+    so we have \(S^{-1}\mfk{a} \subseteq \mfk{a}^e\).
+    Now suppose \(\sum r_i/s_i \in \mfk{a}^e\).
     We can assume \(r_i \in \mfk{a}\),
-    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in (\phi(\mfk{a}))\),
+    since we have \(\sum (t_i/s_i)r_i = \sum (t_i r_i)/s_i \in \mfk{a}^e\),
     and \(t_i r_i \in \mfk{a}R \subseteq \mfk{a}\).
     We write this with a common denominator \(\sum r_i/s_i = r/s\),
     and we can immediately conclude that \(r\) is a sum of \(r_i\) and \(s_i\)s,
     so \(r \in \mfk{a}\).
 
-    The contraction is by definition.
+    Now consider some ideal \(\mfk{b} \in S^{-1}R\).
+    By the same logic as above, it suffices to consider \(r/s \in \mfk{b}\),
+    and we know that \(s(r/s) = r \in \mfk{b}\),
+    so \(r \in \mfk{b}^c\) and \(r/s \in \mfk{b}^{ce}\).
+    But we have \(\mfk{b} \subseteq \mfk{b}^{ce} \subseteq \mfk{b}\)
+    (Proposition~\ref{prop:extension-contraction-properties}),
+    so \(\mfk{b}\) is the extension of \(\mfk{b}^c\).
+\end{proof}
+\begin{lemma}\label{lem:fraction-contractions}
+    Consider the ring homomorphism \(\func{\phi}{R}{S^{-1}R}\).
+    If \(\mfk{a} \subseteq R\),
+    then \(\mfk{a}^{ec} = \bigcup_{s \in S} (\mfk{a}:s)\).
+    Conversely, \(\mfk{a} = \mfk{b}^c\) is a contracted ideal
+    if and only if no \(s \in S\) are zero divisors in \(R/\mfk{a}\).
+\end{lemma}
+\begin{proof}
+    Consider \(r \in \mfk{a}^{ec} = {(S^{-1}\mfk{a})}^c\).
+    Then \(r = a/s \in S^{-1}\mfk{a}\) for \(a \in \mfk{a}\) and \(s \in S\).
+    By definition, there exists some \(s' \in S\) such that \(s'(rs-a) = 0\),
+    which implies \(rss' = as' \in \mfk{a}\),
+    and \(r \in (\mfk{a}:s)\) for a specific \(s\).
+    The reverse direction holds as every step here is bidirectional.
+
+    Now consider any contracted ideal \(\mfk{a} = \mfk{b}^c\).
+    Then by Proposition~\ref{prop:extension-contraction-properties}, \(\mfk{a} = \mfk{a}^{ec}\).
+    If \(s \in S\) is a zero divisor,
+    then there exists \(r \in R\) such that \(s[r] = [0] \in R/\mfk{a}\),
+    i.e.\ \(sr \in \mfk{a}\) for some \(r \notin \mfk{a}\).
+    But this tells us that \(s \in S \cap \mfk{a}\),
+    so \(\mfk{a}^{ec} = (1)\).
+    Clearly \((1)\) is not the only contracted ideal,
+    so we have a contradiction.
+    Now suppose there are no elements of \(S\) that are zero divisors in \(R/\mfk{a}\).
+    Then \(sr \in \mfk{a}\) for any \(s \in S\) implies \(r \in \mfk{a}\).
+    But that exactly shows that if \(r \in \mfk{a}^{ec}\),
+    then \(r\) is the contraction of some element \(r \in \mfk{a}^e\),
+    i.e.\ \(r \in \mfk{a}\) in the first place.
+    We have shown \(\mfk{a}^{ec} \subseteq \mfk{a}\),
+    which suffices for equality.
 \end{proof}
 \begin{theorem}\label{thm:fraction-correspondence}
     There is a bijective correspondence between 
@@ -420,19 +458,30 @@
     We can then conclude that \(S^{-1}\mfk{a} \subseteq S^{-1}R\) is prime
     (Theorem~\ref{thm:prime-quotient-domain}).
 
-    Consider \(\mfk{b} \subseteq S^{-1}R\) any ideal.
-    If \(r/s \in \mfk{b}\), then \(s(r/s) = r \in \mfk{b}\),
-    so \(r \in \mfk{a} = \phi^{-1}(\mfk{b})\), and \(r/s \in S^{-1}\mfk{a}\).
-    We have that \(\mfk{b} \subseteq S^{-1}\mfk{a}\).
-    Now, if \(r/s \in S^{-1}\mfk{a} =  S^{-1}(\phi^{-1}(\mfk{b}))\),
-    then \(r \in \phi^{-1}(\mfk{b})\),
-    hence any \(s \in S\) yields \(r/s \in \mfk{b}\).
-    We have correspondence.
+    By the \hyperref[lem:fraction-contractions]{lemma above},
+    \(\mfk{a}\) intersects with \(S\) if and only if \(\mfk{a}^e = (1)\),
+    so we cannot have a bijection only in that case,
+    and a bijection is achieved in all other cases.
+\end{proof}
 
-    We now see that the possibility that \(S^{-1}(R/\mfk{a}) = 0\)
-    only in the case where \(S \cap \mfk{a} \neq \emptyset\).
-    Wer can see that \([r]/s = 0\) only when there exists \(t \in S\) such that \(ts[r] = 0\),
-    but for this to happen, there must be some \(t \in \mfk{a}\) to kill off \([r]\).
+\begin{proposition}\label{prop:fraction-ring-properties}
+    Suppose \(R\) is a ring, and \(\mfk{a},\mfk{b}\) are ideals.
+    Then we have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(S^{-1}(\mfk{a}+\mfk{b}) = S^{-1}\mfk{a} + S^{-1}\mfk{b}\);
+        \item \(S^{-1}(\mfk{ab}) = S^{-1}\mfk{a} S^{-1}\mfk{b}\);
+        \item \(S^{-1}(\mfk{a}\cap\mfk{b}) = S^{-1}\mfk{a} \cap S^{-1}\mfk{b}\); and
+        \item \(S^{-1}\sqrt{\mfk{a}} = \sqrt{S^{-1}\mfk{a}}\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    (a) and (b) follow directly from Proposition~\ref{prop:extension-contraction-properties}.
+    (c) follows from Proposition~\ref{prop:fraction-properties}.
+    The forward inclusion of (d) follows from Proposition~\ref{prop:extension-contraction-properties}.
+
+    Suppose \(x^n/s^n \in \sqrt{S^{-1}\mfk{a}}\), where \(x/s \in S^{-1}\mfk{a}\).
+    Then clearly \(x \in \mfk{a}\), so \(x^n \in \sqrt{\mfk{a}}\).
+    Hence \(x^n/s^n \in S^{-1}\sqrt{\mfk{a}}\).
 \end{proof}
 
 
@@ -540,7 +589,7 @@
     The reverse inclusion \(\mfk{p} = \bigcap \mfk{a}_i \subseteq \mfk{a}_i\) is given trivially.
     We have equality.
 \end{proof}
-\begin{theorem}[First Uniqueness Theorem for Primary Decompositions]
+\begin{theorem}[First Uniqueness Theorem for Primary Decompositions]\label{thm:primary-uniqueness-1}
     Suppose \(\mfk{q}\) is a decomposable ideal with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\).
     Then the associated primes \(\mfk{p}_i = \sqrt{\mfk{q}_i}\) are unique up to reordering.
 \end{theorem}
@@ -567,42 +616,107 @@
     Then we immediately have that the associated primes are uniquely determined by \(\mfk{q}\).
 \end{proof}
 
-% \begin{proposition}
-%     Suppose \(S \subseteq R\) is a multiplicative monoid,
-%     and \(\mfk{q}\) is a \(\mfk{p}\)-primary ideal.
-%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-%         \item If \(S\cap\mfk{p} \neq \emptyset\), then \(S^{-1}\mfk{q} = S^{-1}R\); and
-%         \item if \(S\cap\mfk{p} = \emptyset\), then \(S^{-1}\mfk{q}\) is \(S^{-1}\mfk{p}\)-primary,
-%             and \(S^{-1}\mfk{q}\) contracts to \(\mfk{q}\).
-%     \end{enumerate}
-% \end{proposition}
-% \begin{proof}
-%     Consider \(s \in S\cap\mfk{p}\).
-%     We have some \(s^n \in S\cap\mfk{q}\) due to \(\sqrt{\mfk{q}} = \mfk{p}\).
-%     Then this element in the extension is \(s^n \in S^{-1}\mfk{q}\),
-%     so \(s^n/s^n = 1 \in S^{-1}\mfk{q}\),
-%     showing that \(S^{-1}\mfk{q} = S^{-1}R\).
-%     This proves statement (a).
+\begin{proposition}\label{prop:fraction-primary}
+    Suppose \(S \subseteq R\) is a multiplicative monoid,
+    and \(\mfk{q}\) is a \(\mfk{p}\)-primary ideal.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(S\cap\mfk{p} \neq \emptyset\), then \(S^{-1}\mfk{q} = S^{-1}R\); and
+        \item if \(S\cap\mfk{p} = \emptyset\), then \(S^{-1}\mfk{q}\) is \(S^{-1}\mfk{p}\)-primary,
+            and \(S^{-1}\mfk{q}\) contracts to \(\mfk{q}\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Consider \(s \in S\cap\mfk{p}\).
+    We have some \(s^n \in S\cap\mfk{q}\) due to \(\sqrt{\mfk{q}} = \mfk{p}\).
+    Then this element in the extension is \(s^n \in S^{-1}\mfk{q}\),
+    so \(s^n/s^n = 1 \in S^{-1}\mfk{q}\),
+    showing that \(S^{-1}\mfk{q} = S^{-1}R\).
+    This proves statement (a).
 
-%     If \(S\cap\mfk{p} = \emptyset\), consider \(s \in S\).
-%     If \(rs \in \mfk{q}\), as \(\mfk{q}\) is primary,
-%     \(s^n \notin \mfk{q}\), so \(r \in \mfk{q}\).
-%     By Theorem~\ref{thm:fraction-correspondence}, 
-% \end{proof}
-% \begin{definition}
-%     Suppose \(I\) is a decomposable ideal,
-%     and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
-%     This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq p_i\)
-%     is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
-% \end{definition}
-% \begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]
-%     Suppose \(I\) is a decomposable ideal with an irredundant decomposition \(I = \bigcap_i \mfk{q}_i\).
-%     Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
-%     Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
-% \end{theorem}
-% \begin{proof}
+    If \(S\cap\mfk{p} = \emptyset\), consider any \(s \in S\).
+    Given any \(r\), if \(rs \in \mfk{q}\),
+    as \(\mfk{q}\) is primary and \(s^n \notin \mfk{q}\),
+    we have \(r \in \mfk{q}\).
+    Therefore, by definition of the quotient ideal, \((\mfk{q}:s) \subseteq \mfk{q}\)
+    By Lemma~\ref{lem:fraction-contractions},
+    \(\mfk{q}^{ec} = \bigcup_{s \in S} (\mfk{q}:s) \subseteq \mfk{q}\),
+    and the reverse inclusion is trvially given by Proposition~\ref{prop:extension-contraction-properties};
+    we have \(\mfk{q}^{ec} = {(S^{-1}\mfk{q})}^c = \mfk{q}\).
+
+    We can immediately see that \(\sqrt{S^{-1}\mfk{q}} = S^{-1}\sqrt{\mfk{q}} = S^{-1}\mfk{p}\)
+    by an application of Proposition~\ref{prop:fraction-ring-properties}.
+    We now verify that \(S^{-1}\mfk{q}\) is primary.
+    Suppose \((x/t)(y/s) \in S^{-1}\mfk{q}\), and \(x/t \notin S^{-1}\mfk{q}\).
+    Then it is easy to see that \(x \notin \mfk{q}\),
+    so \(y^n \in \mfk{q}\) for some \(n\).
+    Hence \(y^n/s^n \in S^{-1}\mfk{q}\).
+    This proves statement (b).
+\end{proof}
+\begin{proposition}\label{prop:fraction-decomposition}
+    Suppose \(S \subseteq R\) is a multiplicative monoid,
+    and \(\mfk{q} = \bigcap_i \mfk{q}_i\) has an irredundant decomposition,
+    with \(\mfk{p}_i = \sqrt{\mfk{q}_i}\).
+    Without loss of generality, suppose \(S \cap \mfk{p}_i = \emptyset\) for the first \(n\) ideals,
+    and \(S \cap \mfk{p}_i \neq \emptyset\) for the rest of the ideals.
+    Then we an have irredundant decomposition for \(S^{-1}\mfk{q} = \bigcap_{i=1}^n S^{-1}\mfk{q}_i\),
+    and for its contraction \({(S^{-1}\mfk{q})}^c = \bigcap_{i=1}^n \mfk{q}_i\).
+\end{proposition}
+\begin{proof}
+    By Proposition~\ref{prop:fraction-ring-properties},
+    \(S^{-1}\mfk{q} = S^{-1}\pqty{\bigcap_i \mfk{q}_i} = \bigcap_i S^{-1}\mfk{q}_i\),
+    and we know we can toss out everything but the first \(n\) ideals
+    because of the \hyperref[prop:fraction-primary]{proposition above}.
+    This is indeed a primary decomposition,
+    as we know that \(S^{-1}\mfk{q}_i\) are all \(S^{-1}\mfk{p}_i\)-primary
+    again from the \hyperref[prop:fraction-primary]{proposition above}.
+    This decomposition is also irredundant because \(\mfk{p}_i\) are distinct,
+    and therefore \(S^{-1}\mfk{p}_i\) are also distinct.
+
+    We can then take the contraction of everything to get
+    \({(S^{-1}\mfk{q})}^c = {(\bigcap_{i=1}^n S^{-1}\mfk{q}_i)}^c
+    = \bigcap_{i=1}^n {(S^{-1}\mfk{q}_i)}^c = \bigcap_{i=1}^n \mfk{q}_i\),
+    simply by using Proposition~\ref{prop:extension-contraction-operations}
+    and the \hyperref[prop:fraction-primary]{proposition above}.
+\end{proof}
+\begin{definition}
+    Suppose \(\mfk{q}\) is a decomposable ideal,
+    and \({\{\mfk{p}_i\}}_{i \in S}\) is a subset of the associated prime ideals.
+    This set of ideals is isolated if any associated prime \(\mfk{p} \subseteq \mfk{p}_i\)
+    is also in this subset \(\mfk{p} \in {\{\mfk{p}_i\}}_{i \in S}\).
+\end{definition}
+\begin{theorem}[Second Uniqueness Theorem for Primary Decompositions]\label{thm:primary-uniqueness-2}
+    Suppose \(\mfk{q}\) is a decomposable ideal with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\).
+    Let \({\{\mfk{p}_{i_k}\}}_{k \in S}\) be an isolated set of associated primes.
+    Then \(\bigcap_{i_k} \mfk{q}_{i_k}\) is uniquely determined independent of the decomposition.
+\end{theorem}
+\begin{proof}
+    Consider an ideal \(\mfk{q}\)
+    with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\),
+    and that the first \(n\) of the associated primes \(\sqrt{\mfk{q}_i} = \mfk{p}_i\) are isolated.
+    Take \(S = R - \bigcup_{i=1}^n \mfk{p}_i\),
+    i.e.\ the localization at \(\bigcup_{i=1}^n \mfk{p}_i\).
+    Then trivially, for these \(n\) ideals, \(\mfk{p}_i \cap S = \emptyset\),
+    and the other ideals, \(\mfk{p}_i \cap S \neq \emptyset\).
+    Then immediately from the \hyperref[prop:fraction-decomposition]{proposition above},
+    \({(S^{-1}\mfk{q})}^c = \bigcap_{i=1}^n \mfk{q}_i\).
     
-% \end{proof}
+    Now suppose \(\mfk{q}\) has a different irredundant decomposition
+    \(\mfk{q} = \bigcap_i \mfk{q}'_i\),
+    with the same associated primes \(\sqrt{\mfk{q}'_i} = \mfk{p}_i\)
+    as determined by the \hyperref[thm:primary-uniqueness-1]{first uniqueness theorem}.
+    Then the \hyperref[prop:fraction-decomposition]{proposition above} yields
+    \({(S^{-1}\mfk{q})}^c = \bigcap_{i=1}^n \mfk{q}_i = \bigcap_{i=1}^n \mfk{q}'_i\).
+\end{proof}
+\begin{corollary}
+    Suppose \(\mfk{q}\) is a decomposable ideal with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\),
+    and \(\mfk{p}_i\) be a minimal associated prime,
+    as in there are no other associated prime ideals \(\mfk{p} \subseteq \mfk{p}_i\).
+    Then \(\mfk{q}_i\) is uniquely determined by \(\mfk{q}\).
+\end{corollary}
+\begin{proof}
+    Simply take \(\{\mfk{p}_i\}\) as an isolated set of ideals,
+    and apply the \hyperref[thm:primary-uniqueness-2]{theorem above}.
+\end{proof}
 
 
 \section{Integral Dependence}
