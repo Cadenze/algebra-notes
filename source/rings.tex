@@ -1554,25 +1554,25 @@
 \begin{definition}
     Suppose \(R\) is a ring.
     The Jacobson radical of \(R\) is the intersection of all maximal ideals,
-    \(\mfk{R} = \bigcap \mfk{m}\).
+    \(\mca{R} = \bigcap \mfk{m}\).
 \end{definition}
 \begin{remark}
     The nilradical is inside the Jacobson radical.
 \end{remark}
 \begin{lemma}\label{lem:1-xy-unit}
-    Suppose \(R\) is a ring, \(\mfk{R}\) is its Jacobson radical.
-    Any element \(x \in \mfk{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
+    Suppose \(R\) is a ring, \(\mca{R}\) is its Jacobson radical.
+    Any element \(x \in \mca{R}\) if and only if \(1 - xy\) is a unit for all \(y \in R\).
 \end{lemma}
 \begin{proof}
-    Suppose \(x \in \mfk{R}\),
+    Suppose \(x \in \mca{R}\),
     and by way of contradiction, that there is some \(y\) such that \(1 - xy\) is not a unit.
     Then \((1-xy) \neq (1)\) is a proper ideal by Proposition~\ref{prop:unit-one-ideal},
     so it must be contained within a maximal ideal \(\mfk{m}\) by Corollary~\ref{cor:proper-in-maximal}.
-    But since \(x \in \mfk{R} \subseteq \mfk{m}\), then \(xy \in \mfk{m}\), so \(1 \in \mfk{m}\),
+    But since \(x \in \mca{R} \subseteq \mfk{m}\), then \(xy \in \mfk{m}\), so \(1 \in \mfk{m}\),
     which is a contradiction.
 
     Now suppose for all \(y\), \(1 - xy\) are units,
-    but by way of contradiction, that \(x \notin \mfk{R}\).
+    but by way of contradiction, that \(x \notin \mca{R}\).
     Then there is some maximal ideal \(\mfk{m}\) that \(x\) does not reside in.
     By maximality of this \(\mfk{m}\), we know that \(\mfk{m} + (x) = (1)\),
     In particular, there is some \(u \in \mfk{m}\) and \(y \in R\) such that \(u + xy = 1\),
@@ -1757,17 +1757,178 @@
     Let \(\mfk{a} \subseteq R\) and \(\mfk{b} \subseteq S\) be ideals.
     \(\phi(\mfk{a}) \subseteq S\) might not be an ideal,
     so we define the ideal it generates \((\phi(\mfk{a})) \subseteq \mfk{a}\)
-    to be the extension of \(\mfk{a}\).
+    to be the extension of \(\mfk{a}\), denoted \(\mfk{a}^e\).
 \end{definition}
-\begin{remark}
-    \(\phi^{-1}(\mfk{b}) \subseteq R\) is always an ideal,
-    and if \(\mfk{b}\) prime, \(\phi^{-1}(\mfk{b})\) is also prime.
-\end{remark}
 \begin{definition}
     Suppose \(\func{\phi}{R}{S}\) is a ring monomorphism.
     If \(\mfk{b} \subseteq S\),
-    we say \(\phi^{-1}(\mfk{b}) = \mfk{b} \cap R\) is the contraction of \(\mfk{b}\).
+    we say \(\phi^{-1}(\mfk{b})\) is the contraction of \(\mfk{b}\),
+    denoted \(\mfk{b}^c\).
 \end{definition}
+\begin{lemma}
+    Suppose \(\func{\phi}{R}{S}\) is a ring homomorphism,
+    and \(\mfk{b} \subseteq S\) is an ideal.
+    The contraction \(\mfk{b}^c = \phi^{-1}(\mfk{b}) \subseteq R\) is always an ideal.
+\end{lemma}
+\begin{proof}
+    Consider \(x,y \in \mfk{b}^c\).
+    Then we know that \(\phi(x),\phi(y) \in \mfk{b}\).
+    In particular, we then have \(\phi(x+y) \in \mfk{b}\), so \(x+y \in \mfk{b}^c\);
+    similarly, we have \(r\phi(x) \in \mfk{b}\), so \(rx \in \mfk{b}^c\).
+\end{proof}
+
+\begin{proposition}\label{prop:extension-contraction-properties}
+    Suppose \(\func{\phi}{R}{S}\),
+    and \(\mfk{a} \subseteq R\) and \(\mfk{b} \subseteq S\) are ideals.
+    Then we have
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\mfk{a} \subseteq \mfk{a}^{ec}\) and \(\mfk{b} \supseteq \mfk{b}^{ce}\);
+        \item \(\mfk{a}^e = \mfk{a}^{ece}\) and \(\mfk{b}^c = \mfk{b}^{cec}\); and
+        \item the set of contracted ideals in \(R\) is in bijection with the set of extended ideals in \(S\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Consider \(x \in \mfk{a}\).
+    Then clearly \(y = \phi(x) \in \phi(\mfk{a}) \subseteq \mfk{a}^e\),
+    so we have \(x \in \phi^{-1}(y) \in \mfk{a}^{ec}\).
+    Similarly, consider \(y \in \mfk{b}^{ce}\).
+    Then \(y \in (\phi(\mfk{b}^c))\),
+    so can be written as \(y = \sum r_i \phi(x_i)\),
+    for \(x_i \in \mfk{b}^c\).
+    But this tells us that \(\phi(x_i) \in \mfk{b}\),
+    so \(y \in \mfk{b}\).
+    This proves statement (a).
+
+    Then using statement (a),
+    we have \(\mfk{a} \subseteq \mfk{a}^{ec}\),
+    so their extensions \(\mfk{a}^e \subseteq \mfk{a}^{ece}\).
+    But if we let \(\mfk{b} = \mfk{a}^e\),
+    then we have \(\mfk{a}^e \supseteq \mfk{a}^{ece}\).
+    Similarly, \(\mfk{b}^c \supseteq \mfk{b}^{cec}\) simply applying contractions once,
+    and then letting \(\mfk{a} = \mfk{b}^c\) yields
+    \(\mfk{b}^c \subseteq \mfk{b}^{cec}\) as desired.
+    This proves statement (b).
+
+    Statement (c) then follows from statement (b),
+    as we can simply observe that if \(\mfk{a} = \mfk{b}^c\),
+    then \(\mfk{a} = \mfk{a}^{ec}\);
+    and similarly \(\mfk{b} = \mfk{b}^{ce}\) under the assumption \(\mfk{b} = \mfk{a}^e\).
+    The bijection is formed by the extending and contracting actions.
+\end{proof}
+\begin{proposition}\label{prop:extension-contraction-operations}
+    Suppose \(\func{\phi}{R}{S}\),
+    and \(\mfk{a}_i \subseteq R\) and \(\mfk{b}_i \subseteq S\) are ideals.
+    Then the following properties hold for extensions and contractions:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \({(\mfk{a}_1 + \mfk{a}_2)}^e = \mfk{a}_1^e + \mfk{a}_2^e\),
+            \({(\mfk{b}_1 + \mfk{b}_2)}^c \supseteq \mfk{b}_1^c + \mfk{b}_2^c\);
+        \item \({(\mfk{a}_1 \cap \mfk{a}_2)}^e \subseteq \mfk{a}_1^e \cap \mfk{a}_2^e\),
+            \({(\mfk{b}_1 \cap \mfk{b}_2)}^c = \mfk{b}_1^c \cap \mfk{b}_2^c\);
+        \item \({(\mfk{a}_1\mfk{a}_2)}^e = \mfk{a}_1^e\mfk{a}_2^e\),
+            \({(\mfk{b}_1\mfk{b}_2)}^c \supseteq \mfk{b}_1^c\mfk{b}_2^c\);
+        \item \({(\mfk{a}_1:\mfk{a}_2)}^e \subseteq (\mfk{a}_1^e:\mfk{a}_2^e)\),
+            \({(\mfk{b}_1:\mfk{b}_2)}^c \subseteq (\mfk{b}_1^c:\mfk{b}_2^c) = {(\mfk{b}_1:\mfk{b}^{ce})}^c\); and
+        \item \({(\sqrt{\mfk{a}})}^e \subseteq \sqrt{\mfk{a}^e}\),
+            \({(\sqrt{\mfk{b}})}^c = \sqrt{\mfk{b}^c}\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Clearly any element of \({(\mfk{a}_1+\mfk{a}_2)}^e\)
+    can be written as \(\sum (x_i+y_i)\),
+    and any element of \(\mfk{a}_1^e+\mfk{a}_2^e\)
+    can be written as \(\sum x_i + \sum y_j\)
+    (for \(x_i \in \phi(\mfk{a}_1)\) and \(y_i \in \phi(\mfk{a}_2)\)).
+    The first form can be written into the second form,
+    and vice versa, as
+    \begin{equation*}
+        \sum (x_i+y_i) = \sum x_i + \sum y_i \qquad
+        \sum x_i + \sum y_j = \sum (x_i+0) + \sum (0+y_j)
+    \end{equation*}
+    This gives us the first part of (a).
+    
+    Suppose \(x \in \mfk{b}_1^c\) and \(y \in \mfk{b}_2^c\).
+    Then \(\phi(x) \in \mfk{b}_1\) and \(\phi(y) \in \mfk{b}_2\).
+    In particular, \(\phi(x+y) = \phi(x)+\phi(y) \in \mfk{b}_1+\mfk{b}_2\),
+    so \(x+y \in {(\mfk{b}_1+\mfk{b}_2)}^c\).
+    This gives us the second part of (a).
+    
+    \medskip
+    
+    Suppose \(x \in {(\mfk{a}_1\cap\mfk{a}_2)}^e\).
+    Then \(x = \sum x_i\), where \(x_i \in \phi(\mfk{a}_1\cap\mfk{a}_2)\).
+    In particular, \(x_i \in \phi(\mfk{a}_1)\), so \(x \in \mfk{a}_1^e\),
+    and the same can be said for \(\mfk{a}_2^e\).
+    This gives us the first part of (b).
+    
+    Now \(x \in {(\mfk{b}_1\cap\mfk{b}_2)}^c\)
+    is defined by \(\phi(x) \in \mfk{b}_1\cap\mfk{b}_2\),
+    which happens if and only if \(\phi(x) \in \mfk{b}_1\) and \(\phi(x) \in \mfk{b}_2\),
+    which defines \(x \in \mfk{b}_1^c\) and \(x \in \mfk{b}_2^c\).
+    This gives us the second part of (b).
+    
+    \medskip
+    
+    Clearly any element of \({(\mfk{a}_1\mfk{a}_2)}^e\)
+    can be written as \(\sum_i x_i y_i\) for \(x_i \in \phi(\mfk{a}_1)\) and \(y_i \in \phi(\mfk{a}_2)\)
+    and any element of \(\mfk{a}_1^e\mfk{a}_2^e\)
+    can be written as \((\sum x_i)(\sum y_j)\).
+    But \(x_i y_i \in \mfk{a}_1^e\mfk{a}_2^e\),
+    so the sum of them must also be in \(\mfk{a}_1^e\mfk{a}_2^e\).
+    On the other hand, once we expand the sum \((\sum x_i)(\sum y_j) = \sum x_i y_j\),
+    it is in the first form, so it is in \({(\mfk{a}_1\mfk{a}_2)}^e\).
+    This gives us the first part of (c).
+    
+    Suppose \(x \in \mfk{b}_1^c\) and \(y \in \mfk{b}_2^c\).
+    Then \(\phi(x) \in \mfk{b}_1\) and \(\phi(y) \in \mfk{b}_2\).
+    In particular, \(\phi(xy) = \phi(x)\phi(y) \in \mfk{b}_1\mfk{b}_2\),
+    so \(xy \in {(\mfk{b}_1\mfk{b}_2)}^c\).
+    This gives us the second part of (c).
+
+    \medskip
+
+    Suppose \(x \in {(\mfk{a}_1:\mfk{a}_2)}^e\).
+    Then \(x = \sum \phi(x_i)\), where \(x_i \in \mfk{a}_1:\mfk{a}_2\),
+    which is defined by \(x_i\mfk{a}_2 \subseteq \mfk{a_1}\).
+    Then applying our homomorphism to this, we have \(\phi(x_i)\mfk{a}_2^e \subseteq \mfk{a}_1^e\),
+    which indeed shows that \(x \in \mfk{a}_1^e:\mfk{a}_2^e\).
+    This gives us the first part of (d).
+
+    Suppose \(x \in {(\mfk{b}_1:\mfk{b}_2)}^c\).
+    Then \(\phi(x) \in \mfk{b}_1:\mfk{b}_2\),
+    which implies \(\phi(x)\mfk{b}_2 \subseteq \mfk{b}_1\),
+    and the preimages yield \(x\mfk{b}_2^c \subseteq \mfk{b}_1^c\),
+    which indeed shows that \(x \in \mfk{b}_1^c:\mfk{b}_2^c\).
+
+    We now show the equality.
+    Observe by definition, \(x \in \mfk{b}_1^c:\mfk{b}_2^c\)
+    when \(x\mfk{b}_2^c \subseteq \mfk{b}_1^c\),
+    which can be written as \(xy \in \mfk{b}_1^c\) for all \(y \in \mfk{b}_2^c\).
+    In terms of images instead of preimages,
+    this is \(\phi(xy) = \phi(x)\phi(y) \in \mfk{b}_1\) for all \(\phi(y) \in \mfk{b}_2\).
+    But letting \(z = \phi(y)\),
+    we can say this is \(\phi(x)z \in \mfk{b}_1\) for all \(z \in \phi(\mfk{b}_2^c)\),
+    and since \(\mfk{b}_1\) is an ideal, we can take \(z \in (\phi(\mfk{b}_2^c)) = \mfk{b}_2^{ce}\).
+    This is exactly the set of all elements \(x\)
+    such that \(\phi(x) \in {(\mfk{b}_1:\mfk{b}_2^{ce})}\),
+    which when we take its contraction, gives our desired result.
+    We have proven the second part of (d).
+
+    \medskip
+
+    Consider \(x \in {(\sqrt{\mfk{a}})}^e\).
+    Then \(x = \sum \phi(x_i)\), with \(x_i \in \sqrt{\mfk{a}}\),
+    which means \(x_i^{n_i} \in \mfk{a}\).
+    Then clearly \(\phi(x_i^{n_i}) \in \mfk{a}^e\),
+    so \(\phi(x_i)\), and consequently \(x \in \sqrt{\mfk{a}^e}\).
+    This proves the first part of (e).
+
+    Now, \(x \in {(\sqrt{\mfk{b}})}^c\)
+    is defined by \(\phi(x) \in \sqrt{\mfk{b}}\),
+    i.e.\ \(\phi(x^n) \in \mfk{b}\).
+    But this is exactly the condition for \(x^n \in \mfk{b}^c\),
+    i.e.\ \(x \in \sqrt{\mfk{b}^c}\).
+    This proves the second part of (e).
+\end{proof}
 
 
 \section{Field of Fractions}
