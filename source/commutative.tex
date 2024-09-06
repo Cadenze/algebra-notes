@@ -738,28 +738,47 @@
 \begin{definition}
     \(A \subseteq R\) is integral if every \(x \in R\) is integral over \(A\).
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:integral-finite}
     Suppose \(R\) is an \(A\)-algebra.
-    \(x \in R\) is integral over \(A\) if and only if \(A[x]\) is a finite \(A\)-algebra.
+    \(x \in R\) is integral over \(A\) if and only if \(A[x]\) is finite over \(A\).
 \end{lemma}
 \begin{proof}
-    
+    Suppose \(x\) is integral over \(A\),
+    with \(x^n + a_1x^{n-1} + \cdots + a_n = 0\).
+    Then any element \(f \in A[x]\) can be written as a polynomial of degree at most \(n-1\) over \(x\),
+    as any \(x^n\) factors can be reduced to a polynomial of degree at most \(n-1\).
+
+    Suppose \(A[x]\) is finite over \(A\).
+    Then consider the map \(\vfunc{\phi}{A[x]}{A[x]}{f}{xf}\) that multiplies by \(x\).
+    By the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton Theorem},
+    \(0 = \phi^n + a_1\phi^{n-1} + \cdots + a_n = x^n + a_1 x^{n-1} + \cdots + a_n\) as desired.
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is an \(A\)-algebra.
     If \(x \in R\) is integral over \(A\),
     then \(A[x]\) is integral over \(A\).
+    Hence finite extensions are integral.
 \end{corollary}
 \begin{proof}
-    
+    Consider any element \(y \in A[x]\),
+    and the map \(\vfunc{\phi}{A[x]}{A[x]}{f}{yf}\) that multiplies by \(y\).
+    By the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton Theorem},
+    \(0 = \phi^n + a_1\phi^{n-1} + \cdots + a_n = y^n + a_1 y^{n-1} + \cdots + a_n\) as desired.
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is an \(A\)-algebra,
     and \({\{x_i\}}_{i=1}^n \subset R\) are all integral over \(A\).
     Then \(A[x_1,\hdots,x_n]\) is finite over \(A\).
+    Hence extensions are finite if and only if they are both finite-type and integral.
 \end{corollary}
 \begin{proof}
-    
+    Let the \hyperref[lem:integral-finite]{lemma above} be the base case,
+    and proceed by induction.
+    Let \(A_k = A[x_1,\hdots,x_k]\), and assume that it is finite over \(A\).
+    We wish to prove that \(A_{k+1} = A_k[x_{k+1}]\) is finite over \(A\).
+    But because \(x_{k+1}\) is integral over \(A\), it is integral over \(A_k\),
+    so by the \hyperref[lem:integral-finite]{lemma above},
+    \(A_{k+1}\) is finite over \(A_k\), which is then finite over \(A\).
 \end{proof}
 
 \begin{definition}
