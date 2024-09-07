@@ -1,0 +1,209 @@
+\chapter{Varieties}
+
+\begin{remark}
+    Throughout the chapter, \(K\) will denote a field,
+    and assume that it is algebraically closed unless otherwise noted.
+\end{remark}
+
+\section{Affine Varieties}
+
+\subsection*{Algebraic Subsets}
+
+\begin{definition}
+    For \(n \geq 0\), the affine \(n\)-space over \(K\)
+    is \(K^n\) treated purely as a set of points,
+    and denoted \(\bA^n = \{(a_1,\hdots,a_n): a_i \in K\}\).
+\end{definition}
+\begin{definition}
+    Consider the polynomial ring in \(n\) variables \(K[x_1,\hdots,x_n]\),
+    which is a commutative ring (with identity 1).
+    Then any element \(f \in K[x_1,\hdots,x_n]\) is a polynomial
+    \begin{equation*}
+        f = \sum_{i_1,\hdots,i_n \geq 0} a_{i_1 \hdots i_n} x_1^{i_1} \hdots x_n^{i_n}
+    \end{equation*}
+    with the coefficients \(a_{i_1 \hdots i_n} \in K\),
+    and that the coefficients are almost all zero
+    (as in that they are zero except finitely many of them).
+\end{definition}
+\begin{definition}
+    Every polynomial \(f \in K[x_1,\hdots,x_n]\)
+    defines a polynomial function \(\func{f}{\bA^n}{K}\),
+    where we evaluate \(f\) at the given point.
+    This is a ring morphism as proven in Theorem~\ref{thm:univ-prop-polynomial}.
+\end{definition}
+\begin{lemma}
+    The map \(K[x_1,\hdots,x_n] \to \Func(\bA^n,K)\) is an injective ring morphism.
+\end{lemma}
+\begin{proof}
+    Obvious, simply by using the evaluation map.
+\end{proof}
+
+\begin{lemma}\label{lem:iv-inclusion-reversing}
+    Suppose \(S \subseteq \bA^n\) and \(J \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    Then we have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Van\) and \(\Ide\) are inclusion reversing; and
+        \item \(J \subseteq \Ide(\Van(J))\) and \(S \subseteq \Van(\Ide(S))\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Suppose \(J' \subseteq J\).
+    Consider any point \(p \in \Van(J)\).
+    Since all polynomials \(f \in J\) have \(f(p) = 0\),
+    in particular any \(f \in J'\) have \(f(p) = 0\),
+    so \(p \in \Van(J')\).
+    We have \(\Van(J') \supseteq \Van(J)\).
+
+    Suppose \(S' \subseteq S\).
+    Consider any \(f \in \Ide(S)\).
+    Then \(f\) vanishes on all points in \(S\),
+    and in particular it vanishes on all points in \(S'\),
+    so \(f \in \Ide(S')\).
+    We have \(\Ide(S') \supseteq \Ide(S)\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose \(f \in J\).
+    Then \(f\) vanishes on \(\Van(J)\).
+    Since \(\Ide(\Van(J))\) is the set of functions that vanish on \(\Van(J)\),
+    we have \(f \in \Ide(\Van(J))\).
+
+    Suppose \(x \in S\).
+    Then all functions in \(\Ide(S)\) vanish at \(x\).
+    Since \(\Van(\Ide(S))\) is the set of points that all functions in \(\Ide(S)\) vanish at,
+    we have \(x \in \Van(\Ide(S))\).
+\end{proof}
+\begin{definition}
+    A subset \(Z \subseteq \bA^n\) is said to be algebraic
+    if it is the vanishing locus \(Z = \Van(S)\)
+    of a set \(S \subseteq K[x_1,\hdots,x_n]\).
+\end{definition}
+\begin{lemma}\label{lem:vanishing-locus-ideal}
+    Consider a set \(S \subseteq K[x_1,\hdots,x_n]\).
+    Its vanishing locus coincides with the vanishing locus of the ideal it generates,
+    \(\Van(S) = \Van((S))\).
+\end{lemma}
+\begin{proof}
+    Since \(S \subseteq (S)\),
+    we can see that \(\Van((S)) \subseteq \Van(S)\)
+    by Lemma~\ref{lem:iv-inclusion-reversing}.
+
+    For the reverse inclusion, suppose \(p \in \Van(S)\).
+    Then considering any \(\sum g_i f_i \in (S)\) for \(f_i \in S\),
+    \begin{equation*}
+        \pqty{\sum g_i f_i}(p) = \sum g_i(p) f_i(p) = 0
+    \end{equation*}
+    so \(p \in \Van((S))\) as desired.
+\end{proof}
+\begin{corollary}\label{cor:vanishing-locus-ideal}
+    Every algebraic set \(Z\) is the vanishing locus \(\Van(\mfk{a})\)
+    of some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+\end{corollary}
+\begin{proof}
+    \(Z = \Van(S) = \Van((S))\) where \(\mfk{a} = (S)\)
+    using the \hyperref[lem:vanishing-locus-ideal]{lemma above}.
+\end{proof}
+\begin{proposition}
+    Every algebraic set \(Z\) is the vanishing locus \(\Van(f_1,\hdots,f_r)\)
+    of finitely many polynomials \(\{f_1,\hdots,f_r\}\).
+\end{proposition}
+\begin{proof}
+    By the \hyperref[cor:hilbert-basis]{Hilbert basis theorem},
+    \(K[x_1,\hdots,x_n]\) is a Noetherian ring,
+    which gives us that \(\mfk{a}\) from the \hyperref[cor:vanishing-locus-ideal]{corollary above}
+    is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    Then \(Z = \Van((f_1,\hdots,f_r)) = \Van(f_1,\hdots,f_r)\).
+\end{proof}
+
+\begin{proposition}\label{prop:vanishing-locus-properties}
+    Suppose \(S_i \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\bigcap \Van(S_i) = \Van(\bigcup S_i)\); and
+        \item \(\Van(S_1) \cup \Van(S_2) = \Van(S_1 S_2)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(p \in \bigcap \Van(S_i)\).
+    Then for all polynomials \(f \in S_i\) for any \(i\), \(f(p) = 0\).
+    But this is the exact statement that \(f(p)\) for all \(f \in \bigcup S_i\).
+    Hence \(p \in \Van(\bigcup S_i)\).
+    The argument holds in reverse,
+    and we have proven statement (a).
+
+    Since \(S_1 S_2 \subseteq S_1\) (Proposition~\ref{prop:ideal-operations}),
+    statement (a) applies, so \(\Van(S_1) \subseteq \Van(S_1 S_2)\).
+    Similarly, we have \(\Van(S_2) \subseteq \Van(S_1 S_2)\),
+    so \(\Van(S_1) \cup \Van(S_2) \subseteq \Van(S_1 S_2)\).
+    For the reverse direction, suppose \(p \in \Van(S_1 S_2)\).
+    If \(p \notin \Van(S_1)\), then there exists some \(f \in S_1\) such that \(f(p) \neq 0\).
+    But we also know that all \((fg)(p) = f(p)g(p) = 0\) for all \(f \in S_1\) and \(g \in S_2\).
+    Since there are no zero divisors in a field, \(g(p) = 0\),
+    so \(p \in \Van(S_2)\) as desired.
+    This proves statement (b).
+\end{proof}
+\begin{corollary}
+    Algebraic subsets of \(\bA^n\) define the closed sets for a topology on \(\bA^n\).
+\end{corollary}
+\begin{proof}
+    The empty set \(\emptyset = \Van(1)\) and the entire space \(\bA^n = \Van(0)\)
+    are both algebraic, so they are closed.
+    From the \hyperref[prop:algebraic-subset-properties]{proposition above},
+    arbitrary unions and finite intersections of algebraic sets are algebraic,
+    so such arbitrary unions and finite intersections of closed sets are closed.
+\end{proof}
+\begin{definition}
+    The Zariski topology on \(\bA^n\) is defined by
+    the closed sets being the algebraic subsets of \(\bA^n\).
+\end{definition}
+\begin{lemma}
+    The closed sets of \(\bA^1\) consists of \(\bA^1,\emptyset\),
+    and the finite subsets of \(\bA^1\).
+\end{lemma}
+\begin{proof}
+    We quickly prove that singletons are algebraic (in the general case of \(\bA^n\)).
+    If \(p \in \bA^n\), and written as \(p = (a_1,\hdots,a_n)\),
+    then it is the vanishing locus \(\{p\} = \Van(\{x_1-a_1,\hdots,x_n-a_n\})\).
+    Then immediately using Proposition~\ref{prop:algebraic-subset-properties},
+    any finite set of points (finite union of singletons) must be algebraic.
+
+    We now finally prove that there are no infinite algebraic sets.
+    Consider any algebraic set \(Z \subseteq \bA^1\).
+    Because \(K[x]\) is a Euclidean domain (Proposition~\ref{prop:polynomial-domain}),
+    it is also a PID (Theorem~\ref{thm:euclidean-pid}),
+    so \(Z = \Van(\mfk{a}) = \Van(f)\) (Corollary~\ref{cor:vanishing-locus-ideal})
+    for some \(f \in K[x]\).
+    Since \(K\) is algebraically closed,
+    \(f\) splits into linear factors \(f = \prod (x-a_i)\) (Lemma~\ref{lem:splitting-field-properties}).
+    Without loss of generality, let \(a_i\) be pairwise distinct and \(f\) monic,
+    so we can write \(f = \prod {(x-a_i)}^{r_i}\).
+    Then clearly \(Z = \Van((x-a_i)) = \{a_1,\hdots,a_n\}\) must be a finite set.
+\end{proof}
+
+\begin{lemma}
+    Suppose \(X \subseteq \bA^n\) is an algebraic subset.
+    Then \(\Van(\Ide(X)) = X\).
+\end{lemma}
+\begin{proof}
+    Trivially by Lemma~\ref{lem:iv-inclusion-reversing},
+    \(X \subseteq \Van(\Ide(X))\).
+
+    By definition of an algebraic subset,
+    \(X = \Van(\mfk{a})\) for some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+    But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
+\end{proof}
+\begin{lemma}
+    Suppose \(X \subseteq \bA^n\) is a subset.
+    Then \(\Ide(X)\) is a radical ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(f^n \in \Ide(X)\).
+    Then for all \(x \in X\), \(f^n(x) = {(f(x))}^n = 0\),
+    which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
+\end{proof}
+
+\subsection*{Hilbert's Nullstellensatz}
+
+
