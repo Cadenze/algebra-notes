@@ -7,6 +7,8 @@
 
 \section{Affine Varieties}
 
+\subsection*{Algebraic Subsets}
+
 \begin{definition}
     For \(n \geq 0\), the affine \(n\)-space over \(K\)
     is \(K^n\) treated purely as a set of points,
@@ -36,6 +38,42 @@
     Obvious, simply by using the evaluation map.
 \end{proof}
 
+\begin{lemma}\label{lem:iv-inclusion-reversing}
+    Suppose \(S \subseteq \bA^n\) and \(J \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    Then we have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Van\) and \(\Ide\) are inclusion reversing; and
+        \item \(J \subseteq \Ide(\Van(J))\) and \(S \subseteq \Van(\Ide(S))\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Suppose \(J' \subseteq J\).
+    Consider any point \(p \in \Van(J)\).
+    Since all polynomials \(f \in J\) have \(f(p) = 0\),
+    in particular any \(f \in J'\) have \(f(p) = 0\),
+    so \(p \in \Van(J')\).
+    We have \(\Van(J') \supseteq \Van(J)\).
+
+    Suppose \(S' \subseteq S\).
+    Consider any \(f \in \Ide(S)\).
+    Then \(f\) vanishes on all points in \(S\),
+    and in particular it vanishes on all points in \(S'\),
+    so \(f \in \Ide(S')\).
+    We have \(\Ide(S') \supseteq \Ide(S)\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose \(f \in J\).
+    Then \(f\) vanishes on \(\Van(J)\).
+    Since \(\Ide(\Van(J))\) is the set of functions that vanish on \(\Van(J)\),
+    we have \(f \in \Ide(\Van(J))\).
+
+    Suppose \(x \in S\).
+    Then all functions in \(\Ide(S)\) vanish at \(x\).
+    Since \(\Van(\Ide(S))\) is the set of points that all functions in \(\Ide(S)\) vanish at,
+    we have \(x \in \Van(\Ide(S))\).
+\end{proof}
 \begin{definition}
     A subset \(Z \subseteq \bA^n\) is said to be algebraic
     if it is the vanishing locus \(Z = \Van(S)\)
@@ -49,7 +87,7 @@
 \begin{proof}
     Since \(S \subseteq (S)\),
     we can see that \(\Van((S)) \subseteq \Van(S)\)
-    by Proposition~\ref{prop:algebraic-subset-properties}.
+    by Lemma~\ref{lem:iv-inclusion-reversing}.
 
     For the reverse inclusion, suppose \(p \in \Van(S)\).
     Then considering any \(\sum g_i f_i \in (S)\) for \(f_i \in S\),
@@ -78,28 +116,21 @@
     Then \(Z = \Van((f_1,\hdots,f_r)) = \Van(f_1,\hdots,f_r)\).
 \end{proof}
 
-\begin{proposition}\label{prop:algebraic-subset-properties}
-    Suppose \(S_i \subseteq K[x_1,\hdots,x_n]\).
-    We have the following properties concerning algebraic subsets:
+\begin{proposition}\label{prop:vanishing-locus-properties}
+    Suppose \(S_i \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    We have the following properties:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(S_1 \subseteq S_2\) implies \(\Van(S_1) \supseteq \Van(S_2)\);
         \item \(\bigcap \Van(S_i) = \Van(\bigcup S_i)\); and
         \item \(\Van(S_1) \cup \Van(S_2) = \Van(S_1 S_2)\).
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    Consider any point \(p \in \Van(S_2)\).
-    Since all polynomials \(f \in S_2\) have \(f(p) = 0\),
-    in particular any \(f \in S_1\) have \(f(p) = 0\),
-    so \(p \in \Van(S_1)\) as desired.
-    This proves statement (a).
-
     Suppose \(p \in \bigcap \Van(S_i)\).
     Then for all polynomials \(f \in S_i\) for any \(i\), \(f(p) = 0\).
     But this is the exact statement that \(f(p)\) for all \(f \in \bigcup S_i\).
     Hence \(p \in \Van(\bigcup S_i)\).
     The argument holds in reverse,
-    and we have proven statement (b).
+    and we have proven statement (a).
 
     Since \(S_1 S_2 \subseteq S_1\) (Proposition~\ref{prop:ideal-operations}),
     statement (a) applies, so \(\Van(S_1) \subseteq \Van(S_1 S_2)\).
@@ -110,7 +141,7 @@
     But we also know that all \((fg)(p) = f(p)g(p) = 0\) for all \(f \in S_1\) and \(g \in S_2\).
     Since there are no zero divisors in a field, \(g(p) = 0\),
     so \(p \in \Van(S_2)\) as desired.
-    This proves statement (c).
+    This proves statement (b).
 \end{proof}
 \begin{corollary}
     Algebraic subsets of \(\bA^n\) define the closed sets for a topology on \(\bA^n\).
@@ -149,3 +180,30 @@
     so we can write \(f = \prod {(x-a_i)}^{r_i}\).
     Then clearly \(Z = \Van((x-a_i)) = \{a_1,\hdots,a_n\}\) must be a finite set.
 \end{proof}
+
+\begin{lemma}
+    Suppose \(X \subseteq \bA^n\) is an algebraic subset.
+    Then \(\Van(\Ide(X)) = X\).
+\end{lemma}
+\begin{proof}
+    Trivially by Lemma~\ref{lem:iv-inclusion-reversing},
+    \(X \subseteq \Van(\Ide(X))\).
+
+    By definition of an algebraic subset,
+    \(X = \Van(\mfk{a})\) for some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+    But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
+\end{proof}
+\begin{lemma}
+    Suppose \(X \subseteq \bA^n\) is a subset.
+    Then \(\Ide(X)\) is a radical ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(f^n \in \Ide(X)\).
+    Then for all \(x \in X\), \(f^n(x) = {(f(x))}^n = 0\),
+    which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
+\end{proof}
+
+\subsection*{Hilbert's Nullstellensatz}
+
+
