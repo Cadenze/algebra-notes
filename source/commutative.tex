@@ -730,9 +730,9 @@
 \end{definition}
 \begin{definition}
     Suppose \(R\) is an \(A\)-algebra, and \(x \in R\).
-    We say \(x\) is integral over \(A\) if it satisfies a monic polynomaial
+    We say \(x\) is integral over \(A\) if it satisfies a monic polynomial
     \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
-    We say \(x\) is algebraic over \(A\) if it satisfies a polynomaial
+    We say \(x\) is algebraic over \(A\) if it satisfies a polynomial
     \(a_0 x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
 \end{definition}
 \begin{definition}
@@ -917,7 +917,6 @@
     This is prime because the preimage of a prime ideal is prime.
     By commutativity of the diagram, we know that \(\mfk{q} \cap A = \mfk{p}\).
 \end{proof}
-
 \begin{theorem}[Going Up Theorem]
     Suppose \(A \subseteq R\) is an integral extension of rings,
     \(\mfk{p}_1 \subseteq \mfk{p}_2 \subseteq A\) and \(\mfk{q}_1 \subseteq R\) are prime ideals,
@@ -936,15 +935,96 @@
     which another application of \hyperref[thm:iso-3-ring]{third isomorphism theorem}
     gives us a correspondence to \(\mfk{q}_2 \subseteq R\).
 \end{proof}
+
+\begin{lemma}\label{lem:ideal-integral-closure}
+    Suppose \(R\) is an \(A\)-algebra, and \(\overline{A}\) is the integral closure of \(A\) in \(R\).
+    Let \(\mfk{a} \subseteq A\) be an ideal, and \(\mfk{a}^e \subseteq \overline{A}\) be its extension.
+    Then the integral closure of \(\mfk{a}\) in \(R\) is \(\sqrt{\mfk{a}^e}\).
+\end{lemma}
+\begin{proof}
+    Consider any integral element \(x \in \overline{\mfk{a}} \subseteq R\).
+    Then there exists \(a_i \in \mfk{a} \subseteq A\) such that
+    \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\).
+    Clearly \(x\) is also integral over \(A\), so \(x \in \overline{A}\);
+    moreover, \(x^n = - a_1 x^{n-1} - \cdots - a_n \in \mfk{a}^e\),
+    as \(a_i x^{n-i} \in \mfk{a}^e\overline{A} \subseteq \mfk{a}^e\).
+    But this exactly says that \(x \in \sqrt{\mfk{a}^e}\),
+    so \(\overline{\mfk{a}} \subseteq \sqrt{\mfk{a}^e}\).
+
+    For the reverse direction, suppose \(x \in \sqrt{\mfk{a}^e}\).
+    Then \(x^n = \sum a_i x_i \in \mfk{a}^e\), with \(a_i \in \mfk{a}\) and \(x_i \in \overline{A}\).
+    By definition, \(x_i\) is integral over \(A\),
+    so \(M = A[x_1,\hdots,x_k]\) is finite over \(A\) (Corollary~\ref{cor:finite-type-integral}).
+    In particular, \(x^n M \subseteq \mfk{a}M\) by definition,
+    so if \(\phi\) is the morphism that multiplies by \(x^n\),
+    the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton theorem} guarantees a monic polynomial
+    \(\phi^m + a_1\phi^{m-1} + \cdots + a_m = x^{nm} + a_1 x^{n(m-1)} + \cdots + a_m = 0\),
+    which gives us that \(x\) is integral over \(\mfk{a}\).
+    Hence \(\sqrt{\mfk{a}^e} \subseteq \overline{\mfk{a}}\).
+\end{proof}
+\begin{proposition}\label{prop:integral-minimal-polynomial}
+    Suppose \(A = \overline{A} \subseteq R\) are integral domains,
+    and let \(x \in R\) be integral over some ideal \(\mfk{a} \subseteq A\).
+    Then \(x\) is algebraic over \(K\), the field of fractions of \(A\);
+    moreover, if the minimal polynomial is \(\min_K(x) = t^n + a_1 t^{n-1} + \cdots + a_n\),
+    then \(a_i \in \sqrt{\mfk{a}}\).
+\end{proposition}
+\begin{proof}
+    Since \(x\) is integral over \(\mfk{a}\),
+    there exists \(a_i \in \mfk{a} \subseteq A \subseteq K\) such that
+    \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\),
+    so \(x\) is algebraic over \(K\).
+    Notice the requirement of an integral domain is needed to invoke the field of fractions.
+
+    Now let \({\{x_i\}}\) be the set of roots of \(\min_K(x)\).
+    Then immediately we see that \(x_i\) are all integral over \(\mfk{a}\),
+    and as \(\min_K(x) = \prod {(t-x_i)}^{k_i} = t^n + a_1 t^{n-1} + \cdots + a_n\),
+    each \(a_k\) can be written as a polynomial in \(x_i\)
+    and is therefore also integral over \(\mfk{a}\).
+    But then by the \hyperref[lem:ideal-integral-closure]{lemma above},
+    \(a_k \in \sqrt{\mfk{a}^e} = \sqrt{\mfk{a}}\) as \(A = \overline{A}\).
+\end{proof}
 \begin{theorem}[Going Down Theorem]
-    Suppose \(A \subseteq R\) is an integral extension of rings,
-    \(\mfk{p}_1,\mfk{p}_2 \subseteq A\) and \(\mfk{q}_2 \subseteq R\) are prime ideals,
+    Suppose \(A = \overline{A} \subseteq R\) is an integral extension of integral domains,
+    \(\mfk{p}_1 \subseteq \mfk{p}_2 \subseteq A\) and \(\mfk{q}_2 \subseteq R\) are prime ideals,
     with \(\mfk{p}_2 = \mfk{q}_2 \cap A\).
     Then there exists a prime ideal \(\mfk{q}_1 \subseteq R\)
     such that \(\mfk{q}_1 \subseteq \mfk{q}_2\) and \(\mfk{p}_1 = \mfk{q}_1 \cap A\).
 \end{theorem}
 \begin{proof}
-    
+    Consider the natural embedding \(A \to R \to S^{-1}R = R_{\mfk{q}_2}\).
+    It suffices to show that \(\mfk{p}_1\)
+    is the contraction of some prime ideal \(\mfk{q}_1' \subseteq R_{\mfk{q}_2}\),
+    because Theorem~\ref{thm:fraction-correspondence} dictates that
+    \(\mfk{q}_1'\) will be in correspondence with some prime ideal \(\mfk{q}_1 \subseteq R\)
+    that does not intersect \(S = R - \mfk{q}_2\), i.e.\ \(\mfk{q}_1 \subseteq \mfk{q}_2\).
+    Then since \(\mfk{q}_1' = S^{-1}\mfk{q}_1\) (Lemma~\ref{lem:fraction-extensions}),
+    \(\mfk{p}_1 = S^{-1}\mfk{q}_1 \cap A = \mfk{q}_1 \cap A\).
+
+    We claim that \(\mfk{q}_1' = \mfk{p}_1R_{\mfk{q}_2}\).
+    Consider any element \(x/s \in \mfk{p}_1R_{\mfk{q}_2}\),
+    where \(x \in \mfk{p}_1R\) and \(s \in R - \mfk{q}_2\).
+    Notice \(\mfk{p}_1R\) is a prime (and therefore radical) ideal,
+    so \(x\) is integral over \(\mfk{p}_1\) by the \hyperref[lem:ideal-integral-closure]{lemma above};
+    moreover, if \(K\) is the field of fractions of \(A\),
+    by the \hyperref[prop:integral-minimal-polynomial]{proposition above},
+    \(\min_K(x) = x^r + u_1 x^{r-1} + \cdots + u_r\), where \(u_i \in \mfk{p}_1\).
+    Now, if \(x/s \in A\) also, then \(s = x(s/x)\), and \(s/x \in K\),
+    and \(\min_K(s) = s^r + v_1 s^{r-1} + \cdots + v_r\) is obtained
+    by dividing the previous polynomial by \({(x/s)}^r\), where \(v_i = u_i{(s/x)}^i\).
+    We note that \(v_i{(x/s)}^i = u_i \in \mfk{p}_1\).
+    But because \(x/s \in A\), \(s = x/a\) for some \(a\) must also be integral over \(A\),
+    and we can apply the \hyperref[prop:integral-minimal-polynomial]{proposition above} again
+    to see that \(v_i \in A\).
+
+    Let us now suppose, by way of contradiction, that \(x/s \notin \mfk{p}_1\).
+    Then \(v_i{(x/s)}^i \in \mfk{p}_1\) implies that \(v_i \in \mfk{p}_1\),
+    and the minimal polynomial tells us that
+    \(s^r = - v_1 s^{r-1} - \cdots - v_r \in \mfk{p}_1R \subseteq \mfk{p}_2R \subseteq \mfk{q}_2\).
+    But because \(\mfk{q}_2\) is prime (and therefore radical),
+    this implies \(s \in \mfk{q}_2\), which contradicts the definition of \(S = R - \mfk{q}_2\).
+    Hence \(\mfk{q}_1' \subseteq \mfk{p}_1\),
+    and the reverse inclusion is trivially true.
 \end{proof}
 
 \begin{theorem}[Noetherian Normalization]
