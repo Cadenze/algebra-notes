@@ -191,7 +191,9 @@
     Then clearly \(Z = \Van((x-a_i)) = \{a_1,\hdots,a_n\}\) must be a finite set.
 \end{proof}
 
-\begin{lemma}
+\subsection*{Hilbert's Nullstellensatz}
+
+\begin{lemma}\label{lem:vix-x}
     Suppose \(X \subseteq \bA^n\) is an algebraic subset.
     Then \(\Van(\Ide(X)) = X\).
 \end{lemma}
@@ -204,7 +206,7 @@
     But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
     so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:ix-radical}
     Suppose \(X \subseteq \bA^n\) is a subset.
     Then \(\Ide(X)\) is a radical ideal.
 \end{lemma}
@@ -214,71 +216,85 @@
     which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
 \end{proof}
 
-\subsection*{Hilbert's Nullstellensatz}
+\begin{lemma}[Weak Hilbert's Nullstellensatz]\label{lem:weak-nullstellensatz}
+    Suppose \(K\) is algebraically closed.
+    Every maximal ideal \(\mfk{m} \subseteq K[x_1,\hdots,x_n]\) is of the form
+    \(\mfk{m} = (x_1-a_1,\hdots,x_n-a_n)\) for some \((a_1,\hdots,a_n) \in \bA^n\).
+    Every proper ideal \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\)
+    has a nonempty vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
+\end{lemma}
+\begin{proof}
+    From our previous statement of the \hyperref[cor:weak-nullstellensatz]{weak Nullstellensatz},
+    \(K = K[x_1,\hdots,x_n]/\mfk{m}\).
+    Hence there exists a surjecive morphism \(\func{\phi}{K[x_1,\hdots,x_n]}{K}\)
+    with \(\ker\phi = \mfk{m}\) by the \hyperref[thm:iso-1-ring]{first isomorphism thoerem}.
+    Then if we let \(\phi(x_i) = a_i\),
+    then we can see that \(x_i-a_i \in \ker\phi = \mfk{m}\),
+    so \((x_1-a_1,\hdots,x_n-a_n) \subseteq \mfk{m}\).
+    For the reverse inclusion, we can see that \((x_1-a_1,\hdots,x_n-a_n)\) is a maximal ideal,
+    because \(K[x_1,\hdots,x_n]/(x_1-a_1,\hdots,x_n-a_n)\) is a field,
+    as it sends all the indeterminates into itself.
+    Hence \((x_1-a_1,\hdots,x_n-a_n) = \mfk{m}\).
 
-\begin{proposition}
-    Suppose \(A\) is a Noetherian ring,
-    and \(A \subseteq B \subseteq R\) is an extension of rings.
-    If \(A \subseteq R\) is finite, then \(A \subseteq B\) is finite.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-\begin{proposition}
-    Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
-    If \(R\) is Noetherian, then \(B\) is Noetherian.
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-\begin{theorem}
-    Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
-    If \(A\) is Noetherian, \(C\) is finite-type of \(A\),
-    and \(C\) is finite over \(B\),
-    then \(B\) is finite-type over \(A\).
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-\begin{theorem}
-    Suppose \(K\) is a field, and \(E\) a finitely generated \(K\)-algebra.
-    If \(E\) is a field, then \(E/K\) is a finite algebraic extension.
-\end{theorem}
-\begin{proof}
-    
-\end{proof}
-\begin{proposition}
-    Suppose \(K(y_1,\hdots,y_n)/K\) is a purely transcendental extension.
-    Then \(E\) cannot be finite-type over \(K\).
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-\begin{corollary}[Weak Hilbert's Nullstellensatz]
-    Suppose \(K\) is a field, and \(A\) is a finite-type \(K\)-algebra.
-    Let \(\mfk{m} \subseteq A\) be a maximal ideal.
-    Then \(A/\mfk{m}\) is a finite algebraic extension of \(K\).
-    If \(K = \overline{K}\), then \(A/\mfk{m} = K\).
-\end{corollary}
-\begin{proof}
-    
-\end{proof}
-\begin{corollary}
-    Suppose \(K = \overline{K}\) is algebraically closed.
-    Every maximal ideal of \(K[x_1,\hdots,x_n]\) is of the form
-    \((x_1-a_1,\hdots,x_n-a_n)\) for some \(a_i \in K\).
-    If \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\) is a proper ideal,
-    then the vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
-\end{corollary}
-\begin{proof}
-    
+    Now, any proper ideal \(\mfk{a}\) must be contained within a maximal ideal \(\mfk{m}\)
+    (Corollary~\ref{cor:proper-in-maximal}).
+    But as we know that \(\Van\) is an inclusion reversing operation
+    (Lem~\ref{lem:iv-inclusion-reversing}),
+    \((a_1,\hdots,a_n) \in \Van(\mfk{m}) \subseteq \Van(\mfk{a})\).
 \end{proof}
 \begin{theorem}[Hilbert's Nullstellensatz]\label{thm:nullstellensatz}
-    Suppose \(K = \overline{K}\) is an algebraically closed field,
-    and \(R = K[x_1,\hdots,x_n]\) is a polynomial ring.
-    Let \(\mfk{a} \subseteq R\) be an ideal, and \(\Van(\mfk{a})\) be its vanishing locus.
-    Then \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+    There is a bijection between the algebraic subsets of \(\bA^n\)
+    and the radical ideals of \(K[x_1,\hdots,x_n]\),
+    using the operations \(\Van\) and \(\Ide\).
 \end{theorem}
 \begin{proof}
-    
+    We already have, from Lemma~\ref{lem:vix-x}, that \(\Van(\Ide(X)) = X\) for any algebraic subset,
+    so it suffices to prove that \(\Ide(\Van(\mfk{a})) = \mfk{a}\) for any radical.
+    We shall prove, instead, that for any ideal \(\mfk{a}\),
+    \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+    By Lemma~\ref{lem:iv-inclusion-reversing},
+    we can see that \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\sqrt{\mfk{a}} \subseteq \sqrt{\Ide(\Van(\mfk{a}))} = \Ide(\Van(\mfk{a}))\),
+    since \(\Ide(\Van(\mfk{a}))\) is radical (Lemma~\ref{lem:ix-radical}).
+
+    For the forward inclusion,
+    suppose \(\mfk{a} = (f_1,\hdots,f_n)\) has these \(n\) generators
+    (finitely generated due to Corollary~\ref{cor:noetherian-generated}).
+    Let \(g \in \Ide(\Van(\mfk{a}))\).
+    Consider the ideal \((f_1,\hdots,f_n,1-yg) \subseteq K[x_1,\hdots,x_n,y]\).
+    We claim that \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    so by way of contradiction, suppose \((\vb{a},b) = (a_1,\hdots,a_n,b) \in \Van(f_1,\hdots,f_n,1-yg)\).
+    Since each \(f_i\) is only a function of \(\vb{x} = (x_1,\hdots,x_n)\) and not of \(y\),
+    we know that \(f_i(\vb{a}) = 0\);
+    on the other hand, the last generator in the ideal gives us
+    \((1-yg)(\vb{a},b) = 1 - bg(\vb{a}) = 0\).
+    But \(f_i(\vb{a}) = 0\) implies that \(\vb{a} \in \Van(\mfk{a})\),
+    so since \(g \in \Ide(\Van(\mfk{a}))\), \(g(\vb{a}) = 0\),
+    which when substituted into the equation above, yields \(1 = 0\), which is a contradiction.
+
+    Now, since \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    the \hyperref[lem:weak-nullstellensatz]{weak Nullstellensatz}
+    asserts that \((f_1,\hdots,f_n,1-yg) = K[x_1,\hdots,x_n,y]\) is the whole ring.
+    In particular, \(1 \in (f_1,\hdots,f_n,1-yg)\),
+    so we can write 1 as a linear combination
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i f_i + h_0(1-yg)
+    \end{equation*}
+    for \(h_i \in K[x_1,\hdots,x_n,y]\).
+    If we substitute \(y \mapsto 1/g\), we can get that
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x}) = \frac{F}{g^N}
+    \end{equation*}
+    after finding the common denominator and pushing the sum of numerators into \(F\).
+    But cancelling out the denominator gives us
+    \begin{equation*}
+        g^N = \sum_{i=1}^n g^N h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x})
+        \in (f_1,\hdots,f_n) = \mfk{a}
+    \end{equation*}
+    which is exactly the definition of \(g \in \sqrt{\mfk{a}}\).
 \end{proof}
+\begin{remark}
+    The method of proving the full Nullstellensatz from its weak form
+    is introduced by Rabinowitsch in 1930,
+    and is commonly called the Rabinowitsch trick.
+\end{remark}
