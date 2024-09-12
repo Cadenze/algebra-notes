@@ -5,6 +5,37 @@
     and assume that it is algebraically closed unless otherwise noted.
 \end{remark}
 
+\begin{remark}
+    We shall recall several definitions from topology
+    before we resume our discussion on algebra.
+\end{remark}
+\begin{definition}
+    A topological space is a tuple \((X,\mca{T})\),
+    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\emptyset,X \in \mca{T}\);
+        \item closed under finite intersections
+            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
+        \item closed under arbitrary unions
+            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
+    \end{enumerate}
+    Elements in \(\mca{T}\) are called open,
+    while the complement of these elements are called closed.
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
+    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that they are disjoint \(U \cap V = \emptyset\).
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is considered quasi-compact
+    if every open cover of \(X\) has a finite subcover.
+    A topological space \(X\) is considered compact
+    if it is quasi-compact and Hausdorff.
+\end{definition}
+
+
 \section{Affine Varieties}
 
 \subsection*{Algebraic Subsets}
@@ -159,7 +190,7 @@
 \begin{proof}
     The empty set \(\emptyset = \Van(1)\) and the entire space \(\bA^n = \Van(0)\)
     are both algebraic, so they are closed.
-    From the \hyperref[prop:algebraic-subset-properties]{proposition above},
+    From the \hyperref[prop:vanishing-locus-properties]{proposition above},
     arbitrary unions and finite intersections of algebraic sets are algebraic,
     so such arbitrary unions and finite intersections of closed sets are closed.
 \end{proof}
@@ -298,3 +329,97 @@
     is introduced by Rabinowitsch in 1930,
     and is commonly called the Rabinowitsch trick.
 \end{remark}
+
+\begin{proposition}\label{prop:associated-ideal-properties}
+    Suppose \(X_i \subseteq \bA^n\) are algebraic sets.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Ide(\bigcap X_i) = \bigcup \Ide(X_i)\); and
+        \item \(\Ide(X_1 \cup X_2) = \Ide(X_1)\Ide(X_2) = \Ide(X_1) \cap \Ide(X_2)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For (a), let \(X_i = \Van(\mfk{a}_i)\)
+    and simply apply \(\Ide\) over Proposition~\ref{prop:vanishing-locus-properties}.
+
+    Similarly do so for part (b),
+    and then use the fact that for radical ideals,
+    the intersection is the same as the product
+    (Proposition~\ref{prop:radical-properties}).
+\end{proof}
+
+\subsection*{Noetherian Topological Spaces}
+
+\begin{definition}
+    A topological space \(X\) is irreducible if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(X \neq \emptyset\); and
+        \item if \(X = X_1 \cup X_2\) for closed \(X_1,X_2\),
+            then \(X = X_1\) or \(X = X_2\).
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    An algebraic subset \(X \subseteq \bA^n\) is irreducible
+    if and only if \(I(X) \subseteq K[x_1,\hdots,x_n]\) is prime.
+\end{proposition}
+\begin{proof}
+    Suppose \(X \subseteq \bA^n\) is irreducible,
+    and consider \(fg \in I(X)\).
+    Then \(X \subseteq \Van(fg) = \Van(f) \cup \Van(g)\)
+    (Lemma~\ref{lem:iv-inclusion-reversing} \&~Proposition~\ref{prop:vanishing-locus-properties}),
+    so \(X = (X \cap \Van(f)) \cup (X \cap \Van(g))\).
+    Then by irreducibility, \(X = X \cap \Van(f)\) or \(X = X \cap \Van(g)\),
+    so \(X \subseteq \Van(f)\) or \(X \subseteq \Van(g)\),
+    and hence \(f \in \Ide(X)\) or \(g \in \Ide(X)\).
+
+    For the reverse direction, suppose \(\Ide(X)\) is prime,
+    and \(X = X_1 \cup X_2\).
+    Then \(\Ide(X) = \Ide(X_1 \cup X_2) = \Ide(X_1) \cap \Ide(X_2)\)
+    (Proposition~\ref{prop:associated-ideal-properties}).
+    If \(X = X_1\), then we are done.
+    On the other hand, if \(X_1 \subsetneq X\),
+    then \(\Ide(X) \subsetneq \Ide(X_1)\) (Lemma~\ref{lem:iv-inclusion-reversing}).
+    Let us consider \(g \in \Ide(X_1) - \Ide(X)\).
+    Then for any arbitrary \(f \in \Ide(X_2)\),
+    \(fg \in \Ide(X_1)\Ide(X_2) = \Ide(X_1) \cap \Ide(X_2) = \Ide(X)\),
+    which by primeness, since \(g \notin \Ide(X)\),
+    imply \(f \in \Ide(X)\).
+    In turn, \(\Ide(X_2) \subseteq \Ide(X)\),
+    so \(X \subseteq X_2\) as desired.
+\end{proof}
+\begin{definition}
+    An irreducible algebraic set is an affine variety.
+\end{definition}
+
+\begin{proposition}
+    Suppose \(X\) is a topological space.
+    The following are equivalent:
+    \begin{enumerate}[label={(\roman*)}]
+        \item every chain of descending closed sets \(X_1 \supseteq X_2 \supseteq \cdots\)
+            eventually becomes stationary \(X_n = X_{n+1} = \cdots\);
+        \item every open subset is quasi-compact; and
+        \item every subset is quasi-compact.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first prove (ii) implies (i).
+    Consider an arbitrary descending chain of closed sets \(X_1 \supseteq X_2 \supseteq \cdots\).
+    Then we have an ascending chain of open sets \(X_1^c \subseteq X_2^c \subseteq \cdots\),
+    and we know that the arbitrary union \(Y = \bigcup X_i^c\) is an open set.
+    Let \({\{X_i^c\}}_{i=1}^\infty\) be an open cover of \(Y\),
+    and let \(X_n\) be the largest set in the finite subcover.
+    Then \(X_i \subseteq Y \subseteq X_n\) and we are done.
+
+    We then prove (i) implies (iii).
+    Suppose \(Y \subseteq X\), and let \({\{U_i\}}\) be an open cover of \(Y\).
+    Let \(U_1 \subseteq U_1 \cup U_2 \subseteq \cdots\) be an ascending chain of open sets,
+    so their complements form a descending chain of closed sets.
+    Since it must become stationary at some \(U_n^c\).
+    Then we have our finite subcover \({\{U_i\}}_{i=1}^n\).
+
+    Finally, (iii) implies (ii) trivially.
+\end{proof}
+\begin{definition}
+    If a topological space \(X\) satisfies any of the conditions above,
+    then we say \(X\) is Noetherian.
+\end{definition}
