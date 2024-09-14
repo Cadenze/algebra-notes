@@ -242,46 +242,191 @@
 \section{Integers}
 
 \begin{definition}
-    Suppose we have integers \(a,b\).
-    The greatest common denominator, or gcd
-    is the largest integer \(n\) such that \(n \mid a\) and \(n \mid b\).
-    This is often denoted \(\gcd(a,b)\) or simply \((a,b)\).
-    The least common multiple, or lcm
-    is the smallest integer \(m\) such that \(a \mid m\) and \(b \mid m\).
-    This is often denoted \(\lcm(a,b)\) or simply \([a,b]\).
+    Suppose we have integers \(a,b \in \bZ\).
+    If there exists \(c \in \bZ\) such that \(b = ac\),
+    then we say \(a\) divides \(b\) or \(b\) is a multiple of \(a\),
+    often denoted \(a \mid b\).
 \end{definition}
+\begin{proposition}\label{prop:divisibility-properties}
+    We have the following general properties for divisibility:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(a \mid b\), then \((-a) \mid b\) and \(a \mid (-b)\);
+        \item \(1 \mid b\), \(a \mid a\), and \(a \mid 0\) for all \(a,b \in \bZ\);
+        \item if \(c \neq 0\), then \(a \mid b\) if and only if \(ca \mid cb\); and
+        \item \(a \mid b\) and \(a \mid c\) implies \(a \mid (bx+cy)\) for all \(x,y \in \bZ\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(a \mid b\). Then there exists \(c\) such that \(b = ac\).
+    Then \(b = (-a)(-c)\) and \(-b = a(-c)\) as desired.
+    This proves statement (a).
 
-\begin{theorem}[Euclid's Lemma]\label{lem:euclid}
-    Suppose we have prime \(p\) and integers \(a,b\).
-    If \(p \mid ab\), then \(p \mid a\) or \(p \mid b\).
+    \(b = 1 \cdot b\), \(a = a \cdot 1\), and \(0 = a \cdot 0\).
+    This proves statement (b).
+
+    If \(a \mid b\), then there exists \(d\) such that \(b = ad\),
+    so \(cb = cad\) and \(ca \mid cb\) as desired.
+    If \(ca \mid cb\), then there exists \(d\) such that \(cb = cad\),
+    and when we cancel out \(c\) on both sides,
+    we get \(b = ad\) and \(a \mid b\) as desired.
+    This proves statement (c).
+
+    Suppose \(a \mid b\) and \(a \mid c\).
+    Then there exists \(d,e\) such that \(b = ad\) and \(c = ae\).
+    We have \(bx+cy = axd + aye = a(xd + ye)\).
+    This proves statment (d).
+\end{proof}
+
+\begin{theorem}[Division Algorithm]\label{thm:division}
+    Suppose \(a \in \bN\) and \(b \in \bZ\).
+    Then there exists unique \(q,r \in \bZ\)
+    such that \(b = aq + r\) and \(0 \leq r < a\).
+    \(q\) is called the quotient, and \(r\) is called the remainder.
 \end{theorem}
 \begin{proof}
-    Suppose \(p \nmid a\).
-    Since \(p \mid ab\),
-    there exists an integer \(q\) such that \(pq = ab\).
+    We first prove the existence of such \(q,r\).
+    Consider the set \(R = \{b-an: n \in \bZ\} \cap \bZ_{\geq 0}\).
+    By the \hyperref[ax:well-order]{well-ordering principle},
+    suppose \(r \in R\) is minimal.
+    Then \(r = b-aq\) for some \(q\).
+    We note that \(r \geq 0\) already.
+    Now, if by way of contradiction that \(r \geq a\),
+    then \(0 \leq r-a < r\),
+    and we see that \(r-a = (b-aq) - a = b - a(1+q) \in R\).
+    This contradicts minimality of \(r \in R\),
+    so we conclude that \(0 \leq r < a\).
 
-    We first prove the base case,
-    supposing that \(ab = 2\).
-    Then the only prime that divides it is 2,
-    and we know that \(a = 1\) and \(b = 2\),
-    so clearly \(p \mid b\).
+    We now prove uniqueness.
+    Suppose, that we have \(b = aq + r = aq' + r'\) for some other \(q',r'\).
+    Without loss of generality, let \(0 \leq r' \leq r < a\).
+    Then we have \(r-r' = (b-aq) - (b-aq') = a(q'-q)\),
+    so this implies \(a \mid (r-r')\).
+    But then \(0 \leq r-r' \leq r < a\),
+    so if \(r-r' > 0\), notice that \(a \leq r-r'\) because the smaller number divides a bigger one,
+    which gives us a contradiction,
+    and we must conclude that \(r-r' = 0\).
+    Then by simple computation, \(q = q'\).
+\end{proof}
+\begin{corollary}
+    \(a \mid b\) if and only if the remainder is 0.
+\end{corollary}
+\begin{proof}
+    If \(r = 0\), then \(b = aq\) as desired.
+    If \(a \mid b\), then by uniqueness, \(b = aq + 0\).
+\end{proof}
 
-    Now proceeding by induction,
-    suppose that all values smaller than \(ab\) are proven.
-    If \(p < a\),
-    then \(pq - pb = ab - pb\),
-    which gives us \(p(q-b) = (a-p)b\),
-    i.e.\ \(p \mid (a-p)b\).
-    Notice that \(p \nmid a-p\),
-    and that \((a-p)b < ab\),
-    so Euclid's lemma holds by the induction hypothesis.
-    If \(p > a\),
-    then \(pb - npq = pb - nab\),
-    which gives us \(p(b-nq) = (p-na)b\),
-    i.e.\ \(p \mid (p-na)b\).
-    Notice that \(p \nmid p-a\),
-    and that there exists an \(n\) such that \((p-na)b < ab\),
-    which completes our proof.
+\begin{definition}
+    Suppose we have integers \(a,b \in \bZ\), not both zero.
+    The greatest common denominator, or gcd
+    is the largest natural number \(n \in \bN\) such that \(n \mid a\) and \(n \mid b\).
+    This is often denoted \(\gcd(a,b)\) or simply \((a,b)\).
+    The least common multiple, or lcm
+    is the smallest natural number \(m \in \bN\) such that \(a \mid m\) and \(b \mid m\).
+    This is often denoted \(\lcm(a,b)\) or simply \([a,b]\).
+\end{definition}
+\begin{theorem}[B\'{e}zout's Identity]\label{thm:bezout}
+    Suppose \(a,b \in \bZ\) are not both zero.
+    Let \(S = \{ax+by: x,y \in \bZ\}\).
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(n \in S\) if and only if \((a,b) \mid n\);
+        \item \((a,b)\) is the smallest positive element of \(S\); and
+        \item if \(c \mid a\) and \(c \mid b\), then \(c \mid (a,b)\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Since \((a,b) \mid a\) and \((a,b) \mid b\),
+    by Proposition~\ref{prop:divisibility-properties},
+    \((a,b) \mid (ax+by)\) for any linear combination.
+    This proves the forward direction of (a).
+    
+    Suppose \(m = \min(S \cap \bN)\) is the smallest positive element,
+    which can be written as some \(m = au+bv\).
+    By the previous claim, \((a,b) \mid m\), so \((a,b) \leq m\).
+    Now, by the \hyperref[thm:division]{division algorithm},
+    \(a = mq + r\) for some \(0 \leq r < m\).
+    If, by way of contradiction, that \(m \nmid a\), then \(r > 0\),
+    and we have \(r = a-mq = a - (au+bv)q = a(1-uq) + b(-vq) \in S\),
+    which contradicts minimality.
+    Hence we conclude that \(m \mid a\),
+    and similarly we should have \(m \mid b\).
+    Hence \(m\) is a common divisor of \(a,b\),
+    which gives us \(m \leq (a,b)\).
+    This proves statement (b).
+
+    Now suppose \((a,b) \mid n\).
+    Then for some \(c\), \(n = (a,b)c = (au+bv)c = a(uc) + b(vc) \in S\).
+    This proves the reverse direction of (a).
+
+    Lastly, if \(c \mid a\) and \(c \mid b\), then \(c \mid (au+bv) = (a,b)\).
+    This proves statement (c).
+\end{proof}
+
+\begin{proposition}\label{prop:gcd-mult}
+    Suppose \(a,b \in \bZ\) are not both zero, and \(m \in \bN\).
+    Then \((ma,mb) = m(a,b)\).
+\end{proposition}
+\begin{proof}
+    Let \(g = (a,b)\).
+    We see that since \(g \mid a\) and \(g \mid b\),
+    we have \(mg \mid ma\) and \(mg \mid mb\),
+    so \(mg \mid (ma,mb)\) and \(mg \leq (ma,mb)\).
+    But \(mg = (ma)x + (mb)y\) is a positive linear combination,
+    so \(mg \geq (ma,mb)\) by \hyperref[thm:bezout]{B\'ezout's identity}.
+\end{proof}
+\begin{corollary}
+    If \(m \mid c\) and \(m \mid d\), then \((c/m,d/m) = (c,d)/m\).
+    In particular \((c/(c,d),d/(c,d)) = 1\).
+\end{corollary}
+\begin{proof}
+    Apply the \hyperref[prop:gcd-mult]{proposition above}
+    to \(c = ma\) and \(d = mb\).
+    Then apply that conclusion to \(m = (c,d)\).
+\end{proof}
+
+\begin{definition}
+    \(a,b\) are relatively prime or coprime if \((a,b) = 1\).
+\end{definition}
+\begin{proposition}
+    If \((a,n) = (b,n) = 1\), then \((ab,n) = 1\).
+\end{proposition}
+\begin{proof}
+    By \hyperref[thm:bezout]{B\'ezout's identity},
+    we have \(1 = (a,n) = au+nv\) and \(1 = (b,n) = bx+ny\).
+    Then \(1 = (au+nv)(bx+ny) = ab(ux) + n(vbx+auy+nvy)\)
+    is the smallest linear combination of \(ab\) and \(n\),
+    so \(1 = (ab,n)\).
+\end{proof}
+\begin{proposition}
+    Suppose \((a,b) = 1\). If \(a \mid c\) and \(b \mid c\), then \(ab \mid c\).
+\end{proposition}
+\begin{proof}
+    Let \(c = am = bn\), and \(ax+by = 1\).
+    Then \(c = c(ax+by) = cax + cby = (bn)ax + (am)by = ab(nx+my)\).
+\end{proof}
+\begin{theorem}\label{thm:coprime-divisors}
+    If \(d \mid ab\) and \((d,b) = 1\), then \(d \mid a\).
+\end{theorem}
+\begin{proof}
+    Let \(ab = dn\) and \(du+bv = 1\).
+    Then \(dnv = abv = a(1-du) = a - adu\),
+    which implies that \(a = dnv + adu = d(nv+au)\).
+\end{proof}
+\begin{proposition}
+    Suppose \(d \mid a\).
+    Then for all \(x \in \bZ\),
+    \(d \mid b\) if and only if \(d \mid (b+ax)\).
+\end{proposition}
+\begin{proof}
+    The forward direction is obvious.
+    Now suppose \(d \mid a\) and \(d \mid (b+ax)\).
+    Then \(d \mid (b+ax)+a(-x) = b\).
+\end{proof}
+\begin{corollary}
+    \((a,b) = (a,b+ax)\).
+\end{corollary}
+\begin{proof}
+    Since the divisors are the same, the greatest one in particular should also be the same.
 \end{proof}
 \begin{remark}
     This is essentially how the Euclidean algorithm for finding gcd works.
@@ -290,30 +435,22 @@
     which allows us to reduce the problem to a smaller case.
 \end{remark}
 
-\begin{theorem}[B\'{e}zout's Identity]\label{thm:bezout}
-    Suppose \(\gcd(a,b) = d\).
-    Then there exists \(m,n \in \bZ\) such that \(ma + nb = d\).
-    Moreover, for any \(p,q \in \bZ\)
-    we have \(d \mid pa + qb\).
+\begin{definition}
+    \(n \in \bZ\) is a unit if it has a multiplicative inverse \(n^{-1} \in \bZ\)
+    such that \(n^{-1}n = nn^{-1} = 1\).
+    \(n \in \bZ\) is irreducible if there are exactly two positive divisors.
+    \(n \in \bZ\) is composite if there are three or more positive divisors.
+\end{definition}
+\begin{definition}
+    \(p \in \bZ\) is prime if \(p \mid ab\) implies \(p \mid a\) or \(p \mid b\).
+\end{definition}
+\begin{theorem}[Euclid's Lemma]\label{lem:euclid}
+    Irreducible elements are prime.
 \end{theorem}
 \begin{proof}
-    Without loss of generality, let \(a \leq b\).
-    If \(a = b\), then clearly \(d = a = b\) which is in our desired form.
-    If not, then since we know that we can find some \(b - na \leq a\),
-    which reduces the case down to a smaller number
-    while always keeping the numbers that we are taking the gcd of
-    in the form \(ma + nb\).
-    Eventually, \(d\) must equal one of these numbers.
-
-    Then we write \(pa + qb = (p-m)a + (q-n)b + ma + nb
-    = (p-m)a + (q-n)b + d\).
-    Since \(d \mid a\) and \(d \mid b\),
-    we have our desired result.
+    \(p \mid ab\) and \(p \nmid b\) implies that \((p,b) = 1\).
+    Then \(p \mid a\) using Theorem~\ref{thm:coprime-divisors}.
 \end{proof}
-\begin{remark}
-    One might use B\'{e}zout's identity to prove Euclid's lemma,
-    but both proofs essentially come from the Euclidean algorithm.
-\end{remark}
 
 \begin{theorem}[Fundamental Theorem of Arithmetic]
     Every integer greater than 1 factors uniquely into a product of primes.
