@@ -1338,3 +1338,96 @@
 \begin{proof}
     
 \end{proof}
+
+\section{Artinian Rings}
+
+\begin{remark}
+    Despite its superficial connection with Noetherian rings,
+    the theory of Artinian rings is much simpler.
+\end{remark}
+
+\begin{proposition}\label{prop:artinian-prime-maximal}
+    Prime ideals are maximal in Artinian rings.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    The nilradical is the same as the Jacobson radical in Artinian rings.
+\end{corollary}
+\begin{proof}
+    The nilradical is the intersection of all prime ideals,
+    and the Jacobson radical is the intersection of all maximal ideals,
+    which we note by the \hyperref[prop:artinian-prime-maximal]{proposition above}
+    to be the same object.
+\end{proof}
+
+\begin{proposition}
+    Artinian rings have finitely many maximal ideals.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    The nilradical in Artinian rings is nilpotent.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(\mfk{p} \subseteq R\) a prime ideal.
+    The height of \(\mfk{p}\) is
+    \(\height\mfk{p} = \sup\{n: \mfk{p}_0 \subsetneq \mfk{p}_1 \subsetneq \cdots \subsetneq \mfk{p}_n = \mfk{p}\}\),
+    the length of the longest strictly ascending chain of prime ideals terminating at \(\mfk{p}\).
+    The Krull dimension of \(R\) is \(\dim R = \sup_{\mfk{p}\,\text{prime}}\height\mfk{p}\),
+    the length of the longest strictly ascending chain of prime ideals.
+\end{definition}
+\begin{theorem}
+    Suppose \(R\) is a ring.
+    \(R\) is Artinian if and only if \(R\) is Noetherian with \(\dim R = 0\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \((R,\mfk{m})\) is a Noetherian local ring.
+    Then \(\mfk{m}^n = 0\) for some \(n\) if and only if \(\mfk{m}^k = \mfk{m}^{k+1}\) for some \(k\).
+    In that case, \(R\) is an Artinian local ring.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Structure Theorem for Artinian Rings]
+    Any Artinian ring \(R\) can be uniquely written as
+    a finite direct sum of Artinian local rings \(R = \bigoplus_{i=1}^r R_i\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \((R,\mfk{m})\) is an Artinian local ring.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(R\) is a PID;
+        \item \(\mfk{m}\) is a principal ideal; and
+        \item the vector space dimension \(\dim_{R/\mfk{m}}(\mfk{m}/\mfk{m}^2) \leq 1\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(K\) is a field, and \(R\) is finite-type over \(K\).
+    \(R\) is Artinian if and only if \(R\) is finite over \(K\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Dimension Theory}
