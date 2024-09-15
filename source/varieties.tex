@@ -273,7 +273,7 @@
     (Lem~\ref{lem:iv-inclusion-reversing}),
     \((a_1,\hdots,a_n) \in \Van(\mfk{m}) \subseteq \Van(\mfk{a})\).
 \end{proof}
-\begin{theorem}[Hilbert's Nullstellensatz]\label{thm:nullstellensatz}
+\begin{theorem}[Hilbert's Nullstellensatz, `zero-point theorem']\label{thm:nullstellensatz}
     There is a bijection between the algebraic subsets of \(\bA^n\)
     and the radical ideals of \(K[x_1,\hdots,x_n]\),
     using the operations \(\Van\) and \(\Ide\).
@@ -391,7 +391,7 @@
     An irreducible algebraic set is an affine variety.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:noetherian-top-condition}
     Suppose \(X\) is a topological space.
     The following are equivalent:
     \begin{enumerate}[label={(\roman*)}]
@@ -423,3 +423,110 @@
     If a topological space \(X\) satisfies any of the conditions above,
     then we say \(X\) is Noetherian.
 \end{definition}
+\begin{lemma}\label{lem:affine-noetherian}
+    Affine \(n\)-spaces \(\bA^n\) are Noetherian.
+\end{lemma}
+\begin{proof}
+    By the \hyperref[thm:nullstellensatz]{Nullstellensatz},
+    every descending chain of closed (algebraic) sets
+    corresponds to an ascending chain of radical ideals in \(K[x_1,\hdots,x_n]\),
+    The \hyperref[cor:hilbert-basis]{Hilbert basis theorem}
+    then guarantees that \(K[x_1,\hdots,x_n]\) is Noetherian.
+\end{proof}
+\begin{proposition}
+    Suppose \(X\) is a Noetherian topological space.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item any subspace \(Y \subseteq X\) is Noetherian;
+        \item if \(\func{f}{X}{Y}\) is continuous, then \(f(X) \subseteq Y\) is Noetherian;
+        \item if \({\{X_i\}}_{i=1}^n \subseteq X\) are Noetherian,
+            then \(\bigcup_{i=1}^n X_i \subseteq X\) is Noetherian; and
+        \item if \(X\) is also Hausdorff, then \(X\) is a finite set with discrete topology.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since any subset of \(X\) is quasi-compact,
+    any subset of \(Y\) is also a subset of \(X\),
+    which will be quasi-compact.
+    This proves statement (a).
+
+    Consider any open subset of \(U \subseteq f(X)\).
+    Since the preimage \(f^{-1}(U) \subseteq X\) is also open,
+    by the Noetherian condition,
+    it is also quasi-compact.
+    We then cite the topological fact that continuous images of quasi-compact sets are quasi-compact,
+    so \(U\) is indeed quasi-compact.
+    This proves statement (b).
+
+    Consider any subset \(Y \subseteq \bigcup_{i=1}^n X_i\),
+    and an open cover \(\{U_\alpha\}\) of \(Y\).
+    Then if we let \(Y_i = Y \cap X_i\),
+    \(U_\alpha \cap Y_i\) is an open cover of a subset of \(X_i\),
+    which will have a finite subcover \({\{U_{ij}\}}_{j=1}^{m_i}\).
+    Then \(\bigcup_{i=1}^n {\{U_{ij}\}}_{j=1}^{m_i}\) is a finite subcover of \(Y\).
+    This proves statement (c).
+
+    If \(X\) is Noetherian and Hausdorff,
+    then every subset is compact, which is closed.
+    In the same vein, every subset is the complement of a closed set,
+    which implies every subset is open.
+    This immediately shows that \(X\) has a discrete topology.
+    % Then suppose, by way of contradiction, that \(X\) is infinite.
+    Because \(X\) is compact, consider the open cover by singletons \({\{\{p\}\}}_{p \in X}\).
+    Immediately we can see that any finite subcover must only contain finitely many points in \(X\),
+    so for \(X\) to always have a finite subcover, it must be a finite set.
+    This proves statement (d).
+\end{proof}
+
+\begin{theorem}\label{thm:noetherian-irr-decomp}
+    Suppose \(X\) is Noetherian.
+    Then \(X\) can be written as \(X = X_1 \cup \cdots \cup X_n\),
+    where \(X_i\) are irreducible and irredundant (none of the \(X_i\) are contained in the union of the others).
+    The \(X_i\) are called irreducible components,
+    and are thus unique up to reordering.
+\end{theorem}
+\begin{proof}
+    Consider \(I\), the set of all closed subsets of \(X\)
+    that are not a finite union of irreducible closed subsets.
+    Suppose, by way of contradiction, that \(I\) is not empty.
+    Then using the partial ordering of set inclusion,
+    since every descending chain of closed subsets must eventually stabilize
+    (Proposition~\ref{prop:noetherian-top-condition}),
+    by \hyperref[ax:zorn]{Zorn's lemma},
+    there exists a minimal element \(Z \in I\).
+    Since \(Z\) is not a union of irreducible components,
+    in particular \(Z\) cannot be itself an irreducible component,
+    so \(Z = Z_1 \cup Z_2\) for some closed \(Z_1,Z_2\),
+    and \(Z_1,Z_2 \subsetneq Z\) are proper subsets.
+    By minimality of \(Z\), \(Z_1,Z_2 \notin I\),
+    so they are a finite union of irreducible closed subsets
+    \(Z_1 = A_1 \cup \cdots \cup A_n\) and \(Z_2 = B_1 \cup \cdots \cup B_m\).
+    But then \(Z = A_1 \cup \cdots \cup A_n \cup B_1 \cup \cdots \cup B_m\)
+    is a contradiction.
+    This shows the existence of an irreducible decomposition of \(X\).
+
+    Now suppose we have two irredundant irreducible decompositions
+    \(X = X_1 \cup \cdots \cup X_m = Y_1 \cup \cdots \cup Y_n\).
+    We can see that any \(Y_i \subseteq X_1 \cup \cdots \cup X_m\),
+    so \(Y_i = (Y_i \cap X_1) \cup \cdots \cup (Y_i \cap X_m)\).
+    Because \(Y_i\) is irreducible,
+    it cannot be a union of irreducible sets,
+    so \(Y_i = Y_i \cap X_j\) for some \(j\), and \(Y_i \subseteq X_j\).
+    But by similar logic, \(X_j \subseteq Y_k\) for some \(k\).
+    Because the decompositions are irredundant,
+    \(Y_i \subseteq X_j \subseteq Y_k\) only when \(Y_i = Y_k\),
+    which gives us \(Y_i = X_j\).
+    This proves uniqueness of irredundant decompositions.
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is finite-type over field \(K\).
+    Then any radical ideal \(\mfk{a} \subseteq R\) has a unique irredundant prime decomposition.
+\end{corollary}
+\begin{proof}
+    We first prove the special case of \(R = K[x_1,\hdots,x_n]\).
+    Applying the \hyperref[thm:noetherian-irr-decomp]{theorem above} to \(\bA^n\)
+    and then using the \hyperref[thm:nullstellensatz]{Nullstellensatz},
+    any radical ideal is a unique intersection of primes.
+    An application of the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    then suffices to extend this argument to any \(K[x_1,\hdots,x_n]/\mfk{b}\).
+\end{proof}
