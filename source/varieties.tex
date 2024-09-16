@@ -5,36 +5,6 @@
     and assume that it is algebraically closed unless otherwise noted.
 \end{remark}
 
-\begin{remark}
-    We shall recall several definitions from topology
-    before we resume our discussion on algebra.
-\end{remark}
-\begin{definition}
-    A topological space is a tuple \((X,\mca{T})\),
-    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
-    such that:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(\emptyset,X \in \mca{T}\);
-        \item closed under finite intersections
-            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
-        \item closed under arbitrary unions
-            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
-    \end{enumerate}
-    Elements in \(\mca{T}\) are called open,
-    while the complement of these elements are called closed.
-\end{definition}
-\begin{definition}
-    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
-    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
-    such that they are disjoint \(U \cap V = \emptyset\).
-\end{definition}
-\begin{definition}
-    A topological space \(X\) is considered quasi-compact
-    if every open cover of \(X\) has a finite subcover.
-    A topological space \(X\) is considered compact
-    if it is quasi-compact and Hausdorff.
-\end{definition}
-
 
 \section{Affine Varieties}
 

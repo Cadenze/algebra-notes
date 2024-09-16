@@ -1431,3 +1431,79 @@
 
 
 \section{Dimension Theory}
+
+\subsection*{Topology}
+
+\begin{remark}
+    We shall recall several definitions from topology
+    before we resume our discussion on algebra.
+\end{remark}
+\begin{definition}
+    A topological space is a tuple \((X,\mca{T})\),
+    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\emptyset,X \in \mca{T}\);
+        \item closed under finite intersections
+            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
+        \item closed under arbitrary unions
+            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
+    \end{enumerate}
+    Elements in \(\mca{T}\) are called open,
+    while the complement of these elements are called closed.
+\end{definition}
+\begin{definition}
+    Suppose \(\func{f}{X}{Y}\) is a map between topological spaces.
+    \(f\) is a homeomorphism if it is bijective,
+    and both \(f\) and \(f^{-1}\) are continuous.
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
+    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that they are disjoint \(U \cap V = \emptyset\).
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is considered quasi-compact
+    if every open cover of \(X\) has a finite subcover.
+    A topological space \(X\) is considered compact
+    if it is quasi-compact and Hausdorff.
+\end{definition}
+
+\begin{definition}
+    \(G\) is a topological abelian group
+    if it is both a topological space and an additive abelian group,
+    where both addition \(\func{+}{G \times G}{G}\)
+    and inversion \(\func{-}{G}{G}\) are continuous maps.
+\end{definition}
+\begin{lemma}
+    Suppose \(G\) is a topological abelian group.
+    Let \(g \in G\) be some element.
+    We have:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item the translation map \(\vfunc{T_g}{G}{G}{x}{x+g}\) is homeomorphic; and
+        \item if \(U \ni 0\) is a neighbourhood, then \(U+g \ni g\) is a neighbourhood,
+            and are the only neighbourhoods of \(g\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{lemma}
+    Suppose \(H\) is the intersection of all neighbourhoods of \(0 \in G\).
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(H \subseteq G\) is a subgroup;
+        \item \(H\) is the closure of \(\{0\}\);
+        \item \(G/H\) is Hausdorff; and
+        \item \(G\) is Hausdorff if and only if \(H = 0\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+
+\subsection*{Filtrations}
+
+\subsection*{Graded Rings and Modules}
+
+\subsection*{Noetherian Local Rings}
