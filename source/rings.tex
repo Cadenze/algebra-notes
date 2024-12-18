@@ -249,6 +249,19 @@
     Right distributivity follows similarly.
 \end{proof}
 
+\begin{lemma}
+    Suppose \(S\) is some arbitrary set, and \(R\) is a ring.
+    Then the set of functions from \(S \to R\), denoted \(\Func{S,R}\),
+    forms a ring.
+\end{lemma}
+\begin{proof}
+    Denote the zero function \(0(x) = 0\) for all \(x \in S\).
+    Then \((f+g)(x) = f(x) + g(x)\) inherits all additive properties from \(R\).
+    Similarly define the identity function \(1(x) = 1\) for all \(x \in S\).
+    Then \((fg)(x) = f(x)g(x)\) inherits all multiplicative properties from \(R\).
+    Distributivity follows immediately.
+\end{proof}
+
 
 \section{Examples}\label{sec:matrix-rings}
 
@@ -1486,7 +1499,7 @@
 
     It now suffices to prove that
     the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
-    preserves prime ideals an intersections.
+    preserves prime ideals and intersections.
     Suppose \(\mfk{p} \subseteq R\) is a prime ideal containing \(\mfk{a}\).
     Then if \(x,y \notin \mfk{p}\), then \(xy \notin \mfk{p}\), in particular \(x,y \notin \mfk{a}\);
     so \([x],[y] \notin \mfk{p/a}\), and \([xy] \notin \mfk{p/a}\).
@@ -2159,9 +2172,9 @@
 \end{remark}
 \begin{proposition}
     \(R[x]\) forms a ring with addition
-    \(\sum a_i x_i + \sum b_i x_i = \sum (a_i+b_i) x_i\)
+    \(\sum a_i x^i + \sum b_i x^i = \sum (a_i+b_i) x^i\)
     and multiplication
-    \((\sum a_i x_i)(\sum b_j x_j) = \sum_k (\sum_{i+j=k} a_i b_j) x_k\).
+    \((\sum a_i x^i)(\sum b_j x^j) = \sum_k (\sum_{i+j=k} a_i b_j) x^k\).
 \end{proposition}
 \begin{proof}
     Addition is term-wise and inherits all properties from \(R\).
@@ -3195,7 +3208,7 @@
     so \(f\) factors in \(R[x]\) too,
     which is a contradiction.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:polynomial-ring-ufd}
     Suppose \(R\) is a UFD.\@
     Then \(R[x]\) is also a UFD.\@
 \end{theorem}

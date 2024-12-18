@@ -89,7 +89,7 @@
     and \(S = R - \mfk{p}\).
     Then we call \(S^{-1}R = R_\mfk{p}\) to be the localization of \(R\) at \(\mfk{p}\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:prime-local-ring}
     Suppose \(R\) is a ring, and \(\mfk{p} \subseteq R\) is a prime ideal.
     \((R_\mfk{p},\mfk{p}R_\mfk{p})\) forms a local ring.
 \end{proposition}
@@ -730,36 +730,55 @@
 \end{definition}
 \begin{definition}
     Suppose \(R\) is an \(A\)-algebra, and \(x \in R\).
-    We say \(x\) is integral over \(A\) if it satisfies a monic polynomaial
+    We say \(x\) is integral over \(A\) if it satisfies a monic polynomial
     \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
-    We say \(x\) is algebraic over \(A\) if it satisfies a polynomaial
+    We say \(x\) is algebraic over \(A\) if it satisfies a polynomial
     \(a_0 x^n + a_1 x^{n-1} + \cdots + a_n = 0\) for \(a_i \in A\).
 \end{definition}
 \begin{definition}
     \(A \subseteq R\) is integral if every \(x \in R\) is integral over \(A\).
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:integral-finite}
     Suppose \(R\) is an \(A\)-algebra.
-    \(x \in R\) is integral over \(A\) if and only if \(A[x]\) is a finite \(A\)-algebra.
+    \(x \in R\) is integral over \(A\) if and only if \(A[x]\) is finite over \(A\).
 \end{lemma}
 \begin{proof}
-    
+    Suppose \(x\) is integral over \(A\),
+    with \(x^n + a_1x^{n-1} + \cdots + a_n = 0\).
+    Then any element \(f \in A[x]\) can be written as a polynomial of degree at most \(n-1\) over \(x\),
+    as any \(x^n\) factors can be reduced to a polynomial of degree at most \(n-1\).
+
+    Suppose \(A[x]\) is finite over \(A\).
+    Then consider the map \(\vfunc{\phi}{A[x]}{A[x]}{f}{xf}\) that multiplies by \(x\).
+    By the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton Theorem},
+    \(0 = \phi^n + a_1\phi^{n-1} + \cdots + a_n = x^n + a_1 x^{n-1} + \cdots + a_n\) as desired.
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is an \(A\)-algebra.
     If \(x \in R\) is integral over \(A\),
     then \(A[x]\) is integral over \(A\).
+    Hence finite extensions are integral.
 \end{corollary}
 \begin{proof}
-    
+    Consider any element \(y \in A[x]\),
+    and the map \(\vfunc{\phi}{A[x]}{A[x]}{f}{yf}\) that multiplies by \(y\).
+    By the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton Theorem},
+    \(0 = \phi^n + a_1\phi^{n-1} + \cdots + a_n = y^n + a_1 y^{n-1} + \cdots + a_n\) as desired.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:finite-type-integral}
     Suppose \(R\) is an \(A\)-algebra,
     and \({\{x_i\}}_{i=1}^n \subset R\) are all integral over \(A\).
     Then \(A[x_1,\hdots,x_n]\) is finite over \(A\).
+    Hence extensions are finite if and only if they are both finite-type and integral.
 \end{corollary}
 \begin{proof}
-    
+    Let the \hyperref[lem:integral-finite]{lemma above} be the base case,
+    and proceed by induction.
+    Let \(A_k = A[x_1,\hdots,x_k]\), and assume that it is finite over \(A\).
+    We wish to prove that \(A_{k+1} = A_k[x_{k+1}]\) is finite over \(A\).
+    But because \(x_{k+1}\) is integral over \(A\), it is integral over \(A_k\),
+    so by the \hyperref[lem:integral-finite]{lemma above},
+    \(A_{k+1}\) is finite over \(A_k\), which is then finite over \(A\).
 \end{proof}
 
 \begin{definition}
@@ -769,88 +788,246 @@
 \end{definition}
 \begin{proposition}
     Suppose \(R\) is an \(A\)-algebra.
-    \(\overline{A}\) is indeed a ring.
+    \(\overline{A} \subseteq R\) indeed forms a ring.
 \end{proposition}
 \begin{proof}
-    
+    Given any \(x,y \in R\) that is integral over \(A\),
+    we need to show that \(x+y\) and \(xy\) are also integral over \(A\).
+    But we know from the \hyperref[cor:finite-type-integral]{corollary above}
+    that since \(x,y \in R\) are integral over \(A\),
+    then \(A[x,y]\) must be finite over \(A\).
+    But then \(A \subseteq A[x+y] \subseteq A[x,y]\) are all finite over \(A\),
+    so by Lemma~\ref{lem:integral-finite}, \(x+y\) is integral over \(A\).
+    Similarly, \(A \subseteq A[xy] \subseteq A[x,y]\) are all finite over \(A\),
+    so \(xy\) is integral over \(A\).
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:integral-stack}
     Suppose \(A \subseteq B \subseteq R\) are all rings.
     If \(A \subseteq B\) and \(B \subseteq R\) are both integral,
     then \(A \subseteq R\) is also integral.
 \end{lemma}
 \begin{proof}
-    
+    Consider any \(x \in R\).
+    Since it is integral over \(B\), there exists \(b_i \in B\) such that
+    \(x^n + b_1x^{n-1} + \cdots + b_n = 0\).
+    But as each of these \(b_i\) are integral over \(A\),
+    \(A \subseteq A[b_1,\hdots,b_n] \subseteq A[b_1,\hdots,b_n][x]\) are all finite,
+    so by Lemma~\ref{lem:integral-finite}, \(x\) is integral over \(A\).
 \end{proof}
 \begin{corollary}
     Suppose \(A \subseteq R\) is an extension of rings.
     Then \(\overline{\overline{A}} = \overline{A}\).
 \end{corollary}
 \begin{proof}
-    
+    Because \(A \subseteq \overline{A} \subseteq \overline{\overline{A}}\) are all integral,
+    by the \hyperref[lem:integral-stack]{lemma above},
+    \(A \subseteq \overline{\overline{A}}\) is integral,
+    and any integral extension is contained inside the integral closure,
+    giving us \(\overline{\overline{A}} \subseteq \overline{A}\).
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:integral-ideal-extension}
     Suppose \(A \subseteq R\) is an integral extension of rings.
     Then we have the following two integral extensions:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item if \(\mfk{b} \subseteq R\) is an ideal, and \(\mfk{a} = \mfk{b} \cap A\),
-        then \(A/\mfk{a} \subseteq R/\mfk{b}\) is integral; and
+            then \(A/\mfk{a} \subseteq R/\mfk{b}\) is integral; and
         \item if \(S \subseteq A\) is a multiplicative monoid,
-        then \(S^{-1}A \subseteq S^{-1}R\) is integral.
+            then \(S^{-1}A \subseteq S^{-1}R\) is integral.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    
+    Consider \(x \in R\).
+    Since it is integral over \(A\),
+    there exists \(a_i \in A\) such that \(x^n + a_1x^{n-1} + \cdots + a_n = 0\).
+    Taking the entire equation modulo \(\mfk{b}\),
+    we can see that \([x] \in R/\mfk{b}\) is integral over \(A/(\mfk{b} \cap A)\) as desired.
+    This gives us statement (a).
+
+    Consider \(x/s \in S^{-1}R\).
+    The equation above, divided by \(s^n\),
+    gives \({(x/s)}^n + (a_1/s){(x/s)}^{n-1} + \cdots + a_n/s^n = 0\).
+    Observe that \(a_i/s^i \in S^{-1}A\),
+    so \(x/s\) is integral over \(S^{-1}A\) as desired,
+    giving us statement (b).
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:integral-field-extension}
     Suppose \(A \subseteq R\) is an integral extension of rings,
     and \(A,R\) are both integral domains.
     Then \(A\) is a field if and only if \(R\) is a field.
 \end{theorem}
 \begin{proof}
-    
+    Suppose \(A\) is a field.
+    We know from \hyperref[sec:algebraic-extensions]{field theory}
+    that any algebraic extension (elements that satisfy a monic polynomial)
+    \(A \subseteq R\) is a field.
+
+    Suppose \(R\) is a field.
+    Consider \(x \in A\).
+    Because \(x^{-1} \in R\), it is integral over \(A\),
+    so there exists \(a_i \in A\) such that
+    \(x^{-n} + a_1 x^{-n+1} + \cdots + a_n = 0\).
+    Multiplying by \(x^{n-1}\),
+    we get \(x^{-1} + a_1 + \cdots + a_n x^{n-1} = 0\),
+    so \(x^{-1} = - a_1 - \cdots - a_n x^{n-1} \in A\).
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:integral-maximal-ideal}
     Suppose \(A \subseteq R\) is an integral extension of rings.
-    If \(\mfk{q} \subseteq R\) is prime, and \(\mfk{p} = \mfk{q} \cap A\) is also prime,
-    then \(\mfk{p}\) is maximal if and only if \(\mfk{q}\) is maximal.
+    If \(\mfk{q} \subseteq R\) is prime, then \(\mfk{p} = \mfk{q} \cap A\) is also prime,
+    and \(\mfk{p}\) is maximal if and only if \(\mfk{q}\) is maximal.
 \end{corollary}
 \begin{proof}
-    
+    Observe that by the \hyperref[lem:integral-ideal-extension]{lemma above},
+    \(A/\mfk{p} \subseteq R/\mfk{q}\) is an integral extension,
+    and according to the \hyperref[thm:integral-field-extension]{theorem above},
+    they are fields if and only if the other one is.
+    Hence the ideals are maximal if and only if the other one is.
+
+    The preimage of a prime ideal is always prime, so we are done.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:integral-prime-ideal}
     Suppose \(A \subseteq R\) is an integral extension of rings,
     and \(\mfk{p} \subseteq A\) is prime.
     Then there exists some prime \(\mfk{q} \subseteq R\)
     such that \(\mfk{p} = \mfk{q} \cap A\).
 \end{theorem}
 \begin{proof}
-    
-\end{proof}
+    By Lemma~\ref{lem:integral-ideal-extension},
+    \(A_\mfk{p} \subseteq R_\mfk{p}\) is integral.
+    We claim that we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            A \arrow{r}{\iota} \arrow{d}{\alpha} & R \arrow{d}{\beta} \\
+            A_\mfk{p} \arrow{r}{\iota} & R_\mfk{p}
+        \end{tikzcd}
+    \end{equation*}
+    This is obvious, because both \(\iota\) are inclusions (identity),
+    and \(\alpha,\beta\) are also natural injections (identity).
 
+    Consider the maximal ideal \(\mfk{n} \subseteq R_\mfk{p}\).
+    Then as \(A_\mfk{p}\) is local, \(\mfk{m} = \mfk{n} \cap A\) is the unique maximal ideal.
+    But by Proposition~\ref{prop:prime-local-ring},
+    the unique maximal ideal is \(\mfk{m} = \mfk{p}A_\mfk{p}\).
+
+    We now claim that \(\mfk{p} = \alpha^{-1}(\mfk{m})\).
+    Clearly elements in \(\mfk{m} = \mfk{p}A_\mfk{p}\) must have the form \(p/s\),
+    so its preimage must be in the form \(p/1\) as desired.
+
+    Lastly, let \(\mfk{q} = \beta^{-1}(\mfk{n})\).
+    This is prime because the preimage of a prime ideal is prime.
+    By commutativity of the diagram, we know that \(\mfk{q} \cap A = \mfk{p}\).
+\end{proof}
 \begin{theorem}[Going Up Theorem]
     Suppose \(A \subseteq R\) is an integral extension of rings,
-    \(\mfk{p}_1,\mfk{p}_2 \subseteq A\) and \(\mfk{q}_1 \subseteq R\) are prime ideals,
+    \(\mfk{p}_1 \subseteq \mfk{p}_2 \subseteq A\) and \(\mfk{q}_1 \subseteq R\) are prime ideals,
     with \(\mfk{p}_1 = \mfk{q}_1 \cap A\).
     Then there exists a prime ideal \(\mfk{q}_2 \subseteq R\)
     such that \(\mfk{q}_1 \subseteq \mfk{q}_2\) and \(\mfk{p}_2 = \mfk{q}_2 \cap A\).
 \end{theorem}
 \begin{proof}
-    
+    Consider the two rings \(A' = A/\mfk{p}_1\) and \(R' = R/\mfk{q}_1\).
+    By Lemma~\ref{lem:integral-ideal-extension}, \(A' \subseteq B'\) is integral.
+    Then from the \hyperref[thm:iso-3-ring]{third isomorphism theorem},
+    \(\mfk{p}_2 \subseteq A\) corresponds to a prime ideal \(\mfk{p}_2' \subseteq A'\).
+    The \hyperref[thm:integral-prime-ideal]{theorem above} guarantees
+    the existence of a prime ideal \(\mfk{q}_2' \subseteq R'\)
+    such that \(\mfk{p}_2' = \mfk{q}_2' \cap A'\),
+    which another application of \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    gives us a correspondence to \(\mfk{q}_2 \subseteq R\).
+\end{proof}
+
+\begin{lemma}\label{lem:ideal-integral-closure}
+    Suppose \(R\) is an \(A\)-algebra, and \(\overline{A}\) is the integral closure of \(A\) in \(R\).
+    Let \(\mfk{a} \subseteq A\) be an ideal, and \(\mfk{a}^e \subseteq \overline{A}\) be its extension.
+    Then the integral closure of \(\mfk{a}\) in \(R\) is \(\sqrt{\mfk{a}^e}\).
+\end{lemma}
+\begin{proof}
+    Consider any integral element \(x \in \overline{\mfk{a}} \subseteq R\).
+    Then there exists \(a_i \in \mfk{a} \subseteq A\) such that
+    \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\).
+    Clearly \(x\) is also integral over \(A\), so \(x \in \overline{A}\);
+    moreover, \(x^n = - a_1 x^{n-1} - \cdots - a_n \in \mfk{a}^e\),
+    as \(a_i x^{n-i} \in \mfk{a}^e\overline{A} \subseteq \mfk{a}^e\).
+    But this exactly says that \(x \in \sqrt{\mfk{a}^e}\),
+    so \(\overline{\mfk{a}} \subseteq \sqrt{\mfk{a}^e}\).
+
+    For the reverse direction, suppose \(x \in \sqrt{\mfk{a}^e}\).
+    Then \(x^n = \sum a_i x_i \in \mfk{a}^e\), with \(a_i \in \mfk{a}\) and \(x_i \in \overline{A}\).
+    By definition, \(x_i\) is integral over \(A\),
+    so \(M = A[x_1,\hdots,x_k]\) is finite over \(A\) (Corollary~\ref{cor:finite-type-integral}).
+    In particular, \(x^n M \subseteq \mfk{a}M\) by definition,
+    so if \(\phi\) is the morphism that multiplies by \(x^n\),
+    the \hyperref[lem:cayley-hamilton]{Cayley-Hamilton theorem} guarantees a monic polynomial
+    \(\phi^m + a_1\phi^{m-1} + \cdots + a_m = x^{nm} + a_1 x^{n(m-1)} + \cdots + a_m = 0\),
+    which gives us that \(x\) is integral over \(\mfk{a}\).
+    Hence \(\sqrt{\mfk{a}^e} \subseteq \overline{\mfk{a}}\).
+\end{proof}
+\begin{proposition}\label{prop:integral-minimal-polynomial}
+    Suppose \(A = \overline{A} \subseteq R\) are integral domains,
+    and let \(x \in R\) be integral over some ideal \(\mfk{a} \subseteq A\).
+    Then \(x\) is algebraic over \(K\), the field of fractions of \(A\);
+    moreover, if the minimal polynomial is \(\min_K(x) = t^n + a_1 t^{n-1} + \cdots + a_n\),
+    then \(a_i \in \sqrt{\mfk{a}}\).
+\end{proposition}
+\begin{proof}
+    Since \(x\) is integral over \(\mfk{a}\),
+    there exists \(a_i \in \mfk{a} \subseteq A \subseteq K\) such that
+    \(x^n + a_1 x^{n-1} + \cdots + a_n = 0\),
+    so \(x\) is algebraic over \(K\).
+    Notice the requirement of an integral domain is needed to invoke the field of fractions.
+
+    Now let \({\{x_i\}}\) be the set of roots of \(\min_K(x)\).
+    Then immediately we see that \(x_i\) are all integral over \(\mfk{a}\),
+    and as \(\min_K(x) = \prod {(t-x_i)}^{k_i} = t^n + a_1 t^{n-1} + \cdots + a_n\),
+    each \(a_k\) can be written as a polynomial in \(x_i\)
+    and is therefore also integral over \(\mfk{a}\).
+    But then by the \hyperref[lem:ideal-integral-closure]{lemma above},
+    \(a_k \in \sqrt{\mfk{a}^e} = \sqrt{\mfk{a}}\) as \(A = \overline{A}\).
 \end{proof}
 \begin{theorem}[Going Down Theorem]
-    Suppose \(A \subseteq R\) is an integral extension of rings,
-    \(\mfk{p}_1,\mfk{p}_2 \subseteq A\) and \(\mfk{q}_2 \subseteq R\) are prime ideals,
+    Suppose \(A = \overline{A} \subseteq R\) is an integral extension of integral domains,
+    \(\mfk{p}_1 \subseteq \mfk{p}_2 \subseteq A\) and \(\mfk{q}_2 \subseteq R\) are prime ideals,
     with \(\mfk{p}_2 = \mfk{q}_2 \cap A\).
     Then there exists a prime ideal \(\mfk{q}_1 \subseteq R\)
     such that \(\mfk{q}_1 \subseteq \mfk{q}_2\) and \(\mfk{p}_1 = \mfk{q}_1 \cap A\).
 \end{theorem}
 \begin{proof}
-    
+    Consider the natural embedding \(A \to R \to S^{-1}R = R_{\mfk{q}_2}\).
+    It suffices to show that \(\mfk{p}_1\)
+    is the contraction of some prime ideal \(\mfk{q}_1' \subseteq R_{\mfk{q}_2}\),
+    because Theorem~\ref{thm:fraction-correspondence} dictates that
+    \(\mfk{q}_1'\) will be in correspondence with some prime ideal \(\mfk{q}_1 \subseteq R\)
+    that does not intersect \(S = R - \mfk{q}_2\), i.e.\ \(\mfk{q}_1 \subseteq \mfk{q}_2\).
+    Then since \(\mfk{q}_1' = S^{-1}\mfk{q}_1\) (Lemma~\ref{lem:fraction-extensions}),
+    \(\mfk{p}_1 = S^{-1}\mfk{q}_1 \cap A = \mfk{q}_1 \cap A\).
+
+    We claim that \(\mfk{q}_1' = \mfk{p}_1R_{\mfk{q}_2}\).
+    Consider any element \(x/s \in \mfk{p}_1R_{\mfk{q}_2}\),
+    where \(x \in \mfk{p}_1R\) and \(s \in R - \mfk{q}_2\).
+    Notice \(\mfk{p}_1R\) is a prime (and therefore radical) ideal,
+    so \(x\) is integral over \(\mfk{p}_1\) by the \hyperref[lem:ideal-integral-closure]{lemma above};
+    moreover, if \(K\) is the field of fractions of \(A\),
+    by the \hyperref[prop:integral-minimal-polynomial]{proposition above},
+    \(\min_K(x) = x^r + u_1 x^{r-1} + \cdots + u_r\), where \(u_i \in \mfk{p}_1\).
+    Now, if \(x/s \in A\) also, then \(s = x(s/x)\), and \(s/x \in K\),
+    and \(\min_K(s) = s^r + v_1 s^{r-1} + \cdots + v_r\) is obtained
+    by dividing the previous polynomial by \({(x/s)}^r\), where \(v_i = u_i{(s/x)}^i\).
+    We note that \(v_i{(x/s)}^i = u_i \in \mfk{p}_1\).
+    But because \(x/s \in A\), \(s = x/a\) for some \(a\) must also be integral over \(A\),
+    and we can apply the \hyperref[prop:integral-minimal-polynomial]{proposition above} again
+    to see that \(v_i \in A\).
+
+    Let us now suppose, by way of contradiction, that \(x/s \notin \mfk{p}_1\).
+    Then \(v_i{(x/s)}^i \in \mfk{p}_1\) implies that \(v_i \in \mfk{p}_1\),
+    and the minimal polynomial tells us that
+    \(s^r = - v_1 s^{r-1} - \cdots - v_r \in \mfk{p}_1R \subseteq \mfk{p}_2R \subseteq \mfk{q}_2\).
+    But because \(\mfk{q}_2\) is prime (and therefore radical),
+    this implies \(s \in \mfk{q}_2\), which contradicts the definition of \(S = R - \mfk{q}_2\).
+    Hence \(\mfk{q}_1' \subseteq \mfk{p}_1\),
+    and the reverse inclusion is trivially true.
 \end{proof}
 
-\begin{theorem}[Noetherian Normalization]
+\begin{theorem}[Noetherian Normalization]\label{thm:noetherian-normalization}
     Suppose \(K\) is an infinite field, and \(R\) is a finite-type \(K\)-algebra;
     that is, \(R = K[x_1,\hdots,x_n]/\mfk{a}\).
     Then there exists \({\{y_i\}}_{i=1}^m \subset R\) that are algebraically independent over \(K\),
@@ -861,7 +1038,7 @@
 \end{proof}
 
 
-\section{Noetherian and Artinian Rings}
+\section{Noetherian Rings}
 
 \begin{proposition}
     Suppose \(A \subseteq B \subseteq R\) are rings.
@@ -974,14 +1151,14 @@
 \begin{proof}
     
 \end{proof}
-\begin{theorem}[Hilbert Basis Theorem]
+\begin{theorem}[Hilbert Basis Theorem]\label{thm:hilbert-basis}
     Suppose \(R\) is a Noetherian ring.
     Then \(R[x]\) is also a Noetherian ring.
 \end{theorem}
 \begin{proof}
     
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:hilbert-basis}
     Suppose \(R\) is a Noetherian ring.
     Then \(R[x_1,\hdots,x_n]\) is Noetherian,
     and any finite-type \(R\)-algebra \(R[x_1,\hdots,x_n]/\mfk{a}\) is also Noetherian.
@@ -996,6 +1173,8 @@
         \item if \(R\) is finite-type over \(A\), then \(R\) is Noetherian over \(A\).
     \end{enumerate}
 \end{remark}
+
+\subsection*{Hilbert's Nullstellensatz}
 
 \begin{proposition}
     Suppose \(A\) is a Noetherian ring,
@@ -1012,38 +1191,94 @@
 \begin{proof}
     
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:noetherian-finite-type}
     Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
-    If \(A\) is Noetherian, \(C\) is finite-type of \(A\),
+    If \(A\) is Noetherian, \(C\) is finite-type over \(A\),
     and \(C\) is finite over \(B\),
     then \(B\) is finite-type over \(A\).
 \end{theorem}
 \begin{proof}
     
 \end{proof}
-\begin{proposition}
+
+\begin{proposition}\label{prop:finite-type-algebraic}
+    Suppose \(K(x_1,\hdots,x_n)/K\) is a purely transcendental extension.
+    Then \(K(x_1,\hdots,x_n)\) cannot be finite-type over \(K\).
+\end{proposition}
+\begin{proof}
+    Let \(E = K(x_1,\hdots,x_n)\).
+    Let us note that this is the fraction field of \(R = K[x_1,\hdots,x_n]\).
+    Suppose, by way of contradiction, that \(E/K\) finite-type.
+    Then it must be generated by a finite set \({\{f_i/g_i\}}_{i=1}^m \subset E\),
+    where \(f_i,g_i \in R\) and \(g_i \neq 0\).
+    Then any element \(E\) can be written as a sum
+    \begin{equation*}
+        \sum_{i_1,\hdots,i_m} \alpha_{i_1 \hdots i_m}
+        \pqty{\frac{f_1}{g_1}}^{i_1}\hdots\pqty{\frac{f_m}{g_m}}^{i_m}
+        = \frac{F}{g_1^{N_1} \hdots g_m^{N_m}}
+    \end{equation*}
+    after finding the common denominator and pushing the sum of numerators into \(F\).
+
+    We now claim that \(R\) has infinitely many irreducible elements.
+    Euclid's classic proof on the infinitude of primes in \(\bZ\) holds here,
+    and we shall imitate it.
+    Suppose, by way of contradiction,
+    that \({\{p_i\}}_{i=1}^n \subset R\) are all the irreducible elements in \(R\).
+    Consider the element \(f = p_1 p_2 \hdots p_n + 1\).
+    Since \(R = K[x_1,\hdots,x_n]\) is a UFD (Theorem~\ref{thm:polynomial-ring-ufd}),
+    \(f\) has a unique decomposition into irreducible primes,
+    and let \(p\) be one such prime in this decomposition.
+    Clearly \(p \neq p_i\), because if it did, \(p\) would also divide 1.
+    We have reached a contradiction.
+
+    Going back to the elements in \(E\),
+    we in particular note that for any polynomial \(h \in R\), \(1/h \in E\).
+    But the decomposition above tells us that \(h\) can always be decomposed
+    into the primes associated with \({\{g_i\}}_{i=1}^m\),
+    which notably, of which there are only finitely many.
+    This exactly contradicts our claim of infinitude of primes.
+\end{proof}
+\begin{theorem}\label{thm:finite-type-algebraic}
     Suppose \(K\) is a field, and \(E\) a finitely generated \(K\)-algebra.
     If \(E\) is a field, then \(E/K\) is a finite algebraic extension.
-\end{proposition}
+\end{theorem}
 \begin{proof}
-    
+    Let us first take the \hyperref[thm:noetherian-normalization]{Noetherian normalization}
+    to get \(K \subseteq K[x_1,\hdots,x_n] \subseteq E\),
+    where \(K[x_1,\hdots,x_n] \subseteq E\) is an integral ring extension,
+    i.e.\ every element in \(E\) satisfies a monic polynomial with coefficients in \(K[x_1,\hdots,x_n]\).
+    Taking its field of fractions,
+    we can see that \(K(x_1,\hdots,x_n) \subseteq E\) is an algebraic field extension,
+    because said monic polynomial that \(e \in E\) satisfies
+    has coefficients in \(K[x_1,\hdots,x_n] \subseteq K(x_1,\hdots,x_n)\).
+    Notably, algebraic field extensions are finite.
+
+    Theorem~\ref{thm:noetherian-finite-type} then establishes that
+    as \(K \subseteq E\) is finite-type and \(K(x_1,\hdots,x_n) \subseteq E\) is finite,
+    \(K \subseteq K(x_1,\hdots,x_n)\) must also be finite-type.
+    But because it is finite-type,
+    \hyperref[prop:finite-type-algebraic]{proposition above}
+    it cannot be a purely transcendental extension,
+    and hence it must be finite algebraic.
 \end{proof}
-\begin{proposition}
-    Suppose \(K(y_1,\hdots,y_n)/K\) is a purely transcendental extension.
-    Then \(E\) cannot be finite-type over \(K\).
-\end{proposition}
-\begin{proof}
-    
-\end{proof}
-\begin{corollary}[Weak Hilbert's Nullstellensatz]
+\begin{corollary}[Weak Hilbert's Nullstellensatz]\label{cor:weak-nullstellensatz}
     Suppose \(K\) is a field, and \(A\) is a finite-type \(K\)-algebra.
     Let \(\mfk{m} \subseteq A\) be a maximal ideal.
     Then \(A/\mfk{m}\) is a finite algebraic extension of \(K\).
-    If \(K = \overline{K}\), then \(A/\mfk{m} = K\).
+    If \(K\) is algebraically closed, then \(A/\mfk{m} = K\).
 \end{corollary}
 \begin{proof}
-    
+    The \hyperref[thm:finite-type-algebraic]{theorem above}
+    insists that because \(K \subseteq E = A/\mfk{m}\) is finite-type,
+    it must be finite algebraic.
+    Of course, if \(K\) is algebraically closed,
+    any algebraic extension, in particular \(E\),
+    will be inside of \(K\).
 \end{proof}
+% \begin{remark}
+%     We shall delay the statement of the full Hilbert's Nullstellensatz until the next chapter,
+%     but we already have all the tools to prove it.
+% \end{remark}
 
 \begin{definition}
     Suppose \(K\) is a field, and \(R = K[x_1,\hdots,x_n]\).
@@ -1055,25 +1290,154 @@
     The ideal of all vanishing polynomials is
     \(\Ide(X) = \{f \in R: \forall x \in X,\,f(x) = 0\}\).
 \end{definition}
-\begin{corollary}
-    Suppose \(K = \overline{K}\) is algebraically closed.
-    Every maximal ideal of \(K[x_1,\hdots,x_n]\) is of the form
-    \((x_1-a_1,\hdots,x_n-a_n)\) for some \(a_i \in K\).
-    If \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\) is a proper ideal,
-    then the vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
-\end{corollary}
+\begin{definition}
+    A subset \(Z \subseteq K^n\) is said to be algebraic
+    if it is the vanishing locus \(Z = \Van(S)\)
+    of a set \(S \subseteq K[x_1,\hdots,x_n]\).
+\end{definition}
+\begin{lemma}\label{lem:iv-inclusion-reversing}
+    Suppose \(S \subseteq K^n\) and \(J \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    Then we have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Van\) and \(\Ide\) are inclusion reversing; and
+        \item \(J \subseteq \Ide(\Van(J))\) and \(S \subseteq \Van(\Ide(S))\).
+    \end{enumerate}
+\end{lemma}
 \begin{proof}
-    
+    Suppose \(J' \subseteq J\).
+    Consider any point \(p \in \Van(J)\).
+    Since all polynomials \(f \in J\) have \(f(p) = 0\),
+    in particular any \(f \in J'\) have \(f(p) = 0\),
+    so \(p \in \Van(J')\).
+    We have \(\Van(J') \supseteq \Van(J)\).
+
+    Suppose \(S' \subseteq S\).
+    Consider any \(f \in \Ide(S)\).
+    Then \(f\) vanishes on all points in \(S\),
+    and in particular it vanishes on all points in \(S'\),
+    so \(f \in \Ide(S')\).
+    We have \(\Ide(S') \supseteq \Ide(S)\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose \(f \in J\).
+    Then \(f\) vanishes on \(\Van(J)\).
+    Since \(\Ide(\Van(J))\) is the set of functions that vanish on \(\Van(J)\),
+    we have \(f \in \Ide(\Van(J))\).
+
+    Suppose \(x \in S\).
+    Then all functions in \(\Ide(S)\) vanish at \(x\).
+    Since \(\Van(\Ide(S))\) is the set of points that all functions in \(\Ide(S)\) vanish at,
+    we have \(x \in \Van(\Ide(S))\).
 \end{proof}
-\begin{theorem}[Hilbert's Nullstellensatz]\label{thm:nullstellensatz}
-    Suppose \(K = \overline{K}\) is an algebraically closed field,
-    and \(R = K[x_1,\hdots,x_n]\) is a polynomial ring.
-    Let \(\mfk{a} \subseteq R\) be an ideal, and \(\Van(\mfk{a})\) be its vanishing locus.
-    Then \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+\begin{lemma}\label{lem:vix-x}
+    Suppose \(X \subseteq K^n\) is an algebraic subset.
+    Then \(\Van(\Ide(X)) = X\).
+\end{lemma}
+\begin{proof}
+    Trivially by Lemma~\ref{lem:iv-inclusion-reversing},
+    \(X \subseteq \Van(\Ide(X))\).
+
+    By definition of an algebraic subset,
+    \(X = \Van(\mfk{a})\) for some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+    But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
+\end{proof}
+\begin{lemma}\label{lem:ix-radical}
+    Suppose \(X \subseteq K^n\) is a subset.
+    Then \(\Ide(X)\) is a radical ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(f^n \in \Ide(X)\).
+    Then for all \(x \in X\), \(f^n(x) = {(f(x))}^n = 0\),
+    which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
+\end{proof}
+
+\begin{lemma}[Weak Hilbert's Nullstellensatz]\label{lem:weak-nullstellensatz}
+    Suppose \(K\) is algebraically closed.
+    Every maximal ideal \(\mfk{m} \subseteq K[x_1,\hdots,x_n]\) is of the form
+    \(\mfk{m} = (x_1-a_1,\hdots,x_n-a_n)\) for some \((a_1,\hdots,a_n) \in K^n\).
+    Every proper ideal \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\)
+    has a nonempty vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
+\end{lemma}
+\begin{proof}
+    From our previous statement of the \hyperref[cor:weak-nullstellensatz]{weak Nullstellensatz},
+    \(K = K[x_1,\hdots,x_n]/\mfk{m}\).
+    Hence there exists a surjecive morphism \(\func{\phi}{K[x_1,\hdots,x_n]}{K}\)
+    with \(\ker\phi = \mfk{m}\) by the \hyperref[thm:iso-1-ring]{first isomorphism thoerem}.
+    Then if we let \(\phi(x_i) = a_i\),
+    then we can see that \(x_i-a_i \in \ker\phi = \mfk{m}\),
+    so \((x_1-a_1,\hdots,x_n-a_n) \subseteq \mfk{m}\).
+    For the reverse inclusion, we can see that \((x_1-a_1,\hdots,x_n-a_n)\) is a maximal ideal,
+    because \(K[x_1,\hdots,x_n]/(x_1-a_1,\hdots,x_n-a_n)\) is a field,
+    as it sends all the indeterminates into itself.
+    Hence \((x_1-a_1,\hdots,x_n-a_n) = \mfk{m}\).
+
+    Now, any proper ideal \(\mfk{a}\) must be contained within a maximal ideal \(\mfk{m}\)
+    (Corollary~\ref{cor:proper-in-maximal}).
+    But as we know that \(\Van\) is an inclusion reversing operation
+    (Lem~\ref{lem:iv-inclusion-reversing}),
+    \((a_1,\hdots,a_n) \in \Van(\mfk{m}) \subseteq \Van(\mfk{a})\).
+\end{proof}
+\begin{theorem}[Hilbert's Nullstellensatz, `zero-point theorem']\label{thm:nullstellensatz}
+    There is a bijection between the algebraic subsets of \(K^n\)
+    and the radical ideals of \(K[x_1,\hdots,x_n]\),
+    using the operations \(\Van\) and \(\Ide\).
 \end{theorem}
 \begin{proof}
-    
+    We already have, from Lemma~\ref{lem:vix-x}, that \(\Van(\Ide(X)) = X\) for any algebraic subset,
+    so it suffices to prove that \(\Ide(\Van(\mfk{a})) = \mfk{a}\) for any radical.
+    We shall prove, instead, that for any ideal \(\mfk{a}\),
+    \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+    By Lemma~\ref{lem:iv-inclusion-reversing},
+    we can see that \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\sqrt{\mfk{a}} \subseteq \sqrt{\Ide(\Van(\mfk{a}))} = \Ide(\Van(\mfk{a}))\),
+    since \(\Ide(\Van(\mfk{a}))\) is radical (Lemma~\ref{lem:ix-radical}).
+
+    For the forward inclusion,
+    suppose \(\mfk{a} = (f_1,\hdots,f_n)\) has these \(n\) generators
+    (finitely generated due to Corollary~\ref{cor:noetherian-generated}).
+    Let \(g \in \Ide(\Van(\mfk{a}))\).
+    Consider the ideal \((f_1,\hdots,f_n,1-yg) \subseteq K[x_1,\hdots,x_n,y]\).
+    We claim that \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    so by way of contradiction, suppose \((\vb{a},b) = (a_1,\hdots,a_n,b) \in \Van(f_1,\hdots,f_n,1-yg)\).
+    Since each \(f_i\) is only a function of \(\vb{x} = (x_1,\hdots,x_n)\) and not of \(y\),
+    we know that \(f_i(\vb{a}) = 0\);
+    on the other hand, the last generator in the ideal gives us
+    \((1-yg)(\vb{a},b) = 1 - bg(\vb{a}) = 0\).
+    But \(f_i(\vb{a}) = 0\) implies that \(\vb{a} \in \Van(\mfk{a})\),
+    so since \(g \in \Ide(\Van(\mfk{a}))\), \(g(\vb{a}) = 0\),
+    which when substituted into the equation above, yields \(1 = 0\), which is a contradiction.
+
+    Now, since \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    the \hyperref[lem:weak-nullstellensatz]{weak Nullstellensatz}
+    asserts that \((f_1,\hdots,f_n,1-yg) = K[x_1,\hdots,x_n,y]\) is the whole ring.
+    In particular, \(1 \in (f_1,\hdots,f_n,1-yg)\),
+    so we can write 1 as a linear combination
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i f_i + h_0(1-yg)
+    \end{equation*}
+    for \(h_i \in K[x_1,\hdots,x_n,y]\).
+    If we substitute \(y \mapsto 1/g\), we can get that
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x}) = \frac{F}{g^N}
+    \end{equation*}
+    after finding the common denominator and pushing the sum of numerators into \(F\).
+    But cancelling out the denominator gives us
+    \begin{equation*}
+        g^N = \sum_{i=1}^n g^N h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x})
+        \in (f_1,\hdots,f_n) = \mfk{a}
+    \end{equation*}
+    which is exactly the definition of \(g \in \sqrt{\mfk{a}}\).
 \end{proof}
+\begin{remark}
+    The method of proving the full Nullstellensatz from its weak form
+    is introduced by Rabinowitsch in 1930,
+    and is commonly called the Rabinowitsch trick.
+\end{remark}
+
+\subsection*{Primary Decomposition}
 
 \begin{definition}
     Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
@@ -1131,3 +1495,99 @@
 \begin{proof}
     
 \end{proof}
+
+
+\section{Artinian Rings}
+
+\begin{remark}
+    Despite its superficial connection with Noetherian rings,
+    the theory of Artinian rings is much simpler.
+\end{remark}
+
+\begin{proposition}\label{prop:artinian-prime-maximal}
+    Prime ideals are maximal in Artinian rings.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    The nilradical is the same as the Jacobson radical in Artinian rings.
+\end{corollary}
+\begin{proof}
+    The nilradical is the intersection of all prime ideals,
+    and the Jacobson radical is the intersection of all maximal ideals,
+    which we note by the \hyperref[prop:artinian-prime-maximal]{proposition above}
+    to be the same object.
+\end{proof}
+
+\begin{proposition}
+    Artinian rings have finitely many maximal ideals.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+\begin{proposition}
+    The nilradical in Artinian rings is nilpotent.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a ring, and \(\mfk{p} \subseteq R\) a prime ideal.
+    The height of \(\mfk{p}\) is
+    \(\height\mfk{p} = \sup\{n: \mfk{p}_0 \subsetneq \mfk{p}_1 \subsetneq \cdots \subsetneq \mfk{p}_n = \mfk{p}\}\),
+    the length of the longest strictly ascending chain of prime ideals terminating at \(\mfk{p}\).
+    The Krull dimension of \(R\) is \(\dim R = \sup_{\mfk{p}\,\text{prime}}\height\mfk{p}\),
+    the length of the longest strictly ascending chain of prime ideals.
+\end{definition}
+
+\begin{theorem}
+    Suppose \(R\) is a ring.
+    \(R\) is Artinian if and only if \(R\) is Noetherian with \(\dim R = 0\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \((R,\mfk{m})\) is a Noetherian local ring.
+    Then \(\mfk{m}^n = 0\) for some \(n\) if and only if \(\mfk{m}^k = \mfk{m}^{k+1}\) for some \(k\).
+    In that case, \(R\) is an Artinian local ring.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{theorem}[Structure Theorem for Artinian Rings]
+    Any Artinian ring \(R\) can be uniquely written as
+    a finite direct sum of Artinian local rings \(R = \bigoplus_{i=1}^r R_i\).
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \((R,\mfk{m})\) is an Artinian local ring.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(R\) is a PID;
+        \item \(\mfk{m}\) is a principal ideal; and
+        \item the vector space dimension \(\dim_{R/\mfk{m}}(\mfk{m}/\mfk{m}^2) \leq 1\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+\begin{proposition}
+    Suppose \(K\) is a field, and \(R\) is finite-type over \(K\).
+    \(R\) is Artinian if and only if \(R\) is finite over \(K\).
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+
+\section{Dimension Theory}
+

@@ -5,5 +5,568 @@
     and assume that it is algebraically closed unless otherwise noted.
 \end{remark}
 
+\begin{remark}
+    We shall recall several definitions from topology
+    before we resume our discussion on algebra.
+\end{remark}
+\begin{definition}
+    A topological space is a tuple \((X,\mca{T})\),
+    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\emptyset,X \in \mca{T}\);
+        \item closed under finite intersections
+            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
+        \item closed under arbitrary unions
+            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
+    \end{enumerate}
+    Elements in \(\mca{T}\) are called open,
+    while the complement of these elements are called closed.
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
+    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that they are disjoint \(U \cap V = \emptyset\).
+\end{definition}
+\begin{definition}
+    A topological space \(X\) is considered quasi-compact
+    if every open cover of \(X\) has a finite subcover.
+    A topological space \(X\) is considered compact
+    if it is quasi-compact and Hausdorff.
+\end{definition}
+
+
 \section{Affine Varieties}
+
+\subsection*{Algebraic Subsets}
+
+\begin{definition}
+    For \(n \geq 0\), the affine \(n\)-space over \(K\)
+    is \(K^n\) treated purely as a set of points,
+    and denoted \(\bA^n = \{(a_1,\hdots,a_n): a_i \in K\}\).
+\end{definition}
+\begin{definition}
+    Consider the polynomial ring in \(n\) variables \(K[x_1,\hdots,x_n]\),
+    which is a commutative ring (with identity 1).
+    Then any element \(f \in K[x_1,\hdots,x_n]\) is a polynomial
+    \begin{equation*}
+        f = \sum_{i_1,\hdots,i_n \geq 0} a_{i_1 \hdots i_n} x_1^{i_1} \hdots x_n^{i_n}
+    \end{equation*}
+    with the coefficients \(a_{i_1 \hdots i_n} \in K\),
+    and that the coefficients are almost all zero
+    (as in that they are zero except finitely many of them).
+\end{definition}
+\begin{definition}
+    Every polynomial \(f \in K[x_1,\hdots,x_n]\)
+    defines a polynomial function \(\func{f}{\bA^n}{K}\),
+    where we evaluate \(f\) at the given point.
+    This is a ring morphism as proven in Theorem~\ref{thm:univ-prop-polynomial}.
+\end{definition}
+\begin{lemma}
+    The map \(K[x_1,\hdots,x_n] \to \Func(\bA^n,K)\) is an injective ring morphism.
+\end{lemma}
+\begin{proof}
+    Obvious, simply by using the evaluation map.
+\end{proof}
+
+\begin{definition}
+    Suppose \(K\) is a field, and \(R = K[x_1,\hdots,x_n]\).
+    Consider \({\{f_i\}}_{i \in S} \subset R\) a family of polynomial functions,
+    \(\func{f_i}{K^n}{K}\).
+    The vanishing locus is the set of points
+    \(\Van(\{f_i\}) = \{p \in K^n: \forall i \in S,\,f_i(p) = 0\}\).
+    Now consider \(X \subseteq K^n\).
+    The ideal of all vanishing polynomials is
+    \(\Ide(X) = \{f \in R: \forall x \in X,\,f(x) = 0\}\).
+\end{definition}
+\begin{lemma}\label{lem:iv-inclusion-reversing}
+    Suppose \(S \subseteq \bA^n\) and \(J \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    Then we have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Van\) and \(\Ide\) are inclusion reversing; and
+        \item \(J \subseteq \Ide(\Van(J))\) and \(S \subseteq \Van(\Ide(S))\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Suppose \(J' \subseteq J\).
+    Consider any point \(p \in \Van(J)\).
+    Since all polynomials \(f \in J\) have \(f(p) = 0\),
+    in particular any \(f \in J'\) have \(f(p) = 0\),
+    so \(p \in \Van(J')\).
+    We have \(\Van(J') \supseteq \Van(J)\).
+
+    Suppose \(S' \subseteq S\).
+    Consider any \(f \in \Ide(S)\).
+    Then \(f\) vanishes on all points in \(S\),
+    and in particular it vanishes on all points in \(S'\),
+    so \(f \in \Ide(S')\).
+    We have \(\Ide(S') \supseteq \Ide(S)\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose \(f \in J\).
+    Then \(f\) vanishes on \(\Van(J)\).
+    Since \(\Ide(\Van(J))\) is the set of functions that vanish on \(\Van(J)\),
+    we have \(f \in \Ide(\Van(J))\).
+
+    Suppose \(x \in S\).
+    Then all functions in \(\Ide(S)\) vanish at \(x\).
+    Since \(\Van(\Ide(S))\) is the set of points that all functions in \(\Ide(S)\) vanish at,
+    we have \(x \in \Van(\Ide(S))\).
+\end{proof}
+\begin{definition}
+    A subset \(Z \subseteq \bA^n\) is said to be algebraic
+    if it is the vanishing locus \(Z = \Van(S)\)
+    of a set \(S \subseteq K[x_1,\hdots,x_n]\).
+\end{definition}
+\begin{lemma}\label{lem:vanishing-locus-ideal}
+    Consider a set \(S \subseteq K[x_1,\hdots,x_n]\).
+    Its vanishing locus coincides with the vanishing locus of the ideal it generates,
+    \(\Van(S) = \Van((S))\).
+\end{lemma}
+\begin{proof}
+    Since \(S \subseteq (S)\),
+    we can see that \(\Van((S)) \subseteq \Van(S)\)
+    by Lemma~\ref{lem:iv-inclusion-reversing}.
+
+    For the reverse inclusion, suppose \(p \in \Van(S)\).
+    Then considering any \(\sum g_i f_i \in (S)\) for \(f_i \in S\),
+    \begin{equation*}
+        \pqty{\sum g_i f_i}(p) = \sum g_i(p) f_i(p) = 0
+    \end{equation*}
+    so \(p \in \Van((S))\) as desired.
+\end{proof}
+\begin{corollary}\label{cor:vanishing-locus-ideal}
+    Every algebraic set \(Z\) is the vanishing locus \(\Van(\mfk{a})\)
+    of some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+\end{corollary}
+\begin{proof}
+    \(Z = \Van(S) = \Van((S))\) where \(\mfk{a} = (S)\)
+    using the \hyperref[lem:vanishing-locus-ideal]{lemma above}.
+\end{proof}
+\begin{proposition}
+    Every algebraic set \(Z\) is the vanishing locus \(\Van(f_1,\hdots,f_r)\)
+    of finitely many polynomials \(\{f_1,\hdots,f_r\}\).
+\end{proposition}
+\begin{proof}
+    By the \hyperref[cor:hilbert-basis]{Hilbert basis theorem},
+    \(K[x_1,\hdots,x_n]\) is a Noetherian ring,
+    which gives us that \(\mfk{a}\) from the \hyperref[cor:vanishing-locus-ideal]{corollary above}
+    is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    Then \(Z = \Van((f_1,\hdots,f_r)) = \Van(f_1,\hdots,f_r)\).
+\end{proof}
+
+\begin{proposition}\label{prop:vanishing-locus-properties}
+    Suppose \(S_i \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\bigcap \Van(S_i) = \Van(\bigcup S_i)\); and
+        \item \(\Van(S_1) \cup \Van(S_2) = \Van(S_1 S_2)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Suppose \(p \in \bigcap \Van(S_i)\).
+    Then for all polynomials \(f \in S_i\) for any \(i\), \(f(p) = 0\).
+    But this is the exact statement that \(f(p)\) for all \(f \in \bigcup S_i\).
+    Hence \(p \in \Van(\bigcup S_i)\).
+    The argument holds in reverse,
+    and we have proven statement (a).
+
+    Since \(S_1 S_2 \subseteq S_1\) (Proposition~\ref{prop:ideal-operations}),
+    statement (a) applies, so \(\Van(S_1) \subseteq \Van(S_1 S_2)\).
+    Similarly, we have \(\Van(S_2) \subseteq \Van(S_1 S_2)\),
+    so \(\Van(S_1) \cup \Van(S_2) \subseteq \Van(S_1 S_2)\).
+    For the reverse direction, suppose \(p \in \Van(S_1 S_2)\).
+    If \(p \notin \Van(S_1)\), then there exists some \(f \in S_1\) such that \(f(p) \neq 0\).
+    But we also know that all \((fg)(p) = f(p)g(p) = 0\) for all \(f \in S_1\) and \(g \in S_2\).
+    Since there are no zero divisors in a field, \(g(p) = 0\),
+    so \(p \in \Van(S_2)\) as desired.
+    This proves statement (b).
+\end{proof}
+\begin{corollary}
+    Algebraic subsets of \(\bA^n\) define the closed sets for a topology on \(\bA^n\).
+\end{corollary}
+\begin{proof}
+    The empty set \(\emptyset = \Van(1)\) and the entire space \(\bA^n = \Van(0)\)
+    are both algebraic, so they are closed.
+    From the \hyperref[prop:vanishing-locus-properties]{proposition above},
+    arbitrary unions and finite intersections of algebraic sets are algebraic,
+    so such arbitrary unions and finite intersections of closed sets are closed.
+\end{proof}
+\begin{definition}
+    The Zariski topology on \(\bA^n\) is defined by
+    the closed sets being the algebraic subsets of \(\bA^n\).
+\end{definition}
+\begin{lemma}
+    The closed sets of \(\bA^1\) consists of \(\bA^1,\emptyset\),
+    and the finite subsets of \(\bA^1\).
+\end{lemma}
+\begin{proof}
+    We quickly prove that singletons are algebraic (in the general case of \(\bA^n\)).
+    If \(p \in \bA^n\), and written as \(p = (a_1,\hdots,a_n)\),
+    then it is the vanishing locus \(\{p\} = \Van(\{x_1-a_1,\hdots,x_n-a_n\})\).
+    Then immediately using Proposition~\ref{prop:vanishing-locus-properties},
+    any finite set of points (finite union of singletons) must be algebraic.
+
+    We now finally prove that there are no infinite algebraic sets.
+    Consider any algebraic set \(Z \subseteq \bA^1\).
+    Because \(K[x]\) is a Euclidean domain (Proposition~\ref{prop:polynomial-domain}),
+    it is also a PID (Theorem~\ref{thm:euclidean-pid}),
+    so \(Z = \Van(\mfk{a}) = \Van(f)\) (Corollary~\ref{cor:vanishing-locus-ideal})
+    for some \(f \in K[x]\).
+    Since \(K\) is algebraically closed,
+    \(f\) splits into linear factors \(f = \prod (x-a_i)\) (Lemma~\ref{lem:splitting-field-properties}).
+    Without loss of generality, let \(a_i\) be pairwise distinct and \(f\) monic,
+    so we can write \(f = \prod {(x-a_i)}^{r_i}\).
+    Then clearly \(Z = \Van((x-a_i)) = \{a_1,\hdots,a_n\}\) must be a finite set.
+\end{proof}
+
+\subsection*{Hilbert's Nullstellensatz}
+
+\begin{lemma}\label{lem:vix-x}
+    Suppose \(X \subseteq \bA^n\) is an algebraic subset.
+    Then \(\Van(\Ide(X)) = X\).
+\end{lemma}
+\begin{proof}
+    Trivially by Lemma~\ref{lem:iv-inclusion-reversing},
+    \(X \subseteq \Van(\Ide(X))\).
+
+    By definition of an algebraic subset,
+    \(X = \Van(\mfk{a})\) for some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+    But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
+\end{proof}
+\begin{lemma}\label{lem:ix-radical}
+    Suppose \(X \subseteq \bA^n\) is a subset.
+    Then \(\Ide(X)\) is a radical ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(f^n \in \Ide(X)\).
+    Then for all \(x \in X\), \(f^n(x) = {(f(x))}^n = 0\),
+    which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
+\end{proof}
+
+\begin{lemma}[Weak Hilbert's Nullstellensatz]\label{lem:weak-nullstellensatz}
+    Suppose \(K\) is algebraically closed.
+    Every maximal ideal \(\mfk{m} \subseteq K[x_1,\hdots,x_n]\) is of the form
+    \(\mfk{m} = (x_1-a_1,\hdots,x_n-a_n)\) for some \((a_1,\hdots,a_n) \in \bA^n\).
+    Every proper ideal \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\)
+    has a nonempty vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
+\end{lemma}
+\begin{proof}
+    From our previous statement of the \hyperref[cor:weak-nullstellensatz]{weak Nullstellensatz},
+    \(K = K[x_1,\hdots,x_n]/\mfk{m}\).
+    Hence there exists a surjecive morphism \(\func{\phi}{K[x_1,\hdots,x_n]}{K}\)
+    with \(\ker\phi = \mfk{m}\) by the \hyperref[thm:iso-1-ring]{first isomorphism thoerem}.
+    Then if we let \(\phi(x_i) = a_i\),
+    then we can see that \(x_i-a_i \in \ker\phi = \mfk{m}\),
+    so \((x_1-a_1,\hdots,x_n-a_n) \subseteq \mfk{m}\).
+    For the reverse inclusion, we can see that \((x_1-a_1,\hdots,x_n-a_n)\) is a maximal ideal,
+    because \(K[x_1,\hdots,x_n]/(x_1-a_1,\hdots,x_n-a_n)\) is a field,
+    as it sends all the indeterminates into itself.
+    Hence \((x_1-a_1,\hdots,x_n-a_n) = \mfk{m}\).
+
+    Now, any proper ideal \(\mfk{a}\) must be contained within a maximal ideal \(\mfk{m}\)
+    (Corollary~\ref{cor:proper-in-maximal}).
+    But as we know that \(\Van\) is an inclusion reversing operation
+    (Lem~\ref{lem:iv-inclusion-reversing}),
+    \((a_1,\hdots,a_n) \in \Van(\mfk{m}) \subseteq \Van(\mfk{a})\).
+\end{proof}
+\begin{theorem}[Hilbert's Nullstellensatz, `zero-point theorem']\label{thm:nullstellensatz}
+    There is a bijection between the algebraic subsets of \(\bA^n\)
+    and the radical ideals of \(K[x_1,\hdots,x_n]\),
+    using the operations \(\Van\) and \(\Ide\).
+\end{theorem}
+\begin{proof}
+    We already have, from Lemma~\ref{lem:vix-x}, that \(\Van(\Ide(X)) = X\) for any algebraic subset,
+    so it suffices to prove that \(\Ide(\Van(\mfk{a})) = \mfk{a}\) for any radical.
+    We shall prove, instead, that for any ideal \(\mfk{a}\),
+    \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+    By Lemma~\ref{lem:iv-inclusion-reversing},
+    we can see that \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\sqrt{\mfk{a}} \subseteq \sqrt{\Ide(\Van(\mfk{a}))} = \Ide(\Van(\mfk{a}))\),
+    since \(\Ide(\Van(\mfk{a}))\) is radical (Lemma~\ref{lem:ix-radical}).
+
+    For the forward inclusion,
+    suppose \(\mfk{a} = (f_1,\hdots,f_n)\) has these \(n\) generators
+    (finitely generated due to Corollary~\ref{cor:noetherian-generated}).
+    Let \(g \in \Ide(\Van(\mfk{a}))\).
+    Consider the ideal \((f_1,\hdots,f_n,1-yg) \subseteq K[x_1,\hdots,x_n,y]\).
+    We claim that \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    so by way of contradiction, suppose \((\vb{a},b) = (a_1,\hdots,a_n,b) \in \Van(f_1,\hdots,f_n,1-yg)\).
+    Since each \(f_i\) is only a function of \(\vb{x} = (x_1,\hdots,x_n)\) and not of \(y\),
+    we know that \(f_i(\vb{a}) = 0\);
+    on the other hand, the last generator in the ideal gives us
+    \((1-yg)(\vb{a},b) = 1 - bg(\vb{a}) = 0\).
+    But \(f_i(\vb{a}) = 0\) implies that \(\vb{a} \in \Van(\mfk{a})\),
+    so since \(g \in \Ide(\Van(\mfk{a}))\), \(g(\vb{a}) = 0\),
+    which when substituted into the equation above, yields \(1 = 0\), which is a contradiction.
+
+    Now, since \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    the \hyperref[lem:weak-nullstellensatz]{weak Nullstellensatz}
+    asserts that \((f_1,\hdots,f_n,1-yg) = K[x_1,\hdots,x_n,y]\) is the whole ring.
+    In particular, \(1 \in (f_1,\hdots,f_n,1-yg)\),
+    so we can write 1 as a linear combination
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i f_i + h_0(1-yg)
+    \end{equation*}
+    for \(h_i \in K[x_1,\hdots,x_n,y]\).
+    If we substitute \(y \mapsto 1/g\), we can get that
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x}) = \frac{F}{g^N}
+    \end{equation*}
+    after finding the common denominator and pushing the sum of numerators into \(F\).
+    But cancelling out the denominator gives us
+    \begin{equation*}
+        g^N = \sum_{i=1}^n g^N h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x})
+        \in (f_1,\hdots,f_n) = \mfk{a}
+    \end{equation*}
+    which is exactly the definition of \(g \in \sqrt{\mfk{a}}\).
+\end{proof}
+\begin{remark}
+    The method of proving the full Nullstellensatz from its weak form
+    is introduced by Rabinowitsch in 1930,
+    and is commonly called the Rabinowitsch trick.
+\end{remark}
+
+\begin{proposition}\label{prop:associated-ideal-properties}
+    Suppose \(X_i \subseteq \bA^n\) are algebraic sets.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Ide(\bigcap X_i) = \bigcup \Ide(X_i)\); and
+        \item \(\Ide(X_1 \cup X_2) = \Ide(X_1)\Ide(X_2) = \Ide(X_1) \cap \Ide(X_2)\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For (a), let \(X_i = \Van(\mfk{a}_i)\)
+    and simply apply \(\Ide\) over Proposition~\ref{prop:vanishing-locus-properties}.
+
+    Similarly do so for part (b),
+    and then use the fact that for radical ideals,
+    the intersection is the same as the product
+    (Proposition~\ref{prop:radical-properties}).
+\end{proof}
+
+\subsection*{Noetherian Topological Spaces}
+
+\begin{definition}
+    A topological space \(X\) is irreducible if
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(X \neq \emptyset\); and
+        \item if \(X = X_1 \cup X_2\) for closed \(X_1,X_2\),
+            then \(X = X_1\) or \(X = X_2\).
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    An algebraic subset \(X \subseteq \bA^n\) is irreducible
+    if and only if \(I(X) \subseteq K[x_1,\hdots,x_n]\) is prime.
+\end{proposition}
+\begin{proof}
+    Suppose \(X \subseteq \bA^n\) is irreducible,
+    and consider \(fg \in I(X)\).
+    Then \(X \subseteq \Van(fg) = \Van(f) \cup \Van(g)\)
+    (Lemma~\ref{lem:iv-inclusion-reversing} \&~Proposition~\ref{prop:vanishing-locus-properties}),
+    so \(X = (X \cap \Van(f)) \cup (X \cap \Van(g))\).
+    Then by irreducibility, \(X = X \cap \Van(f)\) or \(X = X \cap \Van(g)\),
+    so \(X \subseteq \Van(f)\) or \(X \subseteq \Van(g)\),
+    and hence \(f \in \Ide(X)\) or \(g \in \Ide(X)\).
+
+    For the reverse direction, suppose \(\Ide(X)\) is prime,
+    and \(X = X_1 \cup X_2\).
+    Then \(\Ide(X) = \Ide(X_1 \cup X_2) = \Ide(X_1) \cap \Ide(X_2)\)
+    (Proposition~\ref{prop:associated-ideal-properties}).
+    If \(X = X_1\), then we are done.
+    On the other hand, if \(X_1 \subsetneq X\),
+    then \(\Ide(X) \subsetneq \Ide(X_1)\) (Lemma~\ref{lem:iv-inclusion-reversing}).
+    Let us consider \(g \in \Ide(X_1) - \Ide(X)\).
+    Then for any arbitrary \(f \in \Ide(X_2)\),
+    \(fg \in \Ide(X_1)\Ide(X_2) = \Ide(X_1) \cap \Ide(X_2) = \Ide(X)\),
+    which by primeness, since \(g \notin \Ide(X)\),
+    imply \(f \in \Ide(X)\).
+    In turn, \(\Ide(X_2) \subseteq \Ide(X)\),
+    so \(X \subseteq X_2\) as desired.
+\end{proof}
+\begin{definition}
+    An irreducible algebraic set is an affine variety.
+\end{definition}
+
+\begin{proposition}\label{prop:noetherian-top-condition}
+    Suppose \(X\) is a topological space.
+    The following are equivalent:
+    \begin{enumerate}[label={(\roman*)}]
+        \item every chain of descending closed sets \(X_1 \supseteq X_2 \supseteq \cdots\)
+            eventually becomes stationary \(X_n = X_{n+1} = \cdots\);
+        \item every open subset is quasi-compact; and
+        \item every subset is quasi-compact.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    We first prove (ii) implies (i).
+    Consider an arbitrary descending chain of closed sets \(X_1 \supseteq X_2 \supseteq \cdots\).
+    Then we have an ascending chain of open sets \(X_1^c \subseteq X_2^c \subseteq \cdots\),
+    and we know that the arbitrary union \(Y = \bigcup X_i^c\) is an open set.
+    Let \({\{X_i^c\}}_{i=1}^\infty\) be an open cover of \(Y\),
+    and let \(X_n\) be the largest set in the finite subcover.
+    Then \(X_i \subseteq Y \subseteq X_n\) and we are done.
+
+    We then prove (i) implies (iii).
+    Suppose \(Y \subseteq X\), and let \({\{U_i\}}\) be an open cover of \(Y\).
+    Let \(U_1 \subseteq U_1 \cup U_2 \subseteq \cdots\) be an ascending chain of open sets,
+    so their complements form a descending chain of closed sets.
+    Since it must become stationary at some \(U_n^c\).
+    Then we have our finite subcover \({\{U_i\}}_{i=1}^n\).
+
+    Finally, (iii) implies (ii) trivially.
+\end{proof}
+\begin{definition}
+    If a topological space \(X\) satisfies any of the conditions above,
+    then we say \(X\) is Noetherian.
+\end{definition}
+\begin{lemma}\label{lem:affine-noetherian}
+    Affine \(n\)-spaces \(\bA^n\) are Noetherian.
+\end{lemma}
+\begin{proof}
+    By the \hyperref[thm:nullstellensatz]{Nullstellensatz},
+    every descending chain of closed (algebraic) sets
+    corresponds to an ascending chain of radical ideals in \(K[x_1,\hdots,x_n]\),
+    The \hyperref[cor:hilbert-basis]{Hilbert basis theorem}
+    then guarantees that \(K[x_1,\hdots,x_n]\) is Noetherian.
+\end{proof}
+\begin{proposition}
+    Suppose \(X\) is a Noetherian topological space.
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item any subspace \(Y \subseteq X\) is Noetherian;
+        \item if \(\func{f}{X}{Y}\) is continuous, then \(f(X) \subseteq Y\) is Noetherian;
+        \item if \({\{X_i\}}_{i=1}^n \subseteq X\) are Noetherian,
+            then \(\bigcup_{i=1}^n X_i \subseteq X\) is Noetherian; and
+        \item if \(X\) is also Hausdorff, then \(X\) is a finite set with discrete topology.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Since any subset of \(X\) is quasi-compact,
+    any subset of \(Y\) is also a subset of \(X\),
+    which will be quasi-compact.
+    This proves statement (a).
+
+    Consider any open subset of \(U \subseteq f(X)\).
+    Since the preimage \(f^{-1}(U) \subseteq X\) is also open,
+    by the Noetherian condition,
+    it is also quasi-compact.
+    We then cite the topological fact that continuous images of quasi-compact sets are quasi-compact,
+    so \(U\) is indeed quasi-compact.
+    This proves statement (b).
+
+    Consider any subset \(Y \subseteq \bigcup_{i=1}^n X_i\),
+    and an open cover \(\{U_\alpha\}\) of \(Y\).
+    Then if we let \(Y_i = Y \cap X_i\),
+    \(U_\alpha \cap Y_i\) is an open cover of a subset of \(X_i\),
+    which will have a finite subcover \({\{U_{ij}\}}_{j=1}^{m_i}\).
+    Then \(\bigcup_{i=1}^n {\{U_{ij}\}}_{j=1}^{m_i}\) is a finite subcover of \(Y\).
+    This proves statement (c).
+
+    If \(X\) is Noetherian and Hausdorff,
+    then every subset is compact, which is closed.
+    In the same vein, every subset is the complement of a closed set,
+    which implies every subset is open.
+    This immediately shows that \(X\) has a discrete topology.
+    % Then suppose, by way of contradiction, that \(X\) is infinite.
+    Because \(X\) is compact, consider the open cover by singletons \({\{\{p\}\}}_{p \in X}\).
+    Immediately we can see that any finite subcover must only contain finitely many points in \(X\),
+    so for \(X\) to always have a finite subcover, it must be a finite set.
+    This proves statement (d).
+\end{proof}
+
+\begin{theorem}\label{thm:noetherian-irr-decomp}
+    Suppose \(X\) is Noetherian.
+    Then \(X\) can be written as \(X = X_1 \cup \cdots \cup X_n\),
+    where \(X_i\) are irreducible and irredundant (none of the \(X_i\) are contained in the union of the others).
+    The \(X_i\) are called irreducible components,
+    and are thus unique up to reordering.
+\end{theorem}
+\begin{proof}
+    Consider \(I\), the set of all closed subsets of \(X\)
+    that are not a finite union of irreducible closed subsets.
+    Suppose, by way of contradiction, that \(I\) is not empty.
+    Then using the partial ordering of set inclusion,
+    since every descending chain of closed subsets must eventually stabilize
+    (Proposition~\ref{prop:noetherian-top-condition}),
+    by \hyperref[ax:zorn]{Zorn's lemma},
+    there exists a minimal element \(Z \in I\).
+    Since \(Z\) is not a union of irreducible components,
+    in particular \(Z\) cannot be itself an irreducible component,
+    so \(Z = Z_1 \cup Z_2\) for some closed \(Z_1,Z_2\),
+    and \(Z_1,Z_2 \subsetneq Z\) are proper subsets.
+    By minimality of \(Z\), \(Z_1,Z_2 \notin I\),
+    so they are a finite union of irreducible closed subsets
+    \(Z_1 = A_1 \cup \cdots \cup A_n\) and \(Z_2 = B_1 \cup \cdots \cup B_m\).
+    But then \(Z = A_1 \cup \cdots \cup A_n \cup B_1 \cup \cdots \cup B_m\)
+    is a contradiction.
+    This shows the existence of an irreducible decomposition of \(X\).
+
+    Now suppose we have two irredundant irreducible decompositions
+    \(X = X_1 \cup \cdots \cup X_m = Y_1 \cup \cdots \cup Y_n\).
+    We can see that any \(Y_i \subseteq X_1 \cup \cdots \cup X_m\),
+    so \(Y_i = (Y_i \cap X_1) \cup \cdots \cup (Y_i \cap X_m)\).
+    Because \(Y_i\) is irreducible,
+    it cannot be a union of irreducible sets,
+    so \(Y_i = Y_i \cap X_j\) for some \(j\), and \(Y_i \subseteq X_j\).
+    But by similar logic, \(X_j \subseteq Y_k\) for some \(k\).
+    Because the decompositions are irredundant,
+    \(Y_i \subseteq X_j \subseteq Y_k\) only when \(Y_i = Y_k\),
+    which gives us \(Y_i = X_j\).
+    This proves uniqueness of irredundant decompositions.
+\end{proof}
+\begin{corollary}
+    Suppose \(R\) is finite-type over field \(K\).
+    Then any radical ideal \(\mfk{a} \subseteq R\) has a unique irredundant prime decomposition.
+\end{corollary}
+\begin{proof}
+    We first prove the special case of \(R = K[x_1,\hdots,x_n]\).
+    Applying the \hyperref[thm:noetherian-irr-decomp]{theorem above} to \(\bA^n\)
+    and then using the \hyperref[thm:nullstellensatz]{Nullstellensatz},
+    any radical ideal is a unique intersection of primes.
+    An application of the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    then suffices to extend this argument to any \(K[x_1,\hdots,x_n]/\mfk{b}\).
+\end{proof}
+
+\subsection*{Dimension}
+
+\begin{definition}
+    Suppose \(X\) is an irreducible topological space,
+    and \(Z \subseteq X\) is an irreducible closed subset.
+    The codimension of \(Z\) in \(X\)
+    is the length of the longest chain of irreducible closed subsets between \(Z\) and \(X\),
+    \(\codim(Z,X) = \sup\{n: Z = Z_0 \subsetneq Z_1 \subsetneq \cdots \subsetneq Z_n = X\}\).
+    The dimension of \(X\) is the length of the longest chain of irreducible closed subsets terminating at \(X\),
+    \(\dim X = \sup_{Z\,\text{irr. closed}} \codim(Z,X)\).
+\end{definition}
+\begin{remark}
+    We can immediately see that \(\dim\emptyset = -\infty\);
+    and if \(X \neq \emptyset\),
+    \(\dim X \in \bZ_{\geq 0} \cup \{\infty\}\).
+    Even in the case of \(X\) Noetherian, it is still possible for \(\dim X = \infty\).
+\end{remark}
+\begin{lemma}
+    Suppose \(Z \subseteq \bA^n\) is an affine variety.
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\codim(Z,\bA^n) = \height(\Ide(Z))\);
+        \item \(\dim(\bA^n) = \dim k[x_1,\hdots,x_n]\); and
+        \item \(\dim Z = \dim k[x_1,\hdots,x_n]/\Ide(Z)\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(\dim Z + \codim(Z,\bA^n) = \dim \bA^n = n\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+% TODO more properties
+
 

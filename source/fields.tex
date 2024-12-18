@@ -25,7 +25,7 @@
     Corollary~\ref{cor:field-polynomial-pid} tells us that
     \(F[x]\) is a domain,
     and hence we can construct its field of fractions,
-    which we denote \(F(X) = \{\frac{f(x)}{g(x)} : f,g \in F[x], g \neq 0\}\).
+    which we denote \(F(x) = \{\frac{f(x)}{g(x)} : f,g \in F[x], g \neq 0\}\).
     This is often called the transcendental extension of \(F\),
     or the univariate function field over \(F\).
 \end{definition}
@@ -129,7 +129,7 @@
 \end{proof}
 
 
-\section{Algebraic Extensions}
+\section{Algebraic Extensions}\label{sec:algebraic-extensions}
 
 \begin{definition}
     Suppose \(K/F\) is a field extension, and \(a \in K\) some element.
@@ -423,7 +423,7 @@
 %     every polynomial \(f(x) \in F[x]\) splits completely over \(\overline{F}\),
 %     and every element is algebraic over \(F\).
 % \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:splitting-field-properties}
     Suppose \(F\) is a field.
     Then the following are equivalent:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
@@ -499,7 +499,7 @@
 
 \begin{proposition}
     Suppose \(\func{\sigma}{F}{L}\) is a field homomorphism,
-    where \(L = \overline{L}\) iss algebraically closed.
+    where \(L = \overline{L}\) is algebraically closed.
     Let \(\alpha\) be algebraic over \(F\),
     \(p(x) = \min_F(a) = \sum_{i=0}^n a_i x^i\) a monic minimal polynomial,
     and \(\sigma(p)(x) = \sum_{i=0}^n \sigma(a_i)x^i\) its image.

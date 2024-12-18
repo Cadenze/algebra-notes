@@ -57,13 +57,14 @@
 \newcommand{\mfk}[1]{\mathfrak{#1}}
 \newcommand{\mca}[1]{\mathcal{#1}}
 
-\newcommand{\bN}{\mbb{N}}
-\newcommand{\bC}{\mbb{C}}
-\newcommand{\bR}{\mbb{R}}
-\newcommand{\bQ}{\mbb{Q}}
-\newcommand{\bZ}{\mbb{Z}}
-\newcommand{\bF}{\mbb{F}}
-\newcommand{\bH}{\mbb{H}}
+\newcommand{\bN}{\mbb{N}}               % natural numbers
+\newcommand{\bZ}{\mbb{Z}}               % integers
+\newcommand{\bQ}{\mbb{Q}}               % rational numbers
+\newcommand{\bR}{\mbb{R}}               % real numbers
+\newcommand{\bC}{\mbb{C}}               % complex numbers
+\newcommand{\bF}{\mbb{F}}               % finite fields
+\newcommand{\bH}{\mbb{H}}               % quaternions
+\newcommand{\bA}{\mbb{A}}               % affine space
 
 % Common notation
 \DeclareMathOperator{\img}{img}         % image (of a morphism)
@@ -84,6 +85,7 @@
 \DeclareMathOperator{\Hom}{Hom}         % set of homomorphisms
 \DeclareMathOperator{\End}{End}         % set of endomorphisms
 \DeclareMathOperator{\Aut}{Aut}         % set of automorphisms
+\DeclareMathOperator{\Func}{Func}       % set of functions
 \DeclareMathOperator{\Ob}{Ob}           % collection of objects
 \DeclareMathOperator{\Mor}{Mor}         % collection of morphisms
 \DeclareMathOperator{\dirlim}{\displaystyle\lim_{\longrightarrow}}  % direct limit
@@ -100,8 +102,11 @@
 \DeclareMathOperator{\Gal}{Gal}         % Galois group
 
 \DeclareMathOperator{\Nil}{\mathcal{N}} % nilradical of
+\DeclareMathOperator{\height}{ht}       % height of (prime ideal)
+
 \DeclareMathOperator{\Van}{V}           % vanishing locus
 \DeclareMathOperator{\Ide}{I}           % ideal of
+\DeclareMathOperator{\codim}{codim}     % codimension of (irreducible closed subset)
 
 % Sometimes helpful macros
 \newcommand{\func}[3]{#1\colon#2\to#3}
@@ -162,7 +167,7 @@
 \include{source/220-review}
 
 \part{Constructions}
-\include{source/categories}
+% \include{source/categories}
 \include{source/group-theory}
 \include{source/rings}
 \include{source/linear-algebra}
@@ -172,12 +177,12 @@
 \include{source/fields}
 \include{source/galois}
 
-\part{Algebraic Geometry}
+\part{Commutative Algebra}
 \include{source/commutative}
-\include{source/varieties}
+% \include{source/varieties}
 
-\part{Theory of Structures}
-\include{source/homology}
+% \part{Theory of Structures}
+% \include{source/homology}
 
 \backmatter
 
