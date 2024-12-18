@@ -1275,9 +1275,166 @@
     any algebraic extension, in particular \(E\),
     will be inside of \(K\).
 \end{proof}
+% \begin{remark}
+%     We shall delay the statement of the full Hilbert's Nullstellensatz until the next chapter,
+%     but we already have all the tools to prove it.
+% \end{remark}
+
+\begin{definition}
+    Suppose \(K\) is a field, and \(R = K[x_1,\hdots,x_n]\).
+    Consider \({\{f_i\}}_{i \in S} \subset R\) a family of polynomial functions,
+    \(\func{f_i}{K^n}{K}\).
+    The vanishing locus is the set of points
+    \(\Van(\{f_i\}) = \{p \in K^n: \forall i \in S,\,f_i(p) = 0\}\).
+    Now consider \(X \subseteq K^n\).
+    The ideal of all vanishing polynomials is
+    \(\Ide(X) = \{f \in R: \forall x \in X,\,f(x) = 0\}\).
+\end{definition}
+\begin{definition}
+    A subset \(Z \subseteq K^n\) is said to be algebraic
+    if it is the vanishing locus \(Z = \Van(S)\)
+    of a set \(S \subseteq K[x_1,\hdots,x_n]\).
+\end{definition}
+\begin{lemma}\label{lem:iv-inclusion-reversing}
+    Suppose \(S \subseteq K^n\) and \(J \subseteq K[x_1,\hdots,x_n]\) are subsets.
+    Then we have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\Van\) and \(\Ide\) are inclusion reversing; and
+        \item \(J \subseteq \Ide(\Van(J))\) and \(S \subseteq \Van(\Ide(S))\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Suppose \(J' \subseteq J\).
+    Consider any point \(p \in \Van(J)\).
+    Since all polynomials \(f \in J\) have \(f(p) = 0\),
+    in particular any \(f \in J'\) have \(f(p) = 0\),
+    so \(p \in \Van(J')\).
+    We have \(\Van(J') \supseteq \Van(J)\).
+
+    Suppose \(S' \subseteq S\).
+    Consider any \(f \in \Ide(S)\).
+    Then \(f\) vanishes on all points in \(S\),
+    and in particular it vanishes on all points in \(S'\),
+    so \(f \in \Ide(S')\).
+    We have \(\Ide(S') \supseteq \Ide(S)\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose \(f \in J\).
+    Then \(f\) vanishes on \(\Van(J)\).
+    Since \(\Ide(\Van(J))\) is the set of functions that vanish on \(\Van(J)\),
+    we have \(f \in \Ide(\Van(J))\).
+
+    Suppose \(x \in S\).
+    Then all functions in \(\Ide(S)\) vanish at \(x\).
+    Since \(\Van(\Ide(S))\) is the set of points that all functions in \(\Ide(S)\) vanish at,
+    we have \(x \in \Van(\Ide(S))\).
+\end{proof}
+\begin{lemma}\label{lem:vix-x}
+    Suppose \(X \subseteq K^n\) is an algebraic subset.
+    Then \(\Van(\Ide(X)) = X\).
+\end{lemma}
+\begin{proof}
+    Trivially by Lemma~\ref{lem:iv-inclusion-reversing},
+    \(X \subseteq \Van(\Ide(X))\).
+
+    By definition of an algebraic subset,
+    \(X = \Van(\mfk{a})\) for some ideal \(\mfk{a} \subseteq K[x_1,\hdots,x_n]\).
+    But then \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\Van(\mfk{a}) \supseteq \Van(\Ide(\Van(\mfk{a})))\).
+\end{proof}
+\begin{lemma}\label{lem:ix-radical}
+    Suppose \(X \subseteq K^n\) is a subset.
+    Then \(\Ide(X)\) is a radical ideal.
+\end{lemma}
+\begin{proof}
+    Suppose \(f^n \in \Ide(X)\).
+    Then for all \(x \in X\), \(f^n(x) = {(f(x))}^n = 0\),
+    which implies \(f(x) = 0\), so \(f \in \Ide(X)\).
+\end{proof}
+
+\begin{lemma}[Weak Hilbert's Nullstellensatz]\label{lem:weak-nullstellensatz}
+    Suppose \(K\) is algebraically closed.
+    Every maximal ideal \(\mfk{m} \subseteq K[x_1,\hdots,x_n]\) is of the form
+    \(\mfk{m} = (x_1-a_1,\hdots,x_n-a_n)\) for some \((a_1,\hdots,a_n) \in K^n\).
+    Every proper ideal \(\mfk{a} \subsetneq K[x_1,\hdots,x_n]\)
+    has a nonempty vanishing locus \(\Van(\mfk{a}) \neq \emptyset\).
+\end{lemma}
+\begin{proof}
+    From our previous statement of the \hyperref[cor:weak-nullstellensatz]{weak Nullstellensatz},
+    \(K = K[x_1,\hdots,x_n]/\mfk{m}\).
+    Hence there exists a surjecive morphism \(\func{\phi}{K[x_1,\hdots,x_n]}{K}\)
+    with \(\ker\phi = \mfk{m}\) by the \hyperref[thm:iso-1-ring]{first isomorphism thoerem}.
+    Then if we let \(\phi(x_i) = a_i\),
+    then we can see that \(x_i-a_i \in \ker\phi = \mfk{m}\),
+    so \((x_1-a_1,\hdots,x_n-a_n) \subseteq \mfk{m}\).
+    For the reverse inclusion, we can see that \((x_1-a_1,\hdots,x_n-a_n)\) is a maximal ideal,
+    because \(K[x_1,\hdots,x_n]/(x_1-a_1,\hdots,x_n-a_n)\) is a field,
+    as it sends all the indeterminates into itself.
+    Hence \((x_1-a_1,\hdots,x_n-a_n) = \mfk{m}\).
+
+    Now, any proper ideal \(\mfk{a}\) must be contained within a maximal ideal \(\mfk{m}\)
+    (Corollary~\ref{cor:proper-in-maximal}).
+    But as we know that \(\Van\) is an inclusion reversing operation
+    (Lem~\ref{lem:iv-inclusion-reversing}),
+    \((a_1,\hdots,a_n) \in \Van(\mfk{m}) \subseteq \Van(\mfk{a})\).
+\end{proof}
+\begin{theorem}[Hilbert's Nullstellensatz, `zero-point theorem']\label{thm:nullstellensatz}
+    There is a bijection between the algebraic subsets of \(K^n\)
+    and the radical ideals of \(K[x_1,\hdots,x_n]\),
+    using the operations \(\Van\) and \(\Ide\).
+\end{theorem}
+\begin{proof}
+    We already have, from Lemma~\ref{lem:vix-x}, that \(\Van(\Ide(X)) = X\) for any algebraic subset,
+    so it suffices to prove that \(\Ide(\Van(\mfk{a})) = \mfk{a}\) for any radical.
+    We shall prove, instead, that for any ideal \(\mfk{a}\),
+    \(\Ide(\Van(\mfk{a})) = \sqrt{\mfk{a}}\).
+    By Lemma~\ref{lem:iv-inclusion-reversing},
+    we can see that \(\mfk{a} \subseteq \Ide(\Van(\mfk{a}))\),
+    so \(\sqrt{\mfk{a}} \subseteq \sqrt{\Ide(\Van(\mfk{a}))} = \Ide(\Van(\mfk{a}))\),
+    since \(\Ide(\Van(\mfk{a}))\) is radical (Lemma~\ref{lem:ix-radical}).
+
+    For the forward inclusion,
+    suppose \(\mfk{a} = (f_1,\hdots,f_n)\) has these \(n\) generators
+    (finitely generated due to Corollary~\ref{cor:noetherian-generated}).
+    Let \(g \in \Ide(\Van(\mfk{a}))\).
+    Consider the ideal \((f_1,\hdots,f_n,1-yg) \subseteq K[x_1,\hdots,x_n,y]\).
+    We claim that \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    so by way of contradiction, suppose \((\vb{a},b) = (a_1,\hdots,a_n,b) \in \Van(f_1,\hdots,f_n,1-yg)\).
+    Since each \(f_i\) is only a function of \(\vb{x} = (x_1,\hdots,x_n)\) and not of \(y\),
+    we know that \(f_i(\vb{a}) = 0\);
+    on the other hand, the last generator in the ideal gives us
+    \((1-yg)(\vb{a},b) = 1 - bg(\vb{a}) = 0\).
+    But \(f_i(\vb{a}) = 0\) implies that \(\vb{a} \in \Van(\mfk{a})\),
+    so since \(g \in \Ide(\Van(\mfk{a}))\), \(g(\vb{a}) = 0\),
+    which when substituted into the equation above, yields \(1 = 0\), which is a contradiction.
+
+    Now, since \(\Van(f_1,\hdots,f_n,1-yg) = \emptyset\),
+    the \hyperref[lem:weak-nullstellensatz]{weak Nullstellensatz}
+    asserts that \((f_1,\hdots,f_n,1-yg) = K[x_1,\hdots,x_n,y]\) is the whole ring.
+    In particular, \(1 \in (f_1,\hdots,f_n,1-yg)\),
+    so we can write 1 as a linear combination
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i f_i + h_0(1-yg)
+    \end{equation*}
+    for \(h_i \in K[x_1,\hdots,x_n,y]\).
+    If we substitute \(y \mapsto 1/g\), we can get that
+    \begin{equation*}
+        1 = \sum_{i=1}^n h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x}) = \frac{F}{g^N}
+    \end{equation*}
+    after finding the common denominator and pushing the sum of numerators into \(F\).
+    But cancelling out the denominator gives us
+    \begin{equation*}
+        g^N = \sum_{i=1}^n g^N h_i\pqty{\vb{x},\frac{1}{g}}f_i(\vb{x})
+        \in (f_1,\hdots,f_n) = \mfk{a}
+    \end{equation*}
+    which is exactly the definition of \(g \in \sqrt{\mfk{a}}\).
+\end{proof}
 \begin{remark}
-    We shall delay the statement of the full Hilbert's Nullstellensatz until the next chapter,
-    but we already have all the tools to prove it.
+    The method of proving the full Nullstellensatz from its weak form
+    is introduced by Rabinowitsch in 1930,
+    and is commonly called the Rabinowitsch trick.
 \end{remark}
 
 \subsection*{Primary Decomposition}
@@ -1338,6 +1495,7 @@
 \begin{proof}
     
 \end{proof}
+
 
 \section{Artinian Rings}
 
