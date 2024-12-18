@@ -533,4 +533,40 @@
 
 \subsection*{Dimension}
 
+\begin{definition}
+    Suppose \(X\) is an irreducible topological space,
+    and \(Z \subseteq X\) is an irreducible closed subset.
+    The codimension of \(Z\) in \(X\)
+    is the length of the longest chain of irreducible closed subsets between \(Z\) and \(X\),
+    \(\codim(Z,X) = \sup\{n: Z = Z_0 \subsetneq Z_1 \subsetneq \cdots \subsetneq Z_n = X\}\).
+    The dimension of \(X\) is the length of the longest chain of irreducible closed subsets terminating at \(X\),
+    \(\dim X = \sup_{Z\,\text{irr. closed}} \codim(Z,X)\).
+\end{definition}
+\begin{remark}
+    We can immediately see that \(\dim\emptyset = -\infty\);
+    and if \(X \neq \emptyset\),
+    \(\dim X \in \bZ_{\geq 0} \cup \{\infty\}\).
+    Even in the case of \(X\) Noetherian, it is still possible for \(\dim X = \infty\).
+\end{remark}
+\begin{lemma}
+    Suppose \(Z \subseteq \bA^n\) is an affine variety.
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\codim(Z,\bA^n) = \height(\Ide(Z))\);
+        \item \(\dim(\bA^n) = \dim k[x_1,\hdots,x_n]\); and
+        \item \(\dim Z = \dim k[x_1,\hdots,x_n]/\Ide(Z)\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    
+\end{proof}
+\begin{corollary}
+    \(\dim Z + \codim(Z,\bA^n) = \dim \bA^n = n\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
+
+% TODO more properties
+
 
