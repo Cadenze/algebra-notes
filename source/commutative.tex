@@ -1608,7 +1608,8 @@
     But if we consider the sequence of morphisms
     \begin{equation*}
         \begin{tikzcd}
-            \Bl_\mfk{a} R[x_{ij}] \arrow{r} & \Bl_\mca{A} M \arrow{r} &
+            \Bl_\mfk{a} R[x_{ij}] \arrow[twoheadrightarrow]{r} &
+            \Bl_\mca{A} M = \displaystyle\bigoplus_{k=1}^\infty M_k \arrow[twoheadrightarrow]{r} &
             \displaystyle\bigoplus_{k=n}^\infty M_k
         \end{tikzcd}
     \end{equation*}
@@ -1631,8 +1632,8 @@
     and \(\mca{A}: M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is a stable \(\mfk{a}\)-filtration.
     If \(N \subseteq M\) is a submodule,
     then \(N\cap\mca{A}: N = N \cap M_0 \supseteq N \cap M_1 \supseteq N \cap M_2 \supseteq \cdots\)
-    is a stable \(\mfk{a}\)-filtration.
-    Moreover, there exists some \(n\) such that for all \(k \geq 0\),
+    is a stable \(\mfk{a}\)-filtration;
+    that is, there exists some \(n\) such that for all \(k \geq 0\),
     \(N \cap M_{n+k} = \mfk{a}^k(N \cap M_n)\).
 \end{proposition}
 \begin{proof}
@@ -1643,7 +1644,7 @@
     By the \hyperref[lem:stable-blowup]{lemma above},
     we are done.
 
-    The second part can be seen by taking \(M_n = \mfk{a}^n M\).
+    The second part can be seen by definition of stability.
 \end{proof}
 
 \begin{theorem}[Krull's Intersection Theorem]
@@ -1655,7 +1656,65 @@
     then \(\bigcap_{k=1}^\infty \mfk{a}^k = 0\).
 \end{theorem}
 \begin{proof}
-    
+    Applying the \hyperref[prop:artin-rees]{Artin-Rees lemma}
+    to \(\bigcap_{k=1}^\infty \mfk{a}^k M \subseteq M\) (and the \(\mfk{a}\)-adic filtration of \(M\)),
+    there exists some \(n\) such that
+    \begin{equation*}
+        \bigcap_{k=1}^\infty \mfk{a}^k M = \bigcap_{k=1}^\infty \mfk{a}^k M \cap \mfk{a}^{n+1} M
+        = \mfk{a}\pqty{\bigcap_{k=1}^\infty \mfk{a}^k M \cap \mfk{a}^n M}
+        = \mfk{a}\pqty{\bigcap_{k=1}^\infty \mfk{a}^k M}
+    \end{equation*}
+    Then we have the first statement using \hyperref[cor:nakayama]{Nakayama's lemma}.
+
+    Taking \(M = R\), to prove the second statement,
+    it suffices to show that \(1-r\) is not a zero divisor.
+    In a domain and a proper ideal, \(r \neq 1\) so \(1-r \neq 0\) and we are done.
+    If \(R\) is a local ring, then \(\mfk{a} \subseteq \mfk{m}\) is contained inside the maximal (also Jacobson) ideal,
+    so by Lemma~\ref{lem:1-xy-unit} \(r \in \mfk{m}\) implies that \(1-r\) is a unit,
+    i.e.\ not a zero divisor.
 \end{proof}
+
+\subsection*{Associated Graded Ring}
+
+\begin{definition}
+    Given an ideal \(\mfk{a} \subseteq R\),
+    the associated graded ring of \(R\) with respect to \(\mfk{a}\) is
+    \begin{equation*}
+        \gr_\mfk{a} R = \bigoplus_{k=0}^\infty \mfk{a}^k/\mfk{a}^{k+1}
+        = R/\mfk{a} \oplus \mfk{a}/\mfk{a}^2 \oplus \mfk{a}^2/\mfk{a}^3 \oplus \cdots
+    \end{equation*}
+    Notice that if \([x] \in \mfk{a}^m/\mfk{a}^{m+1}\) and \([y] \in \mfk{a}^n/\mfk{a}^{n+1}\),
+    given any \(x' \in \mfk{a}^{m+1}\) and \(y' \in \mfk{a}^{n+1}\),
+    we have \((x+x')(y+y') = xy + xy' + x'y + x'y' \in xy + \mfk{a}^{m+n+1} + \mfk{a}^{m+n+2} \subseteq xy + \mfk{a}^{m+n+1}\),
+    so \([x][y] = [xy] \in \mfk{a}^{m+n}/\mfk{a}^{m+n+1}\) is well-defined.
+    Alternatively we can express this as a quotient of blowup rings
+    \(\gr_\mfk{a} R = \Bl_\mfk{a}R/\mfk{a}\Bl_\mfk{a}R\).
+\end{definition}
+\begin{definition}
+    Given an ideal \(\mfk{a} \subseteq R\), an \(R\)-module \(m\),
+    and an \(\mfk{a}\)-filtration \(\mca{A}: M = M_0 \supseteq M_1 \supseteq \cdots\),
+    the associated graded module of \(M\) with respect to the \(\mfk{a}\)-filtration \(\mca{A}\) is
+    \begin{equation*}
+        \gr_{\mca{A}} M = \bigoplus_{k=0}^\infty M_k/M_{k+1}
+        = M/M_1 \oplus M_1/M_2 \oplus M_2/M_3 \oplus \cdots
+    \end{equation*}
+    Because \(\mca{A}\) is an \(\mfk{a}\)-filtration, the multiplication works as the associated graded ring above.
+\end{definition}
+
+\begin{proposition}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal, and \(M\) is a finitely generated \(R\)-module.
+    If \(\mca{A}: M = M_0 \supseteq M_1 \supseteq \cdots\) is an \(\mfk{a}\)-stable filtration,
+    with \(M_n\) all finitely generated over \(R\),
+    then \(\gr_\mca{A} M\) is a finitely generated \(\gr_\mfk{a} R\)-module.
+\end{proposition}
+\begin{proof}
+    Let \(n\) be the integer such that for all \(k \geq n\), \(\mfk{a}M_k = M_{k+1}\).
+    We then have \((\mfk{a}/\mfk{a}^2)(M_k/M_{k+1}) = M_{k+1}/M_{k+2}\) by simple verification.
+    Hence the generators of \(M_0/M_1,\hdots,M_n/M_{n+1}\),
+    and in particular to generators of \({\{M_k\}}_{k=1}^n\),
+    will generate \(\gr_\mca{A} M\).
+\end{proof}
+
+% Hilbert function?
 
 \section{Completions}
