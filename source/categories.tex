@@ -1,98 +1,180 @@
-\chapter{Categories}\label{sec:categories}
+\chapter{Categories}\label{ch:categories}
 
 \begin{remark}
-    This section is entirely extra,
-    and is not required in order to understand the rest of the constructions.
+    There will not be too many results from category theory that we will be using;
+    however, the framework of category theory is useful,
+    as it gives us certain natural constructions which might otherwise take forever to build up.
 \end{remark}
 
 \section{Basic Definitions}
 
 \begin{definition}
     A category \(\mca{C}\) is a collection of objects \(\Ob(\mca{C})\)
-    alongisde a collection of morphisms \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
+    alongisde a collection of morphisms or arrows \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
     where
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(\forall f \in \Mor(\mca{C}),\; \exists X,Y \in \Mor(\mca{C}),\; \func{f}{X}{Y}\),
-            a morphism is a mapping from a source object to a target object;
+        \item given a morphism \(f \in \Mor(\mca{C})\),
+            there exists a source and a target object \(X,Y \in \Mor(\mca{C})\)
+            such that the morphism maps from the source to the target \(\func{f}{X}{Y}\);
+            % a morphism is a mapping from a source object to a target object;
             we define the collection of morphisms from \(X\) to \(Y\)
             as \(\Hom(X,Y) = \{f\in\Mor(\mca{C}) \mid \func{f}{X}{Y}\}\);
-        \item \(\forall f \in \Hom(X,Y),\; \forall g \in \Hom(Y,Z),\; g \circ f \in \Hom(X,Z)\),
-            the composition is a morphism;
-        \item \(\forall f,g,h \in \Mor(\mca{C}),\; (f \circ g) \circ h = f \circ (g \circ h)\),
-            morphisms are associative; and
-        \item \(\forall X \in \Ob(\mca{C}),\; \exists \id_X \in \Hom(X,X),\; \id_X \circ g = g,\; f \circ \id_X = f\)
-            the identity morphism exists.
+        \item composition of morphisms is \(\Hom(X,Y) \times \Hom(Y,Z) \to \Hom(X,Z)\),
+            where we send \((f,g) \mapsto g \circ f = gf\);
+        \item composition of morphisms is associative, as in \((f \circ g) \circ h = f \circ (g \circ h)\); and
+        \item Given any object \(X \in \Ob(\mca{C})\),
+            there exists an identity morphism \(\id_X \in \Hom(X,X)\)
+            such that \(\id_X \circ g = g,\; f \circ \id_X = f\).
     \end{enumerate}
 \end{definition}
 \begin{remark}
-    \(\Mor\) and \(\Hom\) are often interchangeable in this context,
-    since in algebra, the morphisms that we deal with are usually homomorphisms.
+    \(\Mor\) and \(\Hom\) are often interchangeable in this context.
+    % since in algebra, the morphisms that we deal with are usually homomorphisms.
     We shall stick to the convention that the morphisms of a category is \(\Mor\),
-    while the homomorphisms between objects are \(\Hom\).
+    while the morphisms between objects are \(\Hom\).
 \end{remark}
 
+\subsection*{Functors}
+
 \begin{definition}
-    A morphism \(f \in \Hom(X,Y)\) is a monomorphism or monic
-    if \(f \circ g = f \circ h\) implies \(g = h\) for any \(g,h\).
-    A morphism \(f \in \Hom(X,Y)\) is an epimorphism or epic
-    if \(g \circ f = h \circ f\) implies \(g = h\) for any \(g,h\).
+    Suppose \(\mca{C},\mca{D}\) are categories.
+    A functor is a map \(\func{T}{\mca{C}}{\mca{D}}\) between categories
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item given any object \(X \in \Ob(\mca{C})\), we get an object \(TX \in \Ob(\mca{D})\);
+        \item given any morphism \(f \in \Hom(X,Y) \subseteq \Mor(\mca{C})\),
+            we get a morphism \(Tf \in \Hom(TX,TY) \subseteq \Mor(\mca{D})\); and
+        \item the functor respects composition \(T(fg) = Tf \circ Tg\) and identity \(T\id_X = \id_{TX}\).
+    \end{enumerate}
 \end{definition}
 
 \begin{definition}
-    A morphism \(f \in \Hom(X,Y)\) is an isomorphism
-    if it has an inverse \(g \in \Hom(Y,X)\)
-    such that \(f \circ g = \id_Y\) and \(g \circ f = \id_X\).
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is an isomorphism of categories
+    if it is a bijection of both objects and morphisms.
+    Equivalently, \(T\) is an isomorphism
+    if there exists an inverse functor \(\func{T^{-1}}{\mca{D}}{\mca{C}}\)
+    such that \(T \circ T^{-1} = \id_\mca{D}\) and \(T^{-1} \circ T = \id_\mca{C}\) are both identity functors.
 \end{definition}
 \begin{definition}
-    A morphism \(f \in \Hom(X,X)\) that maps to itself is called an endomorphism.
-    The collection of endomorphisms is \(\End(X) = \Hom(X,X)\).
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is full
+    if given any two objects \(X,Y \in \Ob(\mca{C})\) and any morphism \(g \in \Hom(TX,TY)\),
+    there exists some \(f \in \Hom(X,Y)\) such that \(g = Tf\).
+    Equivalently, given any two objects \(X,Y \in \Ob(\mca{C})\),
+    \(T\) is full if the function on morphisms \(\func{T}{\Hom(X,Y)}{\Hom(TX,TY)}\) is surjective.
+    Compositions of full functors are full.
 \end{definition}
 \begin{definition}
-    A morphism \(f \in \Aut(X)\) if it is both an isomorphism and an endomorphism.
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is faithful
+    if given any two objects \(X,Y \in \Ob(\mca{C})\) and any two morphisms \(f,g \in \Hom(X,Y)\),
+    then \(Tf = Tg\) implies \(f = g\).
+    Equivalently, given any two objects \(X,Y \in \Ob(\mca{C})\),
+    \(T\) is faithful if the function on morphisms \(\func{T}{\Hom(X,Y)}{\Hom(TX,TY)}\) is injective.
+    Compositions of faithful functors are faithful.
 \end{definition}
+\begin{remark}
+    A fully faithful functor is `locally bijective' when applied to any single hom-set,
+    but need not be an isomorphism, because it does not have to be bijective `globally' for all objects/morphisms.
+\end{remark}
+
+% \begin{theorem}
+%     Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
+%     Then \(\Aut(X)\) forms a group.
+% \end{theorem}
+% \begin{proof}
+%     First off, if \(f,g \in \Aut(X)\),
+%     then \(f \circ g \in \Aut(X)\),
+%     since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
+%     Associativity and identity is given for free.
+%     By definition, the inverse exists since they are isomorphisms.
+% \end{proof}
+
+% \begin{definition}
+%     A universal property is a property
+%     that characterizes an object up to isomorphism.
+%     This is often stated as given some objects and morphisms,
+%     there exists a (unique) morphism to some desired object that we want to define.
+% \end{definition}
+
+\subsection*{Natural Transformations}
 
 \begin{definition}
-    A category \(\mca{C}\) is small
-    if \(\Ob(\mca{C})\) and \(\Mor(\mca{C})\) both form sets.
-    A category is large otherwise.
+    Suppose \(\func{S,T}{\mca{C}}{\mca{D}}\) are two functors.
+    A natural transformation \(\func{\tau}{S}{T}\)
+    induces an arrow \(\tau X \in \Hom(SX,TX)\) for every object \(X \in \Ob(\mca{C})\).
+    It is a `morphism of functors' in the sense that
+    if \(X,Y \in \Ob(\mca{C})\) and \(f \in \Hom(X,Y)\),
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{d}{f} & SX \arrow{d}{Sf} \arrow{r}{\tau X} & TX \arrow{d}{Tf} \\
+            Y & SY \arrow{r}{\tau Y} & TY
+        \end{tikzcd}
+    \end{equation*}
+    is commutative.
+\end{definition}
+\begin{definition}
+    A natural transformation \(\func{\tau}{S}{T}\) is a natural isomorphism
+    if every \(\tau X\) (for all objects \(X\)) is an invertible arrow.
+    In that case, \(\func{\tau^{-1}}{T}{S}\) formed by \({(\tau X)}^{-1}\) is also a natural isomorphism.
 \end{definition}
 
-\begin{proposition}
-    The category \(\mathbf{Set}\) consisting of all sets and set maps form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Grp}\) consisting of all groups and group homomorphisms
-    form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Ab}\) consisting of all abelian groups
-    and group homomorphisms between them form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Ring}\) consisting of all rings and ring homomorphisms
-    form a category.
-\end{proposition}
+\subsection*{Morphisms}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is an isomorphism or invertible
+    if there exists an inverse morphism \(\func{f^{-1}}{Y}{X}\)
+    such that \(f \circ f^{-1} = \id_Y\) and \(f^{-1} \circ f = \id_X\).
+\end{definition}
+\begin{lemma}
+    Inverse morphisms, if they exist, are unique.
+\end{lemma}
 \begin{proof}
-    Obvious for the above four.
+    Suppose \(f\) and two inverses \(g,g'\).
+    Then
+    \begin{equation*}
+        g = g \circ \id = g \circ f \circ g' = \id \circ g' = g'
+    \end{equation*}
 \end{proof}
 
-\begin{theorem}
-    Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
-    Then \(\Aut(X)\) forms a group.
-\end{theorem}
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is monic if it is left-cancellable;
+    i.e.\ given any \(\func{g,g'}{Z}{X}\), \(f \circ g = f \circ g'\) implies \(g = g'\).
+\end{definition}
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is epi if it is right-cancellable;
+    i.e.\ given any \(\func{g,g'}{Y}{Z}\), \(g \circ f = g' \circ f\) implies \(g = g'\).
+\end{definition}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{X}\) is idempotent if \(f^2 = f\).
+\end{definition}
+
+\begin{definition}
+    \(T \in \Ob(\mca{C})\) is a terminal object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(X \to T\).
+\end{definition}
+\begin{definition}
+    \(I \in \Ob(\mca{C})\) is an initial object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(I \to X\).
+\end{definition}
+\begin{lemma}
+    In a category \(\mca{C}\),
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if there are two terminal objects \(T,T'\), there exists a unique isomorphism \(T \to T'\); and
+        \item if there are two initial objects \(I,I'\), there exists a unique isomorphism \(I \to I'\).
+    \end{enumerate}
+\end{lemma}
 \begin{proof}
-    First off, if \(f,g \in \Aut(X)\),
-    then \(f \circ g \in \Aut(X)\),
-    since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
-    Associativity and identity is given for free.
-    By definition, the inverse exists since they are isomorphisms.
+    There exists a unique morphism \(T \to T'\), and a unique morphism \(T' \to T\).
+    But this composition \(T \to T' \to T\) is the unique morphism \(T \to T\), which must be the identity.
+    Repeat this argument for \(T' \to T \to T'\).
+
+    The same argument holds for initial objects, because it is dual to terminal objects.
 \end{proof}
 
 \begin{definition}
-    A universal property is a property
-    that characterizes an object up to isomorphism.
-    This is often stated as given some objects and morphisms,
-    there exists a (unique) morphism to some desired object that we want to define.
+    \(0 \in \Ob(\mca{C})\) is a null object if it is both initial and terminal.
 \end{definition}
 
 
