@@ -213,10 +213,10 @@
     which is a contradiction.
 \end{proof}
 
-\begin{theorem}\label{thm:composite-injection}
+\begin{proposition}\label{prop:composite-injection}
     % Suppose \(f = f_n \circ f_{n-1} \circ \cdots \circ f_2 \circ f_1\).
     If \(f \circ g\) is injective, then \(g\) is injective.
-\end{theorem}
+\end{proposition}
 \begin{proof}
     % Without loss of generality, let \(f = f_2 \circ f_1\).
     Suppose, by way of contradiction, that \(g\) is not injective.
@@ -225,10 +225,10 @@
     But that implies \((f \circ g)(x) = (f \circ g)(y)\),
     which contradicts that \(f \circ g\) is injective.
 \end{proof}
-\begin{theorem}\label{thm:composite-surjective}
+\begin{proposition}\label{prop:composite-surjective}
     % Suppose \(f = f_n \circ f_{n-1} \circ \cdots \circ f_2 \circ f_1\).
     If \(f \circ g\) is surjective, then \(f\) is surjective.
-\end{theorem}
+\end{proposition}
 \begin{proof}
     % Without loss of generality, let \(f = f_2 \circ f_1\).
     For all \(z\) in the codomain of \(f \circ g\),
@@ -236,6 +236,53 @@
     such that \((f \circ g)(x) = z\).
     But \(y = f(x)\) is in the domain of \(f\)
     such that \(f(y) = z\) maps to our desired element.
+\end{proof}
+
+\begin{proposition}
+    Suppose \(\func{f}{A}{B}\) is a function, and \({\{B_i\}}_{i \in I}\) is a collection of subsets of \(B\).
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(f^{-1}(\emptyset) = \emptyset\) and \(f^{-1}(B) = A\);
+        \item \(f^{-1}(\bigcup B_i) = \bigcup f^{-1}(B_i)\); and
+        \item \(f^{-1}(\bigcap B_i) = \bigcap f^{-1}(B_i)\).
+    \end{enumerate} 
+\end{proposition}
+\begin{proof}
+    For (a), because every element \(a \in A\) gets mapped to some \(f(a) \in B\),
+    \(a \notin f^{-1}(\emptyset)\) and \(a \in f^{-1}(B)\).
+    Hence \(f^{-1}(\emptyset)\) is empty, and \(A \subseteq f^{-1}(B)\) (the reverse direction is trivially true).
+
+    For (b), we can see that \(x \in f^{-1}(\bigcup B_i)\)
+    means \(f(x) \in \bigcup B_i\), and hence \(f(x) \in B_i\) for some \(i\).
+    But that exactly implies that \(x \in f^{-1}(B_i)\) for some \(i\);
+    i.e.\ \(x \in \bigcup f^{-1}(B_i)\).
+    All the implications here hold bidirectionally.
+
+    For (c), replace the words `for some' with `for all' and we are done.
+\end{proof}
+\begin{proposition}
+    Suppose \(\func{f}{A}{B}\) is a function, and \({\{A_i\}}_{i \in I}\) is a collection of subsets of \(A\).
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(f(\emptyset) = \emptyset\);
+        \item \(f(\bigcup A_i) = \bigcup f(A_i)\); and
+        \item \(f(\bigcap A_i) \subseteq \bigcap f(A_i)\).
+    \end{enumerate} 
+\end{proposition}
+\begin{proof}
+    Statement (a) is trivially true.
+
+    For (b), we can see that \(y \in f(\bigcup A_i)\)
+    means there exists some \(x \in \bigcup A_i\) such that \(f(x) = y\);
+    i.e.\ for some \(x\) in some \(A_i\), \(f(x) = y\).
+    But that implies \(y \in f(A_i)\) for some \(i\), and \(f(A_i) \subseteq \bigcup f(A_i)\).
+    All the implications here hold bidirectionally.
+
+    For (c), replace the words `for some' with `for all' and we are done.
+    Notice that we do not have the reverse inclusion
+    because the step \(y \in f(A_i)\) for all \(i\)
+    does not imply there exists a single \(x \in A_i\) for all \(i\) such that \(f(x) = y\).
+    As a result, the reverse inclusion only holds when \(f\) is injective.
 \end{proof}
 
 

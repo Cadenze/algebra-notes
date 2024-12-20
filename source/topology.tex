@@ -1,0 +1,230 @@
+\chapter{Topology}
+
+\section{Topological Spaces}
+
+\begin{definition}
+    A topological space is a tuple \((X,\mca{T})\),
+    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\emptyset,X \in \mca{T}\);
+        \item closed under finite intersections
+            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
+        \item closed under arbitrary unions
+            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
+    \end{enumerate}
+    \(\mca{T}\) is called a topology on the set \(X\);
+    elements in \(\mca{T}\) are called open,
+    while the complement of these elements are called closed.
+\end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    Given any \(x \in X\), a neighbourhood of \(x\) is a set \(V \subseteq X\)
+    such that there exists an open set \(U\) with \(x \in U \subseteq V\).
+\end{definition}
+\begin{proposition}
+    Suppose \(X\) is a topological space.
+    \(U \subseteq X\) is open if and only if \(U\) is a neighbourhood of all \(x \in U\).
+\end{proposition}
+\begin{proof}
+    Suppose \(U\) is open. Then it is trivially a neighbourhood for all \(x \in U\).
+
+    Suppose \(U\) is a neighbourhood for all \(x \in U\).
+    Then for each \(x\), there exists an open set \(U_x\) such that \(x \in U_x \subseteq U\).
+    But then \(\bigcup_{x \in U} U_x \supseteq U\) because it contains all points of \(U\);
+    and the other inclusion also holds because each of the \(U_x \subseteq U\).
+\end{proof}
+
+\subsection*{Separation Axioms}
+
+\begin{remark}
+    Despite the name `separation axioms',
+    these are a set of useful topological definitions, rather than axioms.
+\end{remark}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x,y \in X\) are distinct points (as in \(x \neq y\)).
+    \(x,y\) are topologically distinguishable if there exists an open set \(U \subseteq X\)
+    such that either \(x \in U\) and \(y \notin U\) or \(y \in U\) and \(x \notin U\).
+    A topological space is Kolmogorov or \(\text{T}_0\) if every pair of points is topologically distinguishable.
+\end{definition}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x,y \in X\) are distinct points.
+    \(x,y\) are separated if there exists neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that \(x \notin V\) and \(y \notin U\).
+    A topological space is Fr\'echet or \(\text{T}_1\) if every pair of points is separated.
+\end{definition}
+\begin{lemma}
+    \(\text{T}_1\) spaces are \(\text{T}_0\).
+\end{lemma}
+\begin{proof}
+    Suffices to prove that separated points are topologically distinguishable.
+    If \(x,y\) are separated, then there exists some neighbourhood \(U \ni x\) with \(y \notin U\),
+    which gives us topological distinguishability.
+\end{proof}
+\begin{proposition}
+    A topological space is \(\text{T}_1\) if and only if every singleton set \(\{x\} \subseteq X\) is closed.
+\end{proposition}
+\begin{proof}
+    Suppose \(X\) is \(\text{T}_1\), and fix an arbitrary \(x \in X\).
+    For every \(y \neq x\), there exists a neighbourhood \(V_y \ni y\) such that \(x \notin V_y\).
+    By definition of a neighbourhood, for each of these \(y\),
+    there exists an open \(U_y\) such that \(y \in U_y \subseteq V_y\).
+    But \(\bigcup_{y \neq x} U_y\) is open, and contains every point but \(x\),
+    which means it is \({\{x\}}^c\).
+    Then \(\{x\}\) is closed.
+
+    Now, suppose every singleton is closed.
+    Picking any two distinct \(x,y \in X\), we have \(y \in {\{x\}}^c\) open and \(x \in {\{y\}}^c\) open.
+\end{proof}
+
+\begin{definition}
+    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
+    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that they are disjoint (\(U \cap V = \emptyset\)).
+\end{definition}
+\begin{lemma}
+    \(\text{T}_2\) spaces are \(\text{T}_1\).
+\end{lemma}
+\begin{proof}
+    Since the neighbourhoods are disjoint, in particular, they do not contain the other point.
+\end{proof}
+
+\begin{definition}
+    A topological space \(X\) is called regular if for all \(x \in X\) and all closed sets \(C \subseteq {\{x\}}^c\),
+    there exists disjoint open sets \(U \ni x\) and \(V \supseteq C\) such that \(U \cap V = \emptyset\).
+    A regular Hausdorff space is called \(\text{T}_3\).
+\end{definition}
+
+\begin{definition}
+    A topological space \(X\) is called normal if for all disjoint closed subsets \(C,D \subseteq X\),
+    there exists open sets \(U \supseteq C\) and \(V \supseteq D\) such that \(U \cap V = \emptyset\).
+    A normal Hausdorff space is called \(\text{T}_4\).
+\end{definition}
+
+\subsection*{Continuity}
+
+\begin{definition}
+    Suppose \(\func{f}{X}{Y}\) is a function between topological spaces.
+    \(f\) is continuous if the preimage of any open set is open.
+\end{definition}
+\begin{definition}
+    A continuous function \(\func{f}{X}{Y}\) with a continuous inverse \(\func{f^{-1}}{Y}{X}\) is a homeomorphism.
+\end{definition}
+
+\subsection*{Bases}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x \in X\) is a point.
+    A collection \(\mca{B}_x\) of open neighbourhoods of \(x\) is a local basis at \(x\)
+    if for all open \(U \ni x\), there exists some \(B \in \mca{B}_x\) such that \(x \in B \subseteq U\).
+    If every point admits a countable local basis,
+    then we say \(X\) is first countable.
+\end{definition}
+% \begin{definition}
+%     A basis \(\mca{B}\) is a collection of subsets of \(X\) such that:
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item for every point \(x \in X\), there exists some basis element \(B \in \mca{B}\) such that \(x \in B\); and
+%         \item if \(x \in B_1 \cap B_2\) where \(B_1,B_2 \in \mca{B}\),
+%             then there exists some basis element \(B_3 \in \mca{B}\) such that \(x \in B_3 \subseteq B_1 \cap B_2\).
+%     \end{enumerate}
+%     The topology \(\mca{T}\) generated by the basis \(\mca{B}\)
+%     is the collection of all sets \(U\) (which we define to be open)
+%     such that for each \(x \in U\), there exists a basis element \(B \in \mca{B}\) such that \(x \in B \subseteq U\).
+% \end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    A collection \(\mca{B}\) of open sets is a basis if it contains a local basis for every point.
+    If \(\mca{B}\) has a countable basis, then we say \(X\) is second countable.
+\end{definition}
+% \begin{lemma}
+%     Suppose \(\mca{B}\) is a basis, and \(\mca{T}\) is the topology generated by \(\mca{B}\).
+%     Then:
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item \(\mca{T}\) is the set of all arbitrary unions of elements of \(\mca{B}\); and
+%         \item \(\mca{T}\) indeed forms a topology.
+%     \end{enumerate}
+% \end{lemma}
+% \begin{proof}
+%     First off, clearly any arbitrary unions of \(\mca{B}\)-sets contain \(\mca{B}\)-sets,
+%     so they are contained within \(\mca{T}\).
+% \end{proof}
+% \begin{lemma}
+%     Suppose \(\mca{T}\) is a topology on \(X\)
+%     and \(\mca{B} \subseteq \mca{T}\) is a collection of open sets
+%     such that given any open set \(U\), for each \(x \in U\),
+%     there exists some \(B \in \mca{B}\) with \(x \in B \subseteq U\).
+%     Then \(\mca{B}\) is a basis for the topology \(\mca{T}\).
+% \end{lemma}
+
+\subsection*{Induced Topologies}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of topological spaces, and \(Y\) is a set.
+    If we have functions \(\func{f_i}{Y}{X_i}\) for each \(i\),
+    the induced topology on \(Y\) is the topology with fewest open sets
+    such that \(f_i\) are all continuous.
+\end{definition}
+
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    If \(Y \subseteq X\) is a subset, then the set of all \(U \cap Y\) where \(U \subseteq X\) is open
+    forms the subspace topology for \(Y\).
+\end{definition}
+\begin{proposition}[Universal Property of Subspace Topology]
+    Suppose \(X\) is a topological space, and \(Y \subseteq X\) is a subset.
+    % and \(\) is the inclusion map.
+    Then the subspace topology on \(Y\) is the topology induced by the inclusion map \(\func{\iota}{Y}{X}\).
+\end{proposition}
+\begin{proof}
+    It is obvious that if we remove any open set \(U \cap Y \subseteq X\),
+    then the preimage \(\iota^{-1}(U)\) is no longer open.
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces.
+    Then the product topology of \(\prod_{i \in I} X_i\)
+    % is the topology generated by (the basis containing) the sets \(U \times V\)
+    % for all open \(U \subseteq X\) and \(V \subseteq Y\).
+    is the topology induced by the projection maps \(\func{f_i}{\prod_{i \in I} X_i}{X_i}\).
+\end{definition}
+
+\begin{theorem}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces.
+    If \(A_i \subseteq X_i\) are subspaces,
+    then the product topology on \(\prod A_i\) is identical to the subspace topology of \(\prod A_i \subseteq \prod X_i\).
+\end{theorem}
+\begin{proof}
+    It is obvious that we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod A_i \arrow[hookrightarrow]{r} \arrow[twoheadrightarrow]{d} & \prod X_i \arrow[twoheadrightarrow]{d} \\
+            A_i \arrow[hookrightarrow]{r} & X_i
+        \end{tikzcd}
+    \end{equation*}
+    so both topologies are the topology induced by the maps \(\prod A_i \to X_i\).
+\end{proof}
+
+\subsection*{Coinduced Topologies}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of topological spaces, and \(Y\) is a set.
+    If we have functions \(\func{f_i}{X_i}{Y}\) for each \(i\),
+    the coinduced topology on \(Y\) is the topology with the most open sets
+    such that \(f_i\) are all continuous.
+\end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space and \(\func{f}{X}{Y}\) is a surjective function.
+    The quotient topology on \(Y\) is the coinduced topology by \(f\).
+\end{definition}
+
+
+\section{Compactness}
+
+\begin{definition}
+    A topological space \(X\) is considered quasi-compact
+    if every open cover of \(X\) has a finite subcover.
+    A topological space \(X\) is considered compact
+    if it is quasi-compact and Hausdorff.
+\end{definition}
