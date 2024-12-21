@@ -34,6 +34,66 @@
     while the morphisms between objects are \(\Hom\).
 \end{remark}
 
+\subsection*{Morphisms}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is an isomorphism or invertible
+    if there exists an inverse morphism \(\func{f^{-1}}{Y}{X}\)
+    such that \(f \circ f^{-1} = \id_Y\) and \(f^{-1} \circ f = \id_X\).
+\end{definition}
+\begin{lemma}
+    Inverse morphisms, if they exist, are unique.
+\end{lemma}
+\begin{proof}
+    Suppose \(f\) and two inverses \(g,g'\).
+    Then
+    \begin{equation*}
+        g = g \circ \id = g \circ f \circ g' = \id \circ g' = g'
+    \end{equation*}
+\end{proof}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is monic if it is left-cancellable;
+    i.e.\ given any \(\func{g,g'}{Z}{X}\), \(f \circ g = f \circ g'\) implies \(g = g'\).
+\end{definition}
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is epi if it is right-cancellable;
+    i.e.\ given any \(\func{g,g'}{Y}{Z}\), \(g \circ f = g' \circ f\) implies \(g = g'\).
+\end{definition}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{X}\) is idempotent if \(f^2 = f\).
+\end{definition}
+
+\begin{definition}
+    \(T \in \Ob(\mca{C})\) is a terminal object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(X \to T\).
+\end{definition}
+\begin{definition}
+    \(I \in \Ob(\mca{C})\) is an initial object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(I \to X\).
+\end{definition}
+\begin{lemma}
+    In a category \(\mca{C}\),
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if there are two terminal objects \(T,T'\), there exists a unique isomorphism \(T \to T'\); and
+        \item if there are two initial objects \(I,I'\), there exists a unique isomorphism \(I \to I'\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    There exists a unique morphism \(T \to T'\), and a unique morphism \(T' \to T\).
+    But this composition \(T \to T' \to T\) is the unique morphism \(T \to T\), which must be the identity.
+    Repeat this argument for \(T' \to T \to T'\).
+
+    The same argument holds for initial objects, because it is dual to terminal objects.
+\end{proof}
+
+\begin{definition}
+    \(0 \in \Ob(\mca{C})\) is a null object if it is both initial and terminal.
+\end{definition}
+
 \subsection*{Functors}
 
 \begin{definition}
@@ -100,145 +160,76 @@
 \begin{definition}
     Suppose \(\func{S,T}{\mca{C}}{\mca{D}}\) are two functors.
     A natural transformation \(\func{\tau}{S}{T}\)
-    induces an arrow \(\tau X \in \Hom(SX,TX)\) for every object \(X \in \Ob(\mca{C})\).
+    induces an arrow \(\tau_X \in \Hom(SX,TX)\) for every object \(X \in \Ob(\mca{C})\).
     It is a `morphism of functors' in the sense that
     if \(X,Y \in \Ob(\mca{C})\) and \(f \in \Hom(X,Y)\),
     \begin{equation*}
         \begin{tikzcd}
-            X \arrow{d}{f} & SX \arrow{d}{Sf} \arrow{r}{\tau X} & TX \arrow{d}{Tf} \\
-            Y & SY \arrow{r}{\tau Y} & TY
+            X \arrow{d}{f} & SX \arrow{d}{Sf} \arrow{r}{\tau_X} & TX \arrow{d}{Tf} \\
+            Y & SY \arrow{r}{\tau_Y} & TY
         \end{tikzcd}
     \end{equation*}
     is commutative.
 \end{definition}
 \begin{definition}
     A natural transformation \(\func{\tau}{S}{T}\) is a natural isomorphism
-    if every \(\tau X\) (for all objects \(X\)) is an invertible arrow.
-    In that case, \(\func{\tau^{-1}}{T}{S}\) formed by \({(\tau X)}^{-1}\) is also a natural isomorphism.
+    if every \(\tau_X\) (for all objects \(X\)) is an invertible arrow.
+    In that case, \(\func{\tau^{-1}}{T}{S}\) formed by \({(\tau_X)}^{-1}\) is also a natural isomorphism.
 \end{definition}
 
-\subsection*{Morphisms}
+
+\section{Constructions}
+
+\subsection*{Duality}
 
 \begin{definition}
-    A morphism \(\func{f}{X}{Y}\) is an isomorphism or invertible
-    if there exists an inverse morphism \(\func{f^{-1}}{Y}{X}\)
-    such that \(f \circ f^{-1} = \id_Y\) and \(f^{-1} \circ f = \id_X\).
+    Given any statement in category theory,
+    we obtain the dual of that statement
+    if we reverse all the morphisms and compositions.
 \end{definition}
-\begin{lemma}
-    Inverse morphisms, if they exist, are unique.
-\end{lemma}
+\begin{theorem}[Principle of Duality]
+    If any statement in category theory follows from the axioms,
+    then the dual of that statement also follows from the axioms.
+\end{theorem}
 \begin{proof}
-    Suppose \(f\) and two inverses \(g,g'\).
-    Then
-    \begin{equation*}
-        g = g \circ \id = g \circ f \circ g' = \id \circ g' = g'
-    \end{equation*}
+    The dual of the axioms are true, and logic does not get altered when taking the dual of any statement.
 \end{proof}
-
-\begin{definition}
-    A morphism \(\func{f}{X}{Y}\) is monic if it is left-cancellable;
-    i.e.\ given any \(\func{g,g'}{Z}{X}\), \(f \circ g = f \circ g'\) implies \(g = g'\).
-\end{definition}
-\begin{definition}
-    A morphism \(\func{f}{X}{Y}\) is epi if it is right-cancellable;
-    i.e.\ given any \(\func{g,g'}{Y}{Z}\), \(g \circ f = g' \circ f\) implies \(g = g'\).
-\end{definition}
-
-\begin{definition}
-    A morphism \(\func{f}{X}{X}\) is idempotent if \(f^2 = f\).
-\end{definition}
-
-\begin{definition}
-    \(T \in \Ob(\mca{C})\) is a terminal object
-    if for every object \(X \in \Ob(\mca{C})\),
-    there exists a unique morphism \(X \to T\).
-\end{definition}
-\begin{definition}
-    \(I \in \Ob(\mca{C})\) is an initial object
-    if for every object \(X \in \Ob(\mca{C})\),
-    there exists a unique morphism \(I \to X\).
-\end{definition}
-\begin{lemma}
-    In a category \(\mca{C}\),
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item if there are two terminal objects \(T,T'\), there exists a unique isomorphism \(T \to T'\); and
-        \item if there are two initial objects \(I,I'\), there exists a unique isomorphism \(I \to I'\).
-    \end{enumerate}
-\end{lemma}
-\begin{proof}
-    There exists a unique morphism \(T \to T'\), and a unique morphism \(T' \to T\).
-    But this composition \(T \to T' \to T\) is the unique morphism \(T \to T\), which must be the identity.
-    Repeat this argument for \(T' \to T \to T'\).
-
-    The same argument holds for initial objects, because it is dual to terminal objects.
-\end{proof}
-
-\begin{definition}
-    \(0 \in \Ob(\mca{C})\) is a null object if it is both initial and terminal.
-\end{definition}
-
-
-\section{Duality}
-
 \begin{remark}
-    Since morphisms are directed,
-    the notion of duality is to reverse such morphisms
-    and see whether they make sense.
-\end{remark}
-
-\begin{definition}
-    A functor \(\func{F}{\mca{C}}{\mca{D}}\) is a mapping between categories,
-    and \(F\) maps both objects \(X \in \Ob(\mca{C}) \mapsto F(X) \in \Ob(\mca{D})\)
-    and morphisms \(f \in \Mor(\mca{C}) \mapsto F(f) \in \Mor(\mca{D})\).
-    Functors respect the identity \(F(\id_\mca{C}) = \id_\mca{D}\).
-\end{definition}
-
-\begin{definition}
-    We call a functor covariant if it preserves the direction of morphisms
-    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(X),F(Y))\),
-    and composition \(F(g \circ f) = F(g) \circ F(f)\).
-    We call a functor contravariant if it reverses the direction of morphisms
-    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(Y),F(X))\),
-    and composition \(F(g \circ f) = F(f) \circ F(g)\).
-\end{definition}
-\begin{remark}
-    Contravariant functors are not really functors.
-    See the definition of the opposite category below.
+    Note that when taking the dual of any statement, functors do not get reversed.
 \end{remark}
 
 \begin{definition}
     Consider a category \(\mca{C}\).
     The opposite category is \(\mca{C}^\text{op}\)
-    consists of the same objects, but all morphisms reversed.
+    consisting of the same objects, but all morphisms reversed.
 \end{definition}
-\begin{proposition}
-    For all categories, \({(\mca{C}^\text{op})}^\text{op}\).
-\end{proposition}
-\begin{proof}
-    Reversing morphisms twice amounts to keeping them identical.
-\end{proof}
-
-\begin{proposition}
-    Contravariant functors \(\func{F}{\mca{C}}{\mca{D}}\)
-    are covariant functors \(\func{F}{\mca{C}}{\mca{D}^\text{op}}\).
-\end{proposition}
-\begin{proof}
-    Observe that if \(\phi \in \Mor(\mca{C})\), \(\func{\phi}{X}{Y}\)
-    then \(\func{F(\phi)}{F(Y)}{F(X)}\),
-    and in the opposite category, \(\func{F(\phi)}{F(X)}{F(Y)}\).
-\end{proof}
-
-\subsection*{Subobject and Quotient Object}
-
 \begin{remark}
-    We first generalize the notion of a subset to any categorical object.
+    There is a functor \(\textbf{Cat} \to \textbf{Cat}\)
+    that takes categories \(\mca{C} \mapsto \mca{C}^\text{op}\)
+    and any functor between categories \(T \mapsto T^\text{op}\).
 \end{remark}
+
 \begin{definition}
-    Suppose \(X,Y\) are objects.
-    We say \(X \subseteq Y\) is (isomorphic to) a subobject
-    if there exists an inclusion (injective homomorphism)
-    \(\func{\iota}{X}{Y}\).
+    Suppose \(\func{T}{\mca{C}^\text{op}}{\mca{D}}\) is a (covariant) functor.
+    Then we can write this as a functor \(\func{\bar{T}}{\mca{C}}{\mca{D}}\)
+    where the morphisms are reversed, i.e.\ \(\bar{T}(fg) = (\bar{T}g)(\bar{T}f)\).
 \end{definition}
+\begin{remark}
+    To distinguish between between contravariant functors and the normal ones,
+    we call normal functors covariant.
+\end{remark}
+
+% \subsection*{Subobject and Quotient Object}
+
+% \begin{remark}
+%     We first generalize the notion of a subset to any categorical object.
+% \end{remark}
+% \begin{definition}
+%     Suppose \(X,Y\) are objects.
+%     We say \(X \subseteq Y\) is (isomorphic to) a subobject
+%     if there exists an inclusion (injective homomorphism)
+%     \(\func{\iota}{X}{Y}\).
+% \end{definition}
 
 % \begin{theorem}[Universal Property of Subobjects]
 %     Let \(X \subseteq Y\) be a subobject-superobject pair,
@@ -266,15 +257,15 @@
 %     That bijection is our desired map \(\bar{\phi}\).
 % \end{proof}
 
-\begin{remark}
-    The dual to a subobject is a quotient object.
-\end{remark}
-\begin{definition}
-    Suppose \(X\) is an object, and \(\sim\) an equivalence relation on \(X\).
-    We say \(X/{\sim}\) is a quotient object of \(X\)
-    if there exists a projection \(\func{\pi}{X}{X/{\sim}}\),
-    where we map any element to its equivalence class.
-\end{definition}
+% \begin{remark}
+%     The dual to a subobject is a quotient object.
+% \end{remark}
+% \begin{definition}
+%     Suppose \(X\) is an object, and \(\sim\) an equivalence relation on \(X\).
+%     We say \(X/{\sim}\) is a quotient object of \(X\)
+%     if there exists a projection \(\func{\pi}{X}{X/{\sim}}\),
+%     where we map any element to its equivalence class.
+% \end{definition}
 
 % \begin{theorem}[Universal Property of Quotients]
 %     Let \(X\) be an object with a relation \(\sim\).
@@ -282,10 +273,106 @@
 %     and \(\func{\phi}{X}{Z}\) is any surjective homomorphism
 % \end{theorem}
 
+\subsection*{Universality}
 
-\section{Products}
+\begin{definition}
+    Suppose \(\func{S}{\mca{D}}{\mca{C}}\) is a functor, and \(X \in \Ob(\mca{C})\).
+    A universal arrow from the object \(X\) to the functor \(S\) is a tuple \((Y,f)\),
+    where \(Y \in \Ob(\mca{D})\) is an object and \(\func{f}{X}{SY}\) is a morphism,
+    such that given any tuple of objects and morphisms \((Z,\phi) \in \Ob(\mca{D})\times\Hom(X,SZ)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{Y}{Z}\) such that \(S\bar{\phi} \circ f = \phi\).
 
-\subsection*{Product}
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{r}{f} \arrow{dr}[swap]{\phi} & SY \arrow[dashrightarrow]{d}{S\bar{\phi}} &
+            Y \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & SZ & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    A special case is when the functor is the identity.
+    Suppose \(X\) is an object (perhaps in \(\textbf{Set}\)),
+    and consider an equivalence relation \(\sim\).
+    The universal arrow \(\func{\pi}{X}{X/{\sim}}\) sending each element into its equivalence class
+    has the universal property given by
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{r}{\pi} \arrow{rd}[swap]{\phi} &
+            X/{\sim} \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Y
+        \end{tikzcd}
+    \end{equation*}
+    for any object \(Y\) and any morphism \(\phi\).
+    Coincidentally, this is the commutative diagram on the cover of this set of notes.
+\end{definition}
+
+\begin{definition}
+    Dually, suppose \(\func{S}{\mca{D}}{\mca{C}}\), and \(X \in \Ob(\mca{C})\).
+    A universal arrow from the functor \(S\) to the object \(X\) is a tuple \((Y,f)\),
+    where \(Y \in \Ob(\mca{D})\) is an object and \(\func{f}{SY}{X}\) is a morphism,
+    such that given any tuple of objects and morphisms \((Z,\phi) \in \Ob(\mca{D})\times\Hom(SZ,X)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{Y}{Z}\) such that \(f \circ S\bar{\phi} = \phi\).
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            Y \arrow[dashrightarrow]{d}{\bar{\phi}} &
+            SY \arrow{r}{f} \arrow[dashrightarrow]{d}{S\bar{\phi}} & X \\
+            Z & SZ \arrow{ru}[swap]{\phi}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Suppose \(\mca{D}\) is a category with small hom-sets (as in they are sets in the set-theoretic sense).
+    A representation of a functor \(\func{K}{\mca{D}}{\textbf{Set}}\)
+    is a tuple \((R,\psi)\), where \(R \in \Ob(\mca{D})\) is an object called the representing object,
+    and \(\func{\psi}{\Hom(R,\cdot)}{K}\) is a natural isomorphism.
+    \(K\) is a representable functor if such a representation exists.
+\end{definition}
+\begin{lemma}[Yoneda Lemma]\label{lem:yoneda}
+    Suppose \(\mca{D}\) is a category with small hom-sets.
+    If \(\func{K}{\mca{D}}{\textbf{Set}}\) is a functor, and \(R \in \Ob(\mca{D})\),
+    then there is a bijection
+    \begin{equation*}
+        \varfunc{Y}{\Hom_{\mca{D}\to\textbf{Set}}(\Hom_\mca{D}(R,\cdot),K)}{KR}{(\func{\alpha}{\Hom(R,\cdot)}{K})}{\alpha_R\id_R}
+    \end{equation*}
+    between the natural transformations \(\alpha\) and the image of the identity under \(\alpha\),
+    which is an element of the set \(KR\).
+\end{lemma}
+\begin{proof}
+    Consider the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \Hom_\mca{D}(R,R) \arrow{d}[swap]{f_\ast = \Hom(R,f)} \arrow{r}{\alpha_R} & KR \arrow{d}{Kf} & R \arrow{d}{f} \\
+            \Hom_\mca{D}(R,Z) \arrow{r}{\alpha_Z} & KZ & Z
+        \end{tikzcd}
+    \end{equation*}
+    
+    We construct an inverse.
+    Given any element of \(x \in KR\), we need to show that \(\alpha_R \id_R = x\) completely determines \(\alpha\).
+    But by the commutative diagram, given any arrow \(\func{f}{R}{Z}\),
+    \begin{equation*}
+        \alpha_Z f = \alpha_Z(f \circ \id) = \alpha_Z f_\ast(\id_R) = (Kf \circ \alpha_R)(\id_R) = Kf(x)
+    \end{equation*}
+    is wholly determined by the value of \(x\) as desired.
+\end{proof}
+\begin{corollary}[Yoneda Lemma]\label{cor:yoneda}
+    Suppose \(\mca{D}\) is a category with small hom-sets.
+    There is a bijection between the natural transformations
+    \(\Hom_\mca{D}(R,\cdot) \to \Hom_\mca{D}(S,\cdot)\)
+    and the morphisms \(\Hom_\mca{D}(S,R)\).
+\end{corollary}
+\begin{proof}
+    Conclude with \(K = \Hom_\mca{D}(S,\cdot)\).
+\end{proof}
+
+\subsection*{Products and Limits}
+
+% \subsection*{Product}
 
 \begin{definition}
     Suppose \(X,Y\) are two objects.
@@ -550,90 +637,81 @@
 \end{definition}
 
 
-\section{Types of Categories}
+% \section{Types of Categories}
 
-\begin{definition}
-    An object \(X\) is an initial object of a category
-    if there exists a morphism from \(X\) to any object \(Y\) in the category.
-    An object \(X\) is a terminal object of a category
-    if there exists a morphism from any object \(Y\) in the category to \(X\).
-    An object \(0\) is the null object of a category
-    if it is both initial and terminal.
-\end{definition}
+% \begin{definition}
+%     A kernel of a morphism \(f \in \Hom(X,Y)\)
+%     is an object \(\ker f\) along with a morphism \(\func{\iota}{\ker f}{X}\)
+%     such that
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item \(f\circ\iota = 0\); and
+%         \item for any object \(Z\), if \(\func{\phi}{Z}{X}\) is a homomorphism such that \(f\circ\phi = 0\),
+%             then there exists a unique \(\func{\bar{\phi}}{Z}{\ker f}\)
+%             such that \(\phi = \iota\circ\bar{\phi}\).
+%     \end{enumerate}
 
-\begin{definition}
-    A kernel of a morphism \(f \in \Hom(X,Y)\)
-    is an object \(\ker f\) along with a morphism \(\func{\iota}{\ker f}{X}\)
-    such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f\circ\iota = 0\); and
-        \item for any object \(Z\), if \(\func{\phi}{Z}{X}\) is a homomorphism such that \(f\circ\phi = 0\),
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\ker f}\)
-            such that \(\phi = \iota\circ\bar{\phi}\).
-    \end{enumerate}
+%     This can be represented by the following commutative diagram.
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             & Y \\
+%             & X \arrow{u}[swap]{f} \\
+%             Z \arrow[dashrightarrow]{rr}[swap]{\exists!\bar{\phi}} \arrow{ur}[swap]{\phi} \arrow[bend left]{uur}{0} &&
+%             \ker f \arrow{ul}{\iota} \arrow[bend right]{uul}[swap]{0}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{definition}
+% \begin{definition}
+%     A cokernel of a morphism \(f \in \Hom(X,Y)\)
+%     is an object \(\coker f\) along with a morphism \(\func{\pi}{Y}{\coker f}\)
+%     such that
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item \(\pi\circ f = 0\); and
+%         \item for any object \(Z\), if \(\func{\phi}{Y}{Z}\) is a homomorphism such that \(\phi\circ f = 0\),
+%             then there exists a unique \(\func{\bar{\phi}}{\coker f}{Z}\)
+%             such that \(\phi = \bar{\phi}\circ\pi\).
+%     \end{enumerate}
 
-    This can be represented by the following commutative diagram.
-    \begin{equation*}
-        \begin{tikzcd}
-            & Y \\
-            & X \arrow{u}[swap]{f} \\
-            Z \arrow[dashrightarrow]{rr}[swap]{\exists!\bar{\phi}} \arrow{ur}[swap]{\phi} \arrow[bend left]{uur}{0} &&
-            \ker f \arrow{ul}{\iota} \arrow[bend right]{uul}[swap]{0}
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
-\begin{definition}
-    A cokernel of a morphism \(f \in \Hom(X,Y)\)
-    is an object \(\coker f\) along with a morphism \(\func{\pi}{Y}{\coker f}\)
-    such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(\pi\circ f = 0\); and
-        \item for any object \(Z\), if \(\func{\phi}{Y}{Z}\) is a homomorphism such that \(\phi\circ f = 0\),
-            then there exists a unique \(\func{\bar{\phi}}{\coker f}{Z}\)
-            such that \(\phi = \bar{\phi}\circ\pi\).
-    \end{enumerate}
+%     This can be represented by the following commutative diagram.
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             & X \arrow[bend right]{ddl}[swap]{0} \arrow[bend left]{ddr}{0} \arrow{d}{f} \\
+%             & Y \arrow{dl}{\phi} \arrow{dr}[swap]{\pi} \\
+%             Z && \coker f \arrow[dashrightarrow]{ll}{\exists!\bar{\phi}}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{definition}
 
-    This can be represented by the following commutative diagram.
-    \begin{equation*}
-        \begin{tikzcd}
-            & X \arrow[bend right]{ddl}[swap]{0} \arrow[bend left]{ddr}{0} \arrow{d}{f} \\
-            & Y \arrow{dl}{\phi} \arrow{dr}[swap]{\pi} \\
-            Z && \coker f \arrow[dashrightarrow]{ll}{\exists!\bar{\phi}}
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
+% \begin{definition}
+%     A category is preadditive if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item the homomorphisms \(\Hom(X,Y)\) form an abelian group; and
+%         \item the composition map \(\func{\circ}{\Hom(X,Y)\times\Hom(Y,Z)}{\Hom(X,Z)}\)
+%             is a bilinear group homomorphism.
+%     \end{enumerate}
+% \end{definition}
+% \begin{definition}
+%     A category is additive if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item it is preadditive; and
+%         \item any finite product \(\prod_{i=1}^n A_i\) or coproduct \(\bigoplus_{i=1}^n A_i\) is also an object.
+%     \end{enumerate}
+% \end{definition}
+% \begin{definition}
+%     A category is abelian if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item it is additive;
+%         \item for any morphism \(f \in \Hom(X,Y)\), \(\ker f\) and \(\coker f\) exists; and
+%         \item any monomorphism corresponds to a kernel,
+%             while any epimorphism corresponds to a cokernel.
+%     \end{enumerate}
+% \end{definition}
 
-\begin{definition}
-    A category is preadditive if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item the homomorphisms \(\Hom(X,Y)\) form an abelian group; and
-        \item the composition map \(\func{\circ}{\Hom(X,Y)\times\Hom(Y,Z)}{\Hom(X,Z)}\)
-            is a bilinear group homomorphism.
-    \end{enumerate}
-\end{definition}
-\begin{definition}
-    A category is additive if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item it is preadditive; and
-        \item any finite product \(\prod_{i=1}^n A_i\) or coproduct \(\bigoplus_{i=1}^n A_i\) is also an object.
-    \end{enumerate}
-\end{definition}
-\begin{definition}
-    A category is abelian if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item it is additive;
-        \item for any morphism \(f \in \Hom(X,Y)\), \(\ker f\) and \(\coker f\) exists; and
-        \item any monomorphism corresponds to a kernel,
-            while any epimorphism corresponds to a cokernel.
-    \end{enumerate}
-\end{definition}
-
-\begin{definition}
-    A category \(\mca{C}\) is monoidal if
-    there exists a tensor product \(\func{\otimes}{\mca{C}\times\mca{C}}{\mca{C}}\)
-    and a monoidal unit \(I \in \Ob(\mca{C})\) such that, up to isomorphism,
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item the tensor product is associative \(X \otimes (Y \otimes Z) \cong (X \otimes Y) \otimes Z\); and
-        \item the unit is both left and right cancellative \(I \otimes X \cong X \cong X \otimes I\).
-    \end{enumerate}
-\end{definition}
+% \begin{definition}
+%     A category \(\mca{C}\) is monoidal if
+%     there exists a tensor product \(\func{\otimes}{\mca{C}\times\mca{C}}{\mca{C}}\)
+%     and a monoidal unit \(I \in \Ob(\mca{C})\) such that, up to isomorphism,
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item the tensor product is associative \(X \otimes (Y \otimes Z) \cong (X \otimes Y) \otimes Z\); and
+%         \item the unit is both left and right cancellative \(I \otimes X \cong X \cong X \otimes I\).
+%     \end{enumerate}
+% \end{definition}
