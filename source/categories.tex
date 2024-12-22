@@ -503,7 +503,7 @@
             & \Delta Z & Z
         \end{tikzcd}
     \end{equation*}
-    Any \(R\) that fits this diagram is called the colimit, direct limit, or inductive limit.
+    Any \(R = \dirlim F\) that fits this diagram is called the colimit, direct limit, or inductive limit.
     Splitting this up, one can visualize this as a cone,
     where the base is a formed by a graph of objects and arrows in \(\mca{I}\)
     after undergoing the functor \(F\) (making this a commutative diagram in \(\mca{C}\)),
@@ -512,7 +512,7 @@
     and there exists a unique morphism \(\func{\bar{\phi}}{R}{Z}\) such that all the triangles in both cones commute.
     \begin{equation*}
         \begin{tikzcd}
-            F(i) \arrow{rr}{f} \arrow{dr}[swap]{\iota_i} \arrow[bend right]{ddr}[swap]{\phi_i} &&
+            F(i) \arrow{rr} \arrow{dr}[swap]{\iota_i} \arrow[bend right]{ddr}[swap]{\phi_i} &&
             F(j) \arrow{dl}{\iota_j} \arrow[bend left]{ddl}{\phi_j} \\
             & \dirlim F \arrow[dashrightarrow]{d}{\bar{\phi}} \\
             & Z
@@ -606,101 +606,55 @@
 
 \subsection*{Products and Limits}
 
+\begin{remark}
+    Dually, allow us to construct the dual notion of everything in the previous subsection.
+\end{remark}
+
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    Consider the universal arrow \((R,\pi)\) from the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^\mca{I}}\)
+    to a functor \(\func{F}{\mca{I}}{\mca{C}}\) (which is an object in \(\mca{C}^\mca{I}\)).
+    \(R = \invlim F\) is called the limit, inverse limit, or projective limit.
+    Splitting this up we get the familiar commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            & Z \arrow[dashrightarrow]{d}{\bar{\phi}} \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j} \\
+            & \invlim F \arrow{dl}[swap]{\pi_i} \arrow{dr}{\pi_j} \\
+            F(i) \arrow{rr} && F(j)
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
 \begin{definition}
     Suppose \(X,Y\) are two objects.
-    We call \(X \times Y\) the product of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_1}{X \times Y}{X}\)
-            and \(\func{\pi_2}{X \times Y}{Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times Y}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\) for \(i = 1,2\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
+    The product is the object \(X \times Y\) that fits the following universal property:
+    \begin{equation*}
         \begin{tikzcd}
             & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            \arrow[dashrightarrow]{d}{\bar{\phi}} \\
             X & X \times Y \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} & Y
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{definition}
 
 \begin{definition}
     Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
-    We call \(\prod_{i \in I} X_i\) the (infinite) product of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_i}{\prod_{i \in I} X_i}{X_i}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\prod_{i \in I} X_i}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
-    \end{enumerate}
-
-    This can be represented by the logical statement
+    The (infinite) product is the object \(\prod_{i \in I} X_i\) that fits the following universal property:
     \begin{equation*}
-        \forall Z \in \mca{C},\;
-        \forall i \in I,\;
-        \forall \phi_i \in \Hom(X,V_i),\;
-        \exists! \phi \in \Hom\pqty{Z,\prod_{i \in I} X_i},\;
-        \phi_i = \pi_i\circ\bar{\phi}
-    \end{equation*}
-    and the following commutative diagram:
-    \begin{center}
         \begin{tikzcd}
             & Z \arrow{ld}[swap]{\phi_i}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            X_i & \prod_{i \in I} X_i \arrow{l}{\pi_i}
+            \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            X_i & \displaystyle\prod_{i \in I} X_i \arrow{l}{\pi_i}
         \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
-    We call \(\bigoplus_{i \in I} X_i\) the (infinite) coproduct of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_i}{X}{\bigoplus_{i \in I} X_i}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{\bigoplus_{i \in I} X_i}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
-    \end{enumerate}
-
-    This can be represented by the logical statement
-    \begin{equation*}
-        \forall Z \in \mca{C},\;
-        \forall i \in I,\;
-        \forall \phi_i \in \Hom(X_i,Z),\;
-        \exists! \phi \in \Hom\pqty{\bigoplus_{i \in I} X_i, Z},\;
-        \phi_i = \bar{\phi}\circ\iota_i
     \end{equation*}
-    and the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X_i \arrow{r}[swap]{\iota_i} \arrow{ru}{\phi_i} &
-            \bigoplus_{i \in I} X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}}
-        \end{tikzcd}
-    \end{center}
 \end{definition}
 
 \subsection*{Pullback}
 
 \begin{definition}
     Suppose \(W,X,Y\) are three objects.
-    We call \(X \times_W Y\) the pullback or fibre product with respect to \(W\) if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_X}{X}{W}\) and \(\func{\pi_Y}{Y}{W}\);
-        \item there exists projections \(\func{\pi_1}{X \times_W Y}{X}\)
-            and \(\func{\pi_2}{X \times_W Y}{Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times_W Y}\)
-            such that the following diagram commutes.
-    \end{enumerate}
-    \begin{center}
+    The pullback is the object \(X \times_W Y\) that fits the following universal property:
+    \begin{equation*}
         \begin{tikzcd}
             & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
             \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
@@ -709,55 +663,7 @@
             Y \arrow{ld}{\pi_Y} \\
             & W
         \end{tikzcd}
-    \end{center}
-\end{definition}
-
-
-\section{Limits}
-
-\subsection*{Inverse Limit}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
-    and the index set \(I\) is ordered with the relation \(\leq\).
-    An inverse system over \(I\) is when \(i \leq j\),
-    let \(\func{f_{ij}}{X_j}{X_i}\) be a homomorphism such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f_{ii} = \id_{X_i}\); and
-        \item \(f_{ik} = f_{ij} \circ f_{jk}\) for all \(i \leq j \leq k\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            X_i & X_j \arrow{l}{f_{ij}} &
-            X_k \arrow{l}{f_{jk}} \arrow[bend right]{ll}[swap]{f_{ik}}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is an inverse system.
-    The inverse limit of this system is an object \(\invlim X_i\)
-    that satisfies the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_i}{\invlim X_i}{X_i}\)
-            such that for all \(i \leq j\), \(\pi_i = f_{ij}\circ\pi_j\); and
-        \item for any object \(Z\), if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms
-            such that for all \(i \leq j\), \(\phi_i = f_{ij}\circ\phi_j\),
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\invlim X_i}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            & \invlim X_i \arrow{dl}{\pi_i} \arrow{dr}[swap]{\pi_j} \\
-            X_i && X_j \arrow{ll}{f_{ij}}
-        \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{definition}
 
 
