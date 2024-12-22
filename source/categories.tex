@@ -177,7 +177,6 @@
     In that case, \(\func{\tau^{-1}}{T}{S}\) formed by \({(\tau_X)}^{-1}\) is also a natural isomorphism.
 \end{definition}
 
-
 \section{Constructions}
 
 \subsection*{Duality}
@@ -218,6 +217,87 @@
     To distinguish between between contravariant functors and the normal ones,
     we call normal functors covariant.
 \end{remark}
+
+\subsection*{Products and Bifunctors}
+
+\begin{definition}
+    Suppose \(\mca{B},\mca{C}\) are categories.
+    The product of the two categories is \(\mca{B}\times\mca{C}\),
+    where the objects are tuples of objects \((B,C) \in \Ob(\mca{B})\times\Ob(\mca{C})\),
+    and morphisms are tuples of morphisms \(\func{(f,g)}{(B,C)}{(B',C')}\)
+    where \(\func{f}{B}{B'}\) and \(\func{g}{C}{C'}\).
+\end{definition}
+
+\begin{definition}
+    A functor \(\func{S}{\mca{B}\times\mca{C}}{\mca{D}}\) is called a bifunctor,
+    which is a functor from a product category.
+    It can alternatively be treated as a functor of two variables.
+\end{definition}
+
+\begin{definition}
+    Suppose \(\func{S,T}{\mca{B}\times\mca{C}}{\mca{D}}\) are bifunctors.
+    Let \(\alpha\) be a function such that when given \(B \in \mca{B}\) and \(C \in \mca{C}\),
+    \(\func{\alpha(B,C)}{S(B,C)}{T(B,C)}\) is a morphism in \(\mca{D}\).
+    \(\alpha\) is natural in \(B\) if for all \(C\),
+    \(\func{\alpha(\cdot,C)}{S(\cdot,C)}{T(\cdot,C)}\) is a natural transformation.
+\end{definition}
+\begin{proposition}\label{prop:natural-bifunctor}
+    Suppose \(\func{S,T}{\mca{B}\times\mca{C}}{\mca{D}}\) are bifunctors.
+    \(\func{\alpha}{S}{T}\) is a natural transformation of bifunctors
+    if and only if \(\alpha(B,C)\) is natural in both \(B\) and \(C\).
+\end{proposition}
+\begin{proof}
+    Consider the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            (B,C) \arrow{d}{(f,\id_C)} & S(B,C) \arrow{d}{S(f,\id_C)} \arrow{r}{\alpha(B,C)} & T(B,C) \arrow{d}{T(f,\id_C)}  \\
+            (B',C) & S(B',C) \arrow{r}{\alpha(B',C)} & T(B',C)
+        \end{tikzcd}
+    \end{equation*}
+    Suppose \(\alpha\) is natural.
+    Then the above diagram works for any \(\func{(f,g)}{(B,C)}{(B',C')}\);
+    in particular, we can let \(C' = C\) and \(g = \id_C\).
+    This gives naturality in \(B\).
+    The argument works just as well for naturality in \(C\).
+
+    Now, if \(\alpha\) is natural in both \(B\) and \(C\),
+    then we can paste togther two diagrams to obtain:
+    \begin{equation*}
+        \begin{tikzcd}
+            (B,C) \arrow{d}{(f,\id_C)} & S(B,C) \arrow{d}{S(f,\id_C)} \arrow{r}{\alpha(B,C)} & T(B,C) \arrow{d}{T(f,\id_C)}  \\
+            (B',C) \arrow{d}{(\id_B',g)} & S(B',C) \arrow{d}{S(\id_B',g)} \arrow{r}{\alpha(B',C)} & T(B',C) \arrow{d}{T(\id_B',g)} \\
+            (B',C') & S(B',C') \arrow{r}{\alpha(B',C')} & T(B',C')
+        \end{tikzcd}
+    \end{equation*}
+    The first two rows uses natural in \(B\), while the last two rows uses natural in \(C\).
+    But the rectangle on the outside exactly demonstrates that \(\alpha\) is a natural transformation.
+\end{proof}
+
+\subsection*{Functor Categories}
+
+\begin{definition}
+    Suppose \(\mca{C},\mca{D}\) are categories.
+    The functor category is \(\mca{D}^\mca{C}\),
+    where the objects are functors \(\mca{C}\to\mca{D}\),
+    and the morphisms are natural transformations between these functors.
+    Given functors \(\func{R,S,T}{\mca{C}}{\mca{D}}\)
+    and natural transformations \(\func{\sigma}{R}{S}\) and \(\func{\tau}{S}{T}\),
+    we can define the composition \(\tau\cdot\sigma\) as
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{d}{f} & RX \arrow{d}{Rf} \arrow{r}{\sigma_X} \arrow[bend left]{rr}{{(\tau\cdot\sigma)}_X} &
+            SX \arrow{d}{Sf} \arrow{r}{\tau_X} & TX \arrow{d}{Tf} \\
+            Y & RY \arrow{r}{\sigma_Y} \arrow[bend right]{rr}[swap]{{(\tau\cdot\sigma)}_Y} & SY \arrow{r}{\tau_Y} & TY
+        \end{tikzcd}
+    \end{equation*}
+    The diagram above demonstrates that the composition is indeed a natural transformation.
+    It is easy to check that this compositions is also associative.
+    For each individual functor (object) \(T\),
+    we can define the identity natural transformation (morphism) as \(\id_T X = \id_{TX}\).
+\end{definition}
+
+
+\section{Universality}
 
 % \subsection*{Subobject and Quotient Object}
 
@@ -273,21 +353,21 @@
 %     and \(\func{\phi}{X}{Z}\) is any surjective homomorphism
 % \end{theorem}
 
-\subsection*{Universality}
+% \subsection*{Universality}
 
 \begin{definition}
-    Suppose \(\func{S}{\mca{D}}{\mca{C}}\) is a functor, and \(X \in \Ob(\mca{C})\).
-    A universal arrow from the object \(X\) to the functor \(S\) is a tuple \((Y,f)\),
-    where \(Y \in \Ob(\mca{D})\) is an object and \(\func{f}{X}{SY}\) is a morphism,
-    such that given any tuple of objects and morphisms \((Z,\phi) \in \Ob(\mca{D})\times\Hom(X,SZ)\),
-    there exists a unique arrow \(\func{\bar{\phi}}{Y}{Z}\) such that \(S\bar{\phi} \circ f = \phi\).
+    Suppose \(\func{S}{\mca{D}}{\mca{C}}\) is a functor, and \(C \in \Ob(\mca{C})\).
+    A universal arrow from the object \(C\) to the functor \(S\) is a tuple \((R,f)\),
+    where \(R \in \Ob(\mca{D})\) is an object and \(\func{f}{C}{SR}\) is a morphism,
+    such that given any tuple of objects and morphisms \((D,\phi) \in \Ob(\mca{D})\times\Hom(C,SD)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{R}{D}\) such that \(S\bar{\phi} \circ f = \phi\).
 
     This can be represented by the following commutative diagram:
     \begin{equation*}
         \begin{tikzcd}
-            X \arrow{r}{f} \arrow{dr}[swap]{\phi} & SY \arrow[dashrightarrow]{d}{S\bar{\phi}} &
-            Y \arrow[dashrightarrow]{d}{\bar{\phi}} \\
-            & SZ & Z
+            C \arrow{r}{f} \arrow{dr}[swap]{\phi} & SR \arrow[dashrightarrow]{d}{S\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & SD & D
         \end{tikzcd}
     \end{equation*}
 \end{definition}
@@ -310,18 +390,18 @@
 \end{definition}
 
 \begin{definition}
-    Dually, suppose \(\func{S}{\mca{D}}{\mca{C}}\), and \(X \in \Ob(\mca{C})\).
-    A universal arrow from the functor \(S\) to the object \(X\) is a tuple \((Y,f)\),
-    where \(Y \in \Ob(\mca{D})\) is an object and \(\func{f}{SY}{X}\) is a morphism,
-    such that given any tuple of objects and morphisms \((Z,\phi) \in \Ob(\mca{D})\times\Hom(SZ,X)\),
-    there exists a unique arrow \(\func{\bar{\phi}}{Y}{Z}\) such that \(f \circ S\bar{\phi} = \phi\).
+    Dually, suppose \(\func{S}{\mca{D}}{\mca{C}}\), and \(C \in \Ob(\mca{C})\).
+    A universal arrow from the functor \(S\) to the object \(C\) is a tuple \((R,f)\),
+    where \(R \in \Ob(\mca{D})\) is an object and \(\func{f}{SR}{C}\) is a morphism,
+    such that given any tuple of objects and morphisms \((D,\phi) \in \Ob(\mca{D})\times\Hom(SD,C)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{R}{D}\) such that \(f \circ S\bar{\phi} = \phi\).
 
     This can be represented by the following commutative diagram:
     \begin{equation*}
         \begin{tikzcd}
-            Y \arrow[dashrightarrow]{d}{\bar{\phi}} &
-            SY \arrow{r}{f} \arrow[dashrightarrow]{d}{S\bar{\phi}} & X \\
-            Z & SZ \arrow{ru}[swap]{\phi}
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} &
+            SR \arrow{r}{f} \arrow[dashrightarrow]{d}{S\bar{\phi}} & C \\
+            D & SD \arrow{ru}[swap]{\phi}
         \end{tikzcd}
     \end{equation*}
 \end{definition}
@@ -338,7 +418,11 @@
     If \(\func{K}{\mca{D}}{\textbf{Set}}\) is a functor, and \(R \in \Ob(\mca{D})\),
     then there is a bijection
     \begin{equation*}
-        \varfunc{Y}{\Hom_{\mca{D}\to\textbf{Set}}(\Hom_\mca{D}(R,\cdot),K)}{KR}{(\func{\alpha}{\Hom(R,\cdot)}{K})}{\alpha_R\id_R}
+        \begin{array}{rcl}
+            \Hom_{\textbf{Set}^\mca{D}}\pqty{\Hom_\mca{D}(R,\cdot),K} &\to & KR \\
+            (\func{\alpha}{\Hom(R,\cdot)}{K}) &\mapsto & \alpha_R \id_R
+        \end{array}
+        % \varfunc{}{\Hom_{\mca{D}\to\textbf{Set}}(\Hom_\mca{D}(R,\cdot),K)}{KR}{(\func{\alpha}{\Hom(R,\cdot)}{K})}{\alpha_R\id_R}
     \end{equation*}
     between the natural transformations \(\alpha\) and the image of the identity under \(\alpha\),
     which is an element of the set \(KR\).
@@ -370,9 +454,157 @@
     Conclude with \(K = \Hom_\mca{D}(S,\cdot)\).
 \end{proof}
 
-\subsection*{Products and Limits}
+% \begin{proposition}
+%     Given a functor \(\func{S}{\mca{D}}{\mca{C}}\) and an object \(C \in \Ob(\mca{C})\),
+%     the tuple \((D,f) \in \Ob(\mca{D})\times\Hom(C,SD)\) is universal from \(C\) to \(S\)
+%     if and only if for every \(Z \in \Ob(\mca{D})\),
+%     \begin{equation*}
+%         \begin{array}{rcl}
+%             \Hom_\mca{D}(D,Z) &\to& \Hom_\mca{C}(C,SZ) \\
+%             (\func{\bar{\phi}}{D}{Z}) &\mapsto& (\func{S\bar{\phi} \circ f}{C}{SZ})
+%         \end{array}
+%     \end{equation*}
+%     is a bijection of hom-sets.
+%     This bijection is natural in \(Z\).
+%     Conversely, given \(R\) and \(C\),
+%     any natural isomorphism is determined uniquely by an \(\func{f}{C}{SR}\),
+%     such that \((R,f)\) is universal from \(C\) to \(S\).
+% \end{proposition}
 
-% \subsection*{Product}
+\subsection*{Coproducts and Colimits}
+
+\begin{remark}
+    For this subsection, we shall fix a category \(\mca{C}\),
+    and discuss objects within that category.
+\end{remark}
+
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    The diagonal functor is defined by
+    \begin{equation*}
+        \begin{array}{rrcl}
+            \Delta: & \mca{C} &\to& \mca{C}^\mca{I} \\
+            & X &\mapsto& \pqty{\varfunct{\Delta X}{\mca{I}}{\mca{C}}{i}{X}{(i \to j)}{\id_X}} \\
+            % & (\func{f}{X}{Y}) &\mapsto& \Delta f: \pqty{\varfunc{{(\Delta f)}_i}{(\Delta X)i}{(\Delta Y)i}{\cdot}{f}}
+            & (\func{f}{X}{Y}) &\mapsto& \pqty{\mqty{\func{\Delta f}{\Delta X}{\Delta Y} \\ {(\Delta f)}_i = f}}
+        \end{array}
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    Consider the universal arrow \((R,\iota)\)
+    from a functor \(\func{F}{\mca{I}}{\mca{C}}\) (which is an object in \(\mca{C}^\mca{I}\))
+    to the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^\mca{I}}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            F \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R \arrow[dashrightarrow]{d}{\Delta\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R\) that fits this diagram is called the colimit, direct limit, or inductive limit.
+    Splitting this up, one can visualize this as a cone,
+    where the base is a formed by a graph of objects and arrows in \(\mca{I}\)
+    after undergoing the functor \(F\) (making this a commutative diagram in \(\mca{C}\)),
+    and the apex is the singular object \(R\).
+    One can form another cone with the same base, but the apex being any other object \(Z\),
+    and there exists a unique morphism \(\func{\bar{\phi}}{R}{Z}\) such that all the triangles in both cones commute.
+    \begin{equation*}
+        \begin{tikzcd}
+            F(i) \arrow{rr}{f} \arrow{dr}[swap]{\iota_i} \arrow[bend right]{ddr}[swap]{\phi_i} &&
+            F(j) \arrow{dl}{\iota_j} \arrow[bend left]{ddl}{\phi_j} \\
+            & \dirlim F \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Suppose \(X,Y\) are two objects.
+    % Let \(\mca{I} = \mathbf{2}\), the category of two objects.
+    Consider the universal arrow \((R,\iota)\) from \((X,Y) \in \Ob(\mca{C}^2)\)
+    to the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^2}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            (X,Y) \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R = (R,R) \arrow[dashrightarrow]{d}{(\bar{\phi},\bar{\phi})} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z = (Z,Z) & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R\) that fits this diagram is called the coproduct, denoted \(X \oplus Y\).
+    Splitting this up we get the familiar coproduct universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{r}{\iota_1} \arrow{rd}[swap]{\phi_1} &
+            X \oplus Y \arrow[dashrightarrow]{d}{\bar{\phi}} &
+            Y \arrow{l}[swap]{\iota_2} \arrow{ld}{\phi_2} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any coproduct is unique up to isomorphism if it exists.
+\end{definition}
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) are a family of objects.
+    % Let \(\mca{I}\) be the category with the elements in \(I\) as the objects, and no arrows;
+    % furthermore, let \(F(i) = X_i\).
+    Consider the universal arrow \((R,\iota)\) from \((X_i) \in \Ob(\mca{C}^I)\)
+    to the \(I\)-fold diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^I}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            (X_i) \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R \arrow[dashrightarrow]{d}{\Delta\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R\) that fits this diagram is called the (infinite) coproduct, denoted \(\bigoplus_{i \in I} X_i\).
+    Splitting this up we get the familiar coproduct universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            X_i \arrow{r}{\iota_i} \arrow{rd}[swap]{\phi_i} &
+            \displaystyle\bigoplus_{i \in I} X_i \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The other common notation for coproducts is \(X \sqcup Y\) and \(\bigsqcup X_i\),
+    because it appears in \(\textbf{Set}\) and \(\textbf{Top}\) as the disjoint union;
+    yet here we prefer to adopt the notation \(X \oplus Y\) and \(\bigoplus X_i\),
+    because it appears in most algebraic structures as the direct sum.
+\end{remark}
+
+% \begin{definition}
+%     Suppose \(\mca{C}\) has a null object \(0\).
+%     For any two objects \(X,Y\), there now exists a zero arrow \(\func{0}{X \to Z}{Y}\).
+%     The cokernel of \(\func{f}{X}{Y}\) is a universal arrow \((\Cok f, \coker f)\)
+%     such that:
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item 
+%     \end{enumerate}
+% \end{definition}
+
+\begin{definition}
+    Suppose \(W,X,Y\) are three objects, with \(W \to X\) and \(W \to Y\).
+    % Let \(\mca{I}\) be the category
+    The pushout is the object \(X \oplus_W Y\) that fits the following universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            & W \arrow{dl} \arrow{dr} \\
+            X \arrow{r} \arrow{dr} & X \oplus_W Y \arrow[dashrightarrow]{d} & Y \arrow{l} \arrow{dl} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+% \begin{theorem}
+%     If \(\mca{I}\) is a small category,
+%     then any functor \(\func{F}{\mca{I}}{\textbf{Set}}\) has a colimit.
+% \end{theorem}
+
+\subsection*{Products and Limits}
 
 \begin{definition}
     Suppose \(X,Y\) are two objects.
@@ -421,35 +653,6 @@
             & Z \arrow{ld}[swap]{\phi_i}
             \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
             X_i & \prod_{i \in I} X_i \arrow{l}{\pi_i}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\subsection*{Coproduct}
-
-\begin{remark}
-    The coproduct is the dual to the product.
-\end{remark}
-
-\begin{definition}
-    Suppose \(X,Y\) are two objects.
-    We call \(X \oplus Y\) the coproduct of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_1}{X}{X \oplus Y}\)
-            and \(\func{\iota_2}{Y}{X \oplus Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Y}{Z}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{X \oplus Y}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\) for \(i = 1,2\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
-            X \oplus Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
-            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2}
         \end{tikzcd}
     \end{center}
 \end{definition}
@@ -509,35 +712,6 @@
     \end{center}
 \end{definition}
 
-\subsection*{Pushout}
-
-\begin{remark}
-    The pushout is the dual to the pullback.
-\end{remark}
-
-\begin{definition}
-    Suppose \(W,X,Y\) are three objects.
-    We call \(X +_W Y\) the pushout or fibre coproduct with respect to \(W\) if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_X}{W}{X}\) and \(\func{\iota_Y}{W}{Y}\);
-        \item there exists inclusions \(\func{\iota_1}{X}{X +_W Y}\)
-            and \(\func{\iota_2}{Y}{X +_W Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{X +_W Y}{Z}\)
-            such that the following diagram commutes.
-    \end{enumerate}
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
-            X +_W Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
-            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2} \\
-            & W \arrow{lu}{\iota_X} \arrow{ru}[swap]{\iota_Y}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
 
 \section{Limits}
 
@@ -582,56 +756,6 @@
             \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
             & \invlim X_i \arrow{dl}{\pi_i} \arrow{dr}[swap]{\pi_j} \\
             X_i && X_j \arrow{ll}{f_{ij}}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\subsection*{Direct Limit}
-
-\begin{remark}
-    The direct system and direct limit
-    is dual to the inverse system and inverse limit.
-\end{remark}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
-    and the index set \(I\) is ordered with the relation \(\leq\).
-    A direct system over \(I\) is when \(i \leq j\),
-    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f_{ii} = \id_{X_i}\); and
-        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
-            X_j \arrow{r}[swap]{f_{jk}} & X_k
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
-    The direct limit of this system is an object \(\dirlim X_i\)
-    that satisfies the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
-            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
-        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
-            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
-            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
-            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
-            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
         \end{tikzcd}
     \end{center}
 \end{definition}
