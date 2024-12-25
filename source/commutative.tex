@@ -1718,3 +1718,404 @@
 % Hilbert function?
 
 \section{Completions}
+
+\begin{definition}
+    Suppose \(\mca{A}: R = \mfk{a}_0 \supseteq \mfk{a}_1 \supseteq \mfk{a}_2 \supseteq \cdots\)
+    is a descending chain of ideals (resp.\ filtration).
+    The completion of \(R\) with respect to \(\mca{A}\) is the inverse limit of the quotients
+    \begin{equation*}
+        \hat{R}_\mca{A} = \invlim R/\mfk{a}_i
+        = \Bqty{g = (g_1,g_2,\hdots) \in \prod_{i=1}^\infty R/\mfk{a}_i: g_j \equiv g_i\;(\text{mod}\,\mfk{m}_i)\;\text{when}\; j > i}
+    \end{equation*}
+    \(\hat{R}_\mca{A}\) has a descending chain of ideals (resp.\ filtration)
+    \begin{equation*}
+        \hat{\mfk{a}}_i = \Bqty{g = (g_1,g_2,\hdots) \in \hat{R}_\mca{A}: g_j = 0 \;\text{when}\; j \leq i}
+    \end{equation*}
+    and \(\hat{R}/\hat{\mfk{a}}_i = R/\mfk{a}_i\).
+\end{definition}
+\begin{remark}
+    Categorically, this is an inverse system indexed by the category \(\mca{I} = \{0 \to 1 \to 2 \to \cdots\}\).
+    where given any object, \(F(i) = R/\mfk{a}_i\),
+    and given any morphism, \(F(f_{ij}) = (R/\mfk{a}_i \to R/\mfk{a}_j)\) is the canonical projection (when \(i \leq j\)).
+    By Theorem~\ref{thm:existence-limit},
+    since there are no equalizers in this category,
+    and products exist (we proved that countable direct products exist),
+    this inverse limit is guaranteed to exist.
+\end{remark}
+\begin{definition}
+    Suppose \(R \supseteq \mfk{a} \supseteq \mfk{a}^2 \supseteq \cdots\)
+    is the \(\mfk{a}\)-adic filtration of \(R\).
+    The completion of \(R\) with respect to \(\mfk{a}\) is the inverse limit of the quotients
+    \(\hat{R}_\mfk{a} = \invlim R/\mfk{a}^i\).
+\end{definition}
+
+\begin{lemma}
+    Suppose \(\mfk{m} \subseteq R\) is a maximal ideal.
+    Then \((\hat{R}_\mfk{m},\hat{\mfk{m}})\) is a local ring.
+\end{lemma}
+\begin{proof}
+    First off, \(\hat{R}_\mfk{m}/\hat{\mfk{m}} = R/\mfk{m}\) is a field,
+    so indeed \(\hat{\mfk{m}}\) is a maximal ideal.
+    We then claim that every element \(g\) outside of \(\hat{\mfk{m}}\) is a unit (Proposition~\ref{prop:local-ring-units}).
+    Obviously if \(g \in \hat{R}_\mfk{m} - \hat{\mfk{m}}\),
+    then \(g_1 \neq 0\), and \(g_i \notin \mfk{m}(R/\mfk{m}^i)\), so each \(g_i\) is a unit.
+    But \(g^{-1} = (g_1^{-1},g_2^{-1},\hdots)\) is our inverse,
+    so \(g\) is indeed a unit.
+\end{proof}
+
+\begin{definition}
+    \(\hat{R}_\mfk{m}\) is complete with respect to \(\mfk{m}\) if \(R \to \hat{R}_\mfk{m}\) is an isomorphism.
+    In particular, \(\hat{R}_\mfk{m}\) is a complete local ring if \(\mfk{m}\) is also a maximal ideal.
+\end{definition}
+
+\begin{lemma}\label{lem:completion-properties}
+    Suppose \(\mfk{m} \subseteq R\) is an ideal,
+    and \(\hat{R} = \hat{R}_\mfk{m}\) is the \(\mfk{m}\)-adic completion of \(R\).
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\hat{R}/\hat{\mfk{m}}_n = R/\mfk{m}^n\);
+        \item \(\hat{R} = \invlim \hat{R}/\hat{\mfk{m}}_n\),
+            and \(\hat{R}\) is complete with respect to the filtration by \(\hat{\mfk{m}}_n\); and
+        \item if \(\gr_{\hat{\mfk{m}}_n} \hat{R}\) denotes the associated graded ring with respect to the filtration by \(\hat{\mfk{m}}_n\),
+            then \(R \to \hat{R}\) induces an isomorphism \(\gr_\mfk{m} R \to \gr_{\hat{\mfk{m}}_n} \hat{R}\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Part (a) follows from the definition,
+    and part (b) follows from part (a) immediately.
+
+    For part (c), a useful application of the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    yields \(R/\mfk{m}^n \cong (R/\mfk{m}^{n+1})/(\mfk{m}^n/\mfk{m}^{n+1}) \cong (\hat{R}/\hat{\mfk{m}}_{n+1})/(\mfk{m}^n/\mfk{m}^{n+1}) \cong \hat{R}/\hat{\mfk{m}}_n\),
+    so we have isomorphisms between every graded component.
+\end{proof}
+
+\subsection*{Krull Topology}
+
+\begin{lemma}\label{lem:0-closed-hausdorff}
+    Suppose \(G\) is a topological (additive) abelian group,
+    with the addition and inversion operations
+    \begin{equation*}
+        \varfunc{+}{G \times G}{G}{(x,y)}{x+y} \qquad \varfunc{-}{G}{G}{x}{-x}
+    \end{equation*}
+    both continuous.
+    If \(\{0\}\) is closed in \(G\), then \(G\) is Hausdorff.
+\end{lemma}
+\begin{proof}
+    Since \((x,y) \mapsto x-y\) is continuous (being the composition of two continuous maps),
+    the preimage of \(\{0\}\) under this map is the diagonal in \(G \times G\),
+    so the diagonal is closed.
+    By Lemma~\ref{lem:diagonal-closed-hausdorff}, \(G\) is Hausdorff.
+\end{proof}
+\begin{lemma}
+    Suppose \(G\) is a topological abelian group, with continuous addition and inversion.
+    Given any neighbourhood \(U \ni 0\), \(U + x\) is a neighbourhood of \(x \in G\);
+    conversely, any neighbourhood of \(x \in G\) must be of the form \(U + x \ni x\),
+    where \(U\) is a neighbourhood of 0.
+    In other words, the neighbourhoods of 0 uniquely determine the topology on \(G\).
+\end{lemma}
+\begin{proof}
+    Fix any element \(x \in G\).
+    The translation mapping \(g \mapsto g+x\) is continuous;
+    moreover, its inverse \(g \mapsto g-x\) is also a translation, so it must be a homeomorphism.
+    Hence translations are open maps, so \(U \ni 0\) is a neighbourhood if and only if \(U + x \ni x\) is a neighbourhood.
+\end{proof}
+\begin{lemma}
+    Suppose \(H\) is the intersection of all neighbourhoods of 0.
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(H\) is a subgroup;
+        \item \(H = \overline{\{0\}}\);
+        \item \(G/H\) is Hausdorff; and
+        \item \(G\) is Hausdorff if and only if \(H = \{0\}\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    For (a), we see that \(U \ni 0\) is a neighbourhood if and only if \(-U \ni 0\) is a neighbourhood,
+    because inversion is continuous.
+    Hence if \(x \in H = \bigcap U = \bigcap (-U)\), then \(-x \in H = \bigcap U\) also.
+    Now, if \(x,y \in H\), consider any neighbourhood \(U \ni 0\).
+    Then there exists some open \(V \subseteq U\), and the preimage of addition is \(+^{-1}(V) \subseteq G \times G\) is open.
+    In particular there exists open subsets \(E \times E' \subseteq +^{-1}(V)\).
+    But then \(x \in H \subseteq E\) and \(y \in H \subseteq E'\) because it is open,
+    and hence \(x+y \in V\).
+
+    For (b), if a nonzero point \(x \in H = \bigcap U\) for all neighbourhoods \(U \ni 0\),
+    the same can be said for \(-x\).
+    This happens if and only if \(0 \in \bigcap U+x\),
+    and these are precisely the neighbourhoods of \(x\).
+    % But that is exactly saying that every open set containing \(-x\) contains 0,
+    Hence \(x\) is a boundary point of \(\{0\}\),
+    since every neighbourhood of \(x\) contains a point in \(\{0\}\) (namely 0),
+    but also contains a point (\(x\)) not in \(\{0\}\).
+    Therefore \(x \in \overline{\{0\}}\).
+    The reverse argument holds, since \(x \notin \{0\}\),
+    so we are forced to conclude that \(x \in \partial\{0\}\).
+
+    For (c), since \(H = [0] \in G/H\) is closed, by Lemma~\ref{lem:0-closed-hausdorff} we are done.
+
+    For (d), the reverse direction follows directly from (c).
+    For the forward direction, if \(G\) is Hausdorff, then in particular it is \(\text{T}_1\),
+    and every singleton is closed;
+    in particular, this means \(\{0\} = \overline{\{0\}} = H\).
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{a_i\}}_{i=1}^\infty \subset G\) is a sequence of elements in a topological abelian group.
+    % The sequence converges to \(a \in \hat{R}\) if for every \(n \in \bN\),
+    % there exists \(m \in \bN\) such that for all \(i \geq m\), \(a - a_i \in \hat{\mfk{m}}_n\).
+    % We call \(a = \lim_{n\to\infty} a_n\) the limit of the sequence.
+    The sequence is Cauchy if for every open \(U \ni 0\),
+    there exists \(m \in \bN\) such that for all \(i,j \geq m\), \(a_i - a_j \in U\).
+    Two Cauchy sequences \(\{a_i\},\{b_i\}\) are equivalent if \(a_i - b_i \to 0 \in G\).
+\end{definition}
+\begin{definition}
+    Let \(\hat{G}\) be the space of all Cauchy sequences in \(G\).
+    \(\hat{G}\) is an abelian group, because addition and inversion works element-wise.
+\end{definition}
+\begin{definition}
+    Suppose \(G\) is a topological abelian group,
+    with a sequence of subgroups \(G = G_0 \supseteq G_1 \supseteq G_2 \supseteq \cdots\),
+    where the only open neighbourhoods of 0 are \(G_n\).
+    Just as before, if we define \(\hat{G}_n = \ker(\hat{G} \to G/G_n)\),
+    then it is possible to endow a topology on \(\hat{G}\),
+    where the only open neighbourhoods of 0 are \(\hat{G}_n\).
+    We call this the Krull topology on \(\hat{G}\).
+\end{definition}
+\begin{proposition}
+    The Cauchy sequence construction is identical to the inverse limit construction.
+\end{proposition}
+\begin{proof}
+    Since every Cauchy sequence in \(G\) is has an eventually constant image in \(G/G_n\),
+    we can simply define that image as \(g_n\),
+    and verify that it satisfies the definition of the inverse limit.
+    Indeed, every Cauchy sequence has such a representation in \(g_n\);
+    and because we quotient away the equivalent Cauchy sequences,
+    such a representation is also unique.
+\end{proof}
+% \begin{lemma}
+%     \({\{a_i\}}_{i=1}^\infty \subset \hat{R}\) converges in \(\hat{R}\) if and only if it is Cauchy.
+% \end{lemma}
+% \begin{proof}
+%     Suppose \(a_i \to a\).
+%     Then given some \(\hat{\mfk{m}}_n\), there exists \(m\) such that
+%     for any \(i,j \geq m\), \((a-a_j) - (a-a_i) = a_i - a_j \in \hat{\mfk{m}}_n\).
+%     This proves the forward direction.
+
+%     Suppose \(\{a_i\}\) is Cauchy.
+%     Given any \(\hat{\mfk{m}}_n\), there exists an \(m\) such that
+%     for any \(i,j \geq m\), \(a_i - a_j \in \hat{\mfk{m}}_n\).
+%     In particular, \(a_m - a_i \in \hat{\mfk{m}}_n\), so let us define \(g_n = a_m\).
+% \end{proof}
+
+\subsection*{Completions and Associated Graded Rings}
+
+\begin{proposition}\label{prop:graded-ring-generators}
+    Suppose \(R\) is complete with respect to the filtration by ideals \(\mfk{m}_n\),
+    and let \(\gr R = \gr_{\mfk{m}_n} R\) be the associated graded ring with respect to this filtration.
+    Given any \(a \in R\), let \(l(a)\) the leading term of \(a\);
+    that is, find the largest \(n\) such that \(a \in \mfk{m}_n\),
+    and \(l(a) = a \pmod{\mfk{m}_{n+1}} \in \mfk{m}_n/\mfk{m}_{n+1} \subseteq \gr R\).
+    Suppose \({\{a_i\}}_{i=1}^s \subset \mfk{a} \subseteq R\) are elements in an ideal.
+    If \({\{l(a_i)\}}_{i=1}^s\) generate the ideal \(l(\mfk{a}) \subseteq \gr R\),
+    then \({\{a_i\}}_{i=1}^s\) generates \(\mfk{a} \subseteq R\).
+\end{proposition}
+\begin{proof}
+    Let \(\mfk{a}' = (a_1,\hdots,a_s) \subseteq \mfk{a}\).
+    Without any loss of generality, suppose \(a_i \neq 0\).
+    Find a sufficiently large \(d\) such that \(a_i \notin \mfk{m}_d\).
+    Given any \(f \in \mfk{a}\), with \(l(f)\) of degree \(r\),
+    we write \(l(f) = \sum_{i=1}^s \bar{c}_i l(a_i)\) for some \(\bar{c}_i \in \gr R\),
+    and by matching degrees, \(\deg(\bar{c}_i) = r - \deg(l(a_i))\).
+
+    Then if we choose \(c_i \in R\) such that \(l(c_i) = c_i\),
+    then \(f_1 = f - \sum_{i=1}^s c_i a_i \in \mfk{m}_{r+1}\), because the leading terms already match up.
+    We can repeat this process any number of times,
+    finding \(f_{n+1} = f_n - \sum_{i=1}^s c_i^{(n)} a_i \in \mfk{m}_{r+n+1}\).
+    Hence we can eventually get \(f - \sum_{i=1}^s c''_i a_i \in \mfk{m}_{d+1}\).
+    We can see that \(f \in \mfk{a}'\) if and only if \(f - \sum_{i=1}^s c''_i a_i \in \mfk{a}'\),
+    so without any loss of generality, let \(f \in \mfk{m}_{d+1}\).
+
+    Then in \(l(f) = \sum_{i=1}^s \bar{c}_i l(a_i)\),
+    the degrees are \(\deg(\bar{c}_i) = r - \deg(l(a_i)) > r-d\).
+    Hence we can choose \(c_i \in \mfk{m}_{r-\deg(l(a_i))} \subseteq \mfk{m}_{r-d}\).
+    % because adding anything in \(\mfk{m}_{r-\deg(l(a_i))+1} \supseteq \mfk{m}_{r-d}\)
+    % does not change its representative \(\bar{c}_i \in \mfk{m}_{r-\deg(l(a_i))}/\mfk{m}_{r-\deg(l(a_i))+1}\).
+    Repeating this procedure, we can choose
+    \begin{equation*}
+        f_{n+1} = f - \sum_{i=1}^s c_i^{(0)} a_i - \sum_{i=1}^s c_i^{(1)} a_i - \cdots - \sum_{i=1}^s c_i^{(n)} a_i
+        = f - \sum_{i=1}^s \sum_{k=1}^n c_i^{(k)} a_i \in \mfk{m}_{r+n+1}
+    \end{equation*}
+    By definition this means \(f - \sum_{i=1}^s \sum_{k=1}^n c_i^{(k)} a_i \to 0\),
+    and the two Cauchy sequences are equivalent.
+    We are then forced to conclude that \(f = \sum_{i=1}^s \sum_{k=1}^\infty c_i^{(k)} a_i \in \mfk{a}'\) as desired.
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{m} \subseteq R\) is an ideal.
+    Let \(\hat{R} = \hat{R}_\mfk{m}\) denote the completion.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\hat{R}\) is a Noetherian ring.
+        \item \(\hat{R}/\mfk{m}^k\hat{R} = R/\mfk{m}^k\).
+        Therefore \(\hat{R}\) is complete with respect to \(\mfk{m}\hat{R}\),
+        and \(\gr_{\mfk{m}\hat{R}} \hat{R} = \gr_\mfk{m} R\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    For part (a), it suffices to prove that every ideal in \(\hat{R}\) is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    We have \(\gr \hat{R} = \gr R\) (graded using their respective filtrations by \(\hat{\mfk{m}}\) and \(\mfk{m}\))
+    because every \(\hat{\mfk{m}}_n/\hat{\mfk{m}_{n+1}} = \mfk{m}^n/\mfk{m}^{n+1}\) (Lemma~\ref{lem:completion-properties}).
+    Since \(R\) is Noetherian, \(R/\mfk{m}\) is Noetherian (Theorem~\ref{thm:noetherian-quotient}).
+    Because \(\ker(R/\mfk{m}^2 \to R/\mfk{m}) = \mfk{m}/\mfk{m}^2\) is an ideal of \(R/\mfk{m}^2\),
+    it is finitely generated, so it must be a finite-dimensional vector space over \(R/\mfk{m}\).
+    Hence \(R/\mfk{m}[\mfk{m}/\mfk{m}^2] \to \gr R\) is a surjective homomorphism,
+    and by the \hyperref[cor:hilbert-basis]{Hilbert basis theorem}, \(\gr R = \gr \hat{R}\) is Noetherian.
+    We can therefore conclude using the \hyperref[prop:graded-ring-generators]{proposition above}
+    that \(\hat{R}\) is Noetherian.
+
+    For (b), it suffices to prove that \(\mfk{m}_k = \mfk{m}^k\hat{R}\).
+    By the \hyperref[prop:graded-ring-generators]{proposition above},
+    we only need to prove that \(l(\mfk{m}_k) = l(\mfk{m}^k\hat{R})\).
+    But this is obviously true, because they are both generated by all elements of degree greater than or equal to \(n\).
+\end{proof}
+
+\begin{lemma}\label{lem:isomorphism-completions}
+    Suppose \(R = \mfk{m}_0 \supseteq \mfk{m}_1 \supseteq \cdots\)
+    and \(R = \mfk{n}_0 \supseteq \mfk{n}_1 \supseteq \cdots\) are two distinct filtrations,
+    with completions \(\hat{R}_\mfk{m}\) and \(\hat{R}_\mfk{n}\) respectively.
+    If for each \(\mfk{n}_j\) there exists \(\mfk{m}_i \subseteq \mfk{n}_j\),
+    and for each \(\mfk{m}_j\) there exists \(\mfk{n}_i \subseteq \mfk{m}_j\),
+    then there is a natural isomorphism \(\hat{R}_\mfk{m} \cong \hat{R}_\mfk{n}\).
+\end{lemma}
+\begin{proof}
+    % TODO
+\end{proof}
+\begin{lemma}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{m} \subseteq R\) is an ideal.
+    If \(A,B,C\) are finitely generated \(R\)-modules, and
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & A \arrow{r} & B \arrow{r} & C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is an exact sequence, then
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A/\mfk{m}^n A \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    In other words, the \(\mfk{m}\)-adic completion is exact with respect to finitely generated modules over Noetherian rings.
+\end{lemma}
+\begin{proof}
+    We first show that \(\invlim B/\mfk{m}^n B \to \invlim C/\mfk{m}^n C\) is surjective;
+    that is, given any \(c = (c_1,c_2,\hdots) \in \prod C/\mfk{m}^n C\) satisfying \(c_j \equiv c_i \pmod{\mfk{m}^j C}\) whenever \(j > i\),
+    find \(b = (b_1,b_2,\hdots) \in \prod B/\mfk{m}^n B\) satisfying the same condition,
+    and that \(b_n \mapsto c_n \pmod{\mfk{m}^n C}\).
+    We do so inductively; the base case is clear because there is nothing to choose for \(b_0 \mapsto c_0\).
+    Now assume we have already chosen \({\{b_i\}}_{i=1}^n\).
+    Let us choose some arbitrary \(b_{n+1}' \in B\) such that \(b_{n+1}' \mapsto c_{n+1} \pmod{\mfk{m}^{n+1} C}\).
+    Obviously \(b_{n+1}' \mapsto c_n \pmod{\mfk{m}^n C}\) too, because of the condition on \(c_{n+1} \equiv c_n \pmod{\mfk{m}^n C}\).
+    But because the tensor product is right-exact,
+    \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+            R/\mfk{m}^n \otimes A \arrow{r} & R/\mfk{m}^n \otimes B \arrow{r} & R/\mfk{m}^n \otimes C \arrow{r} & 0 \\
+            A/\mfk{m}^n A \arrow[phantom]{u}[sloped]{=} & B/\mfk{m}^n B \arrow[phantom]{u}[sloped]{=} & C/\mfk{m}^n C \arrow[phantom]{u}[sloped]{=}
+        \end{tikzcd}
+    \end{equation*}
+    is an exact sequence;
+    as \(b_n - b_{n+1}' \mapsto 0 \pmod{\mfk{m}_n C}\),
+    we can find \(a_{n+1} \in A\) such that \(a_{n+1} \mapsto b_n - b_{n+1}' \pmod{\mfk{m}_n B}\).
+    Hence if we define \(b_{n+1} = a_{n+1} + b_{n+1}'\),
+    \(b_{n+1}\) maps into \(c_{n+1}\) as desired (because \(a_{n+1}\) is in the kernel)
+    and \(b_{n+1} = a_{n+1} + b_{n+1}' \equiv b_n \pmod{\mfk{m}_n B}\) as desired.
+
+    Then we have to show that the rest of the sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A/\mfk{m}^n A \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    First off, we see that
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & A/(A \cap \mfk{m}^n B) \arrow{r} & B/\mfk{m}^n B \arrow{r} & C/\mfk{m}^n C
+        \end{tikzcd}
+    \end{equation*}
+    is exact because \(A/(A \cap \mfk{m}^n B) \to B/\mfk{m}^n B\) is injective by construction;
+    moreover, any \(a \in A\) naturally gets mapped into zero after two arrows due to our initial exact sequence.
+    We can then show that the inverse limit
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A/(A \cap \mfk{m}^n B) \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C
+        \end{tikzcd}
+    \end{equation*}
+    is left-exact.
+    Given any \(b = (b_1,b_2,\hdots) \in \invlim B/\mfk{m}^n B\) mapping to \(0 = (0,0,\hdots) \in \invlim C/\mfk{m}^n C\),
+    then each individual \(b_n \mapsto 0 \in C/\mfk{m}^n C\).
+    Hence \(b_n \in A/(A \cap \mfk{m}^n B)\), and \(b \in \invlim A/A \cap \mfk{m}^n B\).
+
+    Lastly, we need to show that \(\invlim A/(A \cap \mfk{m}^n B) = \invlim A/\mfk{m}^n A\).
+    Because \(\mfk{m}^n A \subseteq A \cap \mfk{m}^n B\),
+    using the \hyperref[prop:artin-rees]{Artin-Rees lemma},
+    there exists some \(n\) such that for all \(k\), \(A \cap \mfk{m}^{n+k} B = \mfk{m}^k(A \cap \mfk{m}^n B) \subseteq \mfk{m}^k A\).
+    By the \hyperref[lem:isomorphism-completions]{lemma above},
+    the two completions are the same.
+\end{proof}
+\begin{theorem}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    Let \(\hat{R} = \hat{R}_\mfk{a}\) denote the completion.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(M\) is a finitely generated \(R\)-module,
+            then the natural map \(\hat{R} \otimes M \to \hat{M} = \invlim M/\mfk{a}^j M\) is an isomorphism.
+            In particular, if \(S\) is a finite ring extension of \(R\),
+            then \(\hat{R} \otimes S = \hat{S}_{\mfk{a}S}\).
+        \item \(\hat{R}\) is a flat \(R\)-module.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\subsection*{Hensel's Lemma}
+
+\begin{theorem}[Hensel's Lemma]
+    Supose \(R\) is a complete ring with respect to the ideal \(\mfk{m}\),
+    and let \(f \in R[x]\) be a polynomial.
+    If \(a \in R\) satisfies \(f(a) \equiv 0 \pmod{{f'(a)}^2\mfk{m}}\),
+    then there exists a root \(b\) such that \(f(b) = 0\) and \(b \equiv a \pmod{f'(a)\mfk{m}}\).
+\end{theorem}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a commutative ring, and \(A\) is a (potentially non-commutative) \(R\)-algebra.
+    An element \(e \in A\) is idempotent if \(e^2 = e\).
+    Two idempotents \(e,e' \in A\) are orthogonal if \(ee' = 0\).
+\end{definition}
+\begin{lemma}\label{lem:sum-idempotents}
+    Suppose \({\{e_i\}}_{i=1}^n\) are orthogonal idempotents.
+    Then \(\sum e_i\) is also an idempotent.
+\end{lemma}
+\begin{proof}
+    It suffices to consider the case of two idempotents.
+    \begin{equation*}
+        {(e_1 + e_2)}^2 = e_1^2 + e_1e_2 + e_2^2 = e_1 + e_2
+    \end{equation*}
+\end{proof}
+\begin{definition}
+    Suppose \({\{e_i\}}_{i=1}^n\) are orthogonal idempotents.
+    They are complete if \(\sum e_i = 1\).
+\end{definition}
+\begin{lemma}
+    Suppose \({\{e_i\}}_{i=1}^n\) are a set of incomplete orthogonal idempotents.
+    Then it can be completed by adjoining \(f = 1 - \sum e_i\).
+\end{lemma}
+\begin{proof}
+    By the \hyperref[lem:sum-idempotents]{lemma above}, \(f\) is an idempotent.
+    Furthermore, it is pairwise orthogonal to the rest, because
+    \begin{equation*}
+        fe_i = \pqty{1 - \sum_j e_j}e_i = e_i - \sum_j e_i e_j = e_i - e_i^2 = e_i - e_i = 0
+    \end{equation*}
+\end{proof}
+    

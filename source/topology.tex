@@ -308,7 +308,7 @@
     \end{equation*}
     Since all the maps here are continuous, \(\Delta\) must be continuous.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:diagonal-closed-hausdorff}
     Suppose \(X\) is a topological space.
     \(X\) is Hausdorff if and only if the diagonal subset \(\img\Delta\) is closed.
 \end{lemma}
@@ -349,6 +349,17 @@
     But \(B\) closed if and only if it is its own closure,
     so \(X = \overline{A} \subseteq \overline{B} = B \subseteq X\) as desired.
 \end{proof}
+
+\subsection*{Sequences}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \({\{x_n\}}_{n=1}^\infty \subseteq X\) is a sequence.
+    We say \(x_n\) converges to \(x\), denoted \(x_n \to x\) or \(x = \lim_{n\to\infty} x_n\),
+    if for all open \(U \ni x\), there exists some \(N \in \bN\),
+    such that for all \(n \geq N\), \(x_n \in U\).
+\end{definition}
+
+% TODO
 
 
 \section{Compactness}
