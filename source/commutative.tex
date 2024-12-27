@@ -1962,7 +1962,7 @@
 \begin{proof}
     For part (a), it suffices to prove that every ideal in \(\hat{R}\) is finitely generated (Corollary~\ref{cor:noetherian-generated}).
     We have \(\gr \hat{R} = \gr R\) (graded using their respective filtrations by \(\hat{\mfk{m}}\) and \(\mfk{m}\))
-    because every \(\hat{\mfk{m}}_n/\hat{\mfk{m}_{n+1}} = \mfk{m}^n/\mfk{m}^{n+1}\) (Lemma~\ref{lem:completion-properties}).
+    because every \(\hat{\mfk{m}}_n/\hat{\mfk{m}}_{n+1} = \mfk{m}^n/\mfk{m}^{n+1}\) (Lemma~\ref{lem:completion-properties}).
     Since \(R\) is Noetherian, \(R/\mfk{m}\) is Noetherian (Theorem~\ref{thm:noetherian-quotient}).
     Because \(\ker(R/\mfk{m}^2 \to R/\mfk{m}) = \mfk{m}/\mfk{m}^2\) is an ideal of \(R/\mfk{m}^2\),
     it is finitely generated, so it must be a finite-dimensional vector space over \(R/\mfk{m}\).
@@ -2220,6 +2220,90 @@
 \end{proof}
 
 \subsection*{Hensel's Lemma}
+
+\begin{definition}
+    Suppose \(S\) is a ring, and \(R = S[x_1,\hdots,x_n]\) a polynomial ring over \(S\).
+    If \(\mfk{m} = (x_1,\hdots,x_n) \subseteq R\) is an ideal,
+    then \(\hat{R}_\mfk{m} = S[[x_1,\hdots,x_n]]\) is the ring of formal power series.
+\end{definition}
+\begin{lemma}
+    The power series ring indeed is the conventional ring of power series that you are thinking of.
+\end{lemma}
+\begin{proof}
+    Consider elements \(a_{i_1,\hdots,i_n} \in R\) called coefficients,
+    and associate this with an element \(f = \sum a_{i_1,\hdots,i_n} x_1^{i_1} \cdots x_n^{i_n}\).
+    Associate this with an element \((f+\mfk{m},f+\mfk{m}^2,\hdots) \in \hat{R}_\mfk{m}\).
+    The inverse map is obtained by sending \((f_1,f_2,\hdots) \in \hat{R}_\mfk{m} \subseteq \prod R/\mfk{m}_i\)
+    into the power series \(f\) where the degree \(k\) term is the degree \(k\) term from \(f_{k+1}\).
+    Clearly this map is independent of the choice of representative,
+    because all the representatives of \(f_k+\mfk{m}^k\) must agree at all terms with degree lower than \(k\).
+\end{proof}
+
+\begin{theorem}
+    Suppose \(S\) is an \(R\)-algebra that is complete with respect to some ideal \(\mfk{n} \subseteq S\).
+    Given \({\{f_i\}}_{i=1}^n \subset \mfk{n}\),
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item there exists a unique \(R\)-algebra homomorphism
+            \begin{equation*}
+                \varfunc{\phi}{R[[x_1,\hdots,x_n]]}{S}{x_i}{f_i}
+            \end{equation*}
+            that sends any power series \(g(x_1,\hdots,x_n) \mapsto g(f_1,\hdots,g_n)\);
+        \item if the induced map \(R \to S/\mfk{n}\) is surjective and \(\{f_i\}\) generate \(\mfk{n}\),
+            then \(\phi\) is also surjective; and
+        \item if the induced map
+            \begin{equation*}
+                \func{\gr\phi}{R[x_1,\hdots,x_n]\cong\gr_{(x_1,\hdots,x_n)} R[[x_1,\hdots,x_n]]}{\gr_\mfk{n} S}
+            \end{equation*}
+            is injective, then \(\phi\) is also injective.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Since there exists a unique map for each \(k\)
+    \begin{equation*}
+        \varfunc{\phi_k}{R[[x_1,\hdots,x_n]]/{(x_1,\hdots,x_n)}^k = R[x_1,\hdots,x_n]/{(x_1,\hdots,x_n)}^k}{S/\mfk{n}^k}{x_i}{f_i}
+    \end{equation*}
+    by the universal property of the inverse limit,
+    there exists a unique map
+    \begin{equation*}
+        \varfunc{\phi}{R[[x_1,\hdots,x_n]]}{S=\hat{S}_\mfk{n}}{x_i}{f_i}
+    \end{equation*}
+    as desired.
+    This proves statement (a).
+
+    Now, since \({\{f_i\}}_{i=1}^n\) generate \(\mfk{n}\),
+    \({(x_1,\hdots,x_n)}^k/{(x_1,\hdots,x_n)}^{k+1} \to \mfk{n}/\mfk{n}^2\) is a surjection (for all \(k \geq 1\)),
+    so \(\gr_{(x_1,\hdots,x_n)} R[[x_1,\hdots,x_n]] \to \gr_\mfk{n} S\) is also a surjection
+    (with the case \(k = 0\) given to us as the given surjection).
+    Given some nonzero element \(g \in S\),
+    consider the largest \(k\) such that \(g \in \mfk{n}^k\)
+    (we are allowed to do so because \(S\) complete implies \(\bigcap \mfk{n}^k = 0\)).
+    By surjectivity of \(\gr\phi\), there exists some polynomial \(g_1 \in {(x_1,\hdots,x_n)}^k\)
+    such that the leading terms \(l(g_1) \mapsto l(g)\).
+    Then \(g-\phi(g_1) \in \mfk{n}^{k+1}\).
+    We can now repeat this process indefinitely and obtain \({\{g_n\}}_{n=1}^\infty\),
+    and we know that \(g = \sum_{n=1}^\infty \phi(g_n)\).
+    But because \(\phi\) is a homomorphism on the ring of power series,
+    \(g = \phi(\sum_{n=1}^\infty g_n)\), giving us surjectivity as required.
+    This proves statement (b).
+
+    To prove part (c), it suffices to show that given any nonzero \(g \in R[[x_1,\hdots,x_n]]\),
+    \(\phi(g) \neq 0\) also.
+    In that case, \(l(g)\) has some positive degree \(d\),
+    so \(\gr\phi(l(g)) \neq 0\) in the degree \(d\) part of \(\gr_\mfk{n} S\).
+    But \(g \equiv l(g) \pmod{{(x_1,\hdots,x_n)}^{d+1}}\),
+    so \(\phi(g) \equiv \gr\phi(l(g)) \pmod{\mfk{n}^{d+1}}\) is nonzero as well.
+\end{proof}
+\begin{corollary}
+    Suppose \(f \in xR[[x]]\) is a power series.
+    If we have the endomorphism
+    \begin{equation*}
+        \varfunc{\phi}{R[[x]]}{R[[x]]}{x}{f}
+    \end{equation*}
+    then \(\phi\) is an isomorphism if and only if \(f'(0)\) is a unit in \(R\).
+\end{corollary}
+\begin{proof}
+    
+\end{proof}
 
 \begin{theorem}[Hensel's Lemma]
     Supose \(R\) is a complete ring with respect to the ideal \(\mfk{m}\),
