@@ -503,7 +503,7 @@
             & \Delta Z & Z
         \end{tikzcd}
     \end{equation*}
-    Any \(R = \dirlim F\) that fits this diagram is called the colimit, direct limit, or inductive limit.
+    Any \(R = \dirLim F\) that fits this diagram is called the colimit, direct limit, or inductive limit.
     Splitting this up, one can visualize this as a cone,
     where the base is a formed by a graph of objects and arrows in \(\mca{I}\)
     after undergoing the functor \(F\) (making this a commutative diagram in \(\mca{C}\)),
@@ -514,7 +514,7 @@
         \begin{tikzcd}
             F(i) \arrow{rr} \arrow{dr}[swap]{\iota_i} \arrow[bend right]{ddr}[swap]{\phi_i} &&
             F(j) \arrow{dl}{\iota_j} \arrow[bend left]{ddl}{\phi_j} \\
-            & \dirlim F \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \dirLim F \arrow[dashrightarrow]{d}{\bar{\phi}} \\
             & Z
         \end{tikzcd}
     \end{equation*}
@@ -614,12 +614,12 @@
     Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
     Consider the universal arrow \((R,\pi)\) from the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^\mca{I}}\)
     to a functor \(\func{F}{\mca{I}}{\mca{C}}\) (which is an object in \(\mca{C}^\mca{I}\)).
-    \(R = \invlim F\) is called the limit, inverse limit, or projective limit.
+    \(R = \invLim F\) is called the limit, inverse limit, or projective limit.
     Splitting this up we get the familiar commutative diagram:
     \begin{equation*}
         \begin{tikzcd}
             & Z \arrow[dashrightarrow]{d}{\bar{\phi}} \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j} \\
-            & \invlim F \arrow{dl}[swap]{\pi_i} \arrow{dr}{\pi_j} \\
+            & \invLim F \arrow{dl}[swap]{\pi_i} \arrow{dr}{\pi_j} \\
             F(i) \arrow{rr} && F(j)
         \end{tikzcd}
     \end{equation*}
