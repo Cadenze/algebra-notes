@@ -2239,7 +2239,7 @@
     because all the representatives of \(f_k+\mfk{m}^k\) must agree at all terms with degree lower than \(k\).
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:power-series-completions}
     Suppose \(S\) is an \(R\)-algebra that is complete with respect to some ideal \(\mfk{n} \subseteq S\).
     Given \({\{f_i\}}_{i=1}^n \subset \mfk{n}\),
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -2293,7 +2293,7 @@
     But \(g \equiv l(g) \pmod{{(x_1,\hdots,x_n)}^{d+1}}\),
     so \(\phi(g) \equiv \gr\phi(l(g)) \pmod{\mfk{n}^{d+1}}\) is nonzero as well.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:derivative-unit-isomorphism}
     Suppose \(f \in xR[[x]]\) is a power series.
     If we have the endomorphism
     \begin{equation*}
@@ -2302,7 +2302,26 @@
     then \(\phi\) is an isomorphism if and only if \(f'(0)\) is a unit in \(R\).
 \end{corollary}
 \begin{proof}
-    
+    Suppose \(\phi\) is an isomorphism.
+    Observe that the elements in \((x)\) consist of those with a zero constant term,
+    Because \(f \in xR[[x]]\) has no constant term,
+    we can see that \(\phi(R[[x]]-(x)) = R[[x]] - (x)\) and \(\phi((x)) = (x)\).
+    In particular, that implies \(\phi(x) = f\) also generates \((x)\);
+    hence \(f + (x^2)\) generates \((x)/(x^2)\).
+    Since \(f \equiv f'(0)x \pmod{(x^2)}\), \(f'(0)x\) generates \((x)\), so \(f'(0)\) must be a unit.
+
+    Conversely, suppose that \(f'(0) = u\) is a unit in \(R\).
+    Then as \(\gr_{(x)} R[[x]] = R[x]\), and
+    \begin{equation*}
+        \varfunc{\gr\phi}{R[x]}{R[x]}{x}{ux}
+    \end{equation*}
+    is an isomorphism because \(u\) is a unit (we wipe away all other degree terms).
+    By the \hyperref[thm:power-series-completions]{theorem above},
+    \(\phi\) is injective.
+    But we can also write \(f = ux + hx^2 = (u+hx)x\) for some \(h \in [[x]]\);
+    because \(u+hx\) is a unit in \(R[[x]]\), \(f\) generates \((x)\).
+    Hence by the \hyperref[thm:power-series-completions]{theorem above} again,
+    \(\phi\) is surjective.
 \end{proof}
 
 \begin{theorem}[Hensel's Lemma]
@@ -2310,9 +2329,48 @@
     and let \(f \in R[x]\) be a polynomial.
     If \(a \in R\) satisfies \(f(a) \equiv 0 \pmod{{f'(a)}^2\mfk{m}}\),
     then there exists a root \(b\) such that \(f(b) = 0\) and \(b \equiv a \pmod{f'(a)\mfk{m}}\).
+    If \(f'(a)\) is not a zero divisor in \(R\), then \(b\) is unique.
 \end{theorem}
 \begin{proof}
-    % TODO
+    Suppose \(f'(a) = e\).
+    Find \(h \in R[[x]]\) such that
+    \begin{equation*}
+        f(a+ex) = f(a) + f'(a)ex + h(x){(ex)}^2 = f(a) + e^2(x + h(x)x^2)
+    \end{equation*}
+    (like Taylor's theorem in analysis).
+    Because \(g = x + h(x)x^2 \in xR[[x]]\), and its derivative \(g' = 1 + 2h'(x)x\) gives us \(g'(0) = 1\) is a unit,
+    by the \hyperref[cor:derivative-unit-isomorphism]{corollary above},
+    there exists an isomorphism \(\phi\) sending \(x \mapsto g\).
+    In particular, we can apply \(\phi^{-1}\) to get
+    \begin{equation*}
+        f(a+e\phi^{-1}(x)) = f(a) + e^2 x
+    \end{equation*}
+    Since \(f(a) \equiv 0 \pmod{e^2\mfk{m}}\), we can write \(f(a) = e^2 c\) for some \(c \in \mfk{m}\).
+    By Theorem~\ref{thm:power-series-completions},
+    there exists a homomorphism \(\psi\) such that \(x \mapsto -c\).
+    Applying that we have
+    \begin{equation*}
+        f(a+e(\psi\circ\phi^{-1})(x)) = \psi(e^2 c + e^2 x) = 0
+    \end{equation*}
+    so we have found some \(b = a + e(\psi\circ\phi^{-1})(x)\) such that \(f(b) = 0\).
+    We can check that \(b-a = e(\psi\circ\phi^{-1})(x) \in e\mfk{m}\) indeed.
+    Obviously, as we mentioned in the \hyperref[cor:derivative-unit-isomorphism]{corollary above},
+    \(\phi^{-1}(x) \in (x)\), so \((\psi\circ\phi^{-1})(x) \in \psi((x)) \subseteq (c) \subseteq \mfk{m}\)
+    as desired.
+
+    % Now, we prove the second statement by contraposition.
+    Now, let \(e\) not be a zero divisor,
+    Suppose there exists \(b, b_1\) that both satisfy our requirements,
+    as in \(f(b) = f(b_1) = 0\), and \(b = a+er\) and \(b_1 + a+er_1\) with \(r,r_1 \in \mfk{m}\).
+    By Theorem~\ref{thm:power-series-completions},
+    there exists homomorphisms \(\beta,\beta_1\) such that \(x \mapsto r\) and \(x \mapsto r_1\) respectively.
+    Applying \(f\) over them we get
+    \begin{equation*}
+        f(a) + e^2(r + h(r)r^2) = f(b) = f(b_1) = f(a) + e^2(r_1 + h(r_1)r_1^2)
+    \end{equation*}
+    then \((\beta\circ\phi)(x) = r + h(r)r^2 = r_1 + h(r_1)r_1^2 = (\beta_1\circ\phi)(x)\).
+    By Theorem~\ref{thm:power-series-completions}, since this homomorphism is unique,
+    \(\beta\circ\phi = \beta_1\circ\phi\), so \(r = r_1\) and \(b = b_1\) as desired.
 \end{proof}
 
 \begin{definition}
