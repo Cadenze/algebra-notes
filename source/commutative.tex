@@ -1034,13 +1034,46 @@
     such that \(K[y_1,\hdots,y_m] \subseteq R\) is integral.
 \end{theorem}
 \begin{proof}
-    
+    Without any loss of generality,
+    let us suppose that the first \(m\) indeterminates \({\{x_i\}}_{i=1}^m\) are algebraically independent over \(K\),
+    and the remaining indeterminates \({\{x_i\}}_{i=m+1}^n\) are algebraic over \(K[x_1,\hdots,x_m]\).
+    Let us perform induction on \(n\);
+    in the base case of \(n = m\), we are already done,
+    because we can simply let \({\{y_i\}}_{i=1}^m = {\{x_i\}}_{i=1}^m\),
+    and the extension \(K[x_1,\hdots,x_m] \subseteq R\) must be the trivial extension, which is integral.
+
+    Now suppose \(n > m\), and that by induction,
+    that Noetherian normalization holds for a ring with \(n-1\) indeterminates.
+    Observe that by assumption, \(x_n\) is algebraic over \(K[x_1,\hdots,x_m] \subseteq K[x_1,\hdots,x_{n-1}]\),
+    so there exists some nonzero \(f\) in \(n\) variables such that \(f(x_1,\hdots,x_n) = 0\) when evaluated at these \(n\) values.
+    Since this is a nonzero polynomial, it is meaningful to talk about a highest total degree \(D\),
+    and we extract that degree \(D\) component, which we shall call \(F\) (which is still a polynomial in \(n\) variables).
+    By Corollary~\ref{cor:infinite-field-nonzero},
+    there exists \({\{\lambda_i\}}_{i=1}^{n-1}\) such that \(F(\lambda_1,\hdots,\lambda_{n-1},1) \neq 0\).
+    If we make the change of coordinates \(x_i' = x_i - \lambda_i x_n\),
+    then \(f(x_1'+\lambda_1 x_n,\hdots,x_{n-1}'+\lambda_{n-1}x_n,x_n)\)
+    has a leading term \(F(\lambda_1,\hdots,\lambda_{n-1},1) \in K\) when treated as a polynomial over \(x_n\).
+    This is exactly a monic polynomial,
+    so \(x_n\) is in fact integral over \(K[x_1',\hdots,x_{n-1}']\).
+    By the \hyperref[prop:integral-finite-properties]{next proposition},
+    \(K \subseteq K[x_1',\hdots,x_{n-1}'] \subseteq R\) is integral.
+
+    Lastly, we see that by our inductive hypothesis,
+    there exists algebraically independent \({\{y_i\}}_{i=1}^m \subset K[x_1',\hdots,x_{n-1}'] \subseteq R\),
+    and by the \hyperref[prop:integral-finite-properties]{next proposition} again,
+    \(K[y_1,\hdots,y_m] \subseteq R\) is integral as desired.
 \end{proof}
+\begin{remark}
+    This is the original statement of the normalization theorem by Noether in 1926,
+    which required \(K\) to be an infinite field.
+    Later, this statement was generalized to finite fields by Zariski in 1943;
+    however, this requires a different proof.
+\end{remark}
 
 
 \section{Noetherian Rings}
 
-\begin{proposition}
+\begin{proposition}\label{prop:integral-finite-properties}
     Suppose \(A \subseteq B \subseteq R\) are rings.
     We have the following properties:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
