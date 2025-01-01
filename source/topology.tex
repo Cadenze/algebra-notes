@@ -417,6 +417,62 @@
     A topological space \(X\) is considered compact
     if it is quasi-compact and Hausdorff.
 \end{definition}
+\begin{proposition}\label{prop:continuous-image-compact}
+    Suppose \(\func{f}{X}{Y}\) is continuous and \(X\) is quasi-compact.
+    Then \(f(X) \subseteq Y\) is a quasi-compact subspace.
+\end{proposition}
+\begin{proof}
+    Suppose \({\{U_i\}}_{i \in I}\) is an open cover of \(f(X)\).
+    Then the preimages \({\{f^{-1}(U_i)\}}_{i \in I}\) openly cover \(X\).
+    But as this is quasi-compact, there exists a finite subcover \({\{f^{-1}(U_i)\}}_{i=1}^n\),
+    so \({\{U_i\}}_{i=1}^n\) is a finite subcover.
+\end{proof}
+\begin{proposition}
+    Suppose \(X\) is a topological space with two quasi-compact subspaces \(K_1,K_2\).
+    Then \(K_1 \cup K_2\) is a quasi-compact subspace.
+\end{proposition}
+\begin{proof}
+    Any open cover of \(K_1 \cup K_2\) is an open cover for each of \(K_1\) and \(K_2\),
+    and hence there exists finite subcovers.
+    The union of the two finite subcovers is our desired subcover for \(K_1 \cup K_2\).
+\end{proof}
+
+\begin{proposition}\label{prop:closed-quasi-compact}
+    Suppose \(X\) is quasi-compact, and \(K \subseteq X\) is a closed subspace.
+    Then \(K\) is quasi-compact.
+\end{proposition}
+\begin{proof}
+    Given an open cover \({\{U_i\}}_{i \in I}\) of \(K\),
+    we can find some open sets \(V_i \subseteq X\) such that \(U_i = K \cap V_i\).
+    Then \({\{V_i\}}_{i \in I} \cup (X-K)\) is an open cover of \(X\),
+    so there exists a finite subcover \({\{V_i\}}_{i=1}^n \cup (X-K)\).
+    Hence \({\{U_i\}}_{i=1}^n\) is a finite subcover of \(K\).
+\end{proof}
+\begin{proposition}\label{prop:compact-hausdorff-closed}
+    Suppose \(X\) is Hausdorff, and \(K \subseteq X\) is a compact subspace.
+    Then \(K \subseteq X\) is closed.
+\end{proposition}
+\begin{proof}
+    Consider \(x \in X-K\).
+    For each \(y \in K\), there exists disjoint open neighbourhoods \(U_y \ni y\) and \(V_y \ni X\).
+    Then \({\{U_y\}}_{y \in K}\) forms an open cover for \(K\),
+    and there exists a finite subcover \({\{U_{y_i}\}}_{i=1}^n\).
+    Then \(\bigcup_{i=1}^n V_{y_i} \ni x\) is an open neighbourhood of \(x\) disjoint from \(y\),
+    Hence \(X-K\) is open, and \(K\) is closed.
+\end{proof}
+\begin{corollary}
+    Suppose \(\func{f}{X}{Y}\) is a continuous bijection, where \(X\) is quasi-compact and \(Y\) is Hausdorff.
+    Then \(f\) is a homeomorphism.
+\end{corollary}
+\begin{proof}
+    It suffices to prove that \(f\) is a closed map.
+    By Proposition~\ref{prop:continuous-image-compact}, \(Y\) is compact.
+    Consider any closed set \(K \subseteq X\).
+    Then by Proposition~\ref{prop:closed-quasi-compact}, \(K\) is quasi-compact.
+    Then \(f(K) \subseteq Y\) is compact (Proposition~\ref{prop:continuous-image-compact}).
+    By the Proposition~\ref{prop:compact-hausdorff-closed},
+    \(f(K) \subseteq Y\) is closed.
+\end{proof}
 
 
 \section{Connectedness}
