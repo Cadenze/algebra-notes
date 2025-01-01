@@ -338,7 +338,7 @@
     By the universal property, it is continuous.
     Then the preimage of the diagonal, which is the set of points where \(f(x) = g(x)\), is closed in \(X\).
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:hausdorff-dense-agree}
     Suppose \(X\) is a topological space, \(A \subseteq X\) is a dense subset, and \(Y\) is Hausdorff.
     If \(\func{f,g}{X}{Y}\) are both continuous, and \(f(a) = g(a)\) for all \(a \in A\),
     then \(f = g\).
@@ -359,7 +359,54 @@
     such that for all \(n \geq N\), \(x_n \in U\).
 \end{definition}
 
-% TODO
+\begin{definition}
+    Consider the set \(\bN \cup \{\infty\}\),
+    and endow it with the following topology:
+    \begin{enumerate}[label=(\roman*), itemsep=0mm]
+        \item \(U \subseteq \bN\) is always open; and
+        \item \(U \ni \infty\) is open if it contains some tail \(\{n,n+1,\hdots\}\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    For the remainder of the section, always assume \(\bN \cup \{\infty\}\) carries this topology.
+\end{remark}
+\begin{proposition}\label{prop:convergence-extend-continuity}
+    A sequence \(\func{x_\cdot}{\bN}{X}\) extends to a continuous function \(\func{x_\cdot}{\bN\cup\{\infty\}}{X}\)
+    if and only if \(x_n\) converges to \(x_\infty\).
+\end{proposition}
+\begin{proof}
+    By definition of convergence \(x_n \to x_\infty\),
+    every open \(U \ni x_\infty\) contains some tail end terms \(\{x_n,x_{n+1},\hdots\}\),
+    so the preimage contains said tail \(\{n,n+1,\hdots\}\), which is open.
+    The argument holds both ways.
+\end{proof}
+\begin{corollary}
+    Suppose \(x_n \to x\) is a sequence in \(X\), and let \(\func{f}{X}{Y}\) be continuous.
+    Then \(f(x_n) \to x\).
+\end{corollary}
+\begin{proof}
+    Composition of continuous functions are continuous.
+    Apply the \hyperref[prop:convergence-extend-continuity]{proposition above}.
+\end{proof}
+
+\begin{proposition}
+    Sequences in Hausdorff spaces have unique limits.
+\end{proposition}
+\begin{proof}
+    Suppose we have two continuous extensions of a sequence \(x_\cdot\).
+    By Proposition~\ref{prop:hausdorff-dense-agree},
+    since the two continuous functions agree on \(\bN\), which is dense in \(\bN\cup\{\infty\}\),
+    they must be the same function, and hence have the same value at infinity.
+\end{proof}
+\begin{proposition}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces, and \(X = \prod X_i\).
+    A sequence \(x_n \to x\) converges in \(X\)
+    if and only if \(\pi_i(x_n) \to \pi_i(x)\) converges in each \(X_i\).
+\end{proposition}
+\begin{proof}
+    The topology from \(X\) carries down to \(X_i\) via the projection maps \(\pi_i\),
+    so continuous functions must respect this topology.
+\end{proof}
 
 
 \section{Compactness}
