@@ -474,5 +474,53 @@
     \(f(K) \subseteq Y\) is closed.
 \end{proof}
 
+\begin{lemma}[Generalized Tube Lemma]\label{lem:tube}
+    Suppose \(X,Y\) are topological spaces,
+    and \(A \subseteq X\) and \(B \subseteq Y\) are quasi-compact subspaces.
+    If \(N \subseteq X \times Y\) is open,
+    then there exists open sets \(U \subseteq X\) and \(V \subseteq Y\)
+    such that \(A \times B \subseteq U \times V \subseteq N\).
+\end{lemma}
+\begin{proof}
+    If either \(A\) or \(B\) is empty,
+    we are immediately done as the empty set \(\emptyset \times \emptyset \subseteq N\) satisfies our conditions.
+
+    Now suppose \(A\) and \(B\) are both nonempty.
+    Fix some \(a \in A\).
+    For each \(b \in B\), we can choose open sets \(U_b^a \subseteq X\) and \(V_b^a \subseteq Y\)
+    such that \((a,b) \in U_b \times V_b \subseteq N\)
+    (this is possible because the product of open sets forms a basis for the product topology).
+    Then because \(\{a\} \times B\) is quasi-compact,
+    there exists a finite set of points \({\{(a,b_i)\}}_{i=1}^n\),
+    associated with the finite cover \({\{U_{b_i}^a \times V_{b_i}^a\}}_{i=1}^n\).
+    We can then consider the open sets \(U^a = \bigcap_{i=1}^n U_{b_i}^a\) and \(V^a = \bigcup_{i=1}^n V_{b_i}^a\).
+    Obviously, \(a \in U^a\) and \({\{V_{b_i}^a\}}_{i=1}^n\) is a cover of \(B\),
+    so we have \(\{a\} \times B \subseteq U^a \times V^a \subseteq N\).
+
+    We can then repeat this procedure for all \(a \in A\)
+    to find a cover \({\{U^a \times V^a\}}_{a \in A}\) for \(A \times B\) contained in \(N\).
+    Since \(A\) is quasi-compact,
+    there exists a finite set of points \({\{a_i\}}_{i=1}^m\),
+    associated with the finite cover \({\{U^{a_i}\}}_{i=1}^m\).
+    If we then take \(U = \bigcup_{i=1}^m U^{a_i}\) and \(V = \bigcap_{i=1}^m V^{a_i}\),
+    then we have \(A \subseteq U\), and \(B \subseteq V^{a_i}\) for every \(a_i\), so \(B \subseteq V\).
+    Hence we have found an open \(U \times V \supseteq A \times B\).
+
+    Lastly, we verify that \(U \times V \subseteq N\).
+    If \((x,y) \in U \times V\), then \(x \in U^{a_i}\) for some \(a_i\),
+    and \(y \in V \subseteq V^{a_i}\) for the corresponding open set.
+    But then we have exactly shown that \((x,y) \in U^{a_i} \times V^{a_i} \subseteq N\).
+\end{proof}
+\begin{corollary}[Tube Lemma]\label{cor:tube}
+    Suppose \(X,Y\) are topological spaces,
+    \(X\) is quasi-compact, and \(y \in Y\) is a point.
+    If \(N \subseteq X \times Y\) is an open neighbourhood of \(X \times \{y\}\),
+    then there exists an open neighbourhood \(U \subseteq Y\) of \(y\)
+    such that \(X \times U \subseteq X \times Y\).
+\end{corollary}
+\begin{proof}
+    Simple application of the \hyperref[cor:tube]{lemma above}.
+\end{proof}
+
 
 \section{Connectedness}
