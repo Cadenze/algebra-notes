@@ -576,18 +576,29 @@
     This proves statement (b).
 \end{proof}
 \begin{lemma}\label{lem:prime-intersection}
-    Suppose a prime ideal \(\mfk{p} = \bigcap_i \mfk{a}_i\) for a family of ideals.
+    Suppose \(\mfk{p} \subseteq R\) is a prime ideal,
+    and \({\{\mfk{a}_i\}}_{i=1}^n\) is a family of ideals.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(\mfk{p} \supseteq \bigcap_i \mfk{a}_i\), then \(\mfk{p} \supseteq \mfk{a}_i\) for some \(i\); moreover,
+        \item if \(\mfk{p} = \bigcap_i \mfk{a}_i\), then \(\mfk{p} = \mfk{a}_i\) for some \(i\).
+    \end{enumerate}
+    \(\mfk{p} = \bigcap_i \mfk{a}_i\) for a family of ideals.
     Then \(\mfk{p} = \mfk{a}_i\) for some \(i\).
 \end{lemma}
 \begin{proof}
-    Suppose, by way of contradiction, that \(\mfk{p} \subsetneq \mfk{a}_i\) for all \(i\).
+    Suppose, by way of contradiction, that \(\mfk{a}_i\) is not a subset of \(\mfk{p}\) for all \(i\).
     For each \(i\), we choose some \(x_i \in \mfk{a}_i - \mfk{p}\).
     Then we have \(\prod x_i \in \prod \mfk{a}_i \subseteq \bigcap \mfk{a}_i\),
     but as each \(x_i \notin \mfk{p}\), this product \(\prod x_i \notin \mfk{p}\).
     This contradicts our assumed equality,
     and we conclude that \(\mfk{a}_i \subseteq \mfk{p}\).
-    The reverse inclusion \(\mfk{p} = \bigcap \mfk{a}_i \subseteq \mfk{a}_i\) is given trivially.
-    We have equality.
+    This proves statement (a).
+
+    % The reverse inclusion \(\mfk{p} = \bigcap \mfk{a}_i \subseteq \mfk{a}_i\) is given trivially.
+    % We have equality.
+    Now suppose \(\mfk{p} = \bigcap_i \mfk{a}_i\).
+    It suffices to prove that \(\mfk{p} \subseteq \mfk{a}_i\) for said \(i\),
+    but this trivially holds true for all \(i\).
 \end{proof}
 \begin{theorem}[First Uniqueness Theorem for Primary Decompositions]\label{thm:primary-uniqueness-1}
     Suppose \(\mfk{q}\) is a decomposable ideal with an irredundant decomposition \(\mfk{q} = \bigcap_i \mfk{q}_i\).

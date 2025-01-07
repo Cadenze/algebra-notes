@@ -3263,15 +3263,15 @@
 \end{proof}
 
 \begin{theorem}[Eisenstein's criterion]\label{thm:eisenstein-criterion}
-    Suppose \(R\) is an integral domain, \(P \subseteq R\) some prime ideal.
+    Suppose \(R\) is an integral domain, \(\mfk{p} \subseteq R\) some prime ideal.
     Let \(f(x) = a_n x^n + a_{n-1}x^{n-1} + \cdots + a_1 x + a_0 \in R[x]\)
     be a polynomial.
     If the coefficients
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(a_i \in P\) for all \(0 \leq i \leq n-1\),
+        \item \(a_i \in \mfk{p}\) for all \(0 \leq i \leq n-1\),
             all coefficients but the leading term in the ideal;
-        \item \(a_n \notin P\) leading term not in the ideal; and
-        \item \(a_0 \notin P^2\) constant term not in the square,
+        \item \(a_n \notin \mfk{p}\) leading term not in the ideal; and
+        \item \(a_0 \notin \mfk{p}^2\) constant term not in the square,
     \end{enumerate}
     then \(f(x)\) is irreducible in \(R[x]\).
 \end{theorem}
@@ -3283,19 +3283,19 @@
         h(x) = d_\ell x^\ell + d_{\ell-1}x^{\ell-1} + \cdots + d_1 x + d_0
     \end{equation*}
     By condition (i) \& (iii),
-    only one of \(c_0\) and \(d_0\) is in \(P\),
-    so without loss of generality let \(c_0 \in P\) and \(d_0 \notin P\).
+    only one of \(c_0\) and \(d_0\) is in \(\mfk{p}\),
+    so without loss of generality let \(c_0 \in \mfk{p}\) and \(d_0 \notin \mfk{p}\).
 
-    We claim that this implies \(c_i \in P\) for all \(0 \leq i \leq k\).
-    We already have our base case \(c_i \in P\) from above,
+    We claim that this implies \(c_i \in \mfk{p}\) for all \(0 \leq i \leq k\).
+    We already have our base case \(c_i \in \mfk{p}\) from above,
     so by way of strong induction,
-    suppose \(c_0,c_1,\hdots,c_{i-1} \in P\).
-    Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i \in P\)
+    suppose \(c_0,c_1,\hdots,c_{i-1} \in \mfk{p}\).
+    Since \(a_i = \sum_{j+j'=i} c_j d_{j'} = c_i d_0 + c_{i-1}d_1 + \cdots + c_0 d_i \in \mfk{p}\)
     by condition (i),
-    and every term in the sum except for the first term is in \(P\) by assumption,
-    as \(d_0 \notin P\), we must have \(c_i \in P\).
+    and every term in the sum except for the first term is in \(\mfk{p}\) by assumption,
+    as \(d_0 \notin \mfk{p}\), we must have \(c_i \in \mfk{p}\).
 
-    But \(c_k \in P\) implies \(a_n = c_k d_\ell \in P\),
+    But \(c_k \in \mfk{p}\) implies \(a_n = c_k d_\ell \in \mfk{p}\),
     which contradicts condition (ii).
     Hence \(f(x)\) is irreducible in \(R[x]\).
 \end{proof}
