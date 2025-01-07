@@ -1,162 +1,315 @@
-\chapter{Categories}\label{sec:categories}
+\chapter{Categories}\label{ch:categories}
 
 \begin{remark}
-    This section is entirely extra,
-    and is not required in order to understand the rest of the constructions.
+    There will not be too many results from category theory that we will be using;
+    however, the framework of category theory is useful,
+    as it gives us certain natural constructions which might otherwise take forever to build up.
 \end{remark}
 
 \section{Basic Definitions}
 
 \begin{definition}
     A category \(\mca{C}\) is a collection of objects \(\Ob(\mca{C})\)
-    alongisde a collection of morphisms \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
+    alongisde a collection of morphisms or arrows \(\Mor(\mca{C})\) or \(\Hom(\mca{C})\),
     where
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(\forall f \in \Mor(\mca{C}),\; \exists X,Y \in \Mor(\mca{C}),\; \func{f}{X}{Y}\),
-            a morphism is a mapping from a source object to a target object;
+        \item given a morphism \(f \in \Mor(\mca{C})\),
+            there exists a source and a target object \(X,Y \in \Mor(\mca{C})\)
+            such that the morphism maps from the source to the target \(\func{f}{X}{Y}\);
+            % a morphism is a mapping from a source object to a target object;
             we define the collection of morphisms from \(X\) to \(Y\)
             as \(\Hom(X,Y) = \{f\in\Mor(\mca{C}) \mid \func{f}{X}{Y}\}\);
-        \item \(\forall f \in \Hom(X,Y),\; \forall g \in \Hom(Y,Z),\; g \circ f \in \Hom(X,Z)\),
-            the composition is a morphism;
-        \item \(\forall f,g,h \in \Mor(\mca{C}),\; (f \circ g) \circ h = f \circ (g \circ h)\),
-            morphisms are associative; and
-        \item \(\forall X \in \Ob(\mca{C}),\; \exists \id_X \in \Hom(X,X),\; \id_X \circ g = g,\; f \circ \id_X = f\)
-            the identity morphism exists.
+        \item composition of morphisms is \(\Hom(X,Y) \times \Hom(Y,Z) \to \Hom(X,Z)\),
+            where we send \((f,g) \mapsto g \circ f = gf\);
+        \item composition of morphisms is associative, as in \((f \circ g) \circ h = f \circ (g \circ h)\); and
+        \item Given any object \(X \in \Ob(\mca{C})\),
+            there exists an identity morphism \(\id_X \in \Hom(X,X)\)
+            such that \(\id_X \circ g = g,\; f \circ \id_X = f\).
     \end{enumerate}
 \end{definition}
 \begin{remark}
-    \(\Mor\) and \(\Hom\) are often interchangeable in this context,
-    since in algebra, the morphisms that we deal with are usually homomorphisms.
+    \(\Mor\) and \(\Hom\) are often interchangeable in this context.
+    % since in algebra, the morphisms that we deal with are usually homomorphisms.
     We shall stick to the convention that the morphisms of a category is \(\Mor\),
-    while the homomorphisms between objects are \(\Hom\).
+    while the morphisms between objects are \(\Hom\).
 \end{remark}
 
-\begin{definition}
-    A morphism \(f \in \Hom(X,Y)\) is a monomorphism or monic
-    if \(f \circ g = f \circ h\) implies \(g = h\) for any \(g,h\).
-    A morphism \(f \in \Hom(X,Y)\) is an epimorphism or epic
-    if \(g \circ f = h \circ f\) implies \(g = h\) for any \(g,h\).
-\end{definition}
+\subsection*{Morphisms}
 
 \begin{definition}
-    A morphism \(f \in \Hom(X,Y)\) is an isomorphism
-    if it has an inverse \(g \in \Hom(Y,X)\)
-    such that \(f \circ g = \id_Y\) and \(g \circ f = \id_X\).
+    A morphism \(\func{f}{X}{Y}\) is an isomorphism or invertible
+    if there exists an inverse morphism \(\func{f^{-1}}{Y}{X}\)
+    such that \(f \circ f^{-1} = \id_Y\) and \(f^{-1} \circ f = \id_X\).
 \end{definition}
-\begin{definition}
-    A morphism \(f \in \Hom(X,X)\) that maps to itself is called an endomorphism.
-    The collection of endomorphisms is \(\End(X) = \Hom(X,X)\).
-\end{definition}
-\begin{definition}
-    A morphism \(f \in \Aut(X)\) if it is both an isomorphism and an endomorphism.
-\end{definition}
-
-\begin{definition}
-    A category \(\mca{C}\) is small
-    if \(\Ob(\mca{C})\) and \(\Mor(\mca{C})\) both form sets.
-    A category is large otherwise.
-\end{definition}
-
-\begin{proposition}
-    The category \(\mathbf{Set}\) consisting of all sets and set maps form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Grp}\) consisting of all groups and group homomorphisms
-    form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Ab}\) consisting of all abelian groups
-    and group homomorphisms between them form a category.
-\end{proposition}
-\begin{proposition}
-    The category \(\mathbf{Ring}\) consisting of all rings and ring homomorphisms
-    form a category.
-\end{proposition}
+\begin{lemma}
+    Inverse morphisms, if they exist, are unique.
+\end{lemma}
 \begin{proof}
-    Obvious for the above four.
+    Suppose \(f\) and two inverses \(g,g'\).
+    Then
+    \begin{equation*}
+        g = g \circ \id = g \circ f \circ g' = \id \circ g' = g'
+    \end{equation*}
 \end{proof}
 
-\begin{theorem}
-    Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
-    Then \(\Aut(X)\) forms a group.
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is monic if it is left-cancellable;
+    i.e.\ given any \(\func{g,g'}{Z}{X}\), \(f \circ g = f \circ g'\) implies \(g = g'\).
+\end{definition}
+\begin{definition}
+    A morphism \(\func{f}{X}{Y}\) is epi if it is right-cancellable;
+    i.e.\ given any \(\func{g,g'}{Y}{Z}\), \(g \circ f = g' \circ f\) implies \(g = g'\).
+\end{definition}
+
+\begin{definition}
+    A morphism \(\func{f}{X}{X}\) is idempotent if \(f^2 = f\).
+\end{definition}
+
+\begin{definition}
+    \(T \in \Ob(\mca{C})\) is a terminal object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(X \to T\).
+\end{definition}
+\begin{definition}
+    \(I \in \Ob(\mca{C})\) is an initial object
+    if for every object \(X \in \Ob(\mca{C})\),
+    there exists a unique morphism \(I \to X\).
+\end{definition}
+\begin{lemma}
+    In a category \(\mca{C}\),
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if there are two terminal objects \(T,T'\), there exists a unique isomorphism \(T \to T'\); and
+        \item if there are two initial objects \(I,I'\), there exists a unique isomorphism \(I \to I'\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    There exists a unique morphism \(T \to T'\), and a unique morphism \(T' \to T\).
+    But this composition \(T \to T' \to T\) is the unique morphism \(T \to T\), which must be the identity.
+    Repeat this argument for \(T' \to T \to T'\).
+
+    The same argument holds for initial objects, because it is dual to terminal objects.
+\end{proof}
+
+\begin{definition}
+    \(0 \in \Ob(\mca{C})\) is a null object if it is both initial and terminal.
+\end{definition}
+
+\subsection*{Functors}
+
+\begin{definition}
+    Suppose \(\mca{C},\mca{D}\) are categories.
+    A functor is a map \(\func{T}{\mca{C}}{\mca{D}}\) between categories
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item given any object \(X \in \Ob(\mca{C})\), we get an object \(TX \in \Ob(\mca{D})\);
+        \item given any morphism \(f \in \Hom(X,Y) \subseteq \Mor(\mca{C})\),
+            we get a morphism \(Tf \in \Hom(TX,TY) \subseteq \Mor(\mca{D})\); and
+        \item the functor respects composition \(T(fg) = Tf \circ Tg\) and identity \(T\id_X = \id_{TX}\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is an isomorphism of categories
+    if it is a bijection of both objects and morphisms.
+    Equivalently, \(T\) is an isomorphism
+    if there exists an inverse functor \(\func{T^{-1}}{\mca{D}}{\mca{C}}\)
+    such that \(T \circ T^{-1} = \id_\mca{D}\) and \(T^{-1} \circ T = \id_\mca{C}\) are both identity functors.
+\end{definition}
+\begin{definition}
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is full
+    if given any two objects \(X,Y \in \Ob(\mca{C})\) and any morphism \(g \in \Hom(TX,TY)\),
+    there exists some \(f \in \Hom(X,Y)\) such that \(g = Tf\).
+    Equivalently, given any two objects \(X,Y \in \Ob(\mca{C})\),
+    \(T\) is full if the function on morphisms \(\func{T}{\Hom(X,Y)}{\Hom(TX,TY)}\) is surjective.
+    Compositions of full functors are full.
+\end{definition}
+\begin{definition}
+    A functor \(\func{T}{\mca{C}}{\mca{D}}\) is faithful
+    if given any two objects \(X,Y \in \Ob(\mca{C})\) and any two morphisms \(f,g \in \Hom(X,Y)\),
+    then \(Tf = Tg\) implies \(f = g\).
+    Equivalently, given any two objects \(X,Y \in \Ob(\mca{C})\),
+    \(T\) is faithful if the function on morphisms \(\func{T}{\Hom(X,Y)}{\Hom(TX,TY)}\) is injective.
+    Compositions of faithful functors are faithful.
+\end{definition}
+\begin{remark}
+    A fully faithful functor is `locally bijective' when applied to any single hom-set,
+    but need not be an isomorphism, because it does not have to be bijective `globally' for all objects/morphisms.
+\end{remark}
+
+% \begin{theorem}
+%     Suppose \(\mca{C}\) is a category, and \(X \in \Ob(\mca{C})\).
+%     Then \(\Aut(X)\) forms a group.
+% \end{theorem}
+% \begin{proof}
+%     First off, if \(f,g \in \Aut(X)\),
+%     then \(f \circ g \in \Aut(X)\),
+%     since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
+%     Associativity and identity is given for free.
+%     By definition, the inverse exists since they are isomorphisms.
+% \end{proof}
+
+% \begin{definition}
+%     A universal property is a property
+%     that characterizes an object up to isomorphism.
+%     This is often stated as given some objects and morphisms,
+%     there exists a (unique) morphism to some desired object that we want to define.
+% \end{definition}
+
+\subsection*{Natural Transformations}
+
+\begin{definition}
+    Suppose \(\func{S,T}{\mca{C}}{\mca{D}}\) are two functors.
+    A natural transformation \(\func{\tau}{S}{T}\)
+    induces an arrow \(\tau_X \in \Hom(SX,TX)\) for every object \(X \in \Ob(\mca{C})\).
+    It is a `morphism of functors' in the sense that
+    if \(X,Y \in \Ob(\mca{C})\) and \(f \in \Hom(X,Y)\),
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{d}{f} & SX \arrow{d}{Sf} \arrow{r}{\tau_X} & TX \arrow{d}{Tf} \\
+            Y & SY \arrow{r}{\tau_Y} & TY
+        \end{tikzcd}
+    \end{equation*}
+    is commutative.
+\end{definition}
+\begin{definition}
+    A natural transformation \(\func{\tau}{S}{T}\) is a natural isomorphism
+    if every \(\tau_X\) (for all objects \(X\)) is an invertible arrow.
+    In that case, \(\func{\tau^{-1}}{T}{S}\) formed by \({(\tau_X)}^{-1}\) is also a natural isomorphism.
+\end{definition}
+
+\section{Constructions}
+
+\subsection*{Duality}
+
+\begin{definition}
+    Given any statement in category theory,
+    we obtain the dual of that statement
+    if we reverse all the morphisms and compositions.
+\end{definition}
+\begin{theorem}[Principle of Duality]
+    If any statement in category theory follows from the axioms,
+    then the dual of that statement also follows from the axioms.
 \end{theorem}
 \begin{proof}
-    First off, if \(f,g \in \Aut(X)\),
-    then \(f \circ g \in \Aut(X)\),
-    since \(f \circ g \in \End(X)\) and composition of bijections are bijections.
-    Associativity and identity is given for free.
-    By definition, the inverse exists since they are isomorphisms.
+    The dual of the axioms are true, and logic does not get altered when taking the dual of any statement.
 \end{proof}
-
-\begin{definition}
-    A universal property is a property
-    that characterizes an object up to isomorphism.
-    This is often stated as given some objects and morphisms,
-    there exists a (unique) morphism to some desired object that we want to define.
-\end{definition}
-
-
-\section{Duality}
-
 \begin{remark}
-    Since morphisms are directed,
-    the notion of duality is to reverse such morphisms
-    and see whether they make sense.
-\end{remark}
-
-\begin{definition}
-    A functor \(\func{F}{\mca{C}}{\mca{D}}\) is a mapping between categories,
-    and \(F\) maps both objects \(X \in \Ob(\mca{C}) \mapsto F(X) \in \Ob(\mca{D})\)
-    and morphisms \(f \in \Mor(\mca{C}) \mapsto F(f) \in \Mor(\mca{D})\).
-    Functors respect the identity \(F(\id_\mca{C}) = \id_\mca{D}\).
-\end{definition}
-
-\begin{definition}
-    We call a functor covariant if it preserves the direction of morphisms
-    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(X),F(Y))\),
-    and composition \(F(g \circ f) = F(g) \circ F(f)\).
-    We call a functor contravariant if it reverses the direction of morphisms
-    \(f \in \Hom(X,Y)\) maps to \(F(f) \in \Hom(F(Y),F(X))\),
-    and composition \(F(g \circ f) = F(f) \circ F(g)\).
-\end{definition}
-\begin{remark}
-    Contravariant functors are not really functors.
-    See the definition of the opposite category below.
+    Note that when taking the dual of any statement, functors do not get reversed.
 \end{remark}
 
 \begin{definition}
     Consider a category \(\mca{C}\).
     The opposite category is \(\mca{C}^\text{op}\)
-    consists of the same objects, but all morphisms reversed.
+    consisting of the same objects, but all morphisms reversed.
 \end{definition}
-\begin{proposition}
-    For all categories, \({(\mca{C}^\text{op})}^\text{op}\).
-\end{proposition}
-\begin{proof}
-    Reversing morphisms twice amounts to keeping them identical.
-\end{proof}
-
-\begin{proposition}
-    Contravariant functors \(\func{F}{\mca{C}}{\mca{D}}\)
-    are covariant functors \(\func{F}{\mca{C}}{\mca{D}^\text{op}}\).
-\end{proposition}
-\begin{proof}
-    Observe that if \(\phi \in \Mor(\mca{C})\), \(\func{\phi}{X}{Y}\)
-    then \(\func{F(\phi)}{F(Y)}{F(X)}\),
-    and in the opposite category, \(\func{F(\phi)}{F(X)}{F(Y)}\).
-\end{proof}
-
-\subsection*{Subobject and Quotient Object}
-
 \begin{remark}
-    We first generalize the notion of a subset to any categorical object.
+    There is a functor \(\textbf{Cat} \to \textbf{Cat}\)
+    that takes categories \(\mca{C} \mapsto \mca{C}^\text{op}\)
+    and any functor between categories \(T \mapsto T^\text{op}\).
 \end{remark}
+
 \begin{definition}
-    Suppose \(X,Y\) are objects.
-    We say \(X \subseteq Y\) is (isomorphic to) a subobject
-    if there exists an inclusion (injective homomorphism)
-    \(\func{\iota}{X}{Y}\).
+    Suppose \(\func{T}{\mca{C}^\text{op}}{\mca{D}}\) is a (covariant) functor.
+    Then we can write this as a functor \(\func{\bar{T}}{\mca{C}}{\mca{D}}\)
+    where the morphisms are reversed, i.e.\ \(\bar{T}(fg) = (\bar{T}g)(\bar{T}f)\).
 \end{definition}
+\begin{remark}
+    To distinguish between between contravariant functors and the normal ones,
+    we call normal functors covariant.
+\end{remark}
+
+\subsection*{Products and Bifunctors}
+
+\begin{definition}
+    Suppose \(\mca{B},\mca{C}\) are categories.
+    The product of the two categories is \(\mca{B}\times\mca{C}\),
+    where the objects are tuples of objects \((B,C) \in \Ob(\mca{B})\times\Ob(\mca{C})\),
+    and morphisms are tuples of morphisms \(\func{(f,g)}{(B,C)}{(B',C')}\)
+    where \(\func{f}{B}{B'}\) and \(\func{g}{C}{C'}\).
+\end{definition}
+
+\begin{definition}
+    A functor \(\func{S}{\mca{B}\times\mca{C}}{\mca{D}}\) is called a bifunctor,
+    which is a functor from a product category.
+    It can alternatively be treated as a functor of two variables.
+\end{definition}
+
+\begin{definition}
+    Suppose \(\func{S,T}{\mca{B}\times\mca{C}}{\mca{D}}\) are bifunctors.
+    Let \(\alpha\) be a function such that when given \(B \in \mca{B}\) and \(C \in \mca{C}\),
+    \(\func{\alpha(B,C)}{S(B,C)}{T(B,C)}\) is a morphism in \(\mca{D}\).
+    \(\alpha\) is natural in \(B\) if for all \(C\),
+    \(\func{\alpha(\cdot,C)}{S(\cdot,C)}{T(\cdot,C)}\) is a natural transformation.
+\end{definition}
+\begin{proposition}\label{prop:natural-bifunctor}
+    Suppose \(\func{S,T}{\mca{B}\times\mca{C}}{\mca{D}}\) are bifunctors.
+    \(\func{\alpha}{S}{T}\) is a natural transformation of bifunctors
+    if and only if \(\alpha(B,C)\) is natural in both \(B\) and \(C\).
+\end{proposition}
+\begin{proof}
+    Consider the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            (B,C) \arrow{d}{(f,\id_C)} & S(B,C) \arrow{d}{S(f,\id_C)} \arrow{r}{\alpha(B,C)} & T(B,C) \arrow{d}{T(f,\id_C)}  \\
+            (B',C) & S(B',C) \arrow{r}{\alpha(B',C)} & T(B',C)
+        \end{tikzcd}
+    \end{equation*}
+    Suppose \(\alpha\) is natural.
+    Then the above diagram works for any \(\func{(f,g)}{(B,C)}{(B',C')}\);
+    in particular, we can let \(C' = C\) and \(g = \id_C\).
+    This gives naturality in \(B\).
+    The argument works just as well for naturality in \(C\).
+
+    Now, if \(\alpha\) is natural in both \(B\) and \(C\),
+    then we can paste togther two diagrams to obtain:
+    \begin{equation*}
+        \begin{tikzcd}
+            (B,C) \arrow{d}{(f,\id_C)} & S(B,C) \arrow{d}{S(f,\id_C)} \arrow{r}{\alpha(B,C)} & T(B,C) \arrow{d}{T(f,\id_C)}  \\
+            (B',C) \arrow{d}{(\id_B',g)} & S(B',C) \arrow{d}{S(\id_B',g)} \arrow{r}{\alpha(B',C)} & T(B',C) \arrow{d}{T(\id_B',g)} \\
+            (B',C') & S(B',C') \arrow{r}{\alpha(B',C')} & T(B',C')
+        \end{tikzcd}
+    \end{equation*}
+    The first two rows uses natural in \(B\), while the last two rows uses natural in \(C\).
+    But the rectangle on the outside exactly demonstrates that \(\alpha\) is a natural transformation.
+\end{proof}
+
+\subsection*{Functor Categories}
+
+\begin{definition}
+    Suppose \(\mca{C},\mca{D}\) are categories.
+    The functor category is \(\mca{D}^\mca{C}\),
+    where the objects are functors \(\mca{C}\to\mca{D}\),
+    and the morphisms are natural transformations between these functors.
+    Given functors \(\func{R,S,T}{\mca{C}}{\mca{D}}\)
+    and natural transformations \(\func{\sigma}{R}{S}\) and \(\func{\tau}{S}{T}\),
+    we can define the composition \(\tau\cdot\sigma\) as
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{d}{f} & RX \arrow{d}{Rf} \arrow{r}{\sigma_X} \arrow[bend left]{rr}{{(\tau\cdot\sigma)}_X} &
+            SX \arrow{d}{Sf} \arrow{r}{\tau_X} & TX \arrow{d}{Tf} \\
+            Y & RY \arrow{r}{\sigma_Y} \arrow[bend right]{rr}[swap]{{(\tau\cdot\sigma)}_Y} & SY \arrow{r}{\tau_Y} & TY
+        \end{tikzcd}
+    \end{equation*}
+    The diagram above demonstrates that the composition is indeed a natural transformation.
+    It is easy to check that this compositions is also associative.
+    For each individual functor (object) \(T\),
+    we can define the identity natural transformation (morphism) as \(\id_T X = \id_{TX}\).
+\end{definition}
+
+
+\section{Universality}
+
+% \subsection*{Subobject and Quotient Object}
+
+% \begin{remark}
+%     We first generalize the notion of a subset to any categorical object.
+% \end{remark}
+% \begin{definition}
+%     Suppose \(X,Y\) are objects.
+%     We say \(X \subseteq Y\) is (isomorphic to) a subobject
+%     if there exists an inclusion (injective homomorphism)
+%     \(\func{\iota}{X}{Y}\).
+% \end{definition}
 
 % \begin{theorem}[Universal Property of Subobjects]
 %     Let \(X \subseteq Y\) be a subobject-superobject pair,
@@ -184,15 +337,15 @@
 %     That bijection is our desired map \(\bar{\phi}\).
 % \end{proof}
 
-\begin{remark}
-    The dual to a subobject is a quotient object.
-\end{remark}
-\begin{definition}
-    Suppose \(X\) is an object, and \(\sim\) an equivalence relation on \(X\).
-    We say \(X/{\sim}\) is a quotient object of \(X\)
-    if there exists a projection \(\func{\pi}{X}{X/{\sim}}\),
-    where we map any element to its equivalence class.
-\end{definition}
+% \begin{remark}
+%     The dual to a subobject is a quotient object.
+% \end{remark}
+% \begin{definition}
+%     Suppose \(X\) is an object, and \(\sim\) an equivalence relation on \(X\).
+%     We say \(X/{\sim}\) is a quotient object of \(X\)
+%     if there exists a projection \(\func{\pi}{X}{X/{\sim}}\),
+%     where we map any element to its equivalence class.
+% \end{definition}
 
 % \begin{theorem}[Universal Property of Quotients]
 %     Let \(X\) be an object with a relation \(\sim\).
@@ -200,358 +353,387 @@
 %     and \(\func{\phi}{X}{Z}\) is any surjective homomorphism
 % \end{theorem}
 
+% \subsection*{Universality}
 
-\section{Products}
+\begin{definition}
+    Suppose \(\func{S}{\mca{D}}{\mca{C}}\) is a functor, and \(C \in \Ob(\mca{C})\).
+    A universal arrow from the object \(C\) to the functor \(S\) is a tuple \((R,f)\),
+    where \(R \in \Ob(\mca{D})\) is an object and \(\func{f}{C}{SR}\) is a morphism,
+    such that given any tuple of objects and morphisms \((D,\phi) \in \Ob(\mca{D})\times\Hom(C,SD)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{R}{D}\) such that \(S\bar{\phi} \circ f = \phi\).
 
-\subsection*{Product}
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            C \arrow{r}{f} \arrow{dr}[swap]{\phi} & SR \arrow[dashrightarrow]{d}{S\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & SD & D
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    A special case is when the functor is the identity.
+    Suppose \(X\) is an object (perhaps in \(\textbf{Set}\)),
+    and consider an equivalence relation \(\sim\).
+    The universal arrow \(\func{\pi}{X}{X/{\sim}}\) sending each element into its equivalence class
+    has the universal property given by
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{r}{\pi} \arrow{rd}[swap]{\phi} &
+            X/{\sim} \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Y
+        \end{tikzcd}
+    \end{equation*}
+    for any object \(Y\) and any morphism \(\phi\).
+    Coincidentally, this is the commutative diagram on the cover of this set of notes.
+\end{definition}
+
+\begin{definition}
+    Dually, suppose \(\func{S}{\mca{D}}{\mca{C}}\), and \(C \in \Ob(\mca{C})\).
+    A universal arrow from the functor \(S\) to the object \(C\) is a tuple \((R,f)\),
+    where \(R \in \Ob(\mca{D})\) is an object and \(\func{f}{SR}{C}\) is a morphism,
+    such that given any tuple of objects and morphisms \((D,\phi) \in \Ob(\mca{D})\times\Hom(SD,C)\),
+    there exists a unique arrow \(\func{\bar{\phi}}{R}{D}\) such that \(f \circ S\bar{\phi} = \phi\).
+
+    This can be represented by the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} &
+            SR \arrow{r}{f} \arrow[dashrightarrow]{d}{S\bar{\phi}} & C \\
+            D & SD \arrow{ru}[swap]{\phi}
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Suppose \(\mca{D}\) is a category with small hom-sets (as in they are sets in the set-theoretic sense).
+    A representation of a functor \(\func{K}{\mca{D}}{\textbf{Set}}\)
+    is a tuple \((R,\psi)\), where \(R \in \Ob(\mca{D})\) is an object called the representing object,
+    and \(\func{\psi}{\Hom(R,\cdot)}{K}\) is a natural isomorphism.
+    \(K\) is a representable functor if such a representation exists.
+\end{definition}
+\begin{lemma}[Yoneda Lemma]\label{lem:yoneda}
+    Suppose \(\mca{D}\) is a category with small hom-sets.
+    If \(\func{K}{\mca{D}}{\textbf{Set}}\) is a functor, and \(R \in \Ob(\mca{D})\),
+    then there is a bijection
+    \begin{equation*}
+        \begin{array}{rcl}
+            \Hom_{\textbf{Set}^\mca{D}}\pqty{\Hom_\mca{D}(R,\cdot),K} &\to & KR \\
+            (\func{\alpha}{\Hom(R,\cdot)}{K}) &\mapsto & \alpha_R \id_R
+        \end{array}
+        % \varfunc{}{\Hom_{\mca{D}\to\textbf{Set}}(\Hom_\mca{D}(R,\cdot),K)}{KR}{(\func{\alpha}{\Hom(R,\cdot)}{K})}{\alpha_R\id_R}
+    \end{equation*}
+    between the natural transformations \(\alpha\) and the image of the identity under \(\alpha\),
+    which is an element of the set \(KR\).
+\end{lemma}
+\begin{proof}
+    Consider the following commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            \Hom_\mca{D}(R,R) \arrow{d}[swap]{f_\ast = \Hom(R,f)} \arrow{r}{\alpha_R} & KR \arrow{d}{Kf} & R \arrow{d}{f} \\
+            \Hom_\mca{D}(R,Z) \arrow{r}{\alpha_Z} & KZ & Z
+        \end{tikzcd}
+    \end{equation*}
+    
+    We construct an inverse.
+    Given any element of \(x \in KR\), we need to show that \(\alpha_R \id_R = x\) completely determines \(\alpha\).
+    But by the commutative diagram, given any arrow \(\func{f}{R}{Z}\),
+    \begin{equation*}
+        \alpha_Z f = \alpha_Z(f \circ \id) = \alpha_Z f_\ast(\id_R) = (Kf \circ \alpha_R)(\id_R) = Kf(x)
+    \end{equation*}
+    is wholly determined by the value of \(x\) as desired.
+\end{proof}
+\begin{corollary}[Yoneda Lemma]\label{cor:yoneda}
+    Suppose \(\mca{D}\) is a category with small hom-sets.
+    There is a bijection between the natural transformations
+    \(\Hom_\mca{D}(R,\cdot) \to \Hom_\mca{D}(S,\cdot)\)
+    and the morphisms \(\Hom_\mca{D}(S,R)\).
+\end{corollary}
+\begin{proof}
+    Conclude with \(K = \Hom_\mca{D}(S,\cdot)\).
+\end{proof}
+
+% \begin{proposition}
+%     Given a functor \(\func{S}{\mca{D}}{\mca{C}}\) and an object \(C \in \Ob(\mca{C})\),
+%     the tuple \((D,f) \in \Ob(\mca{D})\times\Hom(C,SD)\) is universal from \(C\) to \(S\)
+%     if and only if for every \(Z \in \Ob(\mca{D})\),
+%     \begin{equation*}
+%         \begin{array}{rcl}
+%             \Hom_\mca{D}(D,Z) &\to& \Hom_\mca{C}(C,SZ) \\
+%             (\func{\bar{\phi}}{D}{Z}) &\mapsto& (\func{S\bar{\phi} \circ f}{C}{SZ})
+%         \end{array}
+%     \end{equation*}
+%     is a bijection of hom-sets.
+%     This bijection is natural in \(Z\).
+%     Conversely, given \(R\) and \(C\),
+%     any natural isomorphism is determined uniquely by an \(\func{f}{C}{SR}\),
+%     such that \((R,f)\) is universal from \(C\) to \(S\).
+% \end{proposition}
+
+\subsection*{Coproducts and Colimits}
+
+\begin{remark}
+    For this subsection, we shall fix a category \(\mca{C}\),
+    and discuss objects within that category.
+\end{remark}
+
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    The diagonal functor is defined by
+    \begin{equation*}
+        \begin{array}{rrcl}
+            \Delta: & \mca{C} &\to& \mca{C}^\mca{I} \\
+            & X &\mapsto& \pqty{\varfunct{\Delta X}{\mca{I}}{\mca{C}}{i}{X}{(i \to j)}{\id_X}} \\
+            % & (\func{f}{X}{Y}) &\mapsto& \Delta f: \pqty{\varfunc{{(\Delta f)}_i}{(\Delta X)i}{(\Delta Y)i}{\cdot}{f}}
+            & (\func{f}{X}{Y}) &\mapsto& \pqty{\mqty{\func{\Delta f}{\Delta X}{\Delta Y} \\ {(\Delta f)}_i = f}}
+        \end{array}
+    \end{equation*}
+\end{definition}
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    Consider the universal arrow \((R,\iota)\)
+    from a functor \(\func{F}{\mca{I}}{\mca{C}}\) (which is an object in \(\mca{C}^\mca{I}\))
+    to the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^\mca{I}}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            F \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R \arrow[dashrightarrow]{d}{\Delta\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R = \dirLim F\) that fits this diagram is called the colimit, direct limit, or inductive limit.
+    Splitting this up, one can visualize this as a cone,
+    where the base is a formed by a graph of objects and arrows in \(\mca{I}\)
+    after undergoing the functor \(F\) (making this a commutative diagram in \(\mca{C}\)),
+    and the apex is the singular object \(R\).
+    One can form another cone with the same base, but the apex being any other object \(Z\),
+    and there exists a unique morphism \(\func{\bar{\phi}}{R}{Z}\) such that all the triangles in both cones commute.
+    \begin{equation*}
+        \begin{tikzcd}
+            F(i) \arrow{rr} \arrow{dr}[swap]{\iota_i} \arrow[bend right]{ddr}[swap]{\phi_i} &&
+            F(j) \arrow{dl}{\iota_j} \arrow[bend left]{ddl}{\phi_j} \\
+            & \dirLim F \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
 
 \begin{definition}
     Suppose \(X,Y\) are two objects.
-    We call \(X \times Y\) the product of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_1}{X \times Y}{X}\)
-            and \(\func{\pi_2}{X \times Y}{Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times Y}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\) for \(i = 1,2\).
-    \end{enumerate}
+    % Let \(\mca{I} = \mathbf{2}\), the category of two objects.
+    Consider the universal arrow \((R,\iota)\) from \((X,Y) \in \Ob(\mca{C}^2)\)
+    to the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^2}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            (X,Y) \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R = (R,R) \arrow[dashrightarrow]{d}{(\bar{\phi},\bar{\phi})} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z = (Z,Z) & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R\) that fits this diagram is called the coproduct, denoted \(X \oplus Y\).
+    Splitting this up we get the familiar coproduct universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            X \arrow{r}{\iota_1} \arrow{rd}[swap]{\phi_1} &
+            X \oplus Y \arrow[dashrightarrow]{d}{\bar{\phi}} &
+            Y \arrow{l}[swap]{\iota_2} \arrow{ld}{\phi_2} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any coproduct is unique up to isomorphism if it exists.
+\end{definition}
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) are a family of objects.
+    % Let \(\mca{I}\) be the category with the elements in \(I\) as the objects, and no arrows;
+    % furthermore, let \(F(i) = X_i\).
+    Consider the universal arrow \((R,\iota)\) from \((X_i) \in \Ob(\mca{C}^I)\)
+    to the \(I\)-fold diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^I}\).
+    \begin{equation*}
+        \begin{tikzcd}
+            (X_i) \arrow{r}{\iota} \arrow{rd}[swap]{\phi} &
+            \Delta R \arrow[dashrightarrow]{d}{\Delta\bar{\phi}} &
+            R \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & \Delta Z & Z
+        \end{tikzcd}
+    \end{equation*}
+    Any \(R\) that fits this diagram is called the (infinite) coproduct, denoted \(\bigoplus_{i \in I} X_i\).
+    Splitting this up we get the familiar coproduct universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            X_i \arrow{r}{\iota_i} \arrow{rd}[swap]{\phi_i} &
+            \displaystyle\bigoplus_{i \in I} X_i \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The other common notation for coproducts is \(X \sqcup Y\) and \(\bigsqcup X_i\),
+    because it appears in \(\textbf{Set}\) and \(\textbf{Top}\) as the disjoint union;
+    yet here we prefer to adopt the notation \(X \oplus Y\) and \(\bigoplus X_i\),
+    because it appears in most algebraic structures as the direct sum.
+\end{remark}
 
-    This can be represented by the following commutative diagram:
-    \begin{center}
+% \begin{definition}
+%     Suppose \(\mca{C}\) has a null object \(0\).
+%     For any two objects \(X,Y\), there now exists a zero arrow \(\func{0}{X \to Z}{Y}\).
+%     The cokernel of \(\func{f}{X}{Y}\) is a universal arrow \((\Cok f, \coker f)\)
+%     such that:
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item 
+%     \end{enumerate}
+% \end{definition}
+
+\begin{definition}
+    Suppose \(W,X,Y\) are three objects, with \(W \to X\) and \(W \to Y\).
+    % Let \(\mca{I}\) be the category
+    The pushout is the object \(X \oplus_W Y\) that fits the following universal property:
+    \begin{equation*}
+        \begin{tikzcd}
+            & W \arrow{dl} \arrow{dr} \\
+            X \arrow{r} \arrow{dr} & X \oplus_W Y \arrow[dashrightarrow]{d} & Y \arrow{l} \arrow{dl} \\
+            & Z
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+% \begin{theorem}
+%     If \(\mca{I}\) is a small category,
+%     then any functor \(\func{F}{\mca{I}}{\textbf{Set}}\) has a colimit.
+% \end{theorem}
+
+\subsection*{Products and Limits}
+
+\begin{remark}
+    Dually, allow us to construct the dual notion of everything in the previous subsection.
+\end{remark}
+
+\begin{definition}
+    Suppose \(\mca{C}\) is a category, and \(\mca{I}\) some index category.
+    Consider the universal arrow \((R,\pi)\) from the diagonal functor \(\func{\Delta}{\mca{C}}{\mca{C}^\mca{I}}\)
+    to a functor \(\func{F}{\mca{I}}{\mca{C}}\) (which is an object in \(\mca{C}^\mca{I}\)).
+    \(R = \invLim F\) is called the limit, inverse limit, or projective limit.
+    Splitting this up we get the familiar commutative diagram:
+    \begin{equation*}
+        \begin{tikzcd}
+            & Z \arrow[dashrightarrow]{d}{\bar{\phi}} \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j} \\
+            & \invLim F \arrow{dl}[swap]{\pi_i} \arrow{dr}{\pi_j} \\
+            F(i) \arrow{rr} && F(j)
+        \end{tikzcd}
+    \end{equation*}
+\end{definition}
+
+\begin{definition}
+    Suppose \(X,Y\) are two objects.
+    The product is the object \(X \times Y\) that fits the following universal property:
+    \begin{equation*}
         \begin{tikzcd}
             & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
+            \arrow[dashrightarrow]{d}{\bar{\phi}} \\
             X & X \times Y \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} & Y
         \end{tikzcd}
-    \end{center}
+    \end{equation*}
 \end{definition}
 
 \begin{definition}
     Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
-    We call \(\prod_{i \in I} X_i\) the (infinite) product of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_i}{\prod_{i \in I} X_i}{X_i}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\prod_{i \in I} X_i}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
-    \end{enumerate}
-
-    This can be represented by the logical statement
+    The (infinite) product is the object \(\prod_{i \in I} X_i\) that fits the following universal property:
     \begin{equation*}
-        \forall Z \in \mca{C},\;
-        \forall i \in I,\;
-        \forall \phi_i \in \Hom(X,V_i),\;
-        \exists! \phi \in \Hom\pqty{Z,\prod_{i \in I} X_i},\;
-        \phi_i = \pi_i\circ\bar{\phi}
-    \end{equation*}
-    and the following commutative diagram:
-    \begin{center}
         \begin{tikzcd}
             & Z \arrow{ld}[swap]{\phi_i}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            X_i & \prod_{i \in I} X_i \arrow{l}{\pi_i}
+            \arrow[dashrightarrow]{d}{\bar{\phi}} \\
+            X_i & \displaystyle\prod_{i \in I} X_i \arrow{l}{\pi_i}
         \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\subsection*{Coproduct}
-
-\begin{remark}
-    The coproduct is the dual to the product.
-\end{remark}
-
-\begin{definition}
-    Suppose \(X,Y\) are two objects.
-    We call \(X \oplus Y\) the coproduct of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_1}{X}{X \oplus Y}\)
-            and \(\func{\iota_2}{Y}{X \oplus Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Y}{Z}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{X \oplus Y}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\) for \(i = 1,2\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
-            X \oplus Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
-            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects.
-    We call \(\bigoplus_{i \in I} X_i\) the (infinite) coproduct of objects if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_i}{X}{\bigoplus_{i \in I} X_i}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{\bigoplus_{i \in I} X_i}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
-    \end{enumerate}
-
-    This can be represented by the logical statement
-    \begin{equation*}
-        \forall Z \in \mca{C},\;
-        \forall i \in I,\;
-        \forall \phi_i \in \Hom(X_i,Z),\;
-        \exists! \phi \in \Hom\pqty{\bigoplus_{i \in I} X_i, Z},\;
-        \phi_i = \bar{\phi}\circ\iota_i
     \end{equation*}
-    and the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X_i \arrow{r}[swap]{\iota_i} \arrow{ru}{\phi_i} &
-            \bigoplus_{i \in I} X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}}
-        \end{tikzcd}
-    \end{center}
 \end{definition}
 
-\subsection*{Pullback}
 
-\begin{definition}
-    Suppose \(W,X,Y\) are three objects.
-    We call \(X \times_W Y\) the pullback or fibre product with respect to \(W\) if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_X}{X}{W}\) and \(\func{\pi_Y}{Y}{W}\);
-        \item there exists projections \(\func{\pi_1}{X \times_W Y}{X}\)
-            and \(\func{\pi_2}{X \times_W Y}{Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{Z}{X}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{Z}{X \times_W Y}\)
-            such that the following diagram commutes.
-    \end{enumerate}
-    \begin{center}
-        \begin{tikzcd}
-            & Z \arrow{ld}[swap]{\phi_1} \arrow{rd}{\phi_2}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            X \arrow{rd}[swap]{\pi_X} &
-            X \times Y \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} &
-            Y \arrow{ld}{\pi_Y} \\
-            & W
-        \end{tikzcd}
-    \end{center}
-\end{definition}
+% \section{Types of Categories}
 
-\subsection*{Pushout}
+% \begin{definition}
+%     A kernel of a morphism \(f \in \Hom(X,Y)\)
+%     is an object \(\ker f\) along with a morphism \(\func{\iota}{\ker f}{X}\)
+%     such that
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item \(f\circ\iota = 0\); and
+%         \item for any object \(Z\), if \(\func{\phi}{Z}{X}\) is a homomorphism such that \(f\circ\phi = 0\),
+%             then there exists a unique \(\func{\bar{\phi}}{Z}{\ker f}\)
+%             such that \(\phi = \iota\circ\bar{\phi}\).
+%     \end{enumerate}
 
-\begin{remark}
-    The pushout is the dual to the pullback.
-\end{remark}
+%     This can be represented by the following commutative diagram.
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             & Y \\
+%             & X \arrow{u}[swap]{f} \\
+%             Z \arrow[dashrightarrow]{rr}[swap]{\exists!\bar{\phi}} \arrow{ur}[swap]{\phi} \arrow[bend left]{uur}{0} &&
+%             \ker f \arrow{ul}{\iota} \arrow[bend right]{uul}[swap]{0}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{definition}
+% \begin{definition}
+%     A cokernel of a morphism \(f \in \Hom(X,Y)\)
+%     is an object \(\coker f\) along with a morphism \(\func{\pi}{Y}{\coker f}\)
+%     such that
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item \(\pi\circ f = 0\); and
+%         \item for any object \(Z\), if \(\func{\phi}{Y}{Z}\) is a homomorphism such that \(\phi\circ f = 0\),
+%             then there exists a unique \(\func{\bar{\phi}}{\coker f}{Z}\)
+%             such that \(\phi = \bar{\phi}\circ\pi\).
+%     \end{enumerate}
 
-\begin{definition}
-    Suppose \(W,X,Y\) are three objects.
-    We call \(X +_W Y\) the pushout or fibre coproduct with respect to \(W\) if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_X}{W}{X}\) and \(\func{\iota_Y}{W}{Y}\);
-        \item there exists inclusions \(\func{\iota_1}{X}{X +_W Y}\)
-            and \(\func{\iota_2}{Y}{X +_W Y}\); and
-        \item for any object \(Z\),
-            if \(\func{\phi_1}{X}{Z}\) and \(\func{\phi_2}{Z}{Y}\) are homomorphisms,
-            then there exists a unique \(\func{\bar{\phi}}{X +_W Y}{Z}\)
-            such that the following diagram commutes.
-    \end{enumerate}
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            X \arrow{r}[swap]{\iota_1} \arrow{ru}{\phi_1} &
-            X +_W Y \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} &
-            Y \arrow{l}{\iota_2} \arrow{lu}[swap]{\phi_2} \\
-            & W \arrow{lu}{\iota_X} \arrow{ru}[swap]{\iota_Y}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
+%     This can be represented by the following commutative diagram.
+%     \begin{equation*}
+%         \begin{tikzcd}
+%             & X \arrow[bend right]{ddl}[swap]{0} \arrow[bend left]{ddr}{0} \arrow{d}{f} \\
+%             & Y \arrow{dl}{\phi} \arrow{dr}[swap]{\pi} \\
+%             Z && \coker f \arrow[dashrightarrow]{ll}{\exists!\bar{\phi}}
+%         \end{tikzcd}
+%     \end{equation*}
+% \end{definition}
+
+% \begin{definition}
+%     A category is preadditive if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item the homomorphisms \(\Hom(X,Y)\) form an abelian group; and
+%         \item the composition map \(\func{\circ}{\Hom(X,Y)\times\Hom(Y,Z)}{\Hom(X,Z)}\)
+%             is a bilinear group homomorphism.
+%     \end{enumerate}
+% \end{definition}
+% \begin{definition}
+%     A category is additive if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item it is preadditive; and
+%         \item any finite product \(\prod_{i=1}^n A_i\) or coproduct \(\bigoplus_{i=1}^n A_i\) is also an object.
+%     \end{enumerate}
+% \end{definition}
+% \begin{definition}
+%     A category is abelian if
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item it is additive;
+%         \item for any morphism \(f \in \Hom(X,Y)\), \(\ker f\) and \(\coker f\) exists; and
+%         \item any monomorphism corresponds to a kernel,
+%             while any epimorphism corresponds to a cokernel.
+%     \end{enumerate}
+% \end{definition}
+
+% \begin{definition}
+%     A category \(\mca{C}\) is monoidal if
+%     there exists a tensor product \(\func{\otimes}{\mca{C}\times\mca{C}}{\mca{C}}\)
+%     and a monoidal unit \(I \in \Ob(\mca{C})\) such that, up to isomorphism,
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item the tensor product is associative \(X \otimes (Y \otimes Z) \cong (X \otimes Y) \otimes Z\); and
+%         \item the unit is both left and right cancellative \(I \otimes X \cong X \cong X \otimes I\).
+%     \end{enumerate}
+% \end{definition}
 
 
 \section{Limits}
 
-\subsection*{Inverse Limit}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
-    and the index set \(I\) is ordered with the relation \(\leq\).
-    An inverse system over \(I\) is when \(i \leq j\),
-    let \(\func{f_{ij}}{X_j}{X_i}\) be a homomorphism such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f_{ii} = \id_{X_i}\); and
-        \item \(f_{ik} = f_{ij} \circ f_{jk}\) for all \(i \leq j \leq k\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            X_i & X_j \arrow{l}{f_{ij}} &
-            X_k \arrow{l}{f_{jk}} \arrow[bend right]{ll}[swap]{f_{ik}}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is an inverse system.
-    The inverse limit of this system is an object \(\invlim X_i\)
-    that satisfies the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists projections \(\func{\pi_i}{\invlim X_i}{X_i}\)
-            such that for all \(i \leq j\), \(\pi_i = f_{ij}\circ\pi_j\); and
-        \item for any object \(Z\), if \(\func{\phi_i}{Z}{X_i}\) are homomorphisms
-            such that for all \(i \leq j\), \(\phi_i = f_{ij}\circ\phi_j\),
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\invlim X_i}\)
-            such that \(\phi_i = \pi_i\circ\bar{\phi}\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \arrow[bend right]{ddl}[swap]{\phi_i} \arrow[bend left]{ddr}{\phi_j}
-            \arrow[dashrightarrow]{d}{\exists!\bar{\phi}} \\
-            & \invlim X_i \arrow{dl}{\pi_i} \arrow{dr}[swap]{\pi_j} \\
-            X_i && X_j \arrow{ll}{f_{ij}}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\subsection*{Direct Limit}
-
-\begin{remark}
-    The direct system and direct limit
-    is dual to the inverse system and inverse limit.
-\end{remark}
-
-\begin{definition}
-    Suppose \({\{X_i\}}_{i \in I}\) is a family of objects,
-    and the index set \(I\) is ordered with the relation \(\leq\).
-    A direct system over \(I\) is when \(i \leq j\),
-    let \(\func{f_{ij}}{X_i}{X_j}\) be a homomorphism such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f_{ii} = \id_{X_i}\); and
-        \item \(f_{ik} = f_{jk} \circ f_{ij}\) for all \(i \leq j \leq k\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            X_i \arrow{r}[swap]{f_{ij}} \arrow[bend left]{rr}{f_{ik}} &
-            X_j \arrow{r}[swap]{f_{jk}} & X_k
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-\begin{definition}
-    Suppose \({(X_i,f_{ij})}_{i,j \in I}\) is a direct system.
-    The direct limit of this system is an object \(\dirlim X_i\)
-    that satisfies the following universal property:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item there exists inclusions \(\func{\iota_i}{X_i}{\dirlim X_i}\)
-            such that for all \(i \leq j\), \(\iota_i = \iota_j \circ f_{ij}\); and
-        \item for any object \(Z\), if \(\func{\phi_i}{X_i}{Z}\) are homomorphisms
-            such that for all \(i \leq j\), \(\phi_i = \phi_j \circ f_{ij}\),
-            then there exists a unique \(\func{\bar{\phi}}{\dirlim X_i}{Z}\)
-            such that \(\phi_i = \bar{\phi}\circ\iota_i\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram:
-    \begin{center}
-        \begin{tikzcd}
-            & Z \\
-            & \dirlim X_i \arrow[dashrightarrow]{u}[swap]{\exists!\bar{\phi}} \\
-            X_i \arrow{rr}[swap]{f_{ij}} \arrow{ur}[swap]{\iota_i} \arrow[bend left]{uur}{\phi_i} &&
-            X_j \arrow{ul}{\iota_j} \arrow[bend right]{uul}[swap]{\phi_j}
-        \end{tikzcd}
-    \end{center}
-\end{definition}
-
-
-\section{Types of Categories}
-
-\begin{definition}
-    An object \(X\) is an initial object of a category
-    if there exists a morphism from \(X\) to any object \(Y\) in the category.
-    An object \(X\) is a terminal object of a category
-    if there exists a morphism from any object \(Y\) in the category to \(X\).
-    An object \(0\) is the null object of a category
-    if it is both initial and terminal.
-\end{definition}
-
-\begin{definition}
-    A kernel of a morphism \(f \in \Hom(X,Y)\)
-    is an object \(\ker f\) along with a morphism \(\func{\iota}{\ker f}{X}\)
-    such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(f\circ\iota = 0\); and
-        \item for any object \(Z\), if \(\func{\phi}{Z}{X}\) is a homomorphism such that \(f\circ\phi = 0\),
-            then there exists a unique \(\func{\bar{\phi}}{Z}{\ker f}\)
-            such that \(\phi = \iota\circ\bar{\phi}\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram.
-    \begin{equation*}
-        \begin{tikzcd}
-            & Y \\
-            & X \arrow{u}[swap]{f} \\
-            Z \arrow[dashrightarrow]{rr}[swap]{\exists!\bar{\phi}} \arrow{ur}[swap]{\phi} \arrow[bend left]{uur}{0} &&
-            \ker f \arrow{ul}{\iota} \arrow[bend right]{uul}[swap]{0}
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
-\begin{definition}
-    A cokernel of a morphism \(f \in \Hom(X,Y)\)
-    is an object \(\coker f\) along with a morphism \(\func{\pi}{Y}{\coker f}\)
-    such that
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(\pi\circ f = 0\); and
-        \item for any object \(Z\), if \(\func{\phi}{Y}{Z}\) is a homomorphism such that \(\phi\circ f = 0\),
-            then there exists a unique \(\func{\bar{\phi}}{\coker f}{Z}\)
-            such that \(\phi = \bar{\phi}\circ\pi\).
-    \end{enumerate}
-
-    This can be represented by the following commutative diagram.
-    \begin{equation*}
-        \begin{tikzcd}
-            & X \arrow[bend right]{ddl}[swap]{0} \arrow[bend left]{ddr}{0} \arrow{d}{f} \\
-            & Y \arrow{dl}{\phi} \arrow{dr}[swap]{\pi} \\
-            Z && \coker f \arrow[dashrightarrow]{ll}{\exists!\bar{\phi}}
-        \end{tikzcd}
-    \end{equation*}
-\end{definition}
-
-\begin{definition}
-    A category is preadditive if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item the homomorphisms \(\Hom(X,Y)\) form an abelian group; and
-        \item the composition map \(\func{\circ}{\Hom(X,Y)\times\Hom(Y,Z)}{\Hom(X,Z)}\)
-            is a bilinear group homomorphism.
-    \end{enumerate}
-\end{definition}
-\begin{definition}
-    A category is additive if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item it is preadditive; and
-        \item any finite product \(\prod_{i=1}^n A_i\) or coproduct \(\bigoplus_{i=1}^n A_i\) is also an object.
-    \end{enumerate}
-\end{definition}
-\begin{definition}
-    A category is abelian if
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item it is additive;
-        \item for any morphism \(f \in \Hom(X,Y)\), \(\ker f\) and \(\coker f\) exists; and
-        \item any monomorphism corresponds to a kernel,
-            while any epimorphism corresponds to a cokernel.
-    \end{enumerate}
-\end{definition}
-
-\begin{definition}
-    A category \(\mca{C}\) is monoidal if
-    there exists a tensor product \(\func{\otimes}{\mca{C}\times\mca{C}}{\mca{C}}\)
-    and a monoidal unit \(I \in \Ob(\mca{C})\) such that, up to isomorphism,
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item the tensor product is associative \(X \otimes (Y \otimes Z) \cong (X \otimes Y) \otimes Z\); and
-        \item the unit is both left and right cancellative \(I \otimes X \cong X \cong X \otimes I\).
-    \end{enumerate}
-\end{definition}
+\begin{theorem}\label{thm:existence-limit}
+    Given categories \(\mca{C},\mca{I}\),
+    if \(\mca{C}\) has equalizers and products indexed by \(\Ob(\mca{I})\) and \(\Mor(\mca{I})\),
+    then \(\mca{C}\) has all limits of shape \(\mca{I}\).
+\end{theorem}

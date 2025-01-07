@@ -1,0 +1,526 @@
+\chapter{Topology}
+
+\section{Topological Spaces}
+
+\begin{definition}
+    A topological space is a tuple \((X,\mca{T})\),
+    where \(X\) is a set, \(\mca{T} \subseteq \mca{P}(X)\) a collection of subsets,
+    such that:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(\emptyset,X \in \mca{T}\);
+        \item closed under finite intersections
+            \(U,V \in \mca{T} \implies U \cap V \in \mca{T}\); and
+        \item closed under arbitrary unions
+            \({\{U_\alpha\}} \subset \mca{T} \implies \bigcup_\alpha U_\alpha \in \mca{T}\).
+    \end{enumerate}
+    \(\mca{T}\) is called a topology on the set \(X\);
+    elements in \(\mca{T}\) are called open,
+    while the complement of these elements are called closed.
+\end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    Given any \(x \in X\), a neighbourhood of \(x\) is a set \(V \subseteq X\)
+    such that there exists an open set \(U\) with \(x \in U \subseteq V\).
+\end{definition}
+\begin{proposition}
+    Suppose \(X\) is a topological space.
+    \(U \subseteq X\) is open if and only if \(U\) is a neighbourhood of all \(x \in U\).
+\end{proposition}
+\begin{proof}
+    Suppose \(U\) is open. Then it is trivially a neighbourhood for all \(x \in U\).
+
+    Suppose \(U\) is a neighbourhood for all \(x \in U\).
+    Then for each \(x\), there exists an open set \(U_x\) such that \(x \in U_x \subseteq U\).
+    But then \(\bigcup_{x \in U} U_x \supseteq U\) because it contains all points of \(U\);
+    and the other inclusion also holds because each of the \(U_x \subseteq U\).
+\end{proof}
+
+\subsection*{Separation Axioms}
+
+\begin{remark}
+    Despite the name `separation axioms',
+    these are a set of useful topological definitions, rather than axioms.
+\end{remark}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x,y \in X\) are distinct points (as in \(x \neq y\)).
+    \(x,y\) are topologically distinguishable if there exists an open set \(U \subseteq X\)
+    such that either \(x \in U\) and \(y \notin U\) or \(y \in U\) and \(x \notin U\).
+    A topological space is Kolmogorov or \(\text{T}_0\) if every pair of points is topologically distinguishable.
+\end{definition}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x,y \in X\) are distinct points.
+    \(x,y\) are separated if there exists neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that \(x \notin V\) and \(y \notin U\).
+    A topological space is Fr\'echet or \(\text{T}_1\) if every pair of points is separated.
+\end{definition}
+\begin{lemma}
+    \(\text{T}_1\) spaces are \(\text{T}_0\).
+\end{lemma}
+\begin{proof}
+    Suffices to prove that separated points are topologically distinguishable.
+    If \(x,y\) are separated, then there exists some neighbourhood \(U \ni x\) with \(y \notin U\),
+    which gives us topological distinguishability.
+\end{proof}
+\begin{proposition}
+    A topological space is \(\text{T}_1\) if and only if every singleton set \(\{x\} \subseteq X\) is closed.
+\end{proposition}
+\begin{proof}
+    Suppose \(X\) is \(\text{T}_1\), and fix an arbitrary \(x \in X\).
+    For every \(y \neq x\), there exists a neighbourhood \(V_y \ni y\) such that \(x \notin V_y\).
+    By definition of a neighbourhood, for each of these \(y\),
+    there exists an open \(U_y\) such that \(y \in U_y \subseteq V_y\).
+    But \(\bigcup_{y \neq x} U_y\) is open, and contains every point but \(x\),
+    which means it is \({\{x\}}^c\).
+    Then \(\{x\}\) is closed.
+
+    Now, suppose every singleton is closed.
+    Picking any two distinct \(x,y \in X\), we have \(y \in {\{x\}}^c\) open and \(x \in {\{y\}}^c\) open.
+\end{proof}
+
+\begin{definition}
+    A topological space \(X\) is called Hausdorff or \(\text{T}_2\)
+    if any two points \(x,y \in X\) have neighbourhoods \(U \ni x\) and \(V \ni y\)
+    such that they are disjoint (\(U \cap V = \emptyset\)).
+\end{definition}
+\begin{lemma}
+    \(\text{T}_2\) spaces are \(\text{T}_1\).
+\end{lemma}
+\begin{proof}
+    Since the neighbourhoods are disjoint, in particular, they do not contain the other point.
+\end{proof}
+
+\begin{definition}
+    A topological space \(X\) is called regular if for all \(x \in X\) and all closed sets \(C \subseteq {\{x\}}^c\),
+    there exists disjoint open sets \(U \ni x\) and \(V \supseteq C\) such that \(U \cap V = \emptyset\).
+    A regular Hausdorff space is called \(\text{T}_3\).
+\end{definition}
+
+\begin{definition}
+    A topological space \(X\) is called normal if for all disjoint closed subsets \(C,D \subseteq X\),
+    there exists open sets \(U \supseteq C\) and \(V \supseteq D\) such that \(U \cap V = \emptyset\).
+    A normal Hausdorff space is called \(\text{T}_4\).
+\end{definition}
+
+\subsection*{Continuity}
+
+\begin{definition}
+    Suppose \(\func{f}{X}{Y}\) is a function between topological spaces.
+    \(f\) is continuous if the preimage of any open set is open.
+\end{definition}
+\begin{definition}
+    A continuous function \(\func{f}{X}{Y}\) with a continuous inverse \(\func{f^{-1}}{Y}{X}\) is a homeomorphism.
+\end{definition}
+
+\subsection*{Bases}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(x \in X\) is a point.
+    A collection \(\mca{B}_x\) of open neighbourhoods of \(x\) is a local basis at \(x\)
+    if for all open \(U \ni x\), there exists some \(B \in \mca{B}_x\) such that \(x \in B \subseteq U\).
+    If every point admits a countable local basis,
+    then we say \(X\) is first countable.
+\end{definition}
+% \begin{definition}
+%     A basis \(\mca{B}\) is a collection of subsets of \(X\) such that:
+%     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+%         \item for every point \(x \in X\), there exists some basis element \(B \in \mca{B}\) such that \(x \in B\); and
+%         \item if \(x \in B_1 \cap B_2\) where \(B_1,B_2 \in \mca{B}\),
+%             then there exists some basis element \(B_3 \in \mca{B}\) such that \(x \in B_3 \subseteq B_1 \cap B_2\).
+%     \end{enumerate}
+%     The topology \(\mca{T}\) generated by the basis \(\mca{B}\)
+%     is the collection of all sets \(U\) (which we define to be open)
+%     such that for each \(x \in U\), there exists a basis element \(B \in \mca{B}\) such that \(x \in B \subseteq U\).
+% \end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    A collection \(\mca{B}\) of open sets is a basis if it contains a local basis for every point.
+    If \(\mca{B}\) has a countable basis, then we say \(X\) is second countable.
+\end{definition}
+% \begin{lemma}
+%     Suppose \(\mca{B}\) is a basis, and \(\mca{T}\) is the topology generated by \(\mca{B}\).
+%     Then:
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item \(\mca{T}\) is the set of all arbitrary unions of elements of \(\mca{B}\); and
+%         \item \(\mca{T}\) indeed forms a topology.
+%     \end{enumerate}
+% \end{lemma}
+% \begin{proof}
+%     First off, clearly any arbitrary unions of \(\mca{B}\)-sets contain \(\mca{B}\)-sets,
+%     so they are contained within \(\mca{T}\).
+% \end{proof}
+% \begin{lemma}
+%     Suppose \(\mca{T}\) is a topology on \(X\)
+%     and \(\mca{B} \subseteq \mca{T}\) is a collection of open sets
+%     such that given any open set \(U\), for each \(x \in U\),
+%     there exists some \(B \in \mca{B}\) with \(x \in B \subseteq U\).
+%     Then \(\mca{B}\) is a basis for the topology \(\mca{T}\).
+% \end{lemma}
+
+\subsection*{Induced Topologies}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of topological spaces, and \(Y\) is a set.
+    If we have functions \(\func{f_i}{Y}{X_i}\) for each \(i\),
+    the induced topology on \(Y\) is the topology with fewest open sets
+    such that \(f_i\) are all continuous.
+\end{definition}
+
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    If \(Y \subseteq X\) is a subset, then the set of all \(U \cap Y\) where \(U \subseteq X\) is open
+    forms the subspace topology for \(Y\).
+\end{definition}
+\begin{proposition}[Universal Property of Subspace Topology]
+    Suppose \(X\) is a topological space, and \(Y \subseteq X\) is a subset.
+    % and \(\) is the inclusion map.
+    Then the subspace topology on \(Y\) is the topology induced by the inclusion map \(\func{\iota}{Y}{X}\).
+\end{proposition}
+\begin{proof}
+    It is obvious that if we remove any open set \(U \cap Y \subseteq X\),
+    then the preimage \(\iota^{-1}(U)\) is no longer open.
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces.
+    Then the product topology of \(\prod_{i \in I} X_i\)
+    % is the topology generated by (the basis containing) the sets \(U \times V\)
+    % for all open \(U \subseteq X\) and \(V \subseteq Y\).
+    is the topology induced by the projection maps \(\func{f_i}{\prod_{i \in I} X_i}{X_i}\).
+\end{definition}
+
+\begin{theorem}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces.
+    If \(A_i \subseteq X_i\) are subspaces,
+    then the product topology on \(\prod A_i\) is identical to the subspace topology of \(\prod A_i \subseteq \prod X_i\).
+\end{theorem}
+\begin{proof}
+    It is obvious that we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            \prod A_i \arrow[hookrightarrow]{r} \arrow[twoheadrightarrow]{d} & \prod X_i \arrow[twoheadrightarrow]{d} \\
+            A_i \arrow[hookrightarrow]{r} & X_i
+        \end{tikzcd}
+    \end{equation*}
+    so both topologies are the topology induced by the maps \(\prod A_i \to X_i\).
+\end{proof}
+
+\subsection*{Coinduced Topologies}
+
+\begin{definition}
+    Suppose \({\{X_i\}}_{i \in I}\) is a family of topological spaces, and \(Y\) is a set.
+    If we have functions \(\func{f_i}{X_i}{Y}\) for each \(i\),
+    the coinduced topology on \(Y\) is the topology with the most open sets
+    such that \(f_i\) are all continuous.
+\end{definition}
+\begin{definition}
+    Suppose \(X\) is a topological space and \(\func{f}{X}{Y}\) is a surjective function.
+    The quotient topology on \(Y\) is the coinduced topology by \(f\).
+\end{definition}
+
+
+\section{Closure and Interior}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(A \subseteq X\) is a subset.
+    The closure of \(A\) in \(X\) is the smallest closed set \(\overline{A} \supseteq A\).
+\end{definition}
+\begin{proposition}\label{prop:closure-prop}
+    We have the following properties for the closure.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\overline{A}\) is the intersection of all closed sets that contain \(A\);
+        \item \(A = \overline{A}\) if and only if \(A\) is closed;
+        \item \(A \subseteq B\) implies \(\overline{A} \subseteq \overline{B}\); and
+        \item \(\overline{\overline{A}} = \overline{A}\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For (a), since the arbitrary intersection of closed sets is closed,
+    the intersection of all closed sets that contain \(A\) is a closed set that contains \(A\),
+    and in particular it contains the smallest closed set that contains \(A\).
+    But \(\overline{A}\) is also a closed set that contain \(A\),
+    so it must belong in the intersection, and thus the intersection is a subset of \(\overline{A}\).
+
+    For (b), \(A = \overline{A}\) is trivially closed.
+    If \(A\) is closed, then \(A\) is in the intersection of all closed sets that contain \(A\),
+    so \(\overline{A} \subseteq A\);
+    the reverse inclusion is trivially true.
+
+    For (c), since every closed set that contain \(B\) must also contain \(A\),
+    the closure of \(A\) must be an intersection of more sets.
+
+    For (d), since \(\overline{A}\) is closed, \(\overline{\overline{A}} = \overline{A}\) by statement (b).
+\end{proof}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(A \subseteq X\) is a subset.
+    The interior of \(A\) in \(X\) is the largest open set \(A^\circ \subseteq A\).
+\end{definition}
+\begin{lemma}\label{lem:closure-interior}
+    \({(A^\circ)}^c = \overline{A^c}\) and \({(\overline{A})}^c = {(A^c)}^\circ\).
+\end{lemma}
+\begin{proof}
+    Trivially true, once we observe that the complement of intersections is the union of complements,
+    and that complements of open sets are closed, and vice versa.
+\end{proof}
+\begin{proposition}
+    We have the following properties for the interior.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(A^\circ\) is the union of all open sets that lie within \(A\);
+        \item \(A = A^\circ\) if and only if \(A\) is open;
+        \item \(A \subseteq B\) implies \(A^\circ \subseteq B^\circ\); and
+        \item \(A^{\circ\circ} = A^\circ\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Trivially follows from Proposition~\ref{prop:closure-prop} and the \hyperref[lem:closure-interior]{lemma above}.
+\end{proof}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(A \subseteq X\) is a subset.
+    The boundary of \(A\) is \(\partial A = \overline{A}-A^\circ\).
+\end{definition}
+
+\subsection*{Density}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \(A \subseteq X\) is a subset.
+    \(A\) is dense in \(X\) if \(\overline{A} = X\).
+    \(A\) is nowhere dense in \(X\) if \({(\overline{A})}^\circ = \emptyset\).
+\end{definition}
+
+\begin{definition}
+    Suppose \(X\) is a topological space.
+    The diagonal embedding is the function \(\func{\Delta}{X}{X \times X}\) that maps \(x \mapsto (x,x)\).
+    The image of the diagonal map \(\img\Delta\) is the diagonal subset of \(X \times X\).
+\end{definition}
+\begin{lemma}
+    The diagonal embedding \(\Delta\) is continuous.
+\end{lemma}
+\begin{proof}
+    \(\Delta\) is uniquely defined by the following commutative diagram.
+    \begin{equation*}
+        \begin{tikzcd}
+            & X \arrow{dl}[swap]{\id} \arrow{dr}{\id} \arrow[dashrightarrow]{d}{\Delta} \\
+            X & X \times X \arrow{l}{\pi_1} \arrow{r}[swap]{\pi_2} & X
+        \end{tikzcd}
+    \end{equation*}
+    Since all the maps here are continuous, \(\Delta\) must be continuous.
+\end{proof}
+\begin{lemma}\label{lem:diagonal-closed-hausdorff}
+    Suppose \(X\) is a topological space.
+    \(X\) is Hausdorff if and only if the diagonal subset \(\img\Delta\) is closed.
+\end{lemma}
+\begin{proof}
+    Suppose \(X\) is Hausdorff.
+    Consider any point \((x,y)\) not on the diagonal.
+    Then there exists open \(U \ni x\) and \(V \ni y\) such that \(U \cap V = \emptyset\).
+    Hence \(U \times V\) is an open set that is disjoint from the diagonal.
+    Taking the union of all such \(U \times V\) generated from points not on the diagonal,
+    that union is open, and hence its complement, the diagonal, is closed.
+
+    Suppose the diagonal is closed.
+    Consider any point \((x,y)\) not on the diagonal.
+    Since that point lies on an open set,
+    and the product topology is generated by products of open sets,
+    there exists some open \(U \times V \ni (x,y)\) such that it does not intersect the diagonal.
+    But that exactly implies that \(U \cap V = \emptyset\),
+    because if it does intersect (and perhaps \(a\) is in that intersection),
+    then \((a,a) \in U \times V\) which is a contradiction.
+\end{proof}
+\begin{lemma}\label{lem:cont-agree-closed}
+    Suppose \(\func{f,g}{X}{Y}\) are both continuous, and \(Y\) is Hausdorff.
+    Then the set of points \(x \in X\) such that \(f(x) = g(x)\) is closed in \(X\).
+\end{lemma}
+\begin{proof}
+    Consider the map \(x \mapsto (f(x),g(x))\).
+    By the universal property, it is continuous.
+    Then the preimage of the diagonal, which is the set of points where \(f(x) = g(x)\), is closed in \(X\).
+\end{proof}
+\begin{proposition}\label{prop:hausdorff-dense-agree}
+    Suppose \(X\) is a topological space, \(A \subseteq X\) is a dense subset, and \(Y\) is Hausdorff.
+    If \(\func{f,g}{X}{Y}\) are both continuous, and \(f(a) = g(a)\) for all \(a \in A\),
+    then \(f = g\).
+\end{proposition}
+\begin{proof}
+    Let \(B \supseteq A\) be the set that \(f\) and \(g\) agree on.
+    By the \hyperref[lem:cont-agree-closed]{lemma above}, \(B\) is closed.
+    But \(B\) closed if and only if it is its own closure,
+    so \(X = \overline{A} \subseteq \overline{B} = B \subseteq X\) as desired.
+\end{proof}
+
+\subsection*{Sequences}
+
+\begin{definition}
+    Suppose \(X\) is a topological space, and \({\{x_n\}}_{n=1}^\infty \subseteq X\) is a sequence.
+    We say \(x_n\) converges to \(x\), denoted \(x_n \to x\) or \(x = \lim_{n\to\infty} x_n\),
+    if for all open \(U \ni x\), there exists some \(N \in \bN\),
+    such that for all \(n \geq N\), \(x_n \in U\).
+\end{definition}
+
+\begin{definition}
+    Consider the set \(\bN \cup \{\infty\}\),
+    and endow it with the following topology:
+    \begin{enumerate}[label=(\roman*), itemsep=0mm]
+        \item \(U \subseteq \bN\) is always open; and
+        \item \(U \ni \infty\) is open if it contains some tail \(\{n,n+1,\hdots\}\).
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    For the remainder of the section, always assume \(\bN \cup \{\infty\}\) carries this topology.
+\end{remark}
+\begin{proposition}\label{prop:convergence-extend-continuity}
+    A sequence \(\func{x_\cdot}{\bN}{X}\) extends to a continuous function \(\func{x_\cdot}{\bN\cup\{\infty\}}{X}\)
+    if and only if \(x_n\) converges to \(x_\infty\).
+\end{proposition}
+\begin{proof}
+    By definition of convergence \(x_n \to x_\infty\),
+    every open \(U \ni x_\infty\) contains some tail end terms \(\{x_n,x_{n+1},\hdots\}\),
+    so the preimage contains said tail \(\{n,n+1,\hdots\}\), which is open.
+    The argument holds both ways.
+\end{proof}
+\begin{corollary}
+    Suppose \(x_n \to x\) is a sequence in \(X\), and let \(\func{f}{X}{Y}\) be continuous.
+    Then \(f(x_n) \to x\).
+\end{corollary}
+\begin{proof}
+    Composition of continuous functions are continuous.
+    Apply the \hyperref[prop:convergence-extend-continuity]{proposition above}.
+\end{proof}
+
+\begin{proposition}
+    Sequences in Hausdorff spaces have unique limits.
+\end{proposition}
+\begin{proof}
+    Suppose we have two continuous extensions of a sequence \(x_\cdot\).
+    By Proposition~\ref{prop:hausdorff-dense-agree},
+    since the two continuous functions agree on \(\bN\), which is dense in \(\bN\cup\{\infty\}\),
+    they must be the same function, and hence have the same value at infinity.
+\end{proof}
+\begin{proposition}
+    Suppose \({\{X_i\}}_{i \in I}\) are topological spaces, and \(X = \prod X_i\).
+    A sequence \(x_n \to x\) converges in \(X\)
+    if and only if \(\pi_i(x_n) \to \pi_i(x)\) converges in each \(X_i\).
+\end{proposition}
+\begin{proof}
+    The topology from \(X\) carries down to \(X_i\) via the projection maps \(\pi_i\),
+    so continuous functions must respect this topology.
+\end{proof}
+
+
+\section{Compactness}
+
+\begin{definition}
+    A topological space \(X\) is considered quasi-compact
+    if every open cover of \(X\) has a finite subcover.
+    A topological space \(X\) is considered compact
+    if it is quasi-compact and Hausdorff.
+\end{definition}
+\begin{proposition}\label{prop:continuous-image-compact}
+    Suppose \(\func{f}{X}{Y}\) is continuous and \(X\) is quasi-compact.
+    Then \(f(X) \subseteq Y\) is a quasi-compact subspace.
+\end{proposition}
+\begin{proof}
+    Suppose \({\{U_i\}}_{i \in I}\) is an open cover of \(f(X)\).
+    Then the preimages \({\{f^{-1}(U_i)\}}_{i \in I}\) openly cover \(X\).
+    But as this is quasi-compact, there exists a finite subcover \({\{f^{-1}(U_i)\}}_{i=1}^n\),
+    so \({\{U_i\}}_{i=1}^n\) is a finite subcover.
+\end{proof}
+\begin{proposition}
+    Suppose \(X\) is a topological space with two quasi-compact subspaces \(K_1,K_2\).
+    Then \(K_1 \cup K_2\) is a quasi-compact subspace.
+\end{proposition}
+\begin{proof}
+    Any open cover of \(K_1 \cup K_2\) is an open cover for each of \(K_1\) and \(K_2\),
+    and hence there exists finite subcovers.
+    The union of the two finite subcovers is our desired subcover for \(K_1 \cup K_2\).
+\end{proof}
+
+\begin{proposition}\label{prop:closed-quasi-compact}
+    Suppose \(X\) is quasi-compact, and \(K \subseteq X\) is a closed subspace.
+    Then \(K\) is quasi-compact.
+\end{proposition}
+\begin{proof}
+    Given an open cover \({\{U_i\}}_{i \in I}\) of \(K\),
+    we can find some open sets \(V_i \subseteq X\) such that \(U_i = K \cap V_i\).
+    Then \({\{V_i\}}_{i \in I} \cup (X-K)\) is an open cover of \(X\),
+    so there exists a finite subcover \({\{V_i\}}_{i=1}^n \cup (X-K)\).
+    Hence \({\{U_i\}}_{i=1}^n\) is a finite subcover of \(K\).
+\end{proof}
+\begin{proposition}\label{prop:compact-hausdorff-closed}
+    Suppose \(X\) is Hausdorff, and \(K \subseteq X\) is a compact subspace.
+    Then \(K \subseteq X\) is closed.
+\end{proposition}
+\begin{proof}
+    Consider \(x \in X-K\).
+    For each \(y \in K\), there exists disjoint open neighbourhoods \(U_y \ni y\) and \(V_y \ni X\).
+    Then \({\{U_y\}}_{y \in K}\) forms an open cover for \(K\),
+    and there exists a finite subcover \({\{U_{y_i}\}}_{i=1}^n\).
+    Then \(\bigcup_{i=1}^n V_{y_i} \ni x\) is an open neighbourhood of \(x\) disjoint from \(y\),
+    Hence \(X-K\) is open, and \(K\) is closed.
+\end{proof}
+\begin{corollary}
+    Suppose \(\func{f}{X}{Y}\) is a continuous bijection, where \(X\) is quasi-compact and \(Y\) is Hausdorff.
+    Then \(f\) is a homeomorphism.
+\end{corollary}
+\begin{proof}
+    It suffices to prove that \(f\) is a closed map.
+    By Proposition~\ref{prop:continuous-image-compact}, \(Y\) is compact.
+    Consider any closed set \(K \subseteq X\).
+    Then by Proposition~\ref{prop:closed-quasi-compact}, \(K\) is quasi-compact.
+    Then \(f(K) \subseteq Y\) is compact (Proposition~\ref{prop:continuous-image-compact}).
+    By the Proposition~\ref{prop:compact-hausdorff-closed},
+    \(f(K) \subseteq Y\) is closed.
+\end{proof}
+
+\begin{lemma}[Generalized Tube Lemma]\label{lem:tube}
+    Suppose \(X,Y\) are topological spaces,
+    and \(A \subseteq X\) and \(B \subseteq Y\) are quasi-compact subspaces.
+    If \(N \subseteq X \times Y\) is open,
+    then there exists open sets \(U \subseteq X\) and \(V \subseteq Y\)
+    such that \(A \times B \subseteq U \times V \subseteq N\).
+\end{lemma}
+\begin{proof}
+    If either \(A\) or \(B\) is empty,
+    we are immediately done as the empty set \(\emptyset \times \emptyset \subseteq N\) satisfies our conditions.
+
+    Now suppose \(A\) and \(B\) are both nonempty.
+    Fix some \(a \in A\).
+    For each \(b \in B\), we can choose open sets \(U_b^a \subseteq X\) and \(V_b^a \subseteq Y\)
+    such that \((a,b) \in U_b \times V_b \subseteq N\)
+    (this is possible because the product of open sets forms a basis for the product topology).
+    Then because \(\{a\} \times B\) is quasi-compact,
+    there exists a finite set of points \({\{(a,b_i)\}}_{i=1}^n\),
+    associated with the finite cover \({\{U_{b_i}^a \times V_{b_i}^a\}}_{i=1}^n\).
+    We can then consider the open sets \(U^a = \bigcap_{i=1}^n U_{b_i}^a\) and \(V^a = \bigcup_{i=1}^n V_{b_i}^a\).
+    Obviously, \(a \in U^a\) and \({\{V_{b_i}^a\}}_{i=1}^n\) is a cover of \(B\),
+    so we have \(\{a\} \times B \subseteq U^a \times V^a \subseteq N\).
+
+    We can then repeat this procedure for all \(a \in A\)
+    to find a cover \({\{U^a \times V^a\}}_{a \in A}\) for \(A \times B\) contained in \(N\).
+    Since \(A\) is quasi-compact,
+    there exists a finite set of points \({\{a_i\}}_{i=1}^m\),
+    associated with the finite cover \({\{U^{a_i}\}}_{i=1}^m\).
+    If we then take \(U = \bigcup_{i=1}^m U^{a_i}\) and \(V = \bigcap_{i=1}^m V^{a_i}\),
+    then we have \(A \subseteq U\), and \(B \subseteq V^{a_i}\) for every \(a_i\), so \(B \subseteq V\).
+    Hence we have found an open \(U \times V \supseteq A \times B\).
+
+    Lastly, we verify that \(U \times V \subseteq N\).
+    If \((x,y) \in U \times V\), then \(x \in U^{a_i}\) for some \(a_i\),
+    and \(y \in V \subseteq V^{a_i}\) for the corresponding open set.
+    But then we have exactly shown that \((x,y) \in U^{a_i} \times V^{a_i} \subseteq N\).
+\end{proof}
+\begin{corollary}[Tube Lemma]\label{cor:tube}
+    Suppose \(X,Y\) are topological spaces,
+    \(X\) is quasi-compact, and \(y \in Y\) is a point.
+    If \(N \subseteq X \times Y\) is an open neighbourhood of \(X \times \{y\}\),
+    then there exists an open neighbourhood \(U \subseteq Y\) of \(y\)
+    such that \(X \times U \subseteq X \times Y\).
+\end{corollary}
+\begin{proof}
+    Simple application of the \hyperref[cor:tube]{lemma above}.
+\end{proof}
+
+
+\section{Connectedness}

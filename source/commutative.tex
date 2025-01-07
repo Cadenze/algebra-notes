@@ -1,4 +1,4 @@
-\chapter{Elements of Commutative Algebra}\label{ch:comm-alg}
+\chapter{Elements}\label{ch:comm-alg}
 
 \begin{remark}
     We shall assume that all rings,
@@ -491,7 +491,7 @@
     Suppose \(R\) is a ring, and \(\mfk{q} \subsetneq R\) is a proper ideal.
     \(\mfk{q}\) is primary if \(xy \in \mfk{q}\) implies \(x \in \mfk{q}\) or \(y^n \in \mfk{q}\) for some \(n\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:primary-zero-div-nilpotent}
     Suppose \(R\) is a ring, and \(\mfk{q} \subsetneq R\) is a proper ideal.
     \(\mfk{q}\) is primary if and only if every zero divisor in \(R/\mfk{q}\) is nilpotent.
 \end{proposition}
@@ -1034,13 +1034,46 @@
     such that \(K[y_1,\hdots,y_m] \subseteq R\) is integral.
 \end{theorem}
 \begin{proof}
-    
+    Without any loss of generality,
+    let us suppose that the first \(m\) indeterminates \({\{x_i\}}_{i=1}^m\) are algebraically independent over \(K\),
+    and the remaining indeterminates \({\{x_i\}}_{i=m+1}^n\) are algebraic over \(K[x_1,\hdots,x_m]\).
+    Let us perform induction on \(n\);
+    in the base case of \(n = m\), we are already done,
+    because we can simply let \({\{y_i\}}_{i=1}^m = {\{x_i\}}_{i=1}^m\),
+    and the extension \(K[x_1,\hdots,x_m] \subseteq R\) must be the trivial extension, which is integral.
+
+    Now suppose \(n > m\), and that by induction,
+    that Noetherian normalization holds for a ring with \(n-1\) indeterminates.
+    Observe that by assumption, \(x_n\) is algebraic over \(K[x_1,\hdots,x_m] \subseteq K[x_1,\hdots,x_{n-1}]\),
+    so there exists some nonzero \(f\) in \(n\) variables such that \(f(x_1,\hdots,x_n) = 0\) when evaluated at these \(n\) values.
+    Since this is a nonzero polynomial, it is meaningful to talk about a highest total degree \(D\),
+    and we extract that degree \(D\) component, which we shall call \(F\) (which is still a polynomial in \(n\) variables).
+    By Corollary~\ref{cor:infinite-field-nonzero},
+    there exists \({\{\lambda_i\}}_{i=1}^{n-1}\) such that \(F(\lambda_1,\hdots,\lambda_{n-1},1) \neq 0\).
+    If we make the change of coordinates \(x_i' = x_i - \lambda_i x_n\),
+    then \(f(x_1'+\lambda_1 x_n,\hdots,x_{n-1}'+\lambda_{n-1}x_n,x_n)\)
+    has a leading term \(F(\lambda_1,\hdots,\lambda_{n-1},1) \in K\) when treated as a polynomial over \(x_n\).
+    This is exactly a monic polynomial,
+    so \(x_n\) is in fact integral over \(K[x_1',\hdots,x_{n-1}']\).
+    By the \hyperref[prop:integral-finite-properties]{next proposition},
+    \(K \subseteq K[x_1',\hdots,x_{n-1}'] \subseteq R\) is integral.
+
+    Lastly, we see that by our inductive hypothesis,
+    there exists algebraically independent \({\{y_i\}}_{i=1}^m \subset K[x_1',\hdots,x_{n-1}'] \subseteq R\),
+    and by the \hyperref[prop:integral-finite-properties]{next proposition} again,
+    \(K[y_1,\hdots,y_m] \subseteq R\) is integral as desired.
 \end{proof}
+\begin{remark}
+    This is the original statement of the normalization theorem by Noether in 1926,
+    which required \(K\) to be an infinite field.
+    Later, this statement was generalized to finite fields by Zariski in 1943;
+    however, this requires a different proof.
+\end{remark}
 
 
 \section{Noetherian Rings}
 
-\begin{proposition}
+\begin{proposition}\label{prop:integral-finite-properties}
     Suppose \(A \subseteq B \subseteq R\) are rings.
     We have the following properties:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -1052,7 +1085,23 @@
     \end{enumerate}
 \end{proposition}
 \begin{proof}
-    
+    Suppose \(\bigoplus_{i=1}^m A \to B\) and \(\bigoplus_{j=1}^n B \to C\) are both surjections.
+    Then \(\bigoplus_{i=1}^{mn} A \to \bigoplus_{i=1}^n B \to C\) is a surjection.
+    This proves statement (a).
+
+    Statement (b) is proven in Lemma~\ref{lem:integral-stack}.
+
+    Suppose \({\{x_i\}}_{i=1}^n \subset A\) generates \(R\).
+    Then because \(A \subseteq B\), they still generate \(R\).
+    This proves statement (c).
+
+    Consider any \(r \in R\).
+    Then it satisfies some polynomial \(f \in A[x] \subseteq B[x]\).
+    This proves statement (d).
+
+    Consider any \(b \in B \subseteq R\).
+    Then it satisfies some polynomial \(f \in A[x]\).
+    This proves statement (e).
 \end{proof}
 \begin{remark}
     In general, if \(A \subseteq R\) is finite, \(A \subseteq B\) might not necessarily be finite.
@@ -1084,32 +1133,71 @@
     We say \(R\) is Artinian if \(\Sigma\) satisfies the descending chain condition.
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{thm:noetherian-generated}
     \(M\) is a Noetherian module if and only if every submodule \(N \subseteq M\) is finitely generated.
 \end{theorem}
 \begin{proof}
-    
+    Suppose \(M\) is Noetherian, and consider any submodule \(N \subseteq M\).
+    Consider \(\Sigma\), the poset of finitely generated submodules of \(N\).
+    By \hyperref[ax:zorn]{Zorn's lemma},
+    since every chain stabilizes by the Noetherian condition,
+    there exists a maximal element \(N_0\).
+    If \(N_0 \neq N\), then we can pick an element \(x \in N - N_0\),
+    and consider the submodule \(N_0 + xR\);
+    because \(N_0\) is finitely generated, and we are simply adding one generator to it,
+    so \(N_0 + xR\) is finitely generated, and strictly contains \(N_0\).
+    But this contradicts maximality of \(N_0\),
+    so we are forced to conclude that \(N_0 = N\) is finitely generated.
+
+    Suppose every submodule \(N \subseteq M\) is finitely generated.
+    Allow us to consider an arbitrary chain of submodules \(N_1 \subseteq N_2 \subseteq \cdots\),
+    and take \(N = \bigcup_i N_i \subseteq M\).
+    Let \(N\) be generated by \({\{x_i\}}_{i=1}^n\).
+    Because each \(x_i \in N_{k_i}\), we can conclude that \(N = N_{\max_{i=1}^n k_i}\).
 \end{proof}
 \begin{corollary}\label{cor:noetherian-generated}
     \(R\) is a Noetherian ring if and only if every ideal \(\mfk{a} \subseteq R\) is finitely generated.
 \end{corollary}
 \begin{proof}
-    
+    Treat \(R\) as a module over itself,
+    and the result follows from the \hyperref[thm:noetherian-generated]{theorem above}.
 \end{proof}
 
-\begin{theorem}
-    Suppose \(N \subset M\) is a submodule.
+\begin{theorem}\label{thm:noetherian-quotient}
+    Suppose \(N \subseteq M\) is a submodule.
     Then \(M\) is Noetherian if and only if both \(N\) and \(M/N\) are Noetherian.
 \end{theorem}
 \begin{proof}
-    
+    Suppose \(M\) is Noetherian.
+    Then every chain in \(N\) is a chain in \(M\), which stabilizes; hence \(N\) is Noetherian.
+    Similarly, every chain in \(M/N\) is a chain of submodules of \(M\) containing \(N\) (\hyperref[thm:iso-3-mod]{third isomorphism theorem}),
+    which stabilizes; hence \(M/N\) is Noetherian.
+
+    Suppose \(N\) and \(M/N\) are both Noetherian.
+    Consider any chain \(M_1 \subseteq M_2 \subseteq \cdots\) of \(M\).
+    Then \(M_1 \cap N \subseteq M_2 \cap N \subseteq \cdots\) is a chain of \(N\),
+    and under the natural projection \(M \to M/N\)
+    we have the chain \(\pi(M_1) \subseteq \pi(M_2) \subseteq \cdots\) of \(M/N\).
+    Because both of these chains stabilize,
+    we have the following two exact sequences commuting with each other.
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & M_i \cap N \arrow{r} \arrow{d} & M_i \arrow{r} \arrow{d} & \pi(M_i) \arrow{r} \arrow{d} & 0 \\
+            0 \arrow{r} & M_{i+1} \cap N \arrow{r} & M_{i+1} \arrow{r} & \pi(M_{i+1}) \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    Since both \(M_i \cap N \to M_{i+1} \cap N\) and \(\pi(M_i) \to \pi(M_{i+1})\) are eventually isomorphisms,
+    at that point, by the \hyperref[lem:five]{five lemma},
+    the middle map \(M_i \to M_{i+1}\) will also eventually be an isomorphism.
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:direct-sum-noetherian}
     Suppose \({\{M_i\}}_{i=1}^n\) is a family of Noetherian modules.
     Then \(\bigoplus_{i=1}^n M_i\) is Noetherian.
 \end{corollary}
 \begin{proof}
-    
+    By induction, it suffices to prove the case of two Noetherian modules \(M_1 \oplus M_2\).
+    But \(M_1 \oplus M_2\) is Noetherian if and only if \(M_1\) and \((M_1 \oplus M_2)/M_1 \cong M_2\) are both Noetherian
+    by the \hyperref[thm:noetherian-quotient]{theorem above}.
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring,
@@ -1117,7 +1205,10 @@
     Then \(M\) is Noetherian.
 \end{corollary}
 \begin{proof}
-    
+    \(R\) Noetherian implies \(\bigoplus_{i=1}^n R\) is Noetherian
+    by the \hyperref[cor:direct-sum-noetherian]{corollary above};
+    then the \hyperref[thm:noetherian-quotient]{theorem above}
+    implies \(M = (\bigoplus_{i=1}^n R)/N\) is Noetherian.
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring,
@@ -1125,38 +1216,60 @@
     Then \(R/\mfk{a}\) is Noetherian.
 \end{corollary}
 \begin{proof}
-    
+    An application of Theorem~\ref{thm:noetherian-quotient} to \(M = R\) and \(N = \mfk{a}\).
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:finite-algebra-noetherian}
     Suppose \(A\) is a Noetherian ring, and \(R\) is a finite \(A\)-algebra.
     Then \(R\) is a Noetherian ring.
 \end{theorem}
 \begin{proof}
-    
+    By Corollary~\ref{cor:direct-sum-noetherian} and Theorem~\ref{thm:noetherian-quotient},
+    \(R\) is a Noetherian \(A\)-module.
+    But then every submodule of \(R\) is an ideal,
+    and they must be finitely generated (Theorem~\ref{thm:noetherian-generated}).
+    Hence by Corollary~\ref{cor:noetherian-generated}, it must be Noetherian.
 \end{proof}
 \begin{theorem}
     Suppose \(R\) is a Noetherian ring.
     Then any ring of fractions \(S^{-1}R\) is also Noetherian.
 \end{theorem}
 \begin{proof}
-    
+    Recall that every ideal in \(S^{-1}R\) has the form \(S^{-1}\mfk{a}\) for some ideal \(\mfk{a} \subseteq R\)
+    (Lemma~\ref{lem:fraction-extensions}).
+    Then as every chain \(S^{-1}\mfk{a}_1 \subseteq S^{-1}\mfk{a}_2 \subseteq \cdots\)
+    corresponds to some stabilizing chain \(\mfk{a}_1 \subseteq \mfk{a}_2 \subseteq \cdots\),
+    the fraction chain also stabilizes.
 \end{proof}
 
-\begin{lemma}
-    Suppose \(R\) is a ring, and \(S^{-1}R\) is a ring of fractions.
-    Then every ideal of \(S^{-1}R\) has the form \(S^{-1}\mfk{a}\),
-    where \(\mfk{a} \subseteq R\) is an ideal.
-\end{lemma}
-\begin{proof}
-    
-\end{proof}
 \begin{theorem}[Hilbert Basis Theorem]\label{thm:hilbert-basis}
     Suppose \(R\) is a Noetherian ring.
     Then \(R[x]\) is also a Noetherian ring.
 \end{theorem}
 \begin{proof}
-    
+    We wish to show that any ideal \(\mfk{a} \subseteq R[x]\) is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    For each \(f \in \mfk{a}\), we can write \(f = a_0x^n + a_1x^{n-1} + \cdots + a_n\), with \(a_i \in R\).
+    We shall call \(a_0\) the leading coefficient of \(f\),
+    and let \(\mfk{b} \subseteq R\) be the ideal generated by the leading coefficients of each \(f \in \mfk{a}\).
+    Since \(R\) is Noetherian, \(\mfk{b} = (b_1,\hdots,b_s)\) is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    Each of these \(b_i\) is the leading coefficient of some \(f_i \in \mfk{a}\),
+    and let us denote \(\deg f_i = d_i\).
+    Let \(\mfk{a}' = (f_1,\hdots,f_s) \subseteq \mfk{a}\) be a finitely generated ideal.
+
+    Now, given any \(f = a_0x^n + a_1x^{n-1} + \cdots + a_n \in \mfk{a}\),
+    we know we have \(a_0 = \sum_{i=1}^s b_i r_i\).
+    If \(n \geq \max d_i\), then \(f - \sum_{i=1}^s r_i f_i x^{n-d_i} \in \mfk{a}\),
+    and this has degree less than \(n\).
+    We can repeat this process and get some \(g = f - \sum_{i=1}^s c_i f_i \in \mfk{a}\)
+    with degree less than \(\max d_i\).
+
+    But what we have shown is exactly that given any \(f \in \mfk{a}\),
+    we can decompose it into a sum of \(g \in \mfk{a} \cap \bigoplus_{i=1}^{\max d_i - 1} Rx^i\),
+    and some \(\sum_{i=1}^s c_i f_i \in \mfk{a}'\).
+    But because \(\bigoplus_{i=1}^{\max d_i - 1} Rx^i\) is Noetherian (Corollary~\ref{cor:direct-sum-noetherian}),
+    \(\mfk{a} \cap \bigoplus_{i=1}^{\max d_i - 1} Rx^i\) is a finitely generated \(R\)-module (Theorem~\ref{thm:noetherian-quotient}, Corollary~\ref{cor:noetherian-generated})
+    and as a result is a finitely generated ideal.
+    Hence \(\mfk{a}\) is the sum of two finitely generated ideals, which is finitely generated.
 \end{proof}
 \begin{corollary}\label{cor:hilbert-basis}
     Suppose \(R\) is a Noetherian ring.
@@ -1164,11 +1277,12 @@
     and any finite-type \(R\)-algebra \(R[x_1,\hdots,x_n]/\mfk{a}\) is also Noetherian.
 \end{corollary}
 \begin{proof}
-    
+    Simple application of the \hyperref[thm:hilbert-basis]{theorem above} by induction,
+    and then use Theorem~\ref{thm:noetherian-quotient}.
 \end{proof}
 \begin{remark}
     We essentially have the following results:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(R\) is finite over \(A\) if and only if it is integral and finite-type; and
         \item if \(R\) is finite-type over \(A\), then \(R\) is Noetherian over \(A\).
     \end{enumerate}
@@ -1176,20 +1290,25 @@
 
 \subsection*{Hilbert's Nullstellensatz}
 
-\begin{proposition}
+\begin{proposition}\label{prop:noetherian-finite}
     Suppose \(A\) is a Noetherian ring,
     and \(A \subseteq B \subseteq R\) is an extension of rings.
     If \(A \subseteq R\) is finite, then \(A \subseteq B\) is finite.
 \end{proposition}
 \begin{proof}
-    
+    \(R\) is a finite \(A\)-algebra,
+    so by Corollary~\ref{cor:direct-sum-noetherian} and Theorem~\ref{thm:noetherian-quotient},
+    \(R\) is Noetherian \(A\)-module,
+    and any \(A\)-submodule, including \(B\), is a finitely generated \(A\)-module
+    (Theorem~\ref{thm:noetherian-generated}).
+    Hence \(B\) is a finite \(A\)-algebra.
 \end{proof}
 \begin{proposition}
     Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
-    If \(R\) is Noetherian, then \(B\) is Noetherian.
+    If \(R\) is a Noetherian \(A\)-algebra, then \(B\) is a Noetherian \(A\)-algebra.
 \end{proposition}
 \begin{proof}
-    
+    Any \(A\)-submodule, including \(B\), is a Noetherian \(A\)-module (Theorem~\ref{thm:noetherian-quotient}).
 \end{proof}
 \begin{theorem}\label{thm:noetherian-finite-type}
     Suppose \(A \subseteq B \subseteq R\) is an extension of rings.
@@ -1198,7 +1317,28 @@
     then \(B\) is finite-type over \(A\).
 \end{theorem}
 \begin{proof}
-    
+    Let \(C = A[x_1,\hdots,x_m]/\mfk{a}\).
+    Since \(C\) is finite over \(B\), there exists some \({\{y_j\}}_{j=1}^n \subset C\)
+    such that each element of \(C\) can be written as a linear combination of those elements.
+    In particular, we have \(x_i = \sum_{j=1}^n b_{ij} y_j\) for some \(b_{ij} \in B\),
+    and \(y_i y_j = \sum_{k=1}^n b_{ijk} y_k\) again for some \(b_{ijk} \in B\).
+    Consider the subring \(B_0 = A[b_{ij},b_{ijk}] \subseteq B\) generated by these elements;
+    by definition, \(B_0\) is finite-type over \(A\).
+
+    We now claim that \(C\) is finite over \(B_0\).
+    Consider any \(g \in C\), which is a polynomial in \(x_1,\hdots,x_m\) with coefficients in \(A \subseteq B_0\).
+    If we make the substitution \(x_i = \sum_{j=1}^n b_{ij} y_j\),
+    \(g\) now becomes a \(B_0\)-polynomial in \(y_1,\hdots,y_n\);
+    and we can also eliminate multiplication using \(y_i y_j = \sum_{k=1}^n b_{ijk} y_k\),
+    so \(g\) is in fact a \(B_0\)-linear combination of \(y_1,\hdots,y_n\).
+    Hence we have finiteness as required.
+
+    As \(A\) is Noetherian, by the \hyperref[cor:hilbert-basis]{Hilbert basis theorem}, \(B_0\) is also Noetherian,
+    Then since we have the ring extensions \(B_0 \subseteq B \subseteq C\),
+    because \(C\) is finite over \(B_0\), \(B\) is also finite over \(B_0\) (Proposition~\ref{prop:noetherian-finite}),
+    and in particular \(B\) is finite-type over \(B_0\).
+    Then because we have \(B_0\) is finite-type over \(A\),
+    we can conclude that \(B\) is finite-type over \(A\) (Proposition~\ref{prop:integral-finite-properties}).
 \end{proof}
 
 \begin{proposition}\label{prop:finite-type-algebraic}
@@ -1444,60 +1584,1083 @@
     \(\mfk{a}\) is irreducible if \(\mfk{a} = \mfk{b} \cap \mfk{c}\)
     implies \(\mfk{a} = \mfk{b}\) or \(\mfk{a} = \mfk{c}\).
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:noetherian-irreducible-decomposition}
     Suppose \(R\) is a Noetherian ring.
     Then every ideal \(\mfk{a} \subseteq R\) is a finite intersection of irreducible ideals
     \(\mfk{a} = \bigcap_{j=1}^n \mfk{a}_j\).
 \end{lemma}
 \begin{proof}
-    
+    Suppose \(\mfk{a}\) is reducible.
+    We can then write \(\mfk{a}\) as the intersection of two (larger) ideals,
+    and recursively repeat this process until all the components are irreducible.
+    Since this recursive process generates larger ideals,
+    it must eventually terminate because we have an ascending chain condition.
 \end{proof}
-\begin{lemma}
+\begin{lemma}\label{lem:noetherian-irreducible-primary}
     Suppose \(R\) is a Noetherian ring.
     If \(\mfk{q} \subseteq R\) is an irreducible ideal,
     then it is also primary.
 \end{lemma}
 \begin{proof}
-    
+    Obviously, \(\mfk{q} \subseteq R\) corresponds to the zero ideal \((0) \subseteq R/\mfk{q}\).
+    We shall assume that \((0) \subseteq R/\mfk{q}\) is irreducible,
+    and show that it is indeed primary; i.e.\ \(xy \in (0)\) implies either \(y \in (0)\) or \(x^n \in (0)\).
+    Suppose \(xy = 0\) and \(y \neq 0\).
+    Clearly we have the ascending chain of ideals \(\Ann(x) \subseteq \Ann(x^2) \subseteq \cdots\),
+    which by the Noetherian condition is a stabilizing chain,
+    giving us \(\Ann(x^n) = \Ann(x^{n+1}) = \cdots\) for some \(n\).
+
+    We then claim that \((x^n) \cap (y) = (0)\).
+    Consider any \(a \in (x^n) \cap (y)\).
+    By definition, we can write \(a = bx^n \in (y)\).
+    Because \(xy \in (0)\), we know that \(xbx^n = bx^{n+1} = 0\), so \(b \in \Ann(x^{n+1}) = \Ann(x^n)\).
+    But that exactly implies that \(a = bx^n = 0\).
+    Hence \((x^n) \cap (y) = (0)\), and by irreducibility of \((0)\),
+    since \((y) \neq (0)\), \((x^n) = (0)\) as desired.
 \end{proof}
-\begin{proposition}
+\begin{theorem}
+    Suppose \(R\) is a Noetherian ring.
+    Then any ideal has a primary decomposition.
+\end{theorem}
+\begin{proof}
+    Every ideal has an irreducible decomposition (Lemma~\ref{lem:noetherian-irreducible-decomposition}),
+    which is a primary decomposition (Lemma~\ref{lem:noetherian-irreducible-primary}).
+\end{proof}
+
+\begin{proposition}\label{prop:ideal-power-radical-inclusion}
     Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
     Then \({(\sqrt{\mfk{a}})}^n \subseteq \mfk{a}\) for some \(n\).
 \end{proposition}
 \begin{proof}
-    
+    Let \(\sqrt{\mfk{a}}\) be generated by \({\{x_i\}}_{i=1}^m\) (Corollary~\ref{cor:noetherian-generated}).
+    Then for each \(x_i\), there exists some \(n_i\) such that \(x_i^{n_i} \in \mfk{a}\).
+    Since elements in \(\sqrt{\mfk{a}}\) can be written as \(\sum r_i x_i\),
+    we know that elements in \({(\sqrt{\mfk{a}})}^n\) can be written as \(\prod_{j=1}^n \sum_{i=1}^m r_{ij} x_i\),
+    i.e.\ a linear combination of monomials (in \(x_i\)) of degree \(n\).
+    Hence we can say that \({(\sqrt{\mfk{a}})}^n\) is generated by the monomials \(\prod_{i=1}^m x_i^{p_i}\),
+    where each monomial its sum of the powers being \(\sum_{i=1}^m p_i = n\).
+    Taking \(n\) large enough, specifically when \(n \geq \sum_{i=1}^m n_i\),
+    by the \hyperref[thm:pigeonhole]{pigeonhole principle},
+    for each monomial there exists some \(p_i \geq n_i\), and hence \(x_i^{p_i} \in \mfk{a}\),
+    so each of the monomials are in \(\mfk{a}\), and hence any linear combination thereof should also be in \(\mfk{a}\).
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring, and \(\mca{N}(R)\) its nilradical.
     Then \({(\mca{N}(R))}^n = 0\) for some \(n\).
 \end{corollary}
 \begin{proof}
-    
+    Since \(\sqrt{\mfk{a}}\) is the intersection of all prime ideals that contain \(\mfk{a}\) (Theorem~\ref{thm:radical-intersection-prime}),
+    and the nilradical \(\mca{N}(R) = \sqrt{(0)}\) is the intersection of all prime ideals (Theorem~\ref{thm:nilradical-intersection-prime}),
+    we can simply apply the \hyperref[prop:ideal-power-radical-inclusion]{proposition above} to \(\mfk{a} = (0)\).
 \end{proof}
 \begin{corollary}
     Suppose \(R\) is a Noetherian ring, and \(m \subseteq R\) is a maximal ideal.
     Let \(\mfk{q}\) be a primary ideal.
     Then the following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item \(\mfk{q} \subseteq R\) is \(\mfk{m}\)-primary;
         \item \(\sqrt{\mfk{q}} = \mfk{m}\); and
         \item \(\mfk{m}^n \subseteq \mfk{q} \subseteq \mfk{m}\) for some \(n\).
     \end{enumerate}
 \end{corollary}
 \begin{proof}
-    
-\end{proof}
+    (i) implies (ii) by definition.
 
-\begin{theorem}
-    Suppose \(R\) is a Noetherian ring.
-    Then any ideal has a primary decomposition.
-\end{theorem}
-\begin{proof}
-    
+    For (ii) implies (i), suppose \(\mfk{q} \subseteq \sqrt{\mfk{q}} = \mfk{m} \subseteq R\).
+    Then \((0) \subseteq \mfk{m}/\mfk{q} \subseteq R/\mfk{q}\).
+    Since \(\mfk{m} = \sqrt{\mfk{q}}\) is the intersection of all prime ideals containing \(\mfk{q}\) (Theorem~\ref{thm:radical-intersection-prime}),
+    \(\mfk{m}/\mfk{q}\) is the intersection of all prime ideals (containing 0),
+    so it must be the nilradical \(\mca{N}(R/\mfk{q})\) (Theorem~\ref{thm:radical-intersection-prime}).
+    % By maximality of \(\mfk{m}\), there exists no intermediate ideals between \(\mfk{m} \subseteq R\),
+    % and hence there are also no intermediate ideals between \(\mfk{m}/\mfk{q} = \mca{N}(R/\mfk{q}) \subseteq R/\mfk{q}\).
+    By maximality of \(\mfk{m}\), \(\mfk{m}/\mfk{q}\) is also maximal,
+    so in fact there are no other prime ideals, and therefore no other maximal ideals other than \(\mfk{m}/\mfk{q}\).
+    Hence \(R/\mfk{q}\) is a local ring, and \(R/\mfk{q}-\mfk{m}/\mfk{q}\) is the set of all units.
+    But because units are never zero divisors,
+    the set of zero divisors must be a subset of the nilpotents \(\mfk{m}/\mfk{q}\),
+    so by Proposition~\ref{prop:primary-zero-div-nilpotent},
+    \(\mfk{q}\) is primary.
+
+    (ii) implies (iii) follows immediately from Proposition~\ref{prop:ideal-power-radical-inclusion}.
+
+    For (iii) implies (ii), if \(\mfk{m}^n \subseteq \mfk{q} \subseteq \mfk{m}\),
+    then \(\mfk{m} = \sqrt{\mfk{m}^n} \subseteq \sqrt{\mfk{q}} = \sqrt{\mfk{m}} = \mfk{m}\)
+    gets us our equality.
 \end{proof}
 
 
 \section{Filtrations}
 
+\begin{definition}
+    A filtration of a ring is a descending sequence of ideals
+    \(R = \mfk{a}_0 \supseteq \mfk{a}_1 \supseteq \mfk{a}_2 \supseteq \cdots\)
+    satisfying \(\mfk{a}_i\mfk{a}_j \subseteq \mfk{a}_{i+j}\).
+    Similarly, a filtration of an \(R\)-module is a descending sequence of \(R\)-modules
+    \(M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\)
+    satisfying \(M_i M_j \subseteq M_{i+j}\).
+\end{definition}
+\begin{definition}
+    If \(\mfk{a} \subseteq R\) is an ideal,
+    the \(\mfk{a}\)-adic filtration of \(R\) is given by the sequence
+    \(R = R \supseteq \mfk{a}R \supseteq \mfk{a}^2R \supseteq \mfk{a}^3R \supseteq \cdots\).
+\end{definition}
+\begin{definition}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal.
+    A filtration \(M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is an \(\mfk{a}\)-filtration
+    if \(\mfk{a}M_n \subseteq M_{n+1}\) for all \(n\).
+    An \(\mfk{a}\)-filtration \(M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is \(\mfk{a}\)-stable
+    if there exists some \(N\) such that \(\mfk{a}M_n = M_{n+1}\) for all \(n \geq N\).
+\end{definition}
+
+\begin{definition}
+    A graded ring \(R\) is a family of additive subgroups \({\{R_n\}}_{n=0}^\infty\) of \(R\)
+    such that \(R = \bigoplus_{n=0}^\infty R_n\) and \(R_m R_n \subseteq R_{m+n}\);
+    in particular, \(A_0 \subseteq A\) is a subring, and \(A_n\) are \(A_0\)-modules.
+\end{definition}
+\begin{definition}
+    Suppose \(R\) is a graded ring \(R = \bigoplus_{n=0}^\infty R_n\).
+    A graded \(R\)-module \(M\) is a family of subgroups \({\{M_n\}}_{n=0}^\infty\) of \(M\)
+    % and a family of additive subgroups \({\{R_n\}}_{n=0}^\infty\) of \(R\)
+    such that \(M = \bigoplus_{n=0}^\infty M_n\) and \(R_m M_n \subseteq M_{m+n}\).
+    Elements that reside in some \(M_n\) are called homogeneous of degree \(n\).
+\end{definition}
+
+\begin{proposition}
+    Suppose \(R\) is a graded ring with \(R = \bigoplus_{n=0}^\infty R_n\).
+    Then \(R\) is a Noetherian ring if and only if \(R_0\) is Noetherian and \(R\) is a finite-type \(R_0\)-algebra.
+\end{proposition}
+\begin{proof}
+    Suppose \(R\) is a Noetherian ring.
+    Let \(R_+ = \bigoplus_{n=1}^\infty R_n\), such that \(R_0 \cong R/R_+\).
+    Then immediately using Theorem~\ref{thm:noetherian-quotient},
+    \(R_0 \cong R/R_+\) is Noetherian.
+    % Now, as \(R_+ \subseteq R\) is an ideal, and because of \(R\) Noetherian,
+    % we may write \(R_+ = (x_1,\hdots,x_s)\) with a finite number of generators over \(R\).
+    We claim that \(R_+\) can be generated by finitely many homogeneous elements.
+    Clearly, because \(R_+\) can be generated by the (infinite) set \(S = \bigcup_{n=1}^\infty R_n\),
+    consider the set of ideals generated by finite subsets of \(S\).
+    Since every chain of ideals is bounded above by the ascending chain condition due to \(R\) being Noetherian,
+    there must exist some maximal element, a finitely generated ideal \(\mfk{a} = (x_1,\hdots,x_s)\).
+    If \(\mfk{a} \subsetneq R_+\), then there exists some \(x_{s+1} \in S\) such that \(x_{s+1} \notin \mfk{a}\).
+    But then you can construct a strictly larger ideal \(\mfk{a} \subsetneq (x_1,\hdots,x_{s+1})\),
+    which contradicts maximality of \(\mfk{a}\).
+    Hence \(R_+ = \mfk{a} = (x_1,\hdots,x_s)\) is finitely generated by homogeneous elements.
+
+    Considering \(R_0 \subseteq R\) as a subring,
+    allow us to denote the subring \(R' = R_0[x_1,\hdots,x_s] \subseteq R\).
+    We claim that \(R_n \subseteq R'\) for all \(n\) via induction.
+    By definition we have the base case \(R_0 \subseteq R'\).
+    Now consider any \(y \in R_n \subseteq R_+\), assuming that for all \(k < n\), \(R_k \subseteq R'\).
+    We can write this as a linear combination \(y = \sum_{i=1}^s a_i x_i\).
+    We shall, without loss of generality, assume that \(a_i \in R_{n-\deg x_i}\)
+    (with the convention that \(a_i = 0\) if \(\deg x_i > n\));
+    this is allowed because if we write \(a_i = b_i + c_i\),
+    with \(b_i\) being the homogeneous component of degree \(n - \deg x_i\)
+    and \(c_i\) being the other homogeneous components,
+    we have \(\sum_{i=1}^s c_i x_i = y - \sum_{i=1}^s b_i x_i \in R_n\)
+    and hence \(\sum_{i=1}^s c_i x_i = 0\).
+    By the inductive hypothesis, \(a_i \in R'\), so \(\sum a_i x_i \in R'\) as desired.
+    Hence we can conclude that \(R = R'\) since all the graded components are in \(R'\).
+
+    The reverse direction is trivially given by the \hyperref[cor:hilbert-basis]{Hilbert basis theorem}.
+\end{proof}
+
+\subsection*{Blowup Algebra}
+
+\begin{definition}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal.
+    The blowup algebra of \(\mfk{a}\) in \(R\) is the graded ring
+    \begin{equation*}
+        \Bl_\mfk{a} R = \bigoplus_{n=0}^\infty \mfk{a}^n = R \oplus \mfk{a} \oplus \mfk{a}^2 \oplus \cdots
+        \cong R[t\mfk{a}] \subseteq R[t]
+    \end{equation*}
+    where \(t\) is a transcendental element.
+\end{definition}
+\begin{definition}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal, \(M\) is an \(R\)-module,
+    and \(\mca{A}: M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is an \(\mfk{a}\)-filtration.
+    Then we have a graded module over the blowup ring \(\Bl_\mfk{a} R\)
+    \begin{equation*}
+        \Bl_\mca{A} M = \bigoplus_{n=0}^\infty M_n = M \oplus M_1 \oplus M_2 \oplus \cdots
+    \end{equation*}
+    where \(\mfk{a}^m M_n \subseteq M_{m+n}\).
+\end{definition}
+\begin{lemma}\label{lem:stable-blowup}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal, \(M\) is a finitely generated \(R\)-module,
+    and \(\mca{A}: M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is an \(\mfk{a}\)-filtration,
+    with \(M_n\) all finitely generated over \(R\).
+    Then \(\Bl_\mca{A} M\) is a finitely generated \(\Bl_\mfk{a} R\)-module
+    if and only if \(\mca{A}\) is a stable filtration.
+\end{lemma}
+\begin{proof}
+    Suppose \(\Bl_\mca{A} M\) is finitely generated by \({\{x_i\}}_{i=1}^s\).
+    Then the generators \({\{x_i\}}_{i=1}^s \subset \bigoplus_{k=1}^n M_k\) for some \(n\).
+    If we let \(x_i = \sum_{j=1}^n x_{ij}\) be the homogeneous components of \(x_i\),
+    then \(\Bl_\mca{A} M\) is also finitely generated by these homogeneous components.
+    But if we consider the sequence of morphisms
+    \begin{equation*}
+        \begin{tikzcd}
+            \Bl_\mfk{a} R[x_{ij}] \arrow[twoheadrightarrow]{r} &
+            \Bl_\mca{A} M = \displaystyle\bigoplus_{k=1}^\infty M_k \arrow[twoheadrightarrow]{r} &
+            \displaystyle\bigoplus_{k=n}^\infty M_k
+        \end{tikzcd}
+    \end{equation*}
+    the \(x_{ij}\) with \(j < n\) gets sent to 0 at the end,
+    so \(x_{in}\) finitely generates \(\bigoplus_{k=n}^\infty M_k\).
+    % In particular \(\bigoplus_{k=n}^\infty M_k \subseteq \Bl_\mca{A} M\),
+    % so any element \(y \in M_k\) can be written as \(y = \sum a_{ij}x_{ij}\) for \(a_{ij} \in \Bl_\mfk{a} R\).
+    % Obviously we do not have to care about the terms with \(j < n\), since \(a_{ij}x_{ij} \in \)
+    % We claim that \(x_{in}\) generates 
+    But that means \(M_n\) generates \(\bigoplus_{k=n}^\infty M_k\),
+    so immediately \(M_{n+k} \subseteq \mfk{a}^k M_n\) after matching degrees,
+    giving us stability.
+
+    For the reverse direction, if \(\mca{A}\) is stable, as in \(M_{n+k} = \mfk{a}^k M_n\) for some \(n\),
+    then \(\Bl_\mca{A} M\) can be generated by the finite union of the set of genrators of \({\{M_k\}}_{k=0}^n\).
+\end{proof}
+\begin{proposition}[Artin-Rees Lemma]\label{prop:artin-rees}
+    Suppose \(R\) is a Noetherian ring, \(\mfk{a} \subseteq R\) is an ideal,
+    \(M\) is a finitely generated \(R\)-module,
+    and \(\mca{A}: M = M_0 \supseteq M_1 \supseteq M_2 \supseteq \cdots\) is a stable \(\mfk{a}\)-filtration.
+    If \(N \subseteq M\) is a submodule,
+    then \(N\cap\mca{A}: N = N \cap M_0 \supseteq N \cap M_1 \supseteq N \cap M_2 \supseteq \cdots\)
+    is a stable \(\mfk{a}\)-filtration;
+    that is, there exists some \(n\) such that for all \(k \geq 0\),
+    \(N \cap M_{n+k} = \mfk{a}^k(N \cap M_n)\).
+\end{proposition}
+\begin{proof}
+    Obviously \(N\cap\mca{A}\) is an \(\mfk{a}\)-filtration,
+    because \(\mfk{a}(N \cap M_n) \subseteq \mfk{a}N \cap \mfk{a}M_n \subseteq N \cap M_n\).
+    Hence we have the finitely generated graded \(\Bl_\mfk{a} R\)-module
+    \(\Bl_{(N\cap\mca{A})} N \subseteq \Bl_\mca{A} M\) because \(\Bl_\mfk{a} R\) is Noetherian.
+    By the \hyperref[lem:stable-blowup]{lemma above},
+    we are done.
+
+    The second part can be seen by definition of stability.
+\end{proof}
+
+\begin{theorem}[Krull's Intersection Theorem]
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{a} \subseteq R\) is an ideal.
+    If \(M\) is a finitely generated \(R\)-module,
+    then there exists some element \(a \in \mfk{a}\) such that
+    \((1-a)\bigcap_{k=1}^\infty \mfk{a}^k M = 0\).
+    If \(R\) is additionally a domain or a local ring, and \(\mfk{a} \subsetneq R\) is a proper ideal,
+    then \(\bigcap_{k=1}^\infty \mfk{a}^k = 0\).
+\end{theorem}
+\begin{proof}
+    Applying the \hyperref[prop:artin-rees]{Artin-Rees lemma}
+    to \(\bigcap_{k=1}^\infty \mfk{a}^k M \subseteq M\) (and the \(\mfk{a}\)-adic filtration of \(M\)),
+    there exists some \(n\) such that
+    \begin{equation*}
+        \bigcap_{k=1}^\infty \mfk{a}^k M = \bigcap_{k=1}^\infty \mfk{a}^k M \cap \mfk{a}^{n+1} M
+        = \mfk{a}\pqty{\bigcap_{k=1}^\infty \mfk{a}^k M \cap \mfk{a}^n M}
+        = \mfk{a}\pqty{\bigcap_{k=1}^\infty \mfk{a}^k M}
+    \end{equation*}
+    Then we have the first statement using \hyperref[cor:nakayama]{Nakayama's lemma}.
+
+    Taking \(M = R\), to prove the second statement,
+    it suffices to show that \(1-r\) is not a zero divisor.
+    In a domain and a proper ideal, \(r \neq 1\) so \(1-r \neq 0\) and we are done.
+    If \(R\) is a local ring, then \(\mfk{a} \subseteq \mfk{m}\) is contained inside the maximal (also Jacobson) ideal,
+    so by Lemma~\ref{lem:1-xy-unit} \(r \in \mfk{m}\) implies that \(1-r\) is a unit,
+    i.e.\ not a zero divisor.
+\end{proof}
+
+\subsection*{Associated Graded Ring}
+
+\begin{definition}
+    Given an ideal \(\mfk{a} \subseteq R\),
+    the associated graded ring of \(R\) with respect to \(\mfk{a}\) is
+    \begin{equation*}
+        \gr_\mfk{a} R = \bigoplus_{k=0}^\infty \mfk{a}^k/\mfk{a}^{k+1}
+        = R/\mfk{a} \oplus \mfk{a}/\mfk{a}^2 \oplus \mfk{a}^2/\mfk{a}^3 \oplus \cdots
+    \end{equation*}
+    Notice that if \([x] \in \mfk{a}^m/\mfk{a}^{m+1}\) and \([y] \in \mfk{a}^n/\mfk{a}^{n+1}\),
+    given any \(x' \in \mfk{a}^{m+1}\) and \(y' \in \mfk{a}^{n+1}\),
+    we have \((x+x')(y+y') = xy + xy' + x'y + x'y' \in xy + \mfk{a}^{m+n+1} + \mfk{a}^{m+n+2} \subseteq xy + \mfk{a}^{m+n+1}\),
+    so \([x][y] = [xy] \in \mfk{a}^{m+n}/\mfk{a}^{m+n+1}\) is well-defined.
+    Alternatively we can express this as a quotient of blowup rings
+    \(\gr_\mfk{a} R = \Bl_\mfk{a}R/\mfk{a}\Bl_\mfk{a}R\).
+\end{definition}
+\begin{definition}
+    Given an ideal \(\mfk{a} \subseteq R\), an \(R\)-module \(m\),
+    and an \(\mfk{a}\)-filtration \(\mca{A}: M = M_0 \supseteq M_1 \supseteq \cdots\),
+    the associated graded module of \(M\) with respect to the \(\mfk{a}\)-filtration \(\mca{A}\) is
+    \begin{equation*}
+        \gr_{\mca{A}} M = \bigoplus_{k=0}^\infty M_k/M_{k+1}
+        = M/M_1 \oplus M_1/M_2 \oplus M_2/M_3 \oplus \cdots
+    \end{equation*}
+    Because \(\mca{A}\) is an \(\mfk{a}\)-filtration, the multiplication works as the associated graded ring above.
+\end{definition}
+
+\begin{proposition}
+    Suppose \(\mfk{a} \subseteq R\) is an ideal, and \(M\) is a finitely generated \(R\)-module.
+    If \(\mca{A}: M = M_0 \supseteq M_1 \supseteq \cdots\) is an \(\mfk{a}\)-stable filtration,
+    with \(M_n\) all finitely generated over \(R\),
+    then \(\gr_\mca{A} M\) is a finitely generated \(\gr_\mfk{a} R\)-module.
+\end{proposition}
+\begin{proof}
+    Let \(n\) be the integer such that for all \(k \geq n\), \(\mfk{a}M_k = M_{k+1}\).
+    We then have \((\mfk{a}/\mfk{a}^2)(M_k/M_{k+1}) = M_{k+1}/M_{k+2}\) by simple verification.
+    Hence the generators of \(M_0/M_1,\hdots,M_n/M_{n+1}\),
+    and in particular to generators of \({\{M_k\}}_{k=1}^n\),
+    will generate \(\gr_\mca{A} M\).
+\end{proof}
+
+% Hilbert function?
 
 \section{Completions}
+
+\begin{definition}
+    Suppose \(\mca{A}: R = \mfk{a}_0 \supseteq \mfk{a}_1 \supseteq \mfk{a}_2 \supseteq \cdots\)
+    is a descending chain of ideals (resp.\ filtration).
+    The completion of \(R\) with respect to \(\mca{A}\) is the inverse limit of the quotients
+    \begin{equation*}
+        \hat{R}_\mca{A} = \invlim R/\mfk{a}_i
+        = \Bqty{g = (g_1,g_2,\hdots) \in \prod_{i=1}^\infty R/\mfk{a}_i: g_j \equiv g_i\;(\text{mod}\,\mfk{m}_i)\;\text{when}\; j > i}
+    \end{equation*}
+    \(\hat{R}_\mca{A}\) has a descending chain of ideals (resp.\ filtration)
+    \begin{equation*}
+        \hat{\mfk{a}}_i = \Bqty{g = (g_1,g_2,\hdots) \in \hat{R}_\mca{A}: g_j = 0 \;\text{when}\; j \leq i}
+    \end{equation*}
+    and \(\hat{R}/\hat{\mfk{a}}_i = R/\mfk{a}_i\).
+\end{definition}
+\begin{remark}
+    Categorically, this is an inverse system indexed by the category \(\mca{I} = \{0 \leftarrow 1 \leftarrow 2 \leftarrow \cdots\}\).
+    where given any object, \(F(i) = R/\mfk{a}_i\),
+    and given any morphism, \(F(f_{ij}) = (R/\mfk{a}_i \to R/\mfk{a}_j)\) is the canonical projection (when \(i \geq j\)).
+    By Theorem~\ref{thm:existence-limit},
+    since there are no equalizers in this category,
+    and products exist (we proved that countable direct products exist),
+    this inverse limit is guaranteed to exist.
+\end{remark}
+\begin{definition}
+    Suppose \(R \supseteq \mfk{a} \supseteq \mfk{a}^2 \supseteq \cdots\)
+    is the \(\mfk{a}\)-adic filtration of \(R\).
+    The completion of \(R\) with respect to \(\mfk{a}\) is the inverse limit of the quotients
+    \(\hat{R}_\mfk{a} = \invlim R/\mfk{a}^i\).
+\end{definition}
+
+\begin{lemma}
+    Suppose \(\mfk{m} \subseteq R\) is a maximal ideal.
+    Then \((\hat{R}_\mfk{m},\hat{\mfk{m}})\) is a local ring.
+\end{lemma}
+\begin{proof}
+    First off, \(\hat{R}_\mfk{m}/\hat{\mfk{m}} = R/\mfk{m}\) is a field,
+    so indeed \(\hat{\mfk{m}}\) is a maximal ideal.
+    We then claim that every element \(g\) outside of \(\hat{\mfk{m}}\) is a unit (Proposition~\ref{prop:local-ring-units}).
+    Obviously if \(g \in \hat{R}_\mfk{m} - \hat{\mfk{m}}\),
+    then \(g_1 \neq 0\), and \(g_i \notin \mfk{m}(R/\mfk{m}^i)\), so each \(g_i\) is a unit.
+    But \(g^{-1} = (g_1^{-1},g_2^{-1},\hdots)\) is our inverse,
+    so \(g\) is indeed a unit.
+\end{proof}
+
+\begin{definition}
+    \(\hat{R}_\mfk{m}\) is complete with respect to \(\mfk{m}\) if \(R \to \hat{R}_\mfk{m}\) is an isomorphism.
+    In particular, \(\hat{R}_\mfk{m}\) is a complete local ring if \(\mfk{m}\) is also a maximal ideal.
+\end{definition}
+
+\begin{lemma}\label{lem:completion-properties}
+    Suppose \(\mfk{m} \subseteq R\) is an ideal,
+    and \(\hat{R} = \hat{R}_\mfk{m}\) is the \(\mfk{m}\)-adic completion of \(R\).
+    We have the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\hat{R}/\hat{\mfk{m}}_n = R/\mfk{m}^n\);
+        \item \(\hat{R} = \invlim \hat{R}/\hat{\mfk{m}}_n\),
+            and \(\hat{R}\) is complete with respect to the filtration by \(\hat{\mfk{m}}_n\); and
+        \item if \(\gr_{\hat{\mfk{m}}_n} \hat{R}\) denotes the associated graded ring with respect to the filtration by \(\hat{\mfk{m}}_n\),
+            then \(R \to \hat{R}\) induces an isomorphism \(\gr_\mfk{m} R \to \gr_{\hat{\mfk{m}}_n} \hat{R}\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Part (a) follows from the definition,
+    and part (b) follows from part (a) immediately.
+
+    For part (c), a useful application of the \hyperref[thm:iso-3-ring]{third isomorphism theorem}
+    yields \(R/\mfk{m}^n \cong (R/\mfk{m}^{n+1})/(\mfk{m}^n/\mfk{m}^{n+1}) \cong (\hat{R}/\hat{\mfk{m}}_{n+1})/(\mfk{m}^n/\mfk{m}^{n+1}) \cong \hat{R}/\hat{\mfk{m}}_n\),
+    so we have isomorphisms between every graded component.
+\end{proof}
+
+\subsection*{Krull Topology}
+
+\begin{lemma}\label{lem:0-closed-hausdorff}
+    Suppose \(G\) is a topological (additive) abelian group,
+    with the addition and inversion operations
+    \begin{equation*}
+        \varfunc{+}{G \times G}{G}{(x,y)}{x+y} \qquad \varfunc{-}{G}{G}{x}{-x}
+    \end{equation*}
+    both continuous.
+    If \(\{0\}\) is closed in \(G\), then \(G\) is Hausdorff.
+\end{lemma}
+\begin{proof}
+    Since \((x,y) \mapsto x-y\) is continuous (being the composition of two continuous maps),
+    the preimage of \(\{0\}\) under this map is the diagonal in \(G \times G\),
+    so the diagonal is closed.
+    By Lemma~\ref{lem:diagonal-closed-hausdorff}, \(G\) is Hausdorff.
+\end{proof}
+\begin{lemma}
+    Suppose \(G\) is a topological abelian group, with continuous addition and inversion.
+    Given any neighbourhood \(U \ni 0\), \(U + x\) is a neighbourhood of \(x \in G\);
+    conversely, any neighbourhood of \(x \in G\) must be of the form \(U + x \ni x\),
+    where \(U\) is a neighbourhood of 0.
+    In other words, the neighbourhoods of 0 uniquely determine the topology on \(G\).
+\end{lemma}
+\begin{proof}
+    Fix any element \(x \in G\).
+    The translation mapping \(g \mapsto g+x\) is continuous;
+    moreover, its inverse \(g \mapsto g-x\) is also a translation, so it must be a homeomorphism.
+    Hence translations are open maps, so \(U \ni 0\) is a neighbourhood if and only if \(U + x \ni x\) is a neighbourhood.
+\end{proof}
+\begin{lemma}
+    Suppose \(H\) is the intersection of all neighbourhoods of 0.
+    Then:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(H\) is a subgroup;
+        \item \(H = \overline{\{0\}}\);
+        \item \(G/H\) is Hausdorff; and
+        \item \(G\) is Hausdorff if and only if \(H = \{0\}\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    For (a), we see that \(U \ni 0\) is a neighbourhood if and only if \(-U \ni 0\) is a neighbourhood,
+    because inversion is continuous.
+    Hence if \(x \in H = \bigcap U = \bigcap (-U)\), then \(-x \in H = \bigcap U\) also.
+    Now, if \(x,y \in H\), consider any neighbourhood \(U \ni 0\).
+    Then there exists some open \(V \subseteq U\), and the preimage of addition is \(+^{-1}(V) \subseteq G \times G\) is open.
+    In particular there exists open subsets \(E \times E' \subseteq +^{-1}(V)\).
+    But then \(x \in H \subseteq E\) and \(y \in H \subseteq E'\) because it is open,
+    and hence \(x+y \in V\).
+
+    For (b), if a nonzero point \(x \in H = \bigcap U\) for all neighbourhoods \(U \ni 0\),
+    the same can be said for \(-x\).
+    This happens if and only if \(0 \in \bigcap U+x\),
+    and these are precisely the neighbourhoods of \(x\).
+    % But that is exactly saying that every open set containing \(-x\) contains 0,
+    Hence \(x\) is a boundary point of \(\{0\}\),
+    since every neighbourhood of \(x\) contains a point in \(\{0\}\) (namely 0),
+    but also contains a point (\(x\)) not in \(\{0\}\).
+    Therefore \(x \in \overline{\{0\}}\).
+    The reverse argument holds, since \(x \notin \{0\}\),
+    so we are forced to conclude that \(x \in \partial\{0\}\).
+
+    For (c), since \(H = [0] \in G/H\) is closed, by Lemma~\ref{lem:0-closed-hausdorff} we are done.
+
+    For (d), the reverse direction follows directly from (c).
+    For the forward direction, if \(G\) is Hausdorff, then in particular it is \(\text{T}_1\),
+    and every singleton is closed;
+    in particular, this means \(\{0\} = \overline{\{0\}} = H\).
+\end{proof}
+
+\begin{definition}
+    Suppose \({\{a_i\}}_{i=1}^\infty \subset G\) is a sequence of elements in a topological abelian group.
+    % The sequence converges to \(a \in \hat{R}\) if for every \(n \in \bN\),
+    % there exists \(m \in \bN\) such that for all \(i \geq m\), \(a - a_i \in \hat{\mfk{m}}_n\).
+    % We call \(a = \lim_{n\to\infty} a_n\) the limit of the sequence.
+    The sequence is Cauchy if for every open \(U \ni 0\),
+    there exists \(m \in \bN\) such that for all \(i,j \geq m\), \(a_i - a_j \in U\).
+    Two Cauchy sequences \(\{a_i\},\{b_i\}\) are equivalent if \(a_i - b_i \to 0 \in G\).
+\end{definition}
+\begin{definition}
+    Let \(\hat{G}\) be the space of all Cauchy sequences in \(G\).
+    \(\hat{G}\) is an abelian group, because addition and inversion works element-wise.
+\end{definition}
+\begin{definition}
+    Suppose \(G\) is a topological abelian group,
+    with a sequence of subgroups \(G = G_0 \supseteq G_1 \supseteq G_2 \supseteq \cdots\),
+    where the only open neighbourhoods of 0 are \(G_n\).
+    Just as before, if we define \(\hat{G}_n = \ker(\hat{G} \to G/G_n)\),
+    then it is possible to endow a topology on \(\hat{G}\),
+    where the only open neighbourhoods of 0 are \(\hat{G}_n\).
+    We call this the Krull topology on \(\hat{G}\).
+\end{definition}
+\begin{proposition}
+    The Cauchy sequence construction is identical to the inverse limit construction.
+\end{proposition}
+\begin{proof}
+    Since every Cauchy sequence in \(G\) is has an eventually constant image in \(G/G_n\),
+    we can simply define that image as \(g_n\),
+    and verify that it satisfies the definition of the inverse limit.
+    Indeed, every Cauchy sequence has such a representation in \(g_n\);
+    and because we quotient away the equivalent Cauchy sequences,
+    such a representation is also unique.
+\end{proof}
+% \begin{lemma}
+%     \({\{a_i\}}_{i=1}^\infty \subset \hat{R}\) converges in \(\hat{R}\) if and only if it is Cauchy.
+% \end{lemma}
+% \begin{proof}
+%     Suppose \(a_i \to a\).
+%     Then given some \(\hat{\mfk{m}}_n\), there exists \(m\) such that
+%     for any \(i,j \geq m\), \((a-a_j) - (a-a_i) = a_i - a_j \in \hat{\mfk{m}}_n\).
+%     This proves the forward direction.
+
+%     Suppose \(\{a_i\}\) is Cauchy.
+%     Given any \(\hat{\mfk{m}}_n\), there exists an \(m\) such that
+%     for any \(i,j \geq m\), \(a_i - a_j \in \hat{\mfk{m}}_n\).
+%     In particular, \(a_m - a_i \in \hat{\mfk{m}}_n\), so let us define \(g_n = a_m\).
+% \end{proof}
+
+\subsection*{Completions and Associated Graded Rings}
+
+\begin{proposition}\label{prop:graded-ring-generators}
+    Suppose \(R\) is complete with respect to the filtration by ideals \(\mfk{m}_n\),
+    and let \(\gr R = \gr_{\mfk{m}_n} R\) be the associated graded ring with respect to this filtration.
+    Given any \(a \in R\), let \(l(a)\) the leading term of \(a\);
+    that is, find the largest \(n\) such that \(a \in \mfk{m}_n\),
+    and \(l(a) = a \pmod{\mfk{m}_{n+1}} \in \mfk{m}_n/\mfk{m}_{n+1} \subseteq \gr R\).
+    Suppose \({\{a_i\}}_{i=1}^s \subset \mfk{a} \subseteq R\) are elements in an ideal.
+    If \({\{l(a_i)\}}_{i=1}^s\) generate the ideal \(l(\mfk{a}) \subseteq \gr R\),
+    then \({\{a_i\}}_{i=1}^s\) generates \(\mfk{a} \subseteq R\).
+\end{proposition}
+\begin{proof}
+    Let \(\mfk{a}' = (a_1,\hdots,a_s) \subseteq \mfk{a}\).
+    Without any loss of generality, suppose \(a_i \neq 0\).
+    Find a sufficiently large \(d\) such that \(a_i \notin \mfk{m}_d\).
+    Given any \(f \in \mfk{a}\), with \(l(f)\) of degree \(r\),
+    we write \(l(f) = \sum_{i=1}^s \bar{c}_i l(a_i)\) for some \(\bar{c}_i \in \gr R\),
+    and by matching degrees, \(\deg(\bar{c}_i) = r - \deg(l(a_i))\).
+
+    Then if we choose \(c_i \in R\) such that \(l(c_i) = c_i\),
+    then \(f_1 = f - \sum_{i=1}^s c_i a_i \in \mfk{m}_{r+1}\), because the leading terms already match up.
+    We can repeat this process any number of times,
+    finding \(f_{n+1} = f_n - \sum_{i=1}^s c_i^{(n)} a_i \in \mfk{m}_{r+n+1}\).
+    Hence we can eventually get \(f - \sum_{i=1}^s c''_i a_i \in \mfk{m}_{d+1}\).
+    We can see that \(f \in \mfk{a}'\) if and only if \(f - \sum_{i=1}^s c''_i a_i \in \mfk{a}'\),
+    so without any loss of generality, let \(f \in \mfk{m}_{d+1}\).
+
+    Then in \(l(f) = \sum_{i=1}^s \bar{c}_i l(a_i)\),
+    the degrees are \(\deg(\bar{c}_i) = r - \deg(l(a_i)) > r-d\).
+    Hence we can choose \(c_i \in \mfk{m}_{r-\deg(l(a_i))} \subseteq \mfk{m}_{r-d}\).
+    % because adding anything in \(\mfk{m}_{r-\deg(l(a_i))+1} \supseteq \mfk{m}_{r-d}\)
+    % does not change its representative \(\bar{c}_i \in \mfk{m}_{r-\deg(l(a_i))}/\mfk{m}_{r-\deg(l(a_i))+1}\).
+    Repeating this procedure, we can choose
+    \begin{equation*}
+        f_{n+1} = f - \sum_{i=1}^s c_i^{(0)} a_i - \sum_{i=1}^s c_i^{(1)} a_i - \cdots - \sum_{i=1}^s c_i^{(n)} a_i
+        = f - \sum_{i=1}^s \sum_{k=1}^n c_i^{(k)} a_i \in \mfk{m}_{r+n+1}
+    \end{equation*}
+    By definition this means \(f - \sum_{i=1}^s \sum_{k=1}^n c_i^{(k)} a_i \to 0\),
+    and the two Cauchy sequences are equivalent.
+    We are then forced to conclude that \(f = \sum_{i=1}^s \sum_{k=1}^\infty c_i^{(k)} a_i \in \mfk{a}'\) as desired.
+\end{proof}
+\begin{theorem}\label{thm:completion-noetherian}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{m} \subseteq R\) is an ideal.
+    Let \(\hat{R} = \hat{R}_\mfk{m}\) denote the completion.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\hat{R}\) is a Noetherian ring.
+        \item \(\hat{R}/\mfk{m}^k\hat{R} = R/\mfk{m}^k\).
+        Therefore \(\hat{R}\) is complete with respect to \(\mfk{m}\hat{R}\),
+        and \(\gr_{\mfk{m}\hat{R}} \hat{R} = \gr_\mfk{m} R\).
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    For part (a), it suffices to prove that every ideal in \(\hat{R}\) is finitely generated (Corollary~\ref{cor:noetherian-generated}).
+    We have \(\gr \hat{R} = \gr R\) (graded using their respective filtrations by \(\hat{\mfk{m}}\) and \(\mfk{m}\))
+    because every \(\hat{\mfk{m}}_n/\hat{\mfk{m}}_{n+1} = \mfk{m}^n/\mfk{m}^{n+1}\) (Lemma~\ref{lem:completion-properties}).
+    Since \(R\) is Noetherian, \(R/\mfk{m}\) is Noetherian (Theorem~\ref{thm:noetherian-quotient}).
+    Because \(\ker(R/\mfk{m}^2 \to R/\mfk{m}) = \mfk{m}/\mfk{m}^2\) is an ideal of \(R/\mfk{m}^2\),
+    it is finitely generated, so it must be a finite-dimensional vector space over \(R/\mfk{m}\).
+    Hence \(R/\mfk{m}[\mfk{m}/\mfk{m}^2] \to \gr R\) is a surjective homomorphism,
+    and by the \hyperref[cor:hilbert-basis]{Hilbert basis theorem}, \(\gr R = \gr \hat{R}\) is Noetherian.
+    We can therefore conclude using the \hyperref[prop:graded-ring-generators]{proposition above}
+    that \(\hat{R}\) is Noetherian.
+
+    For (b), it suffices to prove that \(\mfk{m}_k = \mfk{m}^k\hat{R}\).
+    By the \hyperref[prop:graded-ring-generators]{proposition above},
+    we only need to prove that \(l(\mfk{m}_k) = l(\mfk{m}^k\hat{R})\).
+    But this is obviously true, because they are both generated by all elements of degree greater than or equal to \(n\).
+\end{proof}
+
+\begin{proposition}\label{prop:invlim-exact}
+    Suppose \(\{A_n\},\{B_n\},\{C_n\}\) are inverse systems indexed by \(\mca{I} = \{0 \leftarrow 1 \leftarrow 2 \leftarrow \cdots\}\).
+    and that we have an exact sequence of inverse system in the sense that
+    \begin{equation*}
+        \begin{tikzcd}
+            & \vdots \arrow{d} & \vdots \arrow{d} & \vdots \arrow{d} \\
+            0 \arrow{r} & A_{n+1} \arrow{r} \arrow{d}{\pi_{n+1}} & B_{n+1} \arrow{d}{\pi_{n+1}} \arrow{r} & C_{n+1} \arrow{r} \arrow{d}{\pi_{n+1}} & 0 \\
+            0 \arrow{r} & A_n \arrow{r} \arrow{d} & B_n \arrow{r} \arrow{d} & C_n \arrow{r} \arrow{d} & 0 \\
+            & \vdots & \vdots & \vdots \\
+        \end{tikzcd}
+    \end{equation*}
+    all the horizontal morphisms are exact, and the diagram commutes.
+    In this case,
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A_n \arrow{r} & \invlim B_n \arrow{r} & \invlim C_n
+        \end{tikzcd}
+    \end{equation*}
+    is exact; in other words, \(\invlim\) is a left-exact functor.
+    Moreover, if every \(\func{\pi_{n+1}}{A_{n+1}}{A_n}\) is surjective, then
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A_n \arrow{r} & \invlim B_n \arrow{r} & \invlim C_n \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+\end{proposition}
+\begin{proof}
+    Let us define the morphism
+    \begin{equation*}
+        \varfunc{d^A}{\prod_{n=1}^\infty A_n}{\prod_{n=1}^\infty A_n}{(x_n)}{(x_n - \pi_{n+1}(x_{n+1}))}
+    \end{equation*}
+    and similarly define \(d^B,d^C\).
+    One can easily see that \(\ker d^A = \invlim A_n\),
+    because that is exactly the condition \(x_n = x_{n+1}\) in \(A_n\).
+    Then we have the diagram of short exact sequences
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \prod_{n=1}^\infty A_n \arrow{r} \arrow{d}{d^A} & \prod_{n=1}^\infty B_n \arrow{r} \arrow{d}{d^B} & \prod_{n=1}^\infty C_n \arrow{r} \arrow{d}{d^C} & 0 \\
+            0 \arrow{r} & \prod_{n=1}^\infty A_n \arrow{r} & \prod_{n=1}^\infty B_n \arrow{r} & \prod_{n=1}^\infty C_n \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    By the \hyperref[lem:snake]{snake lemma},
+    there is an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+            0 \arrow{r} & \ker d^A \arrow{r} \arrow[phantom]{d}[sloped]{=} & \ker d^B \arrow{r} \arrow[phantom]{d}[sloped]{=} & \ker d^C \arrow{r} \arrow[phantom]{d}[sloped]{=} &
+            \coker d^A \arrow{r} & \coker d^B \arrow{r} & \coker d^C \arrow{r} & 0 \\
+            & \invlim A_n & \invlim B_n & \invlim C_n
+        \end{tikzcd}
+    \end{equation*}
+    which gives us left-exactness.
+
+    Now, suppose \(\func{\pi_{n+1}}{A_{n+1}}{A_n}\) are all surjective.
+    It suffices for us to show that \(\coker d^A = 0\), i.e.\ \(d^A\) is surjective.
+    But that amounts to us solving \(x_n - \pi_{n+1}(x_{n+1}) = a_n\) given \(a_n \in A_n\).
+    We can do so inductively, choosing \(x_0 = a_0\),
+    and then abusing surjectivity to find \(x_{n+1}\) such that \(\pi_{n+1}(x_{n+1}) = x_n - a_n\).
+\end{proof}
+
+\begin{lemma}\label{lem:isomorphism-completions}
+    Suppose \(R = \mfk{m}_0 \supseteq \mfk{m}_1 \supseteq \cdots\)
+    and \(R = \mfk{n}_0 \supseteq \mfk{n}_1 \supseteq \cdots\) are two distinct filtrations,
+    with completions \(\hat{R}_\mfk{m}\) and \(\hat{R}_\mfk{n}\) respectively.
+    If for each \(\mfk{n}_j\) there exists \(\mfk{m}_i \subseteq \mfk{n}_j\),
+    and for each \(\mfk{m}_j\) there exists \(\mfk{n}_i \subseteq \mfk{m}_j\),
+    then there is a natural isomorphism \(\hat{R}_\mfk{m} \cong \hat{R}_\mfk{n}\).
+\end{lemma}
+\begin{proof}
+    First suppose \(\mfk{n}_k\) are a subsequence of the \(\mfk{m}_k\).
+    % Then we have \(\mfk{n}_k \subseteq \mfk{m}_k\),
+    % which induces the exact sequence
+    % \begin{equation*}
+    %     \begin{tikzcd}
+    %         0 \arrow{r} & \mfk{m}_k/\mfk{n}_k \arrow{r} & R/\mfk{n}_k \arrow{r} & R/\mfk{m}_k \arrow{r} & 0
+    %     \end{tikzcd}
+    % \end{equation*}
+    % Then defining \(d\) as in the \hyperref[prop:invlim-exact]{proposition above}
+    % which gives us a natural projection of quotients \(\prod_{k=1}^\infty R/\mfk{m}_k \to \prod_{k=1}^\infty R/\mfk{m}_{j_k} \cong \prod_{k=1}^\infty R/\mfk{n}_k\).
+    Then this gives us a natural projection of completions \(\invlim R/\mfk{m}_k \to \invlim R/\mfk{n}_k\),
+    because every sequence \((g_1,g_2,\hdots) \in \invlim R/\mfk{n}_k\)
+    can be mapped from some sequence \((g_1,\hdots,g_1,g_2,\hdots,g_2,\hdots)\) simply by filling in the gaps.
+    It now suffices to prove that this is also an injection.
+    Suppose \(g = (g_1,g_2,\hdots)\) and \(h = (h_1,h_2,\hdots)\) map to the same sequence.
+    Then because they are both convergent sequences that have subsequences that converge to the same limit,
+    both of them converge to the same limit.
+    Then they must be equivalent, and must be considered the same point.
+
+    Returning to the general case,
+    For each \(\mfk{m}_k\), we can find some \(\alpha(k),\beta(k),\gamma(k)\) such that
+    \(\mfk{m}_k \supseteq \mfk{n}_{\alpha(k)} \supseteq \mfk{m}_{\beta(k)} \supseteq \mfk{n}_{\gamma(k)}\)
+    so we get projections \(R/\mfk{n}_{\gamma(k)} \to R/\mfk{m}_{\beta(k)} \to R/\mfk{n}_{\alpha(k)} \to R/\mfk{m}_k\).
+    These further induce the maps
+    \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+            \invlim R/\mfk{n}_{\gamma(k)} \arrow{r} & \invlim R/\mfk{m}_{\beta(k)} \arrow{r} & \invlim R/\mfk{n}_{\alpha(k)} \arrow{r} & \invlim R/\mfk{m}_k \\
+            \hat{R}_n \arrow[phantom]{u}[sloped]{=} & \hat{R}_m \arrow[phantom]{u}[sloped]{=} & \hat{R}_n \arrow[phantom]{u}[sloped]{=} & \hat{R}_m \arrow[phantom]{u}[sloped]{=}
+        \end{tikzcd}
+    \end{equation*}
+    But because any set of two consecutive arrows is an isomorphism,
+    we have that the middle arrow is an isomorphism.
+\end{proof}
+\begin{lemma}\label{lem:m-adic-invlim-exact}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{m} \subseteq R\) is an ideal.
+    If \(A,B,C\) are finitely generated \(R\)-modules, and
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & A \arrow{r} & B \arrow{r} & C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is an exact sequence, then
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A/\mfk{m}^n A \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    In other words, the \(\mfk{m}\)-adic completion is exact with respect to finitely generated modules over Noetherian rings.
+\end{lemma}
+\begin{proof}
+    % We first show that \(\invlim B/\mfk{m}^n B \to \invlim C/\mfk{m}^n C\) is surjective;
+    % that is, given any \(c = (c_1,c_2,\hdots) \in \prod C/\mfk{m}^n C\) satisfying \(c_j \equiv c_i \pmod{\mfk{m}^j C}\) whenever \(j > i\),
+    % find \(b = (b_1,b_2,\hdots) \in \prod B/\mfk{m}^n B\) satisfying the same condition,
+    % and that \(b_n \mapsto c_n \pmod{\mfk{m}^n C}\).
+    % We do so inductively; the base case is clear because there is nothing to choose for \(b_0 \mapsto c_0\).
+    % Now assume we have already chosen \({\{b_i\}}_{i=1}^n\).
+    % Let us choose some arbitrary \(b_{n+1}' \in B\) such that \(b_{n+1}' \mapsto c_{n+1} \pmod{\mfk{m}^{n+1} C}\).
+    % Obviously \(b_{n+1}' \mapsto c_n \pmod{\mfk{m}^n C}\) too, because of the condition on \(c_{n+1} \equiv c_n \pmod{\mfk{m}^n C}\).
+    Because the tensor product is right-exact,
+    \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+            R/\mfk{m}^n \otimes A \arrow{r} & R/\mfk{m}^n \otimes B \arrow{r} & R/\mfk{m}^n \otimes C \arrow{r} & 0 \\
+            A/\mfk{m}^n A \arrow[phantom]{u}[sloped]{=} & B/\mfk{m}^n B \arrow[phantom]{u}[sloped]{=} & C/\mfk{m}^n C \arrow[phantom]{u}[sloped]{=}
+        \end{tikzcd}
+    \end{equation*}
+    is an exact sequence;
+    % as \(b_n - b_{n+1}' \mapsto 0 \pmod{\mfk{m}_n C}\),
+    % we can find \(a_{n+1} \in A\) such that \(a_{n+1} \mapsto b_n - b_{n+1}' \pmod{\mfk{m}_n B}\).
+    % Hence if we define \(b_{n+1} = a_{n+1} + b_{n+1}'\),
+    % \(b_{n+1}\) maps into \(c_{n+1}\) as desired (because \(a_{n+1}\) is in the kernel)
+    % and \(b_{n+1} = a_{n+1} + b_{n+1}' \equiv b_n \pmod{\mfk{m}_n B}\) as desired.
+    this gives us surjectivity of \(B/\mfk{m}^n B \to C/\mfk{m}^n C\).
+    % Then we have to show that the rest of the sequence
+    % \begin{equation*}
+    %     \begin{tikzcd}
+    %         0 \arrow{r} & \invlim A/\mfk{m}^n A \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C
+    %     \end{tikzcd}
+    % \end{equation*}
+    % is exact.
+    Then we see that
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & A/(A \cap \mfk{m}^n B) \arrow{r} & B/\mfk{m}^n B \arrow{r} & C/\mfk{m}^n C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact because \(A/(A \cap \mfk{m}^n B) \to B/\mfk{m}^n B\) is injective by construction;
+    moreover, any \(a \in A\) naturally gets mapped into zero after two arrows due to our initial exact sequence.
+    Then by Proposition~\ref{prop:invlim-exact},
+    because \(A/(A \cap \mfk{m}^{n+1} B) \to A/(A \cap \mfk{m}^n B)\) is surjective
+    by the \hyperref[thm:iso-3-ring]{third isomorphism theorem},
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & \invlim A/(A \cap \mfk{m}^n B) \arrow{r} & \invlim B/\mfk{m}^n B \arrow{r} & \invlim C/\mfk{m}^n C \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    is exact.
+    % Given any \(b = (b_1,b_2,\hdots) \in \invlim B/\mfk{m}^n B\) mapping to \(0 = (0,0,\hdots) \in \invlim C/\mfk{m}^n C\),
+    % then each individual \(b_n \mapsto 0 \in C/\mfk{m}^n C\).
+    % Hence \(b_n \in A/(A \cap \mfk{m}^n B)\), and \(b \in \invlim A/A \cap \mfk{m}^n B\).
+
+    Lastly, we need to show that \(\invlim A/(A \cap \mfk{m}^n B) = \invlim A/\mfk{m}^n A\).
+    Because \(\mfk{m}^n A \subseteq A \cap \mfk{m}^n B\),
+    using the \hyperref[prop:artin-rees]{Artin-Rees lemma},
+    there exists some \(n\) such that for all \(k\), \(A \cap \mfk{m}^{n+k} B = \mfk{m}^k(A \cap \mfk{m}^n B) \subseteq \mfk{m}^k A\).
+    By the \hyperref[lem:isomorphism-completions]{lemma above},
+    the two completions are the same.
+\end{proof}
+\begin{theorem}\label{thm:noetherian-module-completions}
+    Suppose \(R\) is a Noetherian ring, and \(\mfk{m} \subseteq R\) is an ideal.
+    Let \(\hat{R} = \hat{R}_\mfk{m}\) denote the completion.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(M\) is a finitely generated \(R\)-module,
+            then the natural map \(\hat{R} \otimes M \to \hat{M} = \invlim M/\mfk{m}^k M\) is an isomorphism.
+            In particular, if \(S\) is a finite ring extension of \(R\),
+            then \(\hat{R} \otimes S = \hat{S}_{\mfk{m}S}\).
+        \item \(\hat{R}\) is a flat \(R\)-module.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Consider a free presentation \(F \to F' \to M \to 0\),
+    as in find a free modules \(F,F'\) such that the sequence is exact
+    (which works because \(M\) is finitely generated).
+    Since \(\invlim\) commutes with the direct sum,
+    and the \hyperref[lem:m-adic-invlim-exact]{lemma above} proves that each component preserves the exact sequence,
+    \begin{equation*}
+        \begin{tikzcd}
+            \hat{F} \arrow{r} & \hat{F}' \arrow{r} & \hat{M} \arrow{r} & 0 \arrow[dashrightarrow]{r} & 0 \\
+            \hat{R} \otimes F \arrow{r} \arrow{u} & \hat{R} \otimes F' \arrow{r} \arrow{u} &
+            \hat{R} \otimes M \arrow{r} \arrow{u} & 0 \arrow[dashrightarrow]{r} \arrow[dashrightarrow]{u} & 0 \arrow[dashrightarrow]{u}
+        \end{tikzcd}
+    \end{equation*}
+    the first row is exact.
+    Moreover, by the exactness of the tensor product (Theorem~\ref{thm:tensor-right-exact}),
+    the second row is exact.
+    We know that the arrows \(\hat{R} \otimes F \to \hat{F}\) and \(\hat{R} \otimes F' \to \hat{F}'\)
+    are isomorphisms by definition of completion of rings,
+    so by an application of the \hyperref[lem:five]{five lemma},
+    \(\hat{R} \otimes M \to \hat{M}\) is an isomorphism.
+    This proves the first part of statement (a).
+    The second part of statement (a) then immediately follows because \(\hat{R} \otimes S = \hat{S}\),
+    completing with respect to the extended ideals.
+
+    Now, to prove that \(\hat{R}\) is flat,
+    it suffices to prove that given finitely generated \(N' \to N\) is injective,
+    then \(\hat{R} \otimes N' \to \hat{R} \otimes N\) is injective (Lemma~\ref{lem:flat-equivalence}).
+    % Since both \(N',N\) are finitely generated,
+    % we can consider a chain of finitely generated \(R\)-modules
+    % \(N' = N_0 \subseteq N_1 \subseteq \cdots \subseteq N_n = N\)
+    % where \(N_{k+1}\) is generated by one element over \(N_k\).
+    % It suffices to show that each \(\hat{R} \otimes N_{k+1} \to \hat{R} \otimes N_k\) is injective,
+    % so without any loss of generality, suppose that \(N/N'\) is cyclic (as in it is generated by one element).
+    % By the \hyperref[thm:structure-divisor]{structure theorem},
+    % we know that \(N/N' \cong R/\mfk{a}\) for some ideal \(\mfk{a} \subseteq R\).
+    In that case, because we have an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 \arrow{r} & N' \arrow{r} & N \arrow{r} & N/N' \arrow{r} & 0
+        \end{tikzcd}
+    \end{equation*}
+    by the \hyperref[lem:m-adic-invlim-exact]{lemma above},
+    \begin{equation*}
+        \begin{tikzcd}[row sep=tiny]
+            0 \arrow{r} & \invlim N'/\mfk{m}^k N' \arrow{r} & \invlim N/\mfk{m}^k N \arrow{r} &
+            \invlim (N/N')/\mfk{m}^k(N/N') \arrow{r} & 0 \\
+            & \hat{R} \otimes N' \arrow[phantom]{u}[sloped]{\cong} &
+            \hat{R} \otimes N \arrow[phantom]{u}[sloped]{\cong} &
+            \hat{R} \otimes N/N' \arrow[phantom]{u}[sloped]{\cong}
+        \end{tikzcd}
+    \end{equation*}
+    is exact as desired.
+\end{proof}
+
+\subsection*{Hensel's Lemma}
+
+\begin{definition}
+    Suppose \(S\) is a ring, and \(R = S[x_1,\hdots,x_n]\) a polynomial ring over \(S\).
+    If \(\mfk{m} = (x_1,\hdots,x_n) \subseteq R\) is an ideal,
+    then \(\hat{R}_\mfk{m} = S[[x_1,\hdots,x_n]]\) is the ring of formal power series.
+\end{definition}
+\begin{lemma}
+    The power series ring indeed is the conventional ring of power series that you are thinking of.
+\end{lemma}
+\begin{proof}
+    Consider elements \(a_{i_1,\hdots,i_n} \in R\) called coefficients,
+    and associate this with an element \(f = \sum a_{i_1,\hdots,i_n} x_1^{i_1} \cdots x_n^{i_n}\).
+    Associate this with an element \((f+\mfk{m},f+\mfk{m}^2,\hdots) \in \hat{R}_\mfk{m}\).
+    The inverse map is obtained by sending \((f_1,f_2,\hdots) \in \hat{R}_\mfk{m} \subseteq \prod R/\mfk{m}_i\)
+    into the power series \(f\) where the degree \(k\) term is the degree \(k\) term from \(f_{k+1}\).
+    Clearly this map is independent of the choice of representative,
+    because all the representatives of \(f_k+\mfk{m}^k\) must agree at all terms with degree lower than \(k\).
+\end{proof}
+
+\begin{theorem}\label{thm:power-series-completions}
+    Suppose \(S\) is an \(R\)-algebra that is complete with respect to some ideal \(\mfk{n} \subseteq S\).
+    Given \({\{f_i\}}_{i=1}^n \subset \mfk{n}\),
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item there exists a unique \(R\)-algebra homomorphism
+            \begin{equation*}
+                \varfunc{\phi}{R[[x_1,\hdots,x_n]]}{S}{x_i}{f_i}
+            \end{equation*}
+            that sends any power series \(g(x_1,\hdots,x_n) \mapsto g(f_1,\hdots,g_n)\);
+        \item if the induced map \(R \to S/\mfk{n}\) is surjective and \(\{f_i\}\) generate \(\mfk{n}\),
+            then \(\phi\) is also surjective; and
+        \item if the induced map
+            \begin{equation*}
+                \func{\gr\phi}{R[x_1,\hdots,x_n]\cong\gr_{(x_1,\hdots,x_n)} R[[x_1,\hdots,x_n]]}{\gr_\mfk{n} S}
+            \end{equation*}
+            is injective, then \(\phi\) is also injective.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Since there exists a unique map for each \(k\)
+    \begin{equation*}
+        \varfunc{\phi_k}{R[[x_1,\hdots,x_n]]/{(x_1,\hdots,x_n)}^k = R[x_1,\hdots,x_n]/{(x_1,\hdots,x_n)}^k}{S/\mfk{n}^k}{x_i}{f_i}
+    \end{equation*}
+    by the universal property of the inverse limit,
+    there exists a unique map
+    \begin{equation*}
+        \varfunc{\phi}{R[[x_1,\hdots,x_n]]}{S=\hat{S}_\mfk{n}}{x_i}{f_i}
+    \end{equation*}
+    as desired.
+    This proves statement (a).
+
+    Now, since \({\{f_i\}}_{i=1}^n\) generate \(\mfk{n}\),
+    \({(x_1,\hdots,x_n)}^k/{(x_1,\hdots,x_n)}^{k+1} \to \mfk{n}/\mfk{n}^2\) is a surjection (for all \(k \geq 1\)),
+    so \(\gr_{(x_1,\hdots,x_n)} R[[x_1,\hdots,x_n]] \to \gr_\mfk{n} S\) is also a surjection
+    (with the case \(k = 0\) given to us as the given surjection).
+    Given some nonzero element \(g \in S\),
+    consider the largest \(k\) such that \(g \in \mfk{n}^k\)
+    (we are allowed to do so because \(S\) complete implies \(\bigcap \mfk{n}^k = 0\)).
+    By surjectivity of \(\gr\phi\), there exists some polynomial \(g_1 \in {(x_1,\hdots,x_n)}^k\)
+    such that the leading terms \(l(g_1) \mapsto l(g)\).
+    Then \(g-\phi(g_1) \in \mfk{n}^{k+1}\).
+    We can now repeat this process indefinitely and obtain \({\{g_n\}}_{n=1}^\infty\),
+    and we know that \(g = \sum_{n=1}^\infty \phi(g_n)\).
+    But because \(\phi\) is a homomorphism on the ring of power series,
+    \(g = \phi(\sum_{n=1}^\infty g_n)\), giving us surjectivity as required.
+    This proves statement (b).
+
+    To prove part (c), it suffices to show that given any nonzero \(g \in R[[x_1,\hdots,x_n]]\),
+    \(\phi(g) \neq 0\) also.
+    In that case, \(l(g)\) has some positive degree \(d\),
+    so \(\gr\phi(l(g)) \neq 0\) in the degree \(d\) part of \(\gr_\mfk{n} S\).
+    But \(g \equiv l(g) \pmod{{(x_1,\hdots,x_n)}^{d+1}}\),
+    so \(\phi(g) \equiv \gr\phi(l(g)) \pmod{\mfk{n}^{d+1}}\) is nonzero as well.
+\end{proof}
+\begin{corollary}\label{cor:derivative-unit-isomorphism}
+    Suppose \(f \in xR[[x]]\) is a power series.
+    If we have the endomorphism
+    \begin{equation*}
+        \varfunc{\phi}{R[[x]]}{R[[x]]}{x}{f}
+    \end{equation*}
+    then \(\phi\) is an isomorphism if and only if \(f'(0)\) is a unit in \(R\).
+\end{corollary}
+\begin{proof}
+    Suppose \(\phi\) is an isomorphism.
+    Observe that the elements in \((x)\) consist of those with a zero constant term,
+    Because \(f \in xR[[x]]\) has no constant term,
+    we can see that \(\phi(R[[x]]-(x)) = R[[x]] - (x)\) and \(\phi((x)) = (x)\).
+    In particular, that implies \(\phi(x) = f\) also generates \((x)\);
+    hence \(f + (x^2)\) generates \((x)/(x^2)\).
+    Since \(f \equiv f'(0)x \pmod{(x^2)}\), \(f'(0)x\) generates \((x)\), so \(f'(0)\) must be a unit.
+
+    Conversely, suppose that \(f'(0) = u\) is a unit in \(R\).
+    Then as \(\gr_{(x)} R[[x]] = R[x]\), and
+    \begin{equation*}
+        \varfunc{\gr\phi}{R[x]}{R[x]}{x}{ux}
+    \end{equation*}
+    is an isomorphism because \(u\) is a unit (we wipe away all other degree terms).
+    By the \hyperref[thm:power-series-completions]{theorem above},
+    \(\phi\) is injective.
+    But we can also write \(f = ux + hx^2 = (u+hx)x\) for some \(h \in [[x]]\);
+    because \(u+hx\) is a unit in \(R[[x]]\), \(f\) generates \((x)\).
+    Hence by the \hyperref[thm:power-series-completions]{theorem above} again,
+    \(\phi\) is surjective.
+\end{proof}
+
+\begin{theorem}[Hensel's Lemma]\label{thm:hensel}
+    Supose \(R\) is a complete ring with respect to the ideal \(\mfk{m}\),
+    and let \(f \in R[x]\) be a polynomial.
+    If \(a \in R\) satisfies \(f(a) \equiv 0 \pmod{{f'(a)}^2\mfk{m}}\),
+    then there exists a root \(b\) such that \(f(b) = 0\) and \(b \equiv a \pmod{f'(a)\mfk{m}}\).
+    If \(f'(a)\) is not a zero divisor in \(R\), then \(b\) is unique.
+\end{theorem}
+\begin{proof}
+    Suppose \(f'(a) = e\).
+    Find \(h \in R[[x]]\) such that
+    \begin{equation*}
+        f(a+ex) = f(a) + f'(a)ex + h(x){(ex)}^2 = f(a) + e^2(x + h(x)x^2)
+    \end{equation*}
+    (like Taylor's theorem in analysis).
+    Because \(g = x + h(x)x^2 \in xR[[x]]\), and its derivative \(g' = 1 + 2h'(x)x\) gives us \(g'(0) = 1\) is a unit,
+    by the \hyperref[cor:derivative-unit-isomorphism]{corollary above},
+    there exists an isomorphism \(\phi\) sending \(x \mapsto g\).
+    In particular, we can apply \(\phi^{-1}\) to get
+    \begin{equation*}
+        f(a+e\phi^{-1}(x)) = f(a) + e^2 x
+    \end{equation*}
+    Since \(f(a) \equiv 0 \pmod{e^2\mfk{m}}\), we can write \(f(a) = e^2 c\) for some \(c \in \mfk{m}\).
+    By Theorem~\ref{thm:power-series-completions},
+    there exists a homomorphism \(\psi\) such that \(x \mapsto -c\).
+    Applying that we have
+    \begin{equation*}
+        f(a+e(\psi\circ\phi^{-1})(x)) = \psi(e^2 c + e^2 x) = 0
+    \end{equation*}
+    so we have found some \(b = a + e(\psi\circ\phi^{-1})(x)\) such that \(f(b) = 0\).
+    We can check that \(b-a = e(\psi\circ\phi^{-1})(x) \in e\mfk{m}\) indeed.
+    Obviously, as we mentioned in the \hyperref[cor:derivative-unit-isomorphism]{corollary above},
+    \(\phi^{-1}(x) \in (x)\), so \((\psi\circ\phi^{-1})(x) \in \psi((x)) \subseteq (c) \subseteq \mfk{m}\)
+    as desired.
+
+    % Now, we prove the second statement by contraposition.
+    Now, let \(e\) not be a zero divisor,
+    Suppose there exists \(b, b_1\) that both satisfy our requirements,
+    as in \(f(b) = f(b_1) = 0\), and \(b = a+er\) and \(b_1 + a+er_1\) with \(r,r_1 \in \mfk{m}\).
+    By Theorem~\ref{thm:power-series-completions},
+    there exists homomorphisms \(\beta,\beta_1\) such that \(x \mapsto r\) and \(x \mapsto r_1\) respectively.
+    Applying \(f\) over them we get
+    \begin{equation*}
+        f(a) + e^2(r + h(r)r^2) = f(b) = f(b_1) = f(a) + e^2(r_1 + h(r_1)r_1^2)
+    \end{equation*}
+    then \((\beta\circ\phi)(x) = r + h(r)r^2 = r_1 + h(r_1)r_1^2 = (\beta_1\circ\phi)(x)\).
+    By Theorem~\ref{thm:power-series-completions}, since this homomorphism is unique,
+    \(\beta\circ\phi = \beta_1\circ\phi\), so \(r = r_1\) and \(b = b_1\) as desired.
+\end{proof}
+
+\begin{definition}
+    Suppose \(R\) is a commutative ring, and \(A\) is a (potentially non-commutative) \(R\)-algebra.
+    An element \(e \in A\) is idempotent if \(e^2 = e\).
+    Two idempotents \(e,e' \in A\) are orthogonal if \(ee' = 0\).
+\end{definition}
+\begin{lemma}\label{lem:sum-idempotents}
+    Suppose \({\{e_i\}}_{i=1}^n\) are orthogonal idempotents.
+    Then \(\sum e_i\) is also an idempotent.
+\end{lemma}
+\begin{proof}
+    It suffices to consider the case of two idempotents.
+    \begin{equation*}
+        {(e_1 + e_2)}^2 = e_1^2 + e_1e_2 + e_2^2 = e_1 + e_2
+    \end{equation*}
+\end{proof}
+\begin{definition}
+    Suppose \({\{e_i\}}_{i=1}^n\) are orthogonal idempotents.
+    They are complete if \(\sum e_i = 1\).
+\end{definition}
+\begin{lemma}
+    Suppose \({\{e_i\}}_{i=1}^n\) are a set of incomplete orthogonal idempotents.
+    Then it can be completed by adjoining \(f = 1 - \sum e_i\).
+\end{lemma}
+\begin{proof}
+    By the \hyperref[lem:sum-idempotents]{lemma above}, \(f\) is an idempotent.
+    Furthermore, it is pairwise orthogonal to the rest, because
+    \begin{equation*}
+        fe_i = \pqty{1 - \sum_j e_j}e_i = e_i - \sum_j e_i e_j = e_i - e_i^2 = e_i - e_i = 0
+    \end{equation*}
+\end{proof}
+
+\begin{corollary}
+    Suppose \(R\) is a Noetherian ring that is complete with respect to some ideal \(\mfk{m} \subseteq R\).
+    If \(A\) is an \(R\)-algebra, possibly not commutative, which is finite over \(R\),
+    then any set of of orthogonal idempotents of \(A/\mfk{m}A\)
+    can be lifted to a set of orthogonal idempotents of \(A\).
+    If \(A\) is commutative, then the lifting is unique.
+\end{corollary}
+\begin{proof}
+    Suppose \({\{\bar{e}_i\}}_{i=1}^n \subseteq A/\mfk{m}A\) is a set of orthogonal idempotents.
+    First suppose \(A\) is commutative.
+    By Theorem~\ref{thm:noetherian-module-completions},
+    \(A = R \otimes A = \hat{R}_\mfk{m} \otimes A = \hat{A}_{\mfk{m}A}\) is complete.
+    For each \(\bar{e}_i\),
+    consider any element \(e_i \in A\) such that \(e_i \mapsto \bar{e}_i\)
+    under the natural map \(A \to A/\mfk{m}A\).
+    Let \(f(x) = x^2 - x\), such that the roots of \(f\) are the idempotents.
+    Since the derivative \(f'(e) = 2e - 1\) is a unit
+    (because \({(2e-1)}^2 = 4e^2-4e+1 \equiv 1 \pmod{\mfk{m}}\) must be a unit),
+    we have \(f'(e)\mfk{m} = \mfk{m}\), and \(f(e) \equiv 0 \pmod{m}\).
+    By \hyperref[thm:hensel]{Hensel's lemma},
+    there exists a unique lift \(e_i\) for each \(\bar{e}_i\).
+    We now need to check that the resulting set \({\{e_i\}}_{i=1}^n \subseteq A\) is orthogonal.
+    Obviously, if \(i \neq j\), then \(\bar{e}_i\bar{e}_j = 0\), hence \(e_i e_j \in \mfk{m}\).
+    But because \(e_i e_j = e_i^d e_j^d = {(e_i e_j)}^d \in \mfk{m}^d\) for any \(d\),
+    so \(e_i e_j \in \bigcap \mfk{m}^d = 0\).
+
+    Now suppose \(A\) is non-commutative.
+    If \(n = 1\), consider any \(e \in A\) such that \(e \mapsto \bar{e}_1\).
+    We can consider the \(R\)-subalgebra generated by \(e\) instead of \(A\),
+    which allows us to reduce to the commutative case.
+    We now proceed by induction, and that we have orthogonal idempotents \({\{e_i\}}_{i=1}^n\)
+    lifting from \({\{\bar{e}_i\}}_{i=1}^n\).
+    Suppose \(e'\) lifts from \(\bar{e}_{n+1}\).
+    Let \(f = 1 - \sum_{i=1}^n e_i\).
+    Note that for \(1 \leq i \leq n\),
+    \begin{equation*}
+        fe_i = e_i - e_i\pqty{\sum_{j=1}^n e_j} = e_i - e_i^2 = e_i - e_i = 0 \qquad
+        e_i f = e_i - \pqty{\sum_{j=1}^n e_j}e_i = e_i - e_i^2 = e_i - e_i = 0
+    \end{equation*}
+    If \(f \mapsto \bar{f} \in A/\mfk{m}A\), then we have
+    \begin{align*}
+        \bar{f}\bar{e}_{n+1} = \bar{e}_{n+1} - \bar{e}_{n+1}\pqty{\sum_{j=1}^n \bar{e}_j} = \bar{e}_{n+1} \qquad
+        \bar{e}_{n+1}\bar{f} = \bar{e}_{n+1} - \pqty{\sum_{j=1}^n \bar{e}_j}\bar{e}_{n+1} = \bar{e}_{n+1}
+    \end{align*}
+    Let \(e = fe'f\).
+    We have \(e \mapsto \bar{f}\bar{e}_{n+1}\bar{f} = \bar{e}_{n+1} \in A/\mfk{m}A\),
+    and satisfies \(e_i e = e_i fe'f = 0\) and \(ee_i = fe'fe_i = 0\).
+    Hence we can once again consider the \(R\)-subalgebra generated by \(e\) instead of \(A\),
+    which allows us to reduce to the commutative case.
+    We remark that in the non-commutative case,
+    the uniqueness from Hensel's lemma only extend over the \(R\)-subalgebra generated by \(e\),
+    and does not guarantee overall uniqueness in \(A\).
+\end{proof}
+% \begin{corollary}
+%     Suppose \((R,\mfk{m})\) is a complete local Noetherian ring.
+%     If \(A\) is a commutative \(R\)-algebra that is finite over \(R\), then:
+%     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+%         \item \(A\) has only finitely many maximal ideals \(\mfk{m}_i \subseteq A\);
+%         \item each localization \(A_{\mfk{m}_i}\) is a complete local ring, finite over \(R\); and
+%         \item \(A = \prod A_{\mfk{m}_i}\) is the direct product of the localizations.
+%     \end{enumerate}
+% \end{corollary}
+% \begin{proof}
+%     Because \(\oplus_{j=1}^n R/\mfk{a}_j\) surjects onto \(A\),
+%     modding out \(\mfk{m}\) on both sides
+%     gives us that \(A/\mfk{m}A\) is finitely generated over \(R/\mfk{m}\).
+% \end{proof}
+    
