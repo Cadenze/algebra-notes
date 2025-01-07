@@ -5,6 +5,39 @@
     unless otherwise noted, are commutative.
 \end{remark}
 
+\section{Basic Definitions}
+
+\begin{definition}
+    Suppose \(\mfk{p} \subseteq R\) is a prime ideal.
+    The height, or codimension, of \(\mfk{p}\) is
+    \begin{equation*}
+        \height\mfk{p} = \sup\{n: \mfk{p}_0 \subsetneq \mfk{p}_1 \subsetneq \cdots \subsetneq \mfk{p}_n = \mfk{p}\}
+    \end{equation*}
+    the length of the longest strictly ascending chain of prime ideals terminating at \(\mfk{p}\).
+    The Krull dimension of \(R\), or simply dimension, is
+    \begin{equation*}
+        \dim R = \sup_{\mfk{p}\,\text{prime}}\height\mfk{p}
+        = \sup\{n: \mfk{p}_0 \subsetneq \mfk{p}_1 \subsetneq \cdots \subsetneq \mfk{p}_n \subsetneq R, \; \mfk{p}_i\,\text{prime}\}
+    \end{equation*}
+    the length of the longest strictly ascending chain of prime ideals.
+\end{definition}
+\begin{lemma}
+    Suppose \(\mfk{p} \subseteq R\) is a prime ideal.
+    Then \(\height\mfk{p} = \dim R_\mfk{p}\), the dimension of the corresponding local ring.
+\end{lemma}
+\begin{proof}
+    By Theorem~\ref{thm:fraction-correspondence},
+    there exists a bijection between prime ideals of \(R\) that does not intersect with \(R-\mfk{p}\),
+    or in other words, contained in \(\mfk{p}\),
+    and the prime ideals of \(R_\mfk{p}\).
+\end{proof}
+\begin{definition}
+    Suppose \(\mfk{a} \subseteq R\) is any ideal.
+    The height of \(\mfk{a}\) is \(\height\mfk{a} = \inf_{\mfk{a}\subseteq\mfk{p}\,\text{prime}}\height\mfk{p}\),
+    the minimum of the codimensions of the prime ideals containing \(\mfk{a}\).
+\end{definition}
+
+
 \section{Artinian Rings}
 
 \begin{remark}
@@ -16,7 +49,23 @@
     Prime ideals are maximal in Artinian rings.
 \end{proposition}
 \begin{proof}
-    
+    Suppose \(R\) is an Artinian ring, and consider a prime ideal \(\mfk{p} \subseteq R\).
+    Then \(R/\mfk{p}\) is also Artinian,
+    since any descending chain of ideals in \(R/\mfk{p}\)
+    is a descending chain of ideals (containing \(\mfk{p}\)) in \(R\),
+    which stabilizes.
+    Moreover, \(R/\mfk{p}\) is an integral domain (Theorem~\ref{thm:prime-quotient-domain}).
+
+    Now consider some nonzero \(x \in R/\mfk{p}\), and we wish to show that it has a multiplicative inverse.
+    The descending chain \((x) \supseteq (x^2) \supseteq \cdots\) eventually stabilizes,
+    so there exists some \(n\) where \((x^n) = (x^{n+1})\),
+    i.e.\ \(x^n \in (x^{n+1})\), meaning there exists some \(y \in R/\mfk{p}\) such that \(x^n = x^{n+1}y\).
+    But by definition of an integral domain,
+    \(x\) is not a zero divisor, meaning \(x^n(1-xy) = 0\) implies \(x^n = 0\) or \(xy = 1\),
+    and clearly \(x^n \neq 0\).
+    Hence we have found an inverse for \(x\).
+    Therefore \(R/\mfk{p}\) is a field,
+    so \(\mfk{p}\) is maximal (Theorem~\ref{thm:maximal-quotient-field}).
 \end{proof}
 \begin{corollary}
     The nilradical is the same as the Jacobson radical in Artinian rings.
@@ -32,26 +81,42 @@
     Artinian rings have finitely many maximal ideals.
 \end{proposition}
 \begin{proof}
-    
+    Consider the set of all finite intersections of maximal ideals.
+    This set is not empty (because \hyperref[thm:krull]{there is at least one maximal ideal}),
+    and every chain of ideals has a lower bound (because it eventually terminates by the descending chain condition),
+    so by \hyperref[ax:zorn]{Zorn's lemma},
+    there exists a minimal element \(\bigcap_{i=1}^n \mfk{m}_i\).
+    But then given any maximal ideal \(\mfk{m}\),
+    by minimality we have \(\mfk{m} \supseteq \bigcap_{i=1}^n \mfk{m}_i\).
+    By Lemma~\ref{lem:prime-intersection}, as \hyperref[thm:maximal-prime-radical]{maximal ideals are prime}
+    \(\mfk{m} \supseteq \mfk{m}_i\) for some \(i\),
+    and by maximality of \(\mfk{m}_i\), \(\mfk{m} = \mfk{m}_i\).
+    Hence there are only \(n\) maximal ideals.
 \end{proof}
 \begin{proposition}
     The nilradical in Artinian rings is nilpotent.
 \end{proposition}
 \begin{proof}
-    
+    Let \(\mfk{n} = \mca{N}(R)\) be the nilradical.
+    Consider the descending chain of ideal \(\mfk{n} \supseteq \mfk{n}^2 \supseteq \cdots\).
+    By the descending chain condidtion, it eventually stabilizes,
+    so let \(\mfk{a} = \mfk{n}^k = \mfk{n}^{k+1} = \cdots\).
+    Suppose, by way of contradiction, that \(\mfk{n}\) is not nilpotent, as in \(\mfk{a} \neq (0)\).
+    Let \(\Sigma\) be the set of all ideals \(\mfk{b}\) such that \(\mfk{ab} \neq (0)\).
+    Clearly \(\Sigma\) is not empty because \(\mfk{n} \in \Sigma\) (\(\mfk{an} = \mfk{a} \neq (0)\)),
+    and by the descending chain condition, every chain has a lower bound;
+    by \hyperref[ax:zorn]{Zorn's lemma}, there exists a minimal element \(\mfk{c}\).
+    Hence there exists \(x \in \mfk{c}\) such that \(x\mfk{a} \neq 0\),
+    with \((x) \subseteq \mfk{c}\), and by minimality \((x) = \mfk{c}\).
+    But we also know that \(0 \neq x\mfk{a} = x\mfk{a}^2 = (x\mfk{a})\mfk{a} \subseteq (x)\),
+    so again by minimality, \(x\mfk{a} = (x)\).
+    Hence there exists \(y \in \mfk{a}\) such that \(xy = x\), giving us the chain \(x = xy = xy^2 = \cdots\).
+    But \(y \in \mfk{a} = \mfk{n}^k \subseteq \mfk{n}\) is nilpotent (by definition of being in the nilradical),
+    so \(x = xy^n = 0\).
+    We have reached a contradiction.
 \end{proof}
 
-\begin{definition}
-    Suppose \(R\) is a ring, and \(\mfk{p} \subseteq R\) a prime ideal.
-    The height of \(\mfk{p}\) is
-    \(\height\mfk{p} = \sup\{n: \mfk{p}_0 \subsetneq \mfk{p}_1 \subsetneq \cdots \subsetneq \mfk{p}_n = \mfk{p}\}\),
-    the length of the longest strictly ascending chain of prime ideals terminating at \(\mfk{p}\).
-    The Krull dimension of \(R\) is \(\dim R = \sup_{\mfk{p}\,\text{prime}}\height\mfk{p}\),
-    the length of the longest strictly ascending chain of prime ideals.
-\end{definition}
-
 \begin{theorem}
-    Suppose \(R\) is a ring.
     \(R\) is Artinian if and only if \(R\) is Noetherian with \(\dim R = 0\).
 \end{theorem}
 \begin{proof}
