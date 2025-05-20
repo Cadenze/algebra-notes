@@ -542,14 +542,14 @@
     Hence \(F^\text{alg}\) is algebraically closed.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:bijection-extension-roots}
     Suppose \(\func{\sigma}{F}{L}\) is a field homomorphism,
     where \(L = \overline{L}\) is algebraically closed.
     Let \(\alpha\) be algebraic over \(F\),
-    \(p(x) = \min_F(a) = \sum_{i=0}^n a_i x^i\) a monic minimal polynomial,
+    \(p(x) = \min_F(\alpha) = \sum_{i=0}^n a_i x^i\) a monic minimal polynomial,
     and \(\sigma(p)(x) = \sum_{i=0}^n \sigma(a_i)x^i\) its image.
     Then given a homomorphism \(\func{\tau}{F(\alpha)}{L}\)
-    that is an extension of \(\sigma\) (\(\tau\vert_F = \sigma\)),
+    that extends of \(\sigma\) (\(\tau\vert_F = \sigma\)),
     the evaluation map \(\tau \mapsto \tau(\alpha)\)
     is a bijection between homomorphisms extending \(\sigma\)
     (\(\{\tau\in\Hom(F(\alpha),L): \tau\vert_F = \sigma\}\))
@@ -558,9 +558,18 @@
 \end{proposition}
 \begin{proof}
     Let \(\func{\tau}{F(\alpha)}{L}\) extending \(\sigma\).
-    Then \(\tau(p(\alpha)) = \sigma(p)(\tau(\alpha)) = 0\)
-    since \(p(\alpha) = 0\).
-    % TODO
+    Since \(p(\alpha) = 0\),
+    we have \(\tau(p(\alpha)) = \sigma(p)(\tau(\alpha)) = \sum_{i=0}^n \sigma(a_i){\tau(\alpha)}^i = 0\).
+    Hence \(\tau(\alpha)\) is indeed a root of \(\sigma(p)\),
+    guaranteeing us a well-defined map \(\tau \mapsto \tau(\alpha)\).
+
+    We show injectivity first.
+    Suppose \(\beta \in L\), such that \(\sigma(p)(\beta) = 0\).
+    Observe that for any \(\func{\tau}{F(\alpha)}{L}\),
+    it is wholly defined by its image on \(F\) and on \(\alpha\).
+    So given any \(\tau(\alpha) = \beta\),
+    and that \(\tau\) restricts to \(\eval{\tau}_F = \sigma\),
+    we have wholly defined \(\tau\), and there is a unique \(\tau\) that maps to \(\beta\).
 \end{proof}
 
 \begin{theorem}[Uniqueness of Splitting Fields]\label{thm:uniqueness-splitting-field}
@@ -574,7 +583,29 @@
     are \(F\)-isomorphic.
 \end{theorem}
 \begin{proof}
-    
+    We first consider the simplest case, where \(p\) is linear.
+    Then this is obvious, as it already splits, so \(\sigma = \phi\).
+
+    We now proceed by strong induction, assuming that this holds for all polynomials of degree less than \(n\),
+    where \(n\) is the degree of our irreducible polynomial \(p\).
+    Then \(\phi(p(x))\) is also irreducible in \(F\), of degree \(n\).
+    Observe that \(K\) and \(L\) contains all roots of \(p\) and \(\phi(p)\) respectively,
+    so take a root \(a\) of \(p\) and \(b\) of \(\phi(p)\).
+    By the \hyperref[prop:bijection-extension-roots]{proposition above},
+    we have the commutative diagram
+    \begin{equation*}
+        \begin{tikzcd}
+            K \arrow{r}{\sigma} & L \\
+            E(a) \arrow{r}{\phi^\ast} \arrow[dash]{u} & F(b) \arrow[dash]{u} \\
+            E \arrow[dash]{u} \arrow{r}{\phi} & F \arrow[dash]{u} \\
+        \end{tikzcd}
+    \end{equation*}
+    where the top part is guaranteed by induction, since it is of degree \(n-1\).
+
+    We note that the same proof applies when \(p\) is not irreducible,
+    by simply choosing the irreducible part before applying induction.
+
+    The special case is merely if \(E = F\).
 \end{proof}
 
 
