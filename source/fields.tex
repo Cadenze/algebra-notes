@@ -597,7 +597,7 @@
         \begin{tikzcd}
             K \arrow{r}{\sigma} & L \\
             E(a) \arrow{r}{\phi^\ast} \arrow[dash]{u} & F(b) \arrow[dash]{u} \\
-            E \arrow[dash]{u} \arrow{r}{\phi} & F \arrow[dash]{u} \\
+            E \arrow[dash]{u} \arrow{r}{\phi} & F \arrow[dash]{u}
         \end{tikzcd}
     \end{equation*}
     where the top part is guaranteed by induction, since it is of degree \(n-1\).
@@ -605,7 +605,7 @@
     We note that the same proof applies when \(p\) is not irreducible,
     by simply choosing the irreducible part before applying induction.
 
-    The special case is merely if \(E = F\).
+    The special case is merely when \(E = F\).
 \end{proof}
 
 
@@ -808,22 +808,51 @@
     extending \(\sigma\), that is, \(\sigma^\ast\vert_F = \sigma\) as
     \(S_\sigma = \{\sigma^\ast\in\Hom(E,L) : \sigma^\ast\vert_F = \sigma\}\).
 \end{definition}
-\begin{theorem}\label{thm:simple-extension-hom-count}
-    Suppose \(E = F(\alpha)\) is an algebraic extension of \(F\),
-    \(L = \overline{L}\) is an algebraically closed field extension of \(F\),
-    % \(E = F(\alpha)\) is an algebraic extension of \(F\),
-    and \(p(x) = \min_F(\alpha) \in F[x]\) is the minimal polynomial.
-    If \(\func{\sigma}{F}{L}\) is an embedding,
-    % that is, \(\sigma\vert_F = \id\).
-    then \(\abs{S_\sigma}\),
-    the number of embeddings of \(E\) into \(L\) extending \(\sigma\)
-    is the number of distinct roots of \(\sigma(p)(x)\).
-    In particular, \(\abs{S_\sigma} = [E:F]\)
-    if and only if \(E/F\) is separable.
+\begin{theorem}\label{thm:homomorphism-set-bijection}
+    Let \(\func{\sigma}{F}{\img\sigma \subseteq L}\) be an embedding of fields,
+    where \(L\) is algebraically closed,
+    and similarly, let \(\func{\tau}{F}{\img\tau \subseteq L'}\) be an embedding of fields,
+    where \(L'\) is algebraically closed.
+    Define \(\lambda\) to be the extension of \(\func{\tau\circ\sigma^{-1}}{\img\sigma}{\img\tau}\)
+    to the isomorphism \(\func{\lambda}{L}{L'}\).
+    The map \(\func{\psi}{S_\sigma}{S_\tau}\)
+    that sends \(\sigma^\ast\) to \(\lambda\circ\sigma^\ast\) is a bijection.
 \end{theorem}
 \begin{proof}
-    % TODO: separability 1
+    Consider any extension \(\sigma^\ast \in S_\sigma\).
+    For any \(x \in F\),
+    \(\lambda\circ\sigma^\ast(x) = \lambda\circ\sigma(x) = \tau\circ\sigma^{-1}(\sigma(x)) = \tau(x)\).
+    Hence \(\lambda\circ\sigma^\ast\) is an extension of \(\tau\),
+    meaning \(\lambda\circ\sigma^\ast \in S_\tau\).
+    Since \(\lambda\) is an isomorphism, this implication also holds for \(\lambda^{-1}\),
+    which proves the other direction.
 \end{proof}
+\begin{corollary}
+    If \(E/F\) is an algebraic extension,
+    and \(\func{\sigma}{F}{L}\) embeds \(F\) into an algebraically closed field \(L\),
+    then the number of extensions of \(\sigma\) is independent of the choice of \(\sigma\),
+    but only on the extension \(E/F\).
+\end{corollary}
+\begin{proof}
+    The bijection in the \hyperref[thm:homomorphism-set-bijection]{theorem above}
+    gives us the equality of the number of extensions.
+\end{proof}
+% \begin{theorem}\label{thm:simple-extension-hom-count}
+%     Suppose \(E = F(\alpha)\) is an algebraic extension of \(F\),
+%     \(L = \overline{L}\) is an algebraically closed field extension of \(F\),
+%     % \(E = F(\alpha)\) is an algebraic extension of \(F\),
+%     and \(p(x) = \min_F(\alpha) \in F[x]\) is the minimal polynomial.
+%     If \(\func{\sigma}{F}{L}\) is an embedding,
+%     % that is, \(\sigma\vert_F = \id\).
+%     then \(\abs{S_\sigma}\),
+%     the number of embeddings of \(E\) into \(L\) extending \(\sigma\)
+%     is the number of distinct roots of \(\sigma(p)(x)\).
+%     In particular, \(\abs{S_\sigma} = [E:F]\)
+%     if and only if \(E/F\) is separable.
+% \end{theorem}
+% \begin{proof}
+%     % TODO: separability 1
+% \end{proof}
 
 \begin{proposition}\label{prop:algebraic-extension-hom}
     Suppose \(E/F\) is an algebraic extension,
@@ -832,11 +861,30 @@
     Then there exists an embedding \(\func{\tau}{E}{L}\) that extends \(\sigma\),
     i.e.\ \(\tau\vert_F = \sigma\).
     If \(E\) is an algebraic closure of \(F\),
-    and \(L\) is the algebraic closure of \(\sigma(F)\),
+    and \(L\) is the algebraic closure of \(\img\sigma\),
     then \(\tau\) is an isomorphism.
 \end{proposition}
 \begin{proof}
-    % TODO: separability 1
+    Consider the set of tuples \(\Sigma = \{(K,\tau): F \subseteq K \subseteq E,\; \func{\tau}{K}{L}\;\text{extending}\;\sigma\}\)
+    of intermediate fields \(K\) and extensions of \(\sigma\) to \(K\).
+    The trivial extension \((F,\sigma)\) is in this set, so \(\Sigma \neq \emptyset\).
+    We can endow \(\Sigma\) with a partial order \(\preceq\),
+    where \((K,\tau) \preceq (K',\tau')\) when \(K \subseteq K'\) and \(\eval{\tau'}_K = \tau\).
+    Now consider a chain \({(K_i,\tau_i)}_{i=1}^\infty \subset \Sigma\).
+    \(K = \bigcup_{i=1}^\infty K_i\) is a subfield of \(E\) (same proof as rings suffice),
+    and we can define \(\func{\tau}{K}{L}\) by sending \(x \mapsto \tau_i(x)\) for \(x \in K_i\).
+    Zorn's lemma then implies we have a maximal element \((K,\tau) \in \Sigma\).
+
+    It now suffices to show that \(K = E\).
+    Suppose there exists \(\alpha \in K - E\).
+    Since \(\alpha\) is algebraic over \(K\),
+    we can then extend \(\func{\tau}{K}{L}\) to \(\func{\tau^\ast}{K(\alpha)}{L}\),
+    contradicting maximality.
+    We have that \(K = E\).
+
+    Now, if \(E\) is an algebraic closure of \(F\) and \(L\) is an algebraic closure of \(\img\sigma\),
+    since \(\img\tau\) is algebraically closed and \(L/\img\tau\) is algebraic,
+    we have equality \(L = \img\tau\) as desired.
 \end{proof}
 \begin{proposition}\label{prop:algebraic-extension-hom-count-bound}
     Suppose \(E/F\) is a finite extension,
