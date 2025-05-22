@@ -898,14 +898,19 @@
     that is, \(\abs{S_\sigma} \leq [E:F]\).
 \end{proposition}
 \begin{proof}
-    % TODO: separability 2
-\end{proof}
-\begin{proposition}\label{prop:intermediate-field-separable}
-    Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
-    If \(L/F\) is separable, then \(L/E\) and \(E/F\) are separable.
-\end{proposition}
-\begin{proof}
-    % TODO: separability 2
+    Let \(E = F(\alpha_1,\hdots,\alpha_k)\) for some \(k\) field generators.
+    If there is only 1 generator,
+    the number of ways to extend an embedding is at most the degree of \(\min_F(\alpha)\),
+    which is obviously equal to \([F(\alpha):F]\).
+
+    We now perform weak induction on the number of generators.
+    Define \(E_i = F(\alpha_1,\hdots,\alpha_i)\),
+    so that \(E_{i+1} = E_i(\alpha_{i+1})\) and \(E = E_k\).
+    Then by induction, there are at most \([E_{k-1}:F]\) different embeddings
+    extending \(\sigma\) to \(E_{k-1}\),
+    and each of those embeddings have at most
+    \(\deg\min_F(\alpha_k) = [E_{k-1}(\alpha_k):E_{k-1}] = [E:E_{k-1}]\) extensions to \(E\).
+    Hence in total, there are at most \([E:E_{k-1}][E_{k-1}:F] = [E:F]\) extensions of \(\sigma\).
 \end{proof}
 \begin{theorem}\label{thm:algebraic-extension-hom-count}
     Suppose \(E/F\) is a finite extension,
@@ -916,16 +921,49 @@
     is exactly \([E:F]\) if and only if \(E/F\) is separable.
 \end{theorem}
 \begin{proof}
-    % TODO: separability 2
+    Let \(E = F(\alpha_1,\hdots,\alpha_k)\) and \(E_i = F(\alpha_i,\hdots,\alpha_i)\) just as before.
+    We already have that the number of such extensions is at most \([E:F]\) (Proposition~\ref{prop:algebraic-extension-hom-count-bound}),
+    so for the reverse direction, it suffices to prove that it is at least \([E:F]\).
+    But combining the inductive argument from Proposition~\ref{prop:algebraic-extension-hom-count-bound}
+    and the bijection from Propostion~\ref{prop:algebraic-extension-hom},
+    we have equality.
+
+    For the other direction, suppose \(E/F\) is not separable.
+    Then there is some inseparable element \(\beta \in E\).
+    Consider the extension \(F(\beta)/F\).
+    Because there must be at least a double root in \(\min_F(\beta)\),
+    there are strictly fewer than \([F(\beta):F]\) extensions of \(\sigma\).
+    Hence the number of extensions to \(E\) must be fewer than \([E:F(\beta)][F(\beta):F] = [E:F]\) as desired.
 \end{proof}
 
+\begin{proposition}\label{prop:intermediate-field-separable}
+    Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
+    If \(L/F\) is separable, then \(L/E\) and \(E/F\) are separable.
+\end{proposition}
+\begin{proof}
+    Suppose \(L/F\) is separable, which means every element of \(L\) is separable over \(F\).
+    Then because \(E \subseteq L\), every element of \(E\) is separable over \(F\),
+    and hence \(E/F\) is separable.
+
+    Now consider any \(\alpha \in L\), and its minimal polynomial \(\min_F(\alpha) \in F[x]\).
+    By definition of minimal polynomials, we know that \(\min_E(\alpha) \mid \min_F(\alpha)\).
+    Since \(\alpha\) is separable over \(F\), the roots of \(\min_F(\alpha)\) are distinct,
+    so the roots of \(\min_E(\alpha)\) are also distinct, giving us separability.
+\end{proof}
 \begin{theorem}[Transitivity of Separable Extensions]\label{thm:separable-transitive}
     Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
     If \(E/F\) and \(L/E\) are both separable,
     then \(L/F\) is separable.
 \end{theorem}
 \begin{proof}
-    % TODO: separability 2
+    Suppose \(\func{\sigma}{F}{\overline{F}}\) is an embedding.
+    Because \(E/F\) is separable, there are \([E:F]\) distinct embeddings \(\sigma^\ast\)
+    from \(E\) extending \(\sigma\);
+    similarly, because \(L/E\) is separable, there are \([L:E]\) distinct embeddings from \(L\)
+    extending each \(\sigma^\ast\).
+    Hence, there are a total of \([L:E][E:F] = [L:F]\) distinct embeddings extending \(\sigma\).
+    By Theorem~\ref{thm:algebraic-extension-hom-count},
+    \(L/F\) must be separable.
 \end{proof}
 
 \subsection*{Separable Degree}
