@@ -989,12 +989,21 @@
     The separable closure of \(F\) in \(E\) is \(F_s\),
     the field of all elements in \(E\) that are separable over \(F\).
 \end{definition}
+% \begin{lemma}\label{lem:separable-degree-multiplicative}
+%     Suppose \(F \subseteq E \subseteq L\) is a tower of field extensions.
+%     Then \({[L:F]}_s = {[L:E]}_s{[E:F]}_s\).
+% \end{lemma}
+% \begin{proof}
+%     Given \(\sigma\) from \(F\),
+%     extending via \(E\) to \(L\) is exactly the same as extending directly to \(L\).
+%     Hence counting is multiplicative.
+% \end{proof}
 \begin{proposition}\label{prop:separable-degree}
     Suppose \(E/F\) an extension.
     The separable degree is \([F_s:F] = {[E:F]}_s\).
 \end{proposition}
 \begin{proof}
-    % TODO: inseparability
+    Corollary of Proposition~\ref{prop:separable-degree-polynomial}.
 \end{proof}
 \begin{corollary}
     Suppose \(E/F\) a finite extension.
@@ -1019,7 +1028,12 @@
     and \({[E:F]}_s = {[E:L]}_s{[L:F]}_s\).
 \end{proposition}
 \begin{proof}
-    % TODO: inseparability
+    Given \(\sigma\) from \(F\),
+    extending via \(E\) to \(L\) is exactly the same as extending directly to \(L\).
+    Hence counting separable degree is multiplicative.
+
+    By definition, because both separable degree and degree of extension are both multiplicative,
+    we get the inseparable degree for free.
 \end{proof}
 
 \subsection*{Simple Extensions}
@@ -1096,7 +1110,7 @@
     We call the degree of \(g\) the inseparable degree of \(f(x)\),
     and \(p^m\) the separable degree of \(f(x)\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:separable-degree-polynomial}
     Suppose \(E = F(\alpha)\) is an extension of \(F\),
     and \(f(x) = \min_F(\alpha)\).
     Then the definitions of separable and inseparable degrees
