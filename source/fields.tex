@@ -1222,7 +1222,14 @@
     then \([K:F] = p^n\) for some \(n\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    Since \(K\) is purely inseparable, for all \(\alpha \in K\),
+    \(\min_F(\alpha)\) splits over \(K\) as it is the only root;
+    and as we have established, \(\alpha \in K\), so \(K\) is normal.
+
+    If \(K\) is also finite, and \(F\) is characteristic \(p\),
+    then \(K\) is finitely generated, with \(K = F(\alpha_1,\hdots,\alpha_n)\).
+    By multiplicativity of degree, without any loss of generality, let \(K = F(\alpha)\).
+    But by Lemma~\ref{lem:purely-inseparable-power} this is a power of \(p\).
 \end{proof}
 \begin{theorem}
     Suppose \(X\) a set, and \(K = F(X)\),
@@ -1230,7 +1237,13 @@
     Then \(K\) is purely inseparable.
 \end{theorem}
 \begin{proof}
-    % TODO
+    We prove that every \(a \in K\) is purely inseparable.
+    Let \(a \in F(\alpha_1,\hdots,a_n)\) for some finitely many \(a_i \in X\).
+    Choose \(m\) such that \(\alpha_i^{p^m} \in F\) for all \(i\).
+    Because \(a\) can be written as a polynomial of \(\alpha_i\),
+    we also have \(a^{p^m} \in F\).
+    Hence \(\min_F(a) \mid {(x-a)}^{p^m}\), which means it only has one distinct root,
+    giving us that \(a\) is purely inseparable.
 \end{proof}
 \begin{theorem}
     Suppose \(F \subseteq L \subseteq K\) are a tower of extensions.
@@ -1238,7 +1251,15 @@
     \(K/L\) and \(L/F\) are purely inseparable.
 \end{theorem}
 \begin{proof}
-    % TODO
+    Suppose \(K/F\) is purely inseparable.
+    For any \(a \in K\), there exists some \(m\) such that \(a^{p^m} \in F \subseteq L\),
+    so \(K/L\) is purely inseparable.
+    Moreover, since any \(a \in L \subseteq K\), \(L/F\) is also purely inseparable.
+
+    Conversely, suppose \(L/F\) and \(K/L\) are both purely inseparable.
+    Let \(a \in K\), and \(a^{p^m} \in L\) for some \(m\),
+    and \({(a^{p^m})}^{p^r} = a^{p^{m+r}} \in F\) for some \(r\).
+    Hence \(K/F\) is purely inseparable.
 \end{proof}
 
 % TODO: separable and inseparable closures
