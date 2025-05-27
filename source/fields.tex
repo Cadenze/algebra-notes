@@ -1106,7 +1106,13 @@
     such that \(f(x) = g(x^{p^m})\) for some unique \(m \geq 0\).
 \end{proposition}
 \begin{proof}
-    % TODO: inseparability
+    Because polynomials in \(F[x^{p^r}]\) must have degree at least \(p^r\),
+    \(f \in F[x^{p^r}]\) only for finitely many \(r\).
+    Allow us to consider the maximal \(m\) such that \(f \in F[x^{p^m}]\),
+    and in particular, let \(f(x) = g(x^{p^m})\).
+    By maximality of \(m\), \(g \notin F[x^p]\), giving us separability.
+    Moreover, \(g(x)\) is irreducible, because if it is, i.e.\ \(g(x) = h(x)k(x)\),
+    then \(f(x) = h(x^{p^m})k(x^{p^m})\) is reducible, which is a contradiction.
 \end{proof}
 \begin{definition}
     We call the degree of \(g\) the inseparable degree of \(f(x)\),
@@ -1121,7 +1127,11 @@
     and \({[E:F]}_{pi}\) is the inseparable degree of \(f(x)\).
 \end{proposition}
 \begin{proof}
-    % TODO: inseparable
+    Obviously, \(\deg f(x) = [E:F]\),
+    so it suffices to show that \({[E:F]}_s\) (the number of extensions of an embedding)
+    is the separable degree of \(f(x)\) (\(\deg g(x)\)).
+    But this is obvious, because \(g(x)\) is the version of \(f(x)\)
+    but with all the repeated roots deleted, so we are done.
 \end{proof}
 
 \begin{proposition}
@@ -1181,16 +1191,30 @@
     In this case, \(\min_F(\alpha) = {(x-\alpha)}^{p^n}\).
 \end{lemma}
 \begin{proof}
-    % TODO: inseparable
+    If \(\alpha^{p^n} = a \in F\), then we are immediately done because it is the root of \(x^{p^n} - a\).
+    Then because \(F\) has characteristic \(p\), this factors into \({(x-\alpha)}^{p^n}\),
+    and because we know that \(\min_F(\alpha)\) divides this polynomial,
+    the minimal polynomial must also be of this form.
+
+    For the other direction, if \(\alpha\) is purely inseparable, let \(f(x) = \min_F(\alpha)\).
+    By Proposition~\ref{prop:separable-power-polynomial},
+    there exists some \(g\) such that \(f(x) = g(x^{p^m})\).
+    If \(g\) factors over a splitting field,
+    then we know that \(f(x) = \prod_{i=1}^r (x^{p^m} - b_i)\) over \(r\) distinct roots;
+    but sicne \(f\) is purely inseparable, \(r = 1\),
+    so \(f(x) = x^{p^m} - a\) for a root \(a\) as desired.
 \end{proof}
 
 \begin{theorem}
     Suppose \(K/F\) is an algebraic extension.
     If \(\alpha \in K\) is both separable and purely inseparable,
-    then \(\alpha = F\).
+    then \(\alpha \in F\).
 \end{theorem}
 \begin{proof}
-    % TODO: inseparable
+    From the \hyperref[lem:purely-inseparable-power]{lemma above},
+    we know that \(\min_F(\alpha)\) has only one distinct root due to inseparability,
+    and separability implies that it has no repeated roots,
+    so it must be linear, and in \(F\) as a result.
 \end{proof}
 \begin{theorem}
     If \(K/F\) is purely inseparable, then \(K/F\) is normal.
