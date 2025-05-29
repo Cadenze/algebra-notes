@@ -1082,7 +1082,7 @@
 \end{proposition}
 \begin{proof}
     \begin{gather*}
-        \Phi(x+y) = {(x+y)}^p = x^p + y^p = \Phi(x) + \Phi(y)
+        \Phi(x+y) = {(x+y)}^p = x^p + y^p = \Phi(x) + \Phi(y) \\
         \Phi(xy) = {(xy)}^p = x^p y^p = \Phi(x)\Phi(y)
     \end{gather*}
     This proves endomorphism.
@@ -1134,9 +1134,9 @@
     but with all the repeated roots deleted, so we are done.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:irreducible-multiplicity}
     Suppose \(F\) is a field.
-    Then all roots of \(f(x)\) have the same multiplicity.
+    Then all roots of an irreducible polynomial \(f(x) \in F[x]\) have the same multiplicity.
     In particular,
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item if \(F\) has characteristic 0, the multiplicity is 1; and
@@ -1273,42 +1273,64 @@
     Suppose \(F\) is a field.
     \(F\) is perfect if every algebraic extension of \(F\) is separable.
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:perfect-frobenius-bijective}
     Suppose \(F\) is a field with characteristic \(p\).
     \(F\) is perfect if and only if \(F^p = F\),
     i.e.\ the Frobenius endomorphism \(\vfunc{\Phi_p}{F}{F}{x}{x^p}\) is bijective.
 \end{proposition}
 \begin{proof}
-    % TODO
+    Suppose that \(F^p = F\).
+    We want to show that every algebraic extension is separable,
+    but since separable extensions are stackable (Theorem~\ref{thm:separable-transitive}),
+    we can show that every possible element in its algebraic closure is separable,
+    i.e.\ every irreducible polynomial it \(F[x]\) is separable.
+    Suppose, by way of contradiction, that \(f \in F[x]\) is irreducible and inseparable.
+    Then since each root has multiplicity \(p^n\) (Proposition~\ref{prop:irreducible-multiplicity}),
+    \(f(x)\) is a polynomial in \(x^p\),
+    \begin{equation*}
+        f(x) = a_n x^{pn} + a_{n-1} x^{p(n-1)} + \cdots + a_1 x^p + a_0 \in F[x^p]
+    \end{equation*}
+    so \(f' = 0\) after taking the derivative term-by-term.
+    If \(F^p = F\), then we know that \(a_i = b_i^p\) for each \(i\),
+    which implies \(f(x) = {(g(x))}^p\), which contradicts irreducibility.
+
+    Now suppose \(F^p \neq F\), and we wish to prove that \(F\) is imperfect.
+    Then there is some \(a \in F - F^p\) that does not have a \(p\)th root in \(F\),
+    which means that \(x^p - a \in F[x]\) is irreducible, and has one root only.
+    Consider this over a splitting field,
+    such that \(x^p - a = {(x-b)}^p\) is irreducible and inseparable.
+    Then \(F(b)/F\) is an inseparable extensions, which means \(F\) cannot be perfect.
+\end{proof}
+\begin{corollary}
+    Finite fields are perfect.
+\end{corollary}
+\begin{proof}
+    Proposition~\ref{prop:frobenius-hom} shows that \(\Phi_p\) is an automorphism
+    so the \hyperref[prop:perfect-frobenius-bijective]{proposition above} applies.
 \end{proof}
 
 \begin{proposition}
     Algebraically closed fields are perfect.
 \end{proposition}
 \begin{proof}
-    % TODO
-\end{proof}
-\begin{theorem}
-    Finite fields are perfect.
-\end{theorem}
-\begin{proof}
-    % TODO
+    The only algebraic extension of an algebraically closed field is itself,
+    which is separable by definition.
 \end{proof}
 
-\begin{lemma}
-    Suppose \(F\) is a field with characteristic \(p\).
-    If \(a \in F - F^p\), then \(x^p - a\) is irreducible and inseparable.
-\end{lemma}
-\begin{proof}
-    % TODO
-\end{proof}
-\begin{lemma}
-    Suppose \(F\) is a field with characteristic \(p\).
-    If \(a \in F^p\), then \(x^p - a\) is reducible.
-\end{lemma}
-\begin{proof}
-    % TODO
-\end{proof}
+% \begin{lemma}
+%     Suppose \(F\) is a field with characteristic \(p\).
+%     If \(a \in F - F^p\), then \(x^p - a\) is irreducible and inseparable.
+% \end{lemma}
+% \begin{proof}
+%     % TODO
+% \end{proof}
+% \begin{lemma}
+%     Suppose \(F\) is a field with characteristic \(p\).
+%     If \(a \in F^p\), then \(x^p - a\) is reducible.
+% \end{lemma}
+% \begin{proof}
+%     % TODO
+% \end{proof}
 \begin{proposition}
     Suppose \(p\) is a prime,
     and \(x^p - 1\) splits completely over a field \(K\).
