@@ -1331,23 +1331,36 @@
 % \begin{proof}
 %     % TODO
 % \end{proof}
-\begin{proposition}
-    Suppose \(p\) is a prime,
-    and \(x^p - 1\) splits completely over a field \(K\).
-    Let \(L/K\) be an extension, with \(a \in L\) an algebraic element over \(K\),
-    and the prime \(p \nmid [K(a):K]\) does not divide the degree of the extension.
-    Then \(K(a) = K(a^p)\).
-\end{proposition}
-\begin{proof}
-    % TODO
-\end{proof}
+% \begin{proposition}
+%     Suppose \(p\) is a prime,
+%     and \(x^p - 1\) splits completely over a field \(K\).
+%     Let \(L/K\) be an extension, with \(a \in L\) an algebraic element over \(K\),
+%     and the prime \(p \nmid [K(a):K]\) does not divide the degree of the extension.
+%     Then \(K(a) = K(a^p)\).
+% \end{proposition}
+% \begin{proof}
+%     Suppose, by way of contradiction,
+%     that \(K(a^p) \subsetneq K(a)\) is a strictly smaller field.
+%     Then we can see that \(a \notin K(a^p)\),
+%     because if it were so, then \(K(a) \subseteq K(a^p) \subsetneq K(a)\) is a contradicts equality.
+% \end{proof}
 \begin{theorem}
     A field \(K\) is perfect
     if and only if its characteristic is 0,
     or if its characteristic is \(p\) and \(K^p = K\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    There are three statements that we need to prove here:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item if \(K\) has characteristic 0, then it is perfect;
+        \item if \(K\) has characteristic \(p\) and \(K^p = K\), then it is perfect; and
+        \item if \(K\) is perfect and has characteristic \(p\), then \(K^p = K\).
+    \end{enumerate}
+    Proposition~\ref{prop:perfect-frobenius-bijective} has already proven the last two statements,
+    so it suffices to prove the first one.
+    
+    To prove this statement, it suffices to show that all irreducible polynomials are separable.
+    But Proposition~\ref{prop:irreducible-multiplicity}a shows exactly that.
 \end{proof}
 
 \subsection*{Normal Extensions}
