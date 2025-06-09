@@ -1344,7 +1344,7 @@
 %     Then we can see that \(a \notin K(a^p)\),
 %     because if it were so, then \(K(a) \subseteq K(a^p) \subsetneq K(a)\) is a contradicts equality.
 % \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:perfect-field-condition}
     A field \(K\) is perfect
     if and only if its characteristic is 0,
     or if its characteristic is \(p\) and \(K^p = K\).
@@ -1375,23 +1375,26 @@
     meaning that it does not stack.
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm:normal-upper}
     Suppose \(F \subseteq K \subseteq L\) is a tower of extensions.
     If \(L/F\) is normal, then \(L/K\) is normal.
 \end{theorem}
 \begin{proof}
-    % TODO
+    Consider some \(\alpha \in L\), and let \(p(x) = \min_F(\alpha)\) and \(h(x) = \min_K(\alpha)\).
+    Since we know that \(h(x) \mid p(x)\),
+    so there exists some \(g \in K[x]\) such that \(h(x)g(x) = p(x)\).
+    If \(p(x)\) splits completely, then \(h(x)\) should also split completely.
 \end{proof}
 
-\begin{lemma}
-    Suppose \(F \subseteq E_i \subseteq E\) are two towers of extensions with \(i \in \{1,2\}\).
-    If \(E_1/F\) and \(E_2/F\) are normal,
-    then \((E_1 \cdot E_2)/F\) and \((E_1 \cap E_2)/F\) are normal.
-\end{lemma}
-\begin{proof}
-    % TODO
-\end{proof}
-\begin{lemma}
+% \begin{lemma}
+%     Suppose \(F \subseteq E_i \subseteq E\) are two towers of extensions with \(i \in \{1,2\}\).
+%     If \(E_1/F\) and \(E_2/F\) are normal,
+%     then \((E_1 \cdot E_2)/F\) and \((E_1 \cap E_2)/F\) are normal.
+% \end{lemma}
+% \begin{proof}
+%     % TODO
+% \end{proof}
+\begin{lemma}\label{lem:normal-intersection}
     Suppose \(F\) is a field, and \(K/F\) is an algebraic extension.
     Let \(I\) be some index set, and \(i \in I\),
     with \(F \subseteq E_i \subseteq K\) are intermediate extensions
@@ -1399,7 +1402,9 @@
     Then \(\bigcap_{i \in I} E_i\) is a normal extension of \(F\).
 \end{lemma}
 \begin{proof}
-    % TODO
+    Consider any irreducible \(f(x) \in F[x]\) that has roots in every \(E_i\).
+    Since it splits completely in \(E_i\), the roots of \(f(x)\) reside in every \(E_i\),
+    so it should also split completely in \(\bigcap E_i\).
 \end{proof}
 \begin{lemma}
     Suppose \(K/F\) is a normal extension,
@@ -1407,33 +1412,80 @@
     Then \(F \subseteq K_\text{sep} \subseteq K\) is a tower of normal extensions.
 \end{lemma}
 \begin{proof}
-    % TODO
-\end{proof}
+    First suppose that \(F\) is perfect.
+    Then every extension of \(F\) is separable, so \(K_\text{sep} = K\),
+    and we are immediately done.
 
-\begin{proposition}
-    Let \(F \subseteq K \subseteq L\) be a tower of field extensions.
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item If \(K/F\) is normal, and \(\tau \in \Aut_F(L)\) is an \(F\)-automorphism,
-            then \(\tau\vert_K \in \Aut_F(K)\).
-        \item If \(L/F\) is normal, then any \(\sigma \in \Hom_F(K,L)\)
-            extends to and \(F\)-automorphism over \(L\).
-    \end{enumerate}
-\end{proposition}
-\begin{proof}
-    % TODO
+    Now suppose \(F\) is imperfect.
+    By Theorem~\ref{thm:perfect-field-condition},
+    we know that \(F\) has characteristic \(p\) and \(F^p \neq F\).
+    Since we already know that \(K/K_\text{sep}\) is normal from Theorem~\ref{thm:normal-upper},
+    it suffices to prove that \(K_\text{sep}/F\) is normal.
+    Consider some \(\alpha \in K_\text{sep}\), and let \(p(x) = \min_F(\alpha)\).
+    If \(p(x) = (x-\alpha)(x-r_2)\cdots(x-r_d)\) in a splitting field,
+    we observe that by separability, the \(r_i\) are all distinct.
+    Since each \(r_i\) also has the minimal polynomial \(\min_F(r_i) = p(x)\),
+    we conclude that they all lie in \(K_\text{sep}\),
+    so indeed \(K_\text{sep}/K\) is normal.
 \end{proof}
 
 \begin{theorem}\label{thm:normal-extension-equivalence}
     Suppose \(E/F\) is an algebraic extension, with \(E \subseteq \overline{F}\).
     The following are equivalent:
-    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
         \item Every \(\sigma\in\Hom_F(E,\overline{F})\) is also \(\sigma\in\Aut_F(E)\);
         \item \(E\) is a splitting field of a family of polynomials in \(F[x]\); and
         \item \(E/F\) is normal.
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    We first prove that (i) implies (ii).
+    Let \(a \in E\), and \(p(x) = \min_F(a) \in F[x]\) its minimal polynomial.
+    If \(b \in \overline{F}\) is a root of \(p(x)\),
+    then there exists an \(F\)-isomorphism \(\func{\tau}{F(a)}{F(b)}\).
+    But because \(\img\sigma = E\), we know that \(b \in E\),
+    and in particular, all roots of \(p(x)\) have to be in \(E\).
+    Hence \(E\) is the splitting field of \({\{\min_F(a)\}}_{a \in E}\) by construction.
+
+    Now we prove that (ii) implies (iii).
+    Suppose \(E\) is the splitting field of of a set of polynomials \({\{p_\alpha(x)\}}_{\alpha \in I}\).
+    Let \(a \in E\), and \(f(x) = \min_F(a)\).
+    Let \(b \in \overline{F}\) be any other root of \(f(x)\).
+    Since there exists an \(F\)-isomorphism \(\func{\tau}{F(a)}{F(b)}\) such that \(\tau(a) = b\),
+    we know that \(\tau\) extends to an \(F\)-embedding \(\func{\sigma}{E}{\overline{F}}\).
+    As \(\sigma\) maps roots of \(p_\alpha(x)\) to roots of \(p_\alpha(x)\),
+    we know that \(\img\sigma \subseteq E\).
+    Using the \hyperref[thm:pigeonhole]{pigeonhole principle} on an \(F\)-basis of \(E\),
+    we get \(\img\sigma = E\) and hence \(b \in E\), so \(f(x)\) does split into linear factors.
+
+    Finally we prove that (iii) implies (i).
+    Let \(a \in E\), with \(p(x) = \min_F(a)\) splitting completely over \(E\).
+    But then \(\sigma(a)\) is just a root of \(p(x)\), so \(\img\sigma \subseteq E\).
+    Same pigeonhole argument as the previous part applies, and we are done.
+\end{proof}
+
+\begin{proposition}
+    Let \(F \subseteq K \subseteq L\) be a tower of field extensions.
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item If \(K/F\) is normal, and \(\tau \in \Aut_F(L)\) is an \(F\)-automorphism,
+            then \(\eval{\tau}_K \in \Aut_F(K)\).
+        \item If \(L/F\) is normal, then any \(\sigma \in \Hom_F(K,L)\)
+            extends to an \(F\)-automorphism over \(L\).
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Consider \(\tau \in \Aut_F(L)\), and consider it as a morphism \(\tau \in \Hom_F(L,\overline{F})\).
+    Under a restriction, it becomes \(\eval{\tau}_K \Hom_F(K,\overline{F})\).
+    But then from the \hyperref[thm:normal-extension-equivalence]{theorem above},
+    \(\tau_K\) must be an automorphism.
+    This proves part (a).
+
+    Similarly, any \(\sigma \in \Hom_F(K,L)\) can be considered as \(\sigma \in \Hom_F(K,\overline{F})\),
+    and then by Propostiion~\ref{prop:algebraic-extension-hom},
+    we know that this extends to some homomorphism \(\tau \in \Hom_F(L,\overline{F})\).
+    But then from the \hyperref[thm:normal-extension-equivalence]{theorem above},
+    \(\tau\) must be an automorphism.
+    This proves part (b).
 \end{proof}
 
 
@@ -1484,7 +1536,7 @@
     and is normal over \(\bF_p\) by Theorem~\ref{thm:normal-extension-equivalence}.
     The \hyperref[prop:derivative-inseparability]{derivative test} yields separability.
 
-    Conlcude from the \hyperref[thm:primitive-element]{primitive element theorem}
+    Conclude from the \hyperref[thm:primitive-element]{primitive element theorem}
     and the \hyperref[lem:finite-mult-group-cyclic]{lemma above},
     since cyclic groups have a single generator.
 \end{proof}
