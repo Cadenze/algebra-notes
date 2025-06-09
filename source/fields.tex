@@ -1588,7 +1588,7 @@
     and clearly \(a^q - a = 0\).
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:finite-field-size-inclusion}
     For some prime \(p\) and \(n,m \in \bN\),
     \(m \mid n \iff \bF_{p^m} \subseteq \bF_{p^n}\).
 \end{proposition}
@@ -1617,24 +1617,55 @@
     of degree \(m\), where \(m \mid n\).
 \end{proposition}
 \begin{proof}
-    % TODO: finite fields
+    We just proved that \(\bF_{p^n}\) is the splitting field of \(x^{p^n} - x \in \bF_p[x]\).
+    Consider some \(a \in \bF_{p^n}\), and let \(m = [\bF_p(a):\bF_p] \mid [\bF_{p^n}:\bF_p]\).
+    As \(a\) is a root if \(x^{p^n} - x\), we have that \(\min_{\bF_p}(a) \mid x^{p^n} - x\).
+    Hence all monic irreducible polynomials are factors of \(x^{p^n} - x\).
+
+    Now, we wish to show that these are all the divisors.
+    Consider any monic irreducible \(f \in \bF_p[x]\) of degree \(m \mid n\),
+    and let \(K\) be the splitting field of \(f\) over \(\bF_p\).
+    If \(a \in K\) is a root of \(f\), then \(K = \bF_p(a)\), so \([K:\bF_p] = m\),
+    so \(K \subseteq \bF_{p^n}\) from the \hyperref[prop:finite-field-size-inclusion]{proposition above}.
+    Hence \(a \in \bF_{p^n}\), and \(a\) is a a root if \(x^{p^n} - x\).
+    As \(x^{p^n} - x\) has no repeated roots, we are done.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:extension-polynomial-divides}
     Let \(f \in \bF_q[x]\) be an irreducible polynomial over some finite field \(\bF_q\),
     and let \(\alpha\) be a root of \(f\) in some extension.
     Then, for a polynomial \(h \in \bF_q[x]\),
     \(h(\alpha) = 0\) if and only if \(f \mid h\).
 \end{lemma}
 \begin{proof}
-    % TODO
+    If \(f\) has a leading coefficient \(a\),
+    then the minimal polynomial \(\min_{\bF_q}(\alpha)\)
+    must be the corresponding monic polynomial \(f/a\).
+    Then Proposition~\ref{prop:minimal-polynomial-factor} suffices.
 \end{proof}
-\begin{lemma}
+\begin{remark}
+    This lemma actually holds more generally over arbitrary fields,
+    but we don't quite need to use it here.
+\end{remark}
+\begin{lemma}\label{lem:factor-divisibility}
     Let \(f \in \bF_q[x]\) be an irreducible polynomial of degree \(m\).
     Then \(f \mid x^{q^n} - x\) if and only if \(m \mid n\).
 \end{lemma}
 \begin{proof}
-    % TODO
+    Suppose \(f \mid x^{q^n} - x\).
+    Let \(\alpha\) be a root of \(f\) in some splitting field.
+    Then \(\alpha^{q^n} = \alpha\), which means \(\bF_q(\alpha) \subseteq \bF_{q^n}\).
+    As \([\bF_q(\alpha):\bF_q] = m\)
+    and \(n = [\bF_{q^n}:\bF_q] = [\bF_{q^n}:\bF_q(\alpha)][\bF_q(\alpha):\bF_q] = [\bF_{q^n}:\bF_q(\alpha)]m\),
+    we indeed have \(m \mid n\).
+
+    For the reverse direction, suppose that \(m \mid n\),
+    which impleis that \(\bF_{q^m} \subseteq \bF_{q^n}\).
+    Consider \(\alpha\) as a root of \(f\) in some splitting field.
+    Then \([\bF_q(\alpha):\bF_q] = m\), which gives us that \(\bF_q(\alpha) = \bF_{q^m}\).
+    Thus \(\alpha \in \bF_{q^m}\), and \(\alpha^{q^n} = \alpha\),
+    giving us that \(\alpha\) is a root of the polynomial \(x^{q^n} - x \in \bF_q[x]\).
+    The \hyperref[lem:extension-polynomial-divides]{previous lemma} then sufficies.
 \end{proof}
 \begin{corollary}
     If \(N_q(d)\) is the number of monic irreducible polynomials
@@ -1645,5 +1676,5 @@
     where we are summing over all positive \(d \mid n\).
 \end{corollary}
 \begin{proof}
-    % TODO
+    Counting argument from \hyperref[lem:factor-divisibility]{lemma above}.
 \end{proof}
