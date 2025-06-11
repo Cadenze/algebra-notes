@@ -111,8 +111,8 @@
 
 \begin{definition}
     Suppose \(K/F\) some extension, and \(G \subseteq \Aut_F(K)\) some subset.
-    The fixed field of \(T\) is
-    \(K^T =\{a \in K: \sigma(u) = u,\; \forall \sigma \in T\}\).
+    The fixed field of \(G\) is
+    \(K^G =\{a \in K: \sigma(u) = u,\; \forall \sigma \in G\}\).
 \end{definition}
 \begin{proposition}
     Suppose \(F\) is a field of characteristic 0,
@@ -120,7 +120,50 @@
     Then \(K/F\) is normal if and only if \(K^G = F\).
 \end{proposition}
 \begin{proof}
-    % TODO: galois extension
+    First suppose that \(K/F\) is normal.
+    Observe that \(K^G \supseteq F\) by definition of an \(F\)-automorphism,
+    so it suffices to prove that \(K^G \subseteq F\).
+    Let \(K\) be the splitting field of a set of polynomials in \(F[x]\)
+    (Theorem~\ref{thm:normal-extension-equivalence}),
+    and let \(n = [K:F]\) be the degree of the extension.
+    If \(n = 1\), then \(K = F\), so we are done.
+
+    We now proceed by strong induction on \(n\),
+    and assume that for any pair of fields \([K_1:F_1] < [K:F]\) we have \(K_1^{\Aut_{F_1}(K_1)} = F_1\).
+    Consider any element \(\theta \in K^G\).
+    Suppose \(f \in F[x]\) is irreducible of degree \(r\),
+    splits completely over \(K\), and let \(\alpha\) be a root of \(f(x)\).
+    Hence we can write \(f(x) = (x-\alpha)g(x)\), and that \(\deg g(x) < r\).
+    Then \([K:F(\alpha)] < n\) and \(K/F(\alpha)\) is a normal extension (Theorem~\ref{thm:normal-upper}).
+    By the inductive hypothesis, we have \(K^{\Aut_{F(\alpha)}(K)} = F(\alpha)\).
+    Since \(\Aut_{F(\alpha)}(K) \subseteq \Aut_F(K) = G\),
+    we know that \(\theta \in K^G \subseteq K^{\Aut_{F(\alpha)}(K)} = F(\alpha)\).
+
+    Let us now write \(\theta = \sum_{i=1}^{r-1} a_i \alpha^i\), where \(a_i \in F\),
+    and that the distinct roots of \(f(x)\) be \(\{\alpha=\alpha_1,\alpha_2,\hdots,\alpha_r\}\).
+    Consider the polynomial \(q(x) = a_{r-1} x^{r-1} + \cdots + a_1 x + (a_0 - \theta) \in K[x]\),
+    such that \(q(\alpha) = 0\) by construction.
+    Since \(K/F(\alpha)\) is normal, all the roots of \(q(x)\) are in \(K\).
+    By normality of \(K/F\), given any \(\sigma \in \Aut_F(K)\),
+    \(\sigma(\alpha) = \alpha_j\) is another root of \(f(x)\).
+    Since \(\theta\) is fixed by \(\sigma\),
+    we have \(\sigma(\theta) = \theta = \sum_{i=1}^{r-1} a_i \alpha_j^i\);
+    but this exactly shows that \(q(\alpha_j) = 0\), and \(q\), a polynomial of degree \(r-1\),
+    has \(r\) distinct roots.
+    Hence \(q(x) = 0\), and \(a_0 = \theta \in F\), so we are done.
+
+    \medskip
+
+    For the reverse direction, suppose \(K^G = F\).
+    From Theorem~\ref{thm:normal-extension-equivalence},
+    it suffices to show that \(K\) is the splitting field of a set of polynomials in \(F[x]\).
+    Without any loss of generality, suppose \(a \in K\) and \(K = F(a)\),
+    and consider the polynomial \(p(x) = \prod_{\sigma \in G} (x - \sigma(a))\).
+    Observe that the coefficients of \(p(x)\)
+    are expressible in terms of elementary symmetric polynomials of the roots \(\sigma(a)\),
+    so the coefficients of \(p(x)\) are fixed by \(G\).
+    We can then see that \(K\) indeed splits \(p(x)\), and hence \(K/F\) is normal.
+    This argument can be repeated to get the general case of \(K = F(a_1,\hdots,a_n)\).
 \end{proof}
 \begin{proposition}
     Suppose \(L/K\) is a finite extension,
