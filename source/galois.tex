@@ -165,6 +165,13 @@
     We can then see that \(K\) indeed splits \(p(x)\), and hence \(K/F\) is normal.
     This argument can be repeated to get the general case of \(K = F(a_1,\hdots,a_n)\).
 \end{proof}
+\begin{remark}
+    If \(F\) is not necessarily of characteristic 0,
+    then \(K/F\) is normal if and only if \(\abs{\Aut_F(K)} \leq {[K:F]}_s\).
+    We have an inequality because there are possibly repeated roots with inseparable extensions.
+    In particular, if \(F\) is perfect, then \(\abs{\Aut_F(K)} \leq {[K:F]}_s\).
+\end{remark}
+
 \begin{proposition}
     Suppose \(L/K\) is a finite extension,
     \(\func{\phi}{K}{K'}\) a ring homomorphism,
@@ -174,7 +181,16 @@
     with equality if and only if \(L/K\) separable.
 \end{proposition}
 \begin{proof}
-    % TODO
+    Let \(n = [L:K]\) be the degree of the extension, and induct on \(n\).
+    Observe that if \(n = 1\), then \(L = K\), so \(\psi = \phi\), and there is nothing to prove.
+
+    Now, proceed via strong induction.
+    Consider an element \(\alpha \in L-K\) and its corresponding extension \(M = K(\alpha)\);
+    let \([K(\alpha):K] = d\).
+    We know that there are at most \(d\) ring homomorphisms \(\func{\pi}{M}{L'}\) extending \(\phi\).
+    By induction, we know that there are at most \([L:M]\) ring homomorphisms \(\psi\) extending \(\pi\),
+    which gives us at most \(n = [L:M][M:K]\) extensions of \(\phi\).
+    Equality then follows from the defintion of the degree of seperability.
 \end{proof}
 \begin{proposition}
     Let \(E/F\) be a finite extension.
@@ -182,7 +198,24 @@
     with equality if and only if \(E/F\) normal.
 \end{proposition}
 \begin{proof}
-    % TODO
+    Consider an algebraic closure \(F^\text{alg}\) of \(F\).
+    By definition of the separable degree, \({[E:F]}_s = \abs{\Hom_F(E,F^\text{alg})}\).
+    Choosing an element \(\sigma_0 \in \Hom_F(E,F^\text{alg})\),
+    we have an injective map
+    \begin{equation*}
+        \varfunc{\sigma_0\circ\cdot}{\Aut_F(E)}{\Hom_F(E,F^\text{alg})}{\tau}{\sigma_0\circ\tau}
+    \end{equation*}
+    which gives us the inequality.
+
+    Now suppose \(\abs{\Aut_F(E)} = {[E:F]}_s\).
+    This implies that the injection above is surjective,
+    which is exactly a condition that is given in Theorem~\ref{thm:normal-extension-equivalence},
+    meaning \(E/F\) is normal.
+
+    Conversely, suppose \(E/F\) is normal.
+    Then Theorem~\ref{thm:normal-extension-equivalence} gives us that
+    every homomorphism \(\sigma \in \Hom_F(E,F^\text{alg})\) is an automorphism in \(\Aut_F(E)\),
+    so assigning \(\tau = \sigma_0^{-1}\circ\sigma\) gives us a surjective map.
 \end{proof}
 
 \begin{theorem}
