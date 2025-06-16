@@ -92,7 +92,7 @@
     Direct application of the \hyperref[thm:linear-independent-characters]{theorem above}.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:galois-group-size}
     \([K:F]\) finite implies \(\abs{\Gal(K/F)} \leq [K:F]\).
 \end{theorem}
 \begin{proof}
@@ -114,7 +114,7 @@
     The fixed field of \(G\) is
     \(K^G =\{a \in K: \sigma(u) = u,\; \forall \sigma \in G\}\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:fixed-field-normal}
     Suppose \(F\) is a field of characteristic 0,
     \(K/F\) some finite extension, \(G = \Aut_F(K)\).
     Then \(K/F\) is normal if and only if \(K^G = F\).
@@ -192,7 +192,7 @@
     which gives us at most \(n = [L:M][M:K]\) extensions of \(\phi\).
     Equality then follows from the defintion of the degree of seperability.
 \end{proof}
-\begin{proposition}
+\begin{proposition}\label{prop:galois-group-separable}
     Let \(E/F\) be a finite extension.
     Then \(\abs{\Aut_F(E)} \leq {[E:F]}_s\),
     with equality if and only if \(E/F\) normal.
@@ -227,7 +227,27 @@
     and in particular, if \(H = \Gal(K/F)\) then \([K:F] = \Gal(K/F)\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    Observe that since every element of \(H\) fixes \(K^H\), we have \(H \subseteq \Gal(K/K^H)\).
+    By Theorem~\ref{thm:galois-group-size}, we also have \(\abs{H} \leq \abs{\Gal(K/K^H)} \leq [K:K^H]\).
+    Hence it suffices to prove that \([K:K^H] \leq \abs{H}\) to get both statements.
+    As we are in characteristic 0, \(K/K^H\) is separable (Theorem~\ref{thm:perfect-field-condition}),
+    so Theorem~\ref{thm:primitive-element} says it must be simple, and we write \(K = K^H(a)\).
+    This tells us that \(\min_{K^H}(a)\) is an irreducible polynomial of degree \(m = [K:K^H]\).
+    Let \(H = {\{\sigma_i\}}_{i=1}^h\), with \(\sigma_1 = \id\),
+    and let \(\alpha_i\) be the \(i\)th elementary symmetric polynomial of the \({\{\sigma_i\}}_{i=1}^h\).
+    By construction, the \(\alpha_i\) are invariant under every \(\sigma \in H\),
+    and are hence elements of \(K^H\).
+    Morevoer, \(\sigma_i(a)\) are all roots of the polynomial
+    \begin{equation*}
+        p(x) = \prod_{i=1}^h (x-\sigma_i(a)) = (x-a)(x-\sigma_2(a))\cdots(x-\sigma_h(a))
+    \end{equation*}
+    so \(p(x) \in K^H(x)\).
+    Hence \(h \geq m\) and we have \(\abs{H} \geq [K:K^H]\) as desired.
+
+    In particular, if \(H = \Gal(K/F)\), then \(K^H = F\),
+    so by Proposition~\ref{prop:fixed-field-normal}, \(K/F\) is normal,
+    and hence the \hyperref[prop:galois-group-separable]{proposition above}
+    gives us that \([K:F] = {[K:F]}_s = \abs{\Gal(K/F)}\) because perfect fields only have separable extensions.
 \end{proof}
 
 \begin{theorem}
