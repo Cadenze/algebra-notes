@@ -344,7 +344,7 @@
     On the other hand, by (d) we have \(H \subseteq \Gal(K/K^H)\),
     giving us equality for statement (f).
 \end{proof}
-\begin{corollary}
+\begin{corollary}\label{cor:galois-correspondence}
     Suppose \(K/F\) is Galois, and \(G = \Gal(K/F)\).
     Then there is an inclusion-reversing correspondence between subgroups of the form \(\Gal(K/L)\)
     and subfields of the form \(K^S\).
@@ -354,7 +354,7 @@
     \begin{align*}
         \Bqty{\text{subgroups}\;\Gal(K/L) \subseteq G} &\leftrightarrow
         \Bqty{\text{subfields}\; K^S \subseteq K} \\
-        G &\mapsto K^G \\
+        H &\mapsto K^H \\
         \Gal(K/L) &\mapsfrom L
     \end{align*}
     The inclusion-reversing part is given
@@ -363,7 +363,7 @@
     by statements (e) and (f) from the \hyperref[lem:galois-group-properties]{lemma above}.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:normal-galois}
     Suppose \(K/F\) Galois and \(G = \Gal(K/F)\).
     Suppose \(L\) is a subfield with \(F \subseteq L \subseteq K\) and \(H = \Gal(K/L)\).
     Then \(L\) is normal over \(F\) if and only if \(H \subseteq G\) is a normal subgroup.
@@ -373,7 +373,27 @@
     Hence \(\Gal(L/F) \cong G/H\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    First suppose \(L/F\) is normal.
+    Observe that given any \(\sigma \in \Gal(K/F)\),
+    restricting it to \(L\) gives us a \(\eval{\sigma}_L \in \Hom_F(L,K)\),
+    and the restriction map is clearly a homomorphism;
+    but then Theorem~\ref{thm:normal-extension-equivalence} tells us that
+    \(\eval{\sigma}_L \in \Aut_F(K) = \Gal(K/F)\).
+    This map is surjective, because field homomorphisms are extendable
+    (Proposition~\ref{prop:algebraic-extension-hom}),
+    and by the \hyperref[thm:iso-1-group]{first isomorphism theorem},
+    the kernel is a normal subgroup \(H\).
+
+    Now suppose that \(L/F\) is not normal.
+    By Theorem~\ref{thm:normal-extension-equivalence},
+    there exists some \(\lambda \in \Hom_F(L,K)\) that is not an automorphism.
+    Since \(K/F\) is Galois and thus normal,
+    we extend \(\lambda\) to an automorphism \(\tau\) in \(\Aut_F(K)\)
+    (Theorem~\ref{thm:normal-extension-equivalence}).
+    Since we know that field homomorphisms are injective, \(\img\lambda \cong L\).
+    As \(\Gal(K/L)\) and \(\Gal(K/\img\lambda)\) are isomorphic under conjugation by \(\lambda\),
+    we have two distinct subgroups that are conjugate to each other.
+    By definition, they cannot be normal subgroups.
 \end{proof}
 
 \begin{definition}
@@ -394,7 +414,11 @@
     Then \(KL/L\) and \(K/(K \cap L)\) are Galois.
 \end{theorem}
 \begin{proof}
+    Consider the groups \(G = \Gal(K/F)\) and \(H = \Gal(KL/L)\).
+    By Theorem~\ref{thm:normal-galois},
+    it suffices to prove that \(H \subseteq G\) is a normal subgroup.
     % TODO
+    % Let \(\sigma \in H\). Then \(\eval{\sigma}_K \in G\)
 \end{proof}
 \begin{corollary}
     Suppose \(K/F\) finite Galois, and \(L/F\) some extension.
@@ -436,6 +460,9 @@
     \end{enumerate}
 \end{theorem}
 \begin{proof}
+    From Corollary~\ref{cor:galois-correspondence}, in order to prove statement (a),
+    it suffices to prove that every subfield is a fixed field,
+    and every subgroup is a Galois group.
     % TODO
 \end{proof}
 
