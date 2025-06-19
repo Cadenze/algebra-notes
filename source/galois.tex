@@ -252,6 +252,13 @@
 
 \subsection*{Fundamental Theorem of Galois Theory}
 
+\begin{definition}
+    Suppose \(K/F\) is a Galois extension,
+    and \(F \subseteq E \subseteq K\) is a tower of extensions.
+    Let \(G = \Gal(K/F)\) be the corresponding Galois group.
+    A subgroup \(H \subseteq G\) is said to belong to a subfield \(E\)
+    if it is the fixed field \(E = K^H\).
+\end{definition}
 \begin{lemma}\label{lem:galois-injective}
     Suppose \(K/F\) is a Galois extension.
     We have that:
@@ -295,7 +302,7 @@
         \item If \(L\) is a subfield of \(K\),
             then \(L \subseteq K^G\) where \(G = \Gal(K/L)\).
         \item If \(S_1 \subseteq S_2\) are subsets of \(\Aut K\),
-            then \(K^{S_2} \subseteq K^{S_1}\).
+            then \(K^{S_1} \supseteq K^{S_2}\).
         \item If \(S\) is a subset of \(\Aut K\),
             then \(S \subseteq \Gal(K/K^S)\).
         \item If \(L = K^S\) for some \(S \subseteq \Aut K\),
@@ -359,8 +366,40 @@
     \end{align*}
     The inclusion-reversing part is given
     by statements (a) and (c) from the \hyperref[lem:galois-group-properties]{lemma above}.
-    Two-sided inversion is given
-    by statements (e) and (f) from the \hyperref[lem:galois-group-properties]{lemma above}.
+    % Two-sided inversion is given
+    % by statements (e) and (f) from the \hyperref[lem:galois-group-properties]{lemma above}.
+
+    To prove two-sided inversion,
+    first consider an intermediate field \(L\) and its Galois group \(H = \Gal(K/L)\);
+    by Lemma~\ref{lem:galois-injective}a, we know that \(L = K^H = K^{\Gal(K/L)}\) indeed.
+    Now consider a subgroup \(H\);
+    since \(K^H\) is a subfield,
+    by statement (f) from the \hyperref[lem:galois-group-properties]{lemma above},
+    \(H = \Gal(K/K^H)\) as desired.
+\end{proof}
+\begin{corollary}\label{cor:galois-intersection-product}
+    Suppose \(K/F\) is a Galois extension, and \(G = \Gal(K/F)\) its corresponding Galois group.
+    If \(E = K^H, E' = K^{H'}\) are intermediate fields belonging to subgroups \(H,H'\),
+    then \(H \cap H'\) belongs to \(EE' = K^{H \cap H'}\)
+    and \(HH'\) belongs to \(E \cap E' = K^{HH'}\).
+\end{corollary}
+\begin{proof}
+    Let \(a \in E\) and \(a' \in E'\).
+    If \(h \in H \cap H'\), then \(h(aa') = h(a)h(a') = aa'\)
+    so indeed \(EE' \subseteq K^{H \cap H'}\).
+    By statement (a) from the \hyperref[lem:galois-group-properties]{lemma above},
+    we know that \(\Gal(K/EE') \supseteq \Gal(K/K^{H \cap H'}) = H \cap H'\).
+    % But we also know that \(\Gal(K/EE') \subseteq \Gal(K/K^{\Gal(K/EE')}) = \) from statement (c),
+    But given any \(\sigma \in \Gal(K/EE')\), \(\sigma\) fixes \(EE'\),
+    so \(\sigma\) must fix \(E\) and \(E'\) individually,
+    meaning \(\sigma \in H\) and \(\sigma \in H'\);
+    hence we have \(\Gal(K/EE') \subseteq H \cap H'\).
+
+    Similarly, consider \(hh' \in HH'\), and some \(a \in E \cap E'\).
+    Then \(hh'(a) = h(a) = a\), so indeed \(E \cap E' \subseteq K^{HH'}\).
+    Now, because \(H \subseteq HH'\), we have \(K^{HH'} \subseteq K^H = E\);
+    by the exact same logic, we also have \(K^{HH'} \subseteq K^{H'} = E'\),
+    which when combined gives us \(K^{HH'} \subseteq E \cap E'\).
 \end{proof}
 
 \begin{theorem}\label{thm:normal-galois}
@@ -408,24 +447,46 @@
     Subgroups and quotient groups of abelian/cyclic groups are abelian/cyclic.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:galois-compositum-intersection}
     Suppose \(K/F\) Galois, and \(L/F\) some other extension,
     under the assumption that \(K,L\) are both contained in some extension.
     Then \(KL/L\) and \(K/(K \cap L)\) are Galois.
 \end{theorem}
 \begin{proof}
-    Consider the groups \(G = \Gal(K/F)\) and \(H = \Gal(KL/L)\).
-    By Theorem~\ref{thm:normal-galois},
-    it suffices to prove that \(H \subseteq G\) is a normal subgroup.
-    % TODO
-    % Let \(\sigma \in H\). Then \(\eval{\sigma}_K \in G\)
+    Observe that \(K \cap L\) is a subfield of \(K\).
+    Then \(K/(K \cap L)\) is Galois by Lemma~\ref{lem:galois-injective}b.
+
+    We now claim that \(\Gal(KL/L) \cong \Gal(K/F)\).
+    Consider the restriction map
+    \begin{equation*}
+        \varfunc{\eval{}_K}{\Gal(KL/L)}{\Gal(K/K \cap L)}{\sigma}{\eval{\sigma}_K}
+    \end{equation*}
+    Obviously, because \(K/F\) is Galois, any \(\eval{\sigma}_K\) must be in \(\Aut_F(K)\).
+    This is also injective, because if \(\eval{\sigma}_K = \id\) and \(\sigma\) fixes \(L\),
+    then it must be also the identity on \(KL\).
+    Then it suffices to show that the image fixes exactly \(K \cap L\).
+    Obviously, restricting to \(K\) fixes elements in \(L\);
+    conversely, if \(a \in K\) with \(\tau(a) = a\) for all \(\tau\) in the image,
+    then \(a\) is also fixed under \(\Gal(KL/L)\) in the first place,
+    so we must have \(a \in L\).
+    Hence the image must fix only \(K \cap L\) as desired.
+    % Consider the groups \(G = \Gal(K/F)\) and \(H = \Gal(KL/L)\).
+    % Let \(G = \Gal(K/F)\) and \(H = \Gal(L/F)\) (with \(H\) not necessarily Galois).
+    % By Corollary~\ref{cor:galois-intersection-product},
+    % \(\Gal(KL/F) = G \cap H\).
+    % By Theorem~\ref{thm:normal-galois},
+    % it suffices to prove that \(H \subseteq G\) is a normal subgroup.
+    % Consider any \(\sigma \in \Gal(KL/L)\) and any \(\lambda \in \Gal(K/F)\).
+    % We want to first show that \(\img\lambda\sigma\lambda^{-1} = KL\).
 \end{proof}
 \begin{corollary}
     Suppose \(K/F\) finite Galois, and \(L/F\) some extension.
     Then \([KL:L] \mid [K:F]\).
 \end{corollary}
 \begin{proof}
-    % TODO
+    From the \hyperref[thm:galois-compositum-intersection]{theorem above},
+    \(\Gal(KL/L) \cong \Gal(K/(K \cap L))\),
+    so we can equate their cardinality, meaning \([KL:L] = [K/(K \cap L)] \mid [K:F]\).
 \end{proof}
 \begin{remark}
     This does not hold if \(K/F\) not Galois.
