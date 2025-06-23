@@ -218,36 +218,65 @@
     so assigning \(\tau = \sigma_0^{-1}\circ\sigma\) gives us a surjective map.
 \end{proof}
 
-\begin{theorem}
-    Suppose \(F\) is a field of characteristic 0,
-    and \(K\) a (finite) normal extension of \(F\),
-    \(H \subseteq \Gal(K/F)\) some subgroup.
-    Let \(K^H\) be the fixed field of \(H\).
-    Then \([K:K^H] = \abs{H}\), \(H = \Gal(K/K^H)\),
-    and in particular, if \(H = \Gal(K/F)\) then \([K:F] = \Gal(K/F)\).
+% \begin{theorem}
+%     Suppose \(F\) is a field of characteristic 0,
+%     and \(K\) a (finite) normal extension of \(F\),
+%     \(H \subseteq \Gal(K/F)\) some subgroup.
+%     Let \(K^H\) be the fixed field of \(H\).
+%     Then \([K:K^H] = \abs{H}\), \(H = \Gal(K/K^H)\),
+%     and in particular, if \(H = \Gal(K/F)\) then \([K:F] = \Gal(K/F)\).
+% \end{theorem}
+% \begin{proof}
+%     Observe that since every element of \(H\) fixes \(K^H\), we have \(H \subseteq \Gal(K/K^H)\).
+%     By Theorem~\ref{thm:galois-group-size}, we also have \(\abs{H} \leq \abs{\Gal(K/K^H)} \leq [K:K^H]\).
+%     Hence it suffices to prove that \([K:K^H] \leq \abs{H}\) to get both statements.
+%     As we are in characteristic 0, \(K/K^H\) is separable (Theorem~\ref{thm:perfect-field-condition}),
+%     so Theorem~\ref{thm:primitive-element} says it must be simple, and we write \(K = K^H(a)\).
+%     This tells us that \(\min_{K^H}(a)\) is an irreducible polynomial of degree \(m = [K:K^H]\).
+%     Let \(H = {\{\sigma_i\}}_{i=1}^h\), with \(\sigma_1 = \id\),
+%     and let \(\alpha_i\) be the \(i\)th elementary symmetric polynomial of the \({\{\sigma_i\}}_{i=1}^h\).
+%     By construction, the \(\alpha_i\) are invariant under every \(\sigma \in H\),
+%     and are hence elements of \(K^H\).
+%     Morevoer, \(\sigma_i(a)\) are all roots of the polynomial
+%     \begin{equation*}
+%         p(x) = \prod_{i=1}^h (x-\sigma_i(a)) = (x-a)(x-\sigma_2(a))\cdots(x-\sigma_h(a))
+%     \end{equation*}
+%     so \(p(x) \in K^H(x)\).
+%     Hence \(h \geq m\) and we have \(\abs{H} \geq [K:K^H]\) as desired.
+
+%     In particular, if \(H = \Gal(K/F)\), then \(K^H = F\),
+%     so by Proposition~\ref{prop:fixed-field-normal}, \(K/F\) is normal,
+%     and hence the \hyperref[prop:galois-group-separable]{proposition above}
+%     gives us that \([K:F] = {[K:F]}_s = \abs{\Gal(K/F)}\) because perfect fields only have separable extensions.
+% \end{proof}
+\begin{theorem}[Artin's Theorem]\label{thm:artin-galois}
+    Suppose \(K\) is a field, and \(G \subseteq \Aut K\) some group of automorphisms,
+    with order \(\abs{G} = n\).
+    Let \(F = K^G\).
+    Then \(K/F\) is a finite Galois extension, with \(\Gal(K/F) = G\),
+    and \([K:F] = n\).
 \end{theorem}
 \begin{proof}
-    Observe that since every element of \(H\) fixes \(K^H\), we have \(H \subseteq \Gal(K/K^H)\).
-    By Theorem~\ref{thm:galois-group-size}, we also have \(\abs{H} \leq \abs{\Gal(K/K^H)} \leq [K:K^H]\).
-    Hence it suffices to prove that \([K:K^H] \leq \abs{H}\) to get both statements.
-    As we are in characteristic 0, \(K/K^H\) is separable (Theorem~\ref{thm:perfect-field-condition}),
-    so Theorem~\ref{thm:primitive-element} says it must be simple, and we write \(K = K^H(a)\).
-    This tells us that \(\min_{K^H}(a)\) is an irreducible polynomial of degree \(m = [K:K^H]\).
-    Let \(H = {\{\sigma_i\}}_{i=1}^h\), with \(\sigma_1 = \id\),
-    and let \(\alpha_i\) be the \(i\)th elementary symmetric polynomial of the \({\{\sigma_i\}}_{i=1}^h\).
-    By construction, the \(\alpha_i\) are invariant under every \(\sigma \in H\),
-    and are hence elements of \(K^H\).
-    Morevoer, \(\sigma_i(a)\) are all roots of the polynomial
-    \begin{equation*}
-        p(x) = \prod_{i=1}^h (x-\sigma_i(a)) = (x-a)(x-\sigma_2(a))\cdots(x-\sigma_h(a))
-    \end{equation*}
-    so \(p(x) \in K^H(x)\).
-    Hence \(h \geq m\) and we have \(\abs{H} \geq [K:K^H]\) as desired.
+    Observe that since every element of \(G\) fixes \(F = K^G\), we have \(G \subseteq \Gal(K/F)\).
+    By Theorem~\ref{thm:galois-group-size}, we also have \(n = \abs{G} \leq \abs{\Gal(K/F)} \leq [K:F]\).
+    Hence it suffices to prove that \([K:F] \leq n\) to get both statements.
 
-    In particular, if \(H = \Gal(K/F)\), then \(K^H = F\),
-    so by Proposition~\ref{prop:fixed-field-normal}, \(K/F\) is normal,
-    and hence the \hyperref[prop:galois-group-separable]{proposition above}
-    gives us that \([K:F] = {[K:F]}_s = \abs{\Gal(K/F)}\) because perfect fields only have separable extensions.
+    Consider some \(\alpha \in K\), and some maximal set \({\{\sigma_i\}}_{i=1}^r \subset G\)
+    such that the \(\sigma_i(\alpha)\) are all distinct.
+    Now consider some \(\tau \in G\).
+    The \(\tau\sigma_i(\alpha)\) are also all distinct, because \(\tau\) is a permutation.
+    Moreover, if \(\tau\sigma_i(\alpha) \neq \sigma_i(\alpha)\) for all \(j\),
+    this will contradict maximality, so in fact
+    \({\{\sigma_i(\alpha)\}}_{i=1}^r = {\{\tau\sigma_i(\alpha)\}}_{i=1}^r\) for all \(\tau \in G\).
+    Hence \(\alpha\) is a root of the separable polynomial
+    \begin{equation*}
+        f(x) = \prod_{i=1}^r (x-\sigma_i(\alpha)) = (x-\sigma_1(\alpha)) \cdots (x-\sigma_r(\alpha))
+    \end{equation*}
+    and this polynomial is fixed under any \(\tau \in G\).
+    The coefficients of this polynomial must therefore be in \(F = K^G\).
+    Therefore, every element of \(K\) is a root of a separable \(F\)-polynomial of degree at most \(n\).
+    \(K\) is separable, normal, and thus Galois over \(F\),
+    which by the \hyperref[prop:galois-group-separable]{proposition above} gives us that \([K:F] = n\).
 \end{proof}
 
 \subsection*{Fundamental Theorem of Galois Theory}
@@ -492,31 +521,21 @@
     This does not hold if \(K/F\) not Galois.
 \end{remark}
 
-\begin{theorem}[Artin's Theorem]
-    Suppose \(K\) is a field, and \(G \subseteq \Aut K\) some group of automorphisms,
-    with \(\abs{G} = n\).
-    Let \(F = K^G\).
-    Then \(K/F\) is a finite Galois extension, with \(\Gal(K/F) = G\).
-\end{theorem}
-\begin{proof}
-    % TODO
-\end{proof}
-
 \begin{theorem}[Fundamental Theorem of Galois Theory]\label{thm:ftgt}
     Suppose \(K/F\) is (finite) Galois, and \(G = \Gal(K/F)\).
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item There is an inclusion reversing bijection
+        \item There is an inclusion-reversing bijection
             between intermediate fields \(E\) of \(K/F\) and subgroups \(H \subseteq G\),
-            given by associating \(H\) with \(K^H = E\).
-        \item \([K:E] = \abs{H}\) and \([K:F] = \abs{G}\).
-        \item \(K/E\) is Galois, \(H = \Gal(K/E)\).
-        \item Embeddings \(E\) to \(\overline{F}\) are in bijection with
-            left cosets of \(H\) in \(G\).
-        \item \(E/F\) Galois if and only if \(H \lhd G\),
-            and in that case, \(\Gal(E/F) \cong G/H\).
-        \item Intersection of subgroups correspond to compositum of fields
-            and joins of subgroups correspond to intersection of fields.
-        \item Lattice of subgroups of \(G\) correspond under this bijection
+            given by associating \(H\) with \(K^H = E\);
+        \item \([K:E] = \abs{H}\) and \([K:F] = \abs{G}\);
+        \item \(K/E\) is Galois, \(H = \Gal(K/E)\);
+        \item embeddings \(E\) to \(\overline{F}\) are in bijection with
+            left cosets of \(H\) in \(G\);
+        \item \(E/F\) is Galois if and only if \(H \subseteq G\) is a normal subgroup,
+            and in that case, \(\Gal(E/F) \cong G/H\);
+        \item intersection of subgroups correspond to compositum of fields
+            and joins of subgroups correspond to intersection of fields; and
+        \item lattice of subgroups of \(G\) correspond under this bijection
             to inverted lattice of intermediate field extensions.
     \end{enumerate}
 \end{theorem}
@@ -524,7 +543,21 @@
     From Corollary~\ref{cor:galois-correspondence}, in order to prove statement (a),
     it suffices to prove that every subfield is a fixed field,
     and every subgroup is a Galois group.
-    % TODO
+    By \hyperref[thm:artin-galois]{Artin's theorem}, every group is a Galois group.
+    Moreover, given any field \(L\), \(K/L\) is Galois,
+    so \(H = \Gal(K/L)\) is a Galois group, and hence \(L = K^H\) is a fixed field
+    (Lemma~\ref{lem:galois-injective}).
+    % Moreover, given any field \(L\), we can find its Galois group
+
+    Statement (b) is a direct result of \hyperref[thm:artin-galois]{Artin's theorem}.
+
+    Statement (c) is a direct result of Lemma~\ref{lem:galois-injective}b and Corollary~\ref{cor:galois-correspondence}.
+
+    Statements (d) and (e) summarize Theorem~\ref{thm:normal-galois}.
+
+    Statement (f) is a restatement of Theorem~\ref{thm:galois-compositum-intersection}.
+
+    Lastly, statement (g) is a restatement of statement (a).
 \end{proof}
 
 \begin{theorem}
