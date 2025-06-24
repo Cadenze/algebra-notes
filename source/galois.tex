@@ -613,7 +613,7 @@
     Lastly, statement (g) is a restatement of statement (a).
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}[Newton's theorem]
     Suppose \(F\) a field, and \(K = F(x_1,\hdots,x_n)\)
     the field of rational functions in \(n\) variables.
     Suppose \(S\) is the subfield of symmetric rational functions.
@@ -628,7 +628,32 @@
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Permuting the \(x_i\) is clearly an automorphism that fixes symmetric rational functions,
+    so \(S_n \subseteq \Gal(K/S)\).
+    We obviously have \(S \supseteq F(s_1,\hdots,s_n)\),
+    since the elementary symmetric polynomials are all symmetric and rational by definition.
+    Hence we have
+    \begin{equation*}
+        [K:F(s_1,\hdots,s_n)] \geq [K:S] = \abs{\Gal(K/S)} \geq \abs{S_n} = n!
+    \end{equation*}
+    It suffices to show that \([K:F(s_1,\hdots,s_n)] \leq n!\)
+    to get enough equalities to prove the first three statements.
+
+    Consider the polynomial
+    \begin{equation*}
+        p(t) = t^n - s_1 t^{n-1} + s_2 t^{n-2} - \cdots + {(-1)}^n s_n \in F[s_1,\hdots,s_n][t]
+    \end{equation*}
+    which factors into
+    \begin{equation*}
+        p(t) = (t-x_1)(t-x_2)\cdots(t-x_n)
+    \end{equation*}
+    Clearly this cannot split over any proper subfield of \(K\),
+    so \(K\) must be the splitting of field of \(p(t)\),
+    and thus is normal over \(F(s_1,\hdots,s_n)\) (Theorem~\ref{thm:normal-extension-equivalence}).
+    In particular, extending by \(x_n\) is at most degree \(n\),
+    and then sequentially extending by \(x_i\) is at most degree \(i\),
+    so \([K:F(s_1,\hdots,s_n)] \leq n!\) as desired.
+    Along the way we have also proved statement (d).
 \end{proof}
 
 \begin{proposition}
