@@ -279,6 +279,26 @@
     which by the \hyperref[prop:galois-group-separable]{proposition above} gives us that \([K:F] = n\).
 \end{proof}
 
+\begin{theorem}
+    Suppose \(K/F\) is a finite field extension.
+    Then the following are equivalent:
+    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
+        \item \(K/F\) Galois, i.e.\ \(\abs{\Aut_F(K)} = [K:F] < \infty\).
+        \item \(K/F\) is the splitting field of some separable \(f(x) \in F[x]\).
+        \item \(F\) is the fixed field of \(\Aut_F(K)\).
+        \item \(K/F\) is normal and separable.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    (i) \(\iff\) (iv) is by definition.
+
+    (i) \(\iff\) (ii) is a direct consequence of Theorem~\ref{thm:normal-extension-equivalence}.
+
+    (iii) implies (i) is given by the \hyperref[thm:artin-galois]{theorem above}.
+
+    (i) implies (iii) is proven in the \hyperref[lem:galois-injective]{lemma below}.
+\end{proof}
+
 \subsection*{Fundamental Theorem of Galois Theory}
 
 \begin{definition}
@@ -521,6 +541,37 @@
     This does not hold if \(K/F\) not Galois.
 \end{remark}
 
+\begin{definition}
+    Suppose \(K/F\) Galois, \(G = \Gal(K/F)\),
+    \(\sigma \in G\), \(\alpha \in K\).
+    \(\{\sigma(\alpha) : \sigma \in G\}\) is the set of Galois conjugates of \(\alpha\).
+    If \(F \subseteq E \subseteq K\) tower of extensions,
+    then \(\sigma(E)\) is the conjugate of \(E\).
+\end{definition}
+\begin{proposition}\label{prop:galois-conjugate}
+    Suppose \(F \subseteq E \subseteq K\) is a tower of field extensions,
+    \(K/F\) finite Galois, and \(G = \Gal(K/F)\).
+    Suppose that \(H \subseteq G\) corresponds to \(E\).
+    For \(\sigma \in G\),
+    the subgroup corresponding to \(\sigma(E)\)
+    is the conjugate subgroup \(\sigma H \sigma^{-1} \subseteq G\).
+    In particular \([E:F] = [G:H]\).
+\end{proposition}
+\begin{proof}
+    Let \(\sigma(E)\) correspond to the group \(H'\).
+    Given any \(a \in E\) and \(h \in H\), observe that
+    \begin{equation*}
+        (\sigma h \sigma^{-1})(\sigma(a)) = \sigma h(a) = \sigma(a)
+    \end{equation*}
+    so \(\sigma H \sigma^{-1}\) indeed fixes \(\sigma(E)\),
+    giving us \(\sigma H \sigma^{-1} \subseteq H'\).
+    But we also know that \(E/F \cong \sigma(E)/F\),
+    so \([E:F] = [\sigma(E):F]\) and thus \([K:E] = [K:\sigma(E)]\).
+    Therefore we can equate the cardinalities, and we have \(\sigma H \sigma^{-1} = H'\).
+
+    The last statement then follows from the multiplicativity of degrees of field extensions.
+\end{proof}
+
 \begin{theorem}[Fundamental Theorem of Galois Theory]\label{thm:ftgt}
     Suppose \(K/F\) is (finite) Galois, and \(G = \Gal(K/F)\).
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
@@ -553,45 +604,13 @@
 
     Statement (c) is a direct result of Lemma~\ref{lem:galois-injective}b and Corollary~\ref{cor:galois-correspondence}.
 
-    Statements (d) and (e) summarize Theorem~\ref{thm:normal-galois}.
+    Statement (d) follows from Proposition~\ref{prop:galois-conjugate}.
+    
+    Statement (e) summarize Theorem~\ref{thm:normal-galois}.
 
     Statement (f) is a restatement of Theorem~\ref{thm:galois-compositum-intersection}.
 
     Lastly, statement (g) is a restatement of statement (a).
-\end{proof}
-
-\begin{theorem}
-    Suppose \(K/F\) a field extension.
-    Then the following are equivalent:
-    \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
-        \item \(K/F\) finite Galois, i.e.\ \(\abs{\Aut_F(K)} = [K:F] < \infty\).
-        \item \(K/F\) is the splitting field of some separable \(f(x) \in F[x]\).
-        \item \(F\) is the fixed field of \(\Aut(K/F)\).
-        \item \(K/F\) is normal, finite, and separable.
-    \end{enumerate}
-\end{theorem}
-\begin{proof}
-    % TODO
-\end{proof}
-
-\begin{definition}
-    Suppose \(K/F\) Galois, \(G = \Gal(K/F)\),
-    \(\sigma \in G\), \(\alpha \in K\).
-    \(\{\sigma(\alpha) : \sigma \in G\}\) is the set of Galois conjugates of \(\alpha\).
-    If \(F \subseteq E \subseteq K\) tower of extensions,
-    then \(\sigma(E)\) is the conjugate of \(E\).
-\end{definition}
-\begin{proposition}
-    Suppose \(F \subseteq E \subseteq K\) is a tower of field extensions,
-    \(K/F\) finite Galois, and \(G = \Gal(K/F)\).
-    Suppose that \(H \subseteq G\) corresponds to \(E\).
-    For \(\sigma \in G\),
-    the subgroup corresponding to \(\sigma(E)\)
-    is the conjugate subgroup \(\sigma H \sigma^{-1} \subseteq G\).
-    In particular \([E:F] = [G:H]\).
-\end{proposition}
-\begin{proof}
-    % TODO
 \end{proof}
 
 \begin{theorem}
