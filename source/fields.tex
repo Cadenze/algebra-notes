@@ -1036,23 +1036,20 @@
     we get the inseparable degree for free.
 \end{proof}
 
-\subsection*{Simple Extensions}
+% \subsection*{Simple Extensions}
 
-\begin{definition}
-    Suppose \(E/F\) is an extension.
-    \(E/F\) is simple (algebraic)
-    if \(E = F(\alpha)\) (for \(\alpha\) algebraic over \(F\)).
-    We call \(\alpha\) a primitive element of \(E/F\).
-\end{definition}
-\begin{theorem}[Primitive Element Theorem]\label{thm:primitive-element}
-    Suppose \(E/F\) is a finite separable extension.
-    Then \(E/F\) is simple.
-\end{theorem}
-\begin{proof}
-    % TODO: wikipedia
-\end{proof}
-
-% TODO: Come back after Galois theory.
+% \begin{theorem}[Primitive Element Theorem]\label{thm:primitive-element}
+%     Suppose \(E/F\) is a finite separable extension.
+%     Then \(E/F\) is simple.
+% \end{theorem}
+% \begin{proof}
+    
+% \end{proof}
+% \begin{remark}
+%     The standard proof for the primitive element theorem uses the full framework of Galois theory,
+%     so we provide a more complicated proof with less prerequisite here (as stated in van der Waerden).
+%     We shall prove this theorem with Galois theory in Theorem~\ref{thm:primitive-element-2}
+% \end{remark}
 
 
 \section{Inseparability}
@@ -1513,7 +1510,7 @@
 
 \begin{lemma}\label{lem:finite-mult-group-cyclic}
     Suppose \(K\) is a field,
-    and \(G \subseteq K^\ast\) a finite subgroup of the multiplicative group.
+    and \(G \subseteq K^\times\) a finite subgroup of the multiplicative group.
     Then \(G\) is cyclic.
 \end{lemma}
 \begin{proof}
@@ -1524,25 +1521,25 @@
     which implies all the elements of \(G\) are roots of \(x^m - 1\), so \(n \leq m\).
     Hence we have \(\exp(G) = \abs{G}\) so \(G\) is cyclic.
 \end{proof}
-\begin{corollary}
-    If \(K/F\) is an extension of finite fields,
-    then \(K\) is a simple extension of \(F\).
+\begin{corollary}\label{cor:finite-field-simple}
+    If \(K/F\) is an finite extension of finite fields,
+    then \(K = F(\theta)\) is a simple extension.
 \end{corollary}
 \begin{proof}
-    Consider \(\abs{K} = p^n\), so \(\abs{K^\ast} = p^n - 1\).
-    If \(a \in K^\ast\), then \(a^{p^{n-1}} = 1\).
-    Hence \(a^{p^n} = a\) for all \(a \in K\).
-    \(K\) is then the splitting field of \(x^{p^n}-x\) over \(\bF_p\),
-    and is normal over \(\bF_p\) by Theorem~\ref{thm:normal-extension-equivalence}.
-    The \hyperref[prop:derivative-inseparability]{derivative test} yields separability.
-
-    Conclude from the \hyperref[thm:primitive-element]{primitive element theorem}
-    and the \hyperref[lem:finite-mult-group-cyclic]{lemma above},
+    Consider \(\abs{K} = p^n\), so \(\abs{K^\times} = p^n - 1\).
+    % If \(a \in K^\times\), then \(a^{p^{n-1}} = 1\).
+    % Hence \(a^{p^n} = a\) for all \(a \in K\).
+    % \(K\) is then the splitting field of \(x^{p^n}-x\) over \(\bF_p\),
+    % and is normal over \(\bF_p\) by Theorem~\ref{thm:normal-extension-equivalence}.
+    % The \hyperref[prop:derivative-inseparability]{derivative test} yields separability.
+    %
+    % Conclude from the \hyperref[thm:primitive-element]{primitive element theorem}
+    % and the \hyperref[lem:finite-mult-group-cyclic]{lemma above},
+    Conclude from the \hyperref[lem:finite-mult-group-cyclic]{lemma above},
     since cyclic groups have a single generator.
 \end{proof}
 \begin{remark}
-    In fact the primitive element
-    does not have to be a generator of the multiplicative group.
+    In fact the primitive element does not have to be a generator of the multiplicative group.
 \end{remark}
 \begin{corollary}[Uniqueness of Finite Fields]\label{cor:uniqueness-finite-field}
     Finite fields of the same cardinality are unique up to isomorphism.
