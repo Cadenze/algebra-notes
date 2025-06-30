@@ -844,47 +844,119 @@
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item If \(f(x)\) is irreducible over \(F\),
             then \(n \mid \abs{\Gal(f)}\).
-        \item \(f(x)\) is irreducible over \(F[x]\)
+        \item \(f(x)\) is irreducible over \(F\)
             if and only if \(\Gal(f)\) is a transitive subgroup of \(S_n\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Suppose \(f\) is irreducible.
+    Let \(K\) be the splitting field of \(f\).
+    If \(a\) is a root of \(f\), then \(n = [F(a):F] \mid [K:F] = \abs{\Gal(f)}\).
+    This proves statement (a).
+
+    Suppose \(f\) is irreducible again.
+    Let \(K/F\) be a splitting field, and let \(G = \Gal(f) = \Gal(K/F)\) be its Galois group.
+    Consider two roots \(r_i,r_j\) of \(f\).
+    There exists some \(\sigma \in \Gal(f)\) such that \(\sigma(r_i) = r_j\),
+    since \(f\) is separable by assumption.
+    Every root can be reached from any other root, so \(G\) is transitive;
+    moreover, these \(\sigma\) are transpositions, so \(G\) is a subgroup of \(S_n\).
+    This proves the forward direction of statement (b).
+
+    Now suppose \(f\) is reducible. Then clearly \(n \geq 2\).
+    Allow us to factor \(f\) into a product of irreducible factors.
+    By separability, each of the irreducible factors have distinct roots from each other.
+    Then given any root, the irreducible factor that it belongs to
+    forms the minimal polynomial for the root.
+    Hence it is impossible for us to get a automorphism \(\sigma \in \Gal(f)\)
+    where \(\sigma(r_i) = r_j\) if \(r_i\) and \(r_j\) belong to different factors.
+    In that case, \(\Gal(f)\) is not transitive.
+    This proves the reverse direction of statement (b).
 \end{proof}
 
 \begin{definition}
     Suppose \(K/F\) is finite Galois.
     The norm is a multiplicative homomorphism
-    \(\vfunc{N_{K/F}}{K}{F}{a}{\prod_{\sigma\in\Aut_F(K)} \sigma(a)}\);
-    the trace is an additive homomorphism
-    \(\vfunc{\tr_{K/F}}{K}{F}{a}{\sum_{\sigma\in\Aut_F(K)} \sigma(a)}\).
+    \[\varfunc{N_{K/F}}{K}{F}{a}{\displaystyle\prod_{\sigma\in\Aut_F(K)} \sigma(a)}\]
+    and the trace is an additive homomorphism
+    \[\varfunc{\tr_{K/F}}{K}{F}{a}{\displaystyle\sum_{\sigma\in\Aut_F(K)} \sigma(a)}\]
 \end{definition}
 \begin{proposition}
     Suppose \(K/F\) finite Galois,
     \(a \in K\) some element with minimal polynomial \(f(x) = \min_F(a) \in F[x]\).
     Let \(f(x) = \prod_{\sigma\in\Gal(K/F)} (x-\sigma(a)) = x^n + a_1 x^{n-1} + \cdots + a_n\).
-    Then \(N_{K/F} = {(-1)}^n a_n\)  and \(\tr_{K/F} = -a_1\).
+    Then \(N_{K/F} = {(-1)}^n a_n\)  and \(\Tr_{K/F} = -a_1\).
 \end{proposition}
 \begin{proof}
-    % TODO
+    First observe that
+    \begin{equation*}
+        a_n = \prod_{\sigma\in\Gal(K/F)} \pqty{-\sigma(a)} = {(-1)}^n \prod_{\sigma\in\Gal(K/F)} \sigma(a)
+    \end{equation*}
+    Then observe that
+    \begin{equation*}
+        a_1 = \sum_{\sigma\in\Gal(K/F)} \pqty{-\sigma(a)} = - \sum_{\sigma\in\Gal(K/F)} \sigma(a)
+    \end{equation*}
 \end{proof}
 
-\begin{theorem}[Hilbert Theorem 90, multiplicative]
-    Suppose \(K/F\) is cyclic of degree \(n\), \(G = \Gal(K/F) = \langle\sigma\rangle\).
-    For any \(b \in K^\ast\), if \(N_{K/F}(b) = 1\),
-    then \(b = a/\sigma(a)\) for some \(a \in K\).
+\begin{theorem}[Hilbert Theorem 90]
+    Suppose \(K/F\) is cyclic of degree \(n\), and \(G = \Gal(K/F) = \langle\sigma\rangle\).
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item For any \(b \in K^\times\), \(N_{K/F}(b) = 1\) if and only if \(b = a/\sigma(a)\) for some \(a \in K\).
+        \item For any \(b \in K\), \(\Tr_{K/F}(b) = 0\) if and only if \(b = a - \sigma(a)\) for some \(a \in K\).
+    \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Let \(n = [K:F]\), and consider a \(b \in K^\times\) with norm 1.
+    Consider the map
+    \[\varfunc{\Theta}{K}{F}{t}{t + b\sigma(t) + b\sigma(b)\sigma^2(t) + \cdots + b\sigma(b)\cdots\sigma^{n-2}(b)\sigma^{n-1}(t)}\]
+    By \hyperref[lem:dedekind]{Dedekind's lemma}, this is a nonzero map,
+    so let us find \(c \in K\) such that \(\Theta(c) \neq 0\), and let
+    \[a = \Theta(c) = c + b\sigma(c) + b\sigma(b)\sigma^2(c) + \cdots + b\sigma(b)\cdots\sigma^{n-2}(b)\sigma^{n-1}(c)\]
+    Then observe that
+    \begin{align*}
+        b\sigma(a) &= b\sigma(c) + b\sigma(b)\sigma^2(c) + \cdots + b\sigma(b)\cdots\sigma^{n-2}(b)\sigma^{n-1}(c) + b\sigma(b)\cdots\sigma^{n-1}(b)\sigma^n(c) \\
+        &= b\sigma(c) + b\sigma(b)\sigma^2(c) + \cdots + b\sigma(b)\cdots\sigma^{n-2}(b)\sigma^{n-1}(c) + N_{K/F}(b) \cdot c \\
+        &= c + b\sigma(c) + b\sigma(b)\sigma^2(c) + \cdots + b\sigma(b)\cdots\sigma^{n-2}(b)\sigma^{n-1}(c)
+        = a
+    \end{align*}
+    so indeed \(b = a/\sigma(a)\).
+    
+    For the reverse direction, let us compute the telescoping product
+    \begin{equation*}
+        N_{K/F}(b) = \prod_{k=0}^{n-1} \sigma^k(b) = \prod_{k=0}^n \frac{\sigma^k(a)}{\sigma^{k+1}(a)}
+        = \frac{\id(a)}{\sigma^n(a)} = \frac{a}{a} = 1
+    \end{equation*}
+    which proves statement (a).
+    
+    \medskip
+    
+    Similarly, consider a \(b \in K\) with zero trace.
+    Since the trace map is a sum of the automorphisms,
+    by \hyperref[lem:dedekind]{Dedekind's lemma}, it is a nonzero map,
+    so let us find a \(c \in K\) such that \(\Tr_{K/F}(c) \neq 0\).
+    Now let
+    \begin{equation*}
+        a = \frac{1}{\Tr(c)}\pqty{bc + (b+\sigma(b))\sigma(c) + \cdots + (b+\sigma(b)+\cdots+\sigma^{n-2}(b))\sigma^{n-2}(c)}
+    \end{equation*}
+    Notice that
+    \begin{align*}
+        a - \sigma(a) &= \frac{1}{\Tr(c)}\pqty{bc + (b+\sigma(b))\sigma(c) + \cdots + (b+\sigma(b)+\cdots+\sigma^{n-2}(b))\sigma^{n-2}(c)} \\
+        &\quad - \frac{1}{\Tr(c)}\pqty{\sigma(b)\sigma(c) + (\sigma(b)+\sigma^2(b))\sigma^2(c) + \cdots + (\sigma(b)+\sigma^2(b)+\cdots+\sigma^{n-1}(b))\sigma^{n-1}(c)} \\
+        &= \frac{1}{\Tr(c)}\pqty{b(c + \sigma(c) + \cdots + \sigma^{n-2}(c) + \sigma^{n-1}(c)) - \Tr(b)\sigma^{n-1}(c)}
+        = b \frac{\Tr(c)}{\Tr(c)} = b
+    \end{align*}
+    and we have the forward direction.
+
+    For the reverse direction, let us compute the telescoping sum
+    \begin{equation*}
+        \Tr_{K/F}(b) = \sum_{k=0}^{n-1} \sigma^k(b) = \sum_{k=0}^{n-1} \sigma^k(a) - \sigma^{k+1}(a)
+        = \id(a) - \sigma^n(a) = a - a = 0
+    \end{equation*}
+    which proves statement (b).
 \end{proof}
-\begin{theorem}[Hilbert Theorem 90, additive]
-    Suppose \(K/F\) is cyclic of degree \(n\), \(G = \Gal(K/F) = \langle\sigma\rangle\).
-    For any \(b \in K\), if \(\tr_{K/F}(b) = 0\),
-    then \(b = a - \sigma(a)\) for some \(a \in K\).
-\end{theorem}
-\begin{proof}
-    % TODO
-\end{proof}
+\begin{remark}
+    In Galois cohomology, Theorem 90 is equivalent to saying that \(H^1(G,K^\times)\) is the trivial group.
+\end{remark}
 
 \begin{definition}
     Let \(K_1\) and \(K_2\) be extensions over \(F\).
