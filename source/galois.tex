@@ -999,21 +999,45 @@
     The \(n\)th cyclotomic polynomial is
     \(\Phi_n(x) = \prod_{\text{primitive}\;\zeta\in\mu_n} (x-\zeta)\).
 \end{definition}
-\begin{proposition}
-    Suppose \(\Phi_n(x) \in \bQ[x]\).
-    Then \(\Phi_n(x)  = \prod_{1 \leq a < n,\; \gcd(a,n) = 1} (x-\zeta_n^a)\),
-    and \(\deg \Phi_n(x) = [\bQ(\zeta_n):\bQ] = \varphi(n)\),
-    where \(\varphi\) is the Euler totient function.
-\end{proposition}
+\begin{lemma}\label{lem:cyclotomic-recursive}
+    The cyclotomic polynomials can be recursively computed from
+    \[\Phi_n(x) = \frac{x^n - 1}{\prod_{d \mid n,\, d < n} \Phi_d(x)}\]
+\end{lemma}
 \begin{proof}
-    % TODO
+    From the definition of coprimality, we know that
+    \[x^n - 1 = \prod_{d \mid n} \Phi_d(x)\]
+    so reorganizing the terms we have
+    \[\Phi_n(x) = \frac{x^n - 1}{\prod_{d \mid n,\, d < n} \Phi_d(x)}\]
 \end{proof}
 \begin{proposition}
     Suppose \(\Phi_n(x) \in \bQ[x]\).
-    Then \(\Phi_n(x) \in \bZ[x]\) is monic.
+    Then \(\Phi_n(x)  = \prod_{1 \leq a < n,\; \gcd(a,n) = 1} (x-\zeta_n^a)\),
+    and \(\deg \Phi_n(x) = \varphi(n)\),
+    where \(\varphi\) is the Euler totient function.
 \end{proposition}
 \begin{proof}
-    % TODO
+    By Corollary~\ref{cor:order-cyclic-group},
+    for \(\zeta_n^a\) to be a cyclic group, \(a\) must be coprime to \(n\).
+    This gives us the product.
+    Then, by definition of the totient function, there are \(\varphi(n)\) numbers coprime to \(n\).
+\end{proof}
+\begin{proposition}
+    Consider the cyclotomic polynomial \(\Phi_n(x) \in \bQ[x]\).
+    Then \(\Phi_n(x) \in \bZ[x]\), and is monic.
+\end{proposition}
+\begin{proof}
+    Trivially, \(\Phi_1(x) = x - 1 \in \bZ[x]\) and is monic.
+    We then proceed by strong induction,
+    assuming that \(\Phi_k(x) \in \bZ[x]\) is monic for all \(k < n\).
+    Since we know that \(\Phi_n(x)\) is the quotient of two monic polynomials
+    (Lemma~\ref{lem:cyclotomic-recursive}),
+    \(\Phi_n(x)\) must be monic.
+
+    Moreover, the quotient of two polynomials in \(\bZ[x]\) where the divisor is monic,
+    means the quotient and the remainder are both in \(\bZ[x]\).
+    This can be seen simply from the Euclidean algorithm (Proposition~\ref{prop:field-polynomial-long-div}),
+    where at every step, to determine the coefficient,
+    we simply divide by the leading coefficient of the divisor, which is 1.
 \end{proof}
 
 \begin{lemma}
@@ -1022,23 +1046,61 @@
     and \(\sigma(\zeta) = \zeta^{k_\sigma}\) for all \(\zeta \in \mu_n\).
 \end{lemma}
 \begin{proof}
-    % TODO: cyclotomic
+    Let \(\mu_n = \aqty{\zeta}\).
+    We immediately have \(\zeta^n = 1\) and \(\zeta^k \neq 1\) for \(0 < k < n\);
+    we also have \({\sigma(\zeta)}^n = 1\) and \({\sigma(\zeta)}^k\) for \(0 < k < n\),
+    hence \(\sigma(\zeta)\) is also a primitive \(n\)th root of unity.
+    This immediately tells us that \(\sigma(\zeta) = \zeta^{k_\sigma}\) for some \(k_\sigma\).
+    As \(\zeta\) generates \(\mu_n\), this holds for all elements of \(\mu_n\).
 \end{proof}
-\begin{theorem}
-    The mapping from \(\Gal(F(\mu_n)/F) \to {(\bZ/n\bZ)}^\ast\)
-    via \(\zeta \mapsto k_\sigma \pmod{n}\)
+\begin{theorem}\label{thm:cyclotomic-injective}
+    The mapping from \(\Gal(F(\mu_n)/F) \to {(\bZ/n\bZ)}^\times\)
+    via \(\sigma \mapsto k_\sigma \pmod{n}\)
     where \(\sigma(\zeta) = \zeta^{k_\sigma}\) for all \(\zeta \in \mu_n\),
     is an injective group homomorphism.
 \end{theorem}
 \begin{proof}
-    % TODO
+    First off, \(\sigma \mapsto k_\sigma\) is indeed injective,
+    because if \(k_\sigma = k_\tau\), then \(\sigma(\zeta) = \zeta^{k_\sigma} = \zeta^{k_\tau} = \tau(\zeta)\).
+
+    Now, we check that it is indeed a group homomorphism.
+    % The identity indeed gets mapped \(\id \mapsto 1\).
+    \begin{equation*}
+        \sigma\tau(\zeta) = \sigma(\zeta^{k_\tau}) = {(\zeta^{k_\tau})}^{k_\sigma} = \zeta^{k_\tau k_\sigma}
+    \end{equation*}
+    so \(k_{\sigma\tau} = k_\tau k_\sigma\) as desired.
 \end{proof}
-\begin{theorem}
-    The mapping from \(\Gal(\bQ(\mu_n)/\bQ) \to {(\bZ/n\bZ)}^\ast\)
-    is an isomorphism.
+\begin{theorem}\label{thm:cyclotomic-isomorphism}
+    The mapping from \(\Gal(\bQ(\mu_n)/\bQ) \to {(\bZ/n\bZ)}^\times\) is an isomorphism.
 \end{theorem}
 \begin{proof}
-    % TODO
+    From the \hyperref[thm:cyclotomic-injective]{theorem above},
+    it suffices to prove that this map is surjective,
+    which we can show with the \hyperref[thm:pigeonhole]{pigeonhole principle},
+    by showing that \(\abs{\Gal(\bQ(\mu_n)/\bQ)} \geq \varphi(n)\).
+
+    Consider \(f(x) = \min_\bQ(\zeta)\) for \(\mu_n = \aqty{\zeta}\).
+    Then \(f \mid x^n - 1\), so there exists some \(h \in \bQ[x]\) such that \(x^n - 1 = f(x)h(x)\).
+    Using the same argument as above,
+    since \(f\) is monic by defintion and \(h\) is monic as a consequence,
+    both \(f,h \in \bZ[x]\).
+
+    We now claim that if a prime \(p \nmid n\), then \(\zeta^p\) too is a root of \(f\).
+    Notice that \(\zeta^p\) is also a primitive \(n\)th root of unity;
+    moreover, as \(\mu_n = \aqty{\zeta^p}\),
+    there exists some \(k\) such that \(\zeta = {(\zeta^p)}^k = \zeta^{kp}\).
+    Hence there exists \(\sigma \in \Gal(\bQ(\mu_n)/\bQ)\) such that \(\sigma(\zeta) = \zeta^p\)
+    Thus \(\zeta^p\) is also a root of \(f\), as \(\sigma\) must permute the roots of a minimal polynomial.
+    Repeating this argument tells us that \(\zeta^{kp}\) for all \(k\) are roots of \(f\),
+    so there are at least \(\varphi(n)\) roots of \(f\).
+    This exactly says that \(\abs{\Gal(\bQ(\mu_n)/\bQ)} = [\bQ(\zeta):\bQ] \geq \varphi(n)\).
+\end{proof}
+\begin{corollary}
+    The cyclotomic polynomial \(\Phi_n(x)\) is irreducible over \(\bQ\).
+\end{corollary}
+\begin{proof}
+    The \hyperref[thm:cyclotomic-isomorphism]{theorem above} also tells us that
+    \(\Phi_n(x)\) is the minimal polynomial \(\min_\bQ(\zeta_n)\).
 \end{proof}
 
 \begin{definition}
@@ -1116,15 +1178,17 @@
     % TODO
 \end{proof}
 
-\begin{theorem}[Kronecker-Weber Theorem]
-    Any abelian extension of \(\bQ\)
-    is a subextension of a cyclotomic extension.
-\end{theorem}
-\begin{proof}
-    See footnote.\footnote{%
-        \url{https://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALFULL/Culler.pdf}
-    }
-\end{proof}
+% \begin{theorem}[Kronecker-Weber Theorem]
+%     Any abelian extension of \(\bQ\)
+%     is a subextension of a cyclotomic extension.
+% \end{theorem}
+% \begin{proof}
+%     This is a result in algebraic number theory.\footnote{%
+%         \url{https://www.math.uchicago.edu/~may/VIGRE/VIGRE2007/REUPapers/FINALFULL/Culler.pdf}
+%     }
+% \end{proof}
+
+% TODO: come back after algebraic number theory.
 
 
 \section{Solvable Extensions}
