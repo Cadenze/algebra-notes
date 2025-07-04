@@ -1114,10 +1114,11 @@
 \begin{proposition}
     Suppose \(F\) is a field of characteristic \(p\),
     and consider the additive homomorphism \(\vfunc{\eta}{F}{F}{a}{a^p-a}\).
-    We have\(\ker\eta = \bF_p\), and \(\eta^{-1}(a) = \{b+i : 0 \leq i \leq p-1\}\).
+    We have \(\ker\eta = \bF_p\), and \(\eta^{-1}(b) = \{b+i : 0 \leq i \leq p-1\}\).
 \end{proposition}
 \begin{proof}
-    % TODO
+    Since \(\bF_p\) is the splitting field of \(x^p - x\), we know that \(\ker\eta = \bF_p\).
+    Hence given any \(b \in F\), \(\eta(a+i) = \eta(a)+\eta(i) = \eta(a)\).
 \end{proof}
 \begin{theorem}[Artin-Schreier Extensions]
     Suppose \(K/F\) is a cyclic Galois extension of degree \(p\),
@@ -1125,13 +1126,53 @@
     Then we have the following:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
         \item \(K = F(a)\) where \(a\) is a root of \(x^p-x-b\) for some \(b \in F\).
-        \item If \(a \in F - \eta^{-1}(F)\), then \(f(x) = x^p-x-a\) is irreducible,
+        \item If \(b \notin F - \eta^{-1}(F)\), then \(f(x) = x^p-x-b\) is irreducible,
             and a splitting field of \(f(x)\) is cyclic of degree \(p\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Let \(G = \Gal(K/F) = \aqty{\sigma}\), and let \(\vfunc{\Sigma}{K}{K}{a}{\sigma(a)-a}\).
+    Clearly we have \(\ker\Sigma = \{a \in K: \sigma(a) = a\} = K^G = F\).
+    Also, \(\Sigma^p = {(\sigma-\id)}^p = \sigma^p - \id = 0\) is the zero map.
+    Hence \(\img\Sigma^{p-1} \subseteq \ker\Sigma = F\).
+    % Observe that if \(\Sigma^{p-1} = {(\sigma-\id)}^{p-1} = 0\),
+    % then we get a nontrivial linear combination of \(\id,\sigma,\hdots,\sigma^{p-1}\) equalling zero,
+    % which contradicts \hyperref[lem:dedekind]{Dedekind's lemma}.
+    % Therefore we have \(\Sigma^{p-1} \neq 0\).
+    % Moreover, observe that if given \(a \in F\), \(\Sigma(a) = \sigma(a) - a = 0\),
+    % \(\img\Sigma^{p-1} = \ker\Sigma = F\).
+    Let \(c \in K\) such that \(\Sigma^{p-1}(c) = 1\), and let \(a = \Sigma^{p-2}(c)\);
+    we then have \(\Sigma(a) = \sigma(a) - a = \Sigma^{p-1}(c) = 1\).
+    Hence \(\sigma(a) = a + 1\), and as \(\sigma\) fixes \(F\), we have \(\sigma^k(a) = a + k\).
+    Since all of these \(\sigma^k(a)\) must share the same minimal polynomial,
+    \([F(a):F] = p\), and thus \(K = F(a)\).
+
+    Moreover, if we let \(b = a^p - a\), then
+    \begin{equation*}
+        \sigma(b) = \sigma(a^p - a) = {(a+1)}^p - (a+1) = a^p - a = b
+    \end{equation*}
+    so \(b \in K^G = F\), and \(a\) is a root of \(x^p - x - b\).
+    This proves statement (a).
+
+    \medskip
+
+    Now suppose that \(b \notin F - \eta^{-1}(F)\).
+    If \(a\) is a root of \(f(x) = x^p - x - a\),
+    then by statement (a) \((a+k)\) is also a root of \(f\) for \(0 < k < p\).
+    Hence \(K = F(a)\) is a splitting field of \(f\).
+    If \(f\) is indeed irreducible, then \([K:F] = p\) and \(\Gal(K/F) = \aqty{\sigma}\) as above,
+    and we are done.
+
+    It suffices to show that \(f\) is irreducible.
+    Decompose \(f(x) = g_1(x) \cdots g_m(x)\) into irreducible factors.
+    If \(a\) is a root of \(g_i\), then \(K = F(a)\) as shown above.
+    Hence each \(g_i\) has the same degree, and as \(f\) does not split over \(F\),
+    \(\deg g_i > 1\), so \(\deg g_i = p\) and there is only one irreducible factor.
+    This proves statement (b).
 \end{proof}
+\begin{remark}
+    These extensions are called Artin-Schreier extensions.
+\end{remark}
 
 \subsection*{Abelian Extensions}
 
