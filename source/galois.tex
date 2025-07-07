@@ -545,7 +545,7 @@
     This does not hold if \(K/F\) not Galois.
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm:galois-compositum-injective}
     Suppose \(K/F\) and \(L/F\) both finite Galois,
     such that \(K,L \subseteq \overline{F}\).
     Then \[\vfunc{\psi}{\Gal(KL/F)}{\Gal(K/F)\times\Gal(L/F)}{\sigma}{(\sigma\vert_K,\sigma\vert_L)}\]
@@ -1176,22 +1176,52 @@
 
 \subsection*{Abelian Extensions}
 
-\begin{lemma}
+\begin{lemma}\label{lem:common-root-mod-p}
     Suppose a prime \(p \nmid n\) and \(m \mid n\), \(m \neq n\).
     Then \(\Phi_n(x)\) and \(x^m - 1\) cannot have a common root modulo \(p\).
 \end{lemma}
 \begin{proof}
-    % TODO
+    Suppose, by way of contradiction, that there is a common root \(a\) modulo \(p\).
+    Then we know that \(a^m \equiv 1 \pmod{p}\), so \(a\) is obviously coprime to \(p\).
+    We also have
+    \begin{equation*}
+        x^n - 1 = \prod_{d \mid n} \Phi_d(x) = \Phi_n(x) \prod_{d \mid n,\, d < n} \Phi_d(x)
+    \end{equation*}
+    Notice that \(x^m - 1 = \prod_{d \mid m} \Phi_d(x)\) has all its factors in the last product,
+    so \(x^n - 1\) has a double root \(a\).
+    Hence the derivative must also vanish at \(a\) modulo \(p\),
+    giving us \(na^{n-1} \equiv 0 \pmod{p}\).
+    But by assumption we have \(p \nmid n\) and we showed earlier that \(p \nmid a\),
+    so we have reached a contradiction.
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{thm:prime-1-mod-n}
     Suppose \(n \in \bN\).
-    Then there are infinitely many primes congruent to \(1 \pmod{n}\).
+    Then there are infinitely many primes congruent to \(1\) modulo \(n\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    Suppose, by way of contradiction, that there are only finitely many such primes \({\{p_i\}}_{i=1}^N\).
+    Choose \(l\) large enough such that \(M = \Phi_n(l np_1 \cdots p_N) > 1\),
+    which is possible since \(\Phi_n\) is monic.\footnote{%
+        Notice that the set of such primes can in fact be empty,
+        as the argument still works when \(M = \Phi_n(l n) > 1\).
+    }
+    In that case, there exists some \(p\) such that \(p \mid M\).
+    Observe that \(p \neq p_i\) for any \(i\),
+    because \(\Phi_n\) has constant term 1, so \(p_i \nmid M\).
+    Moreover, we have \(p\) coprime to \(a = l np_1 \cdots p_N\),
+    since everything but the constant term of \(\Phi_n(a)\) contains \(a\).
+
+    In the setting of modulo \(p\), as we know that \(a\) is a root of \(\Phi_n\) (i.e.\ an \(n\)th root of unity),
+    we must have \(a^n \equiv 1 \pmod{p}\).
+    We can now infer that the order of \(a\) is exactly \(n\),
+    because it it were any smaller, such as \(m < n\), then we would have \(m \mid n\),
+    which would contradict the \hyperref[lem:common-root-mod-p]{lemma above}.
+    Since \(a^{p-1} \equiv 1 \pmod{p}\) by \hyperref[thm:fermat-little]{Fermat's little theorem},
+    we know that \(n \mid (p-1)\), so we have \(p \equiv 1 \pmod{n}\),
+    adding an extra prime to our list, giving us our required contradiction.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:coprime-compositum}
     Suppose \(\gcd(a,b) = 1\).
     Let \(K = \bQ(\zeta_a)\) and \(L = \bQ(\zeta_b)\).
     We have:
@@ -1208,7 +1238,24 @@
     \end{equation*}
 \end{proposition}
 \begin{proof}
-    % TODO
+    Immediately, as we have \(\zeta_{ab}^b = \zeta_a\) and \(\zeta_{ab}^a = \zeta_b\),
+    we know that \(\zeta_a,\zeta_b \in \bQ(\zeta_{ab})\),
+    so we indeed have \(KL \subseteq \bQ(\zeta_{ab})\).
+    By \hyperref[thm:bezout]{B\'ezout's identity}, as \(a,b\) are coprime,
+    there exists some \(s,t \in \bZ\) such that \(sa+tb = 1\).
+    Hence we have \(\zeta_b^s\zeta_a^t = \zeta_{ab}^{sa+tb} = \zeta_{ab}\)
+    and \(\bQ(\zeta_{ab}) \subseteq KL\).
+    This proves statement (a).
+
+    Now, observe that \([\bQ(\zeta_{ab}):\bQ] = \varphi(ab) = \varphi(a)\varphi(b) = [\bQ(\zeta_a):\bQ][\bQ(\zeta_b):\bQ]\),
+    by Corollary~\ref{cor:galois-compositum-degree}, \(K \cap L = \bQ\).
+    This proves statement (b).
+
+    Lastly, since we have \(K \cap L = F\),
+    Theorem~\ref{thm:galois-compositum-injective} applies and we have our isomorphism.
+    This proves statement (c).
+    The particular case is merely an application of this statement to the prime factorization,
+    in which each prime power is pairwise coprime to any other prime power.
 \end{proof}
 
 \begin{theorem}
@@ -1216,8 +1263,38 @@
     for some Galois extension \(K/\bQ\).
 \end{theorem}
 \begin{proof}
-    % TODO
+    % The simplest examples are when \(\abs{G} = 1\) or 2.
+    % in which case we have \(G\) being the trivial group or \(\bZ/2\bZ\).
+    % In the first case, \(G = \Gal(\bQ/\bQ)\) by definition;
+    % and in the second case, 
+    Without any loss of generality, let us assume \(\abs{G} \geq 2\),
+    since the trivial case of \(G = \{1\}\) is, in fact, trivially true with \(G \cong \Gal(\bQ/\bQ)\).
+    By the \hyperref[thm:structure-invariant]{structure theorem for finite abelian groups}
+    (which are torsion modules over the PID \(\bZ\)),
+    we can write as a product \(G = \prod_{i=1}^k \bZ/n_i\bZ\).
+    By Theorem~\ref{thm:prime-1-mod-n},
+    we shall choose distinct primes \(p_i \equiv 1 \pmod_{n_i}\) for each \(i\).
+    Since \(n_i \mid p_i - 1 = \abs{\Gal(\bQ(\zeta_{p_i})/\bQ)}\),
+    and as \(\Gal(\bQ(\zeta_{p_i})/\bQ) \cong {(\bZ/p_i\bZ)}^\times\) is cyclic
+    (Theorems~\ref{thm:cyclotomic-isomorphism}~\&~\ref{thm:cyclic-multiplicative-group}),
+    there exists a subgroup of index \(n_i\), i.e.\ of order \(p_i/n_i\).
+    Let the corresponding fixed field be \(K_i \subseteq \bQ(\zeta_{p_i})\);
+    as \(\Gal(\bQ(\zeta_{p_i})/\bQ)\) is abelian, every subgroup is normal,
+    so \(K_i/\bQ\) is in fact Galois.
+    Using the \hyperref[thm:ftgt]{fundamental theorem of Galois theory},
+    we get that \(\Gal(K_i/\bQ)\) is cyclic of order \(n_i\).
+    Lastly, as the \hyperref[prop:coprime-compositum]{propositive above} shows,
+    since \(p_i\) are pairwise distinct, \(\bQ(\zeta_{p_i}) \cap \bQ(\zeta_{p_j}) = \bQ\) if \(i \neq j\),
+    so we know that \(K_i \cap K_j = \bQ\) by the same logic.
+    Hence choosing \(K = K_1 K_2 \cdots K_k\), we have
+    \begin{equation*}
+        G \cong \prod_{i=1}^k \bZ/n_i\bZ \cong \prod_{i=1}^k \Gal(K_i/\bQ) = \Gal(K/\bQ)
+    \end{equation*}
 \end{proof}
+\begin{remark}
+    The converse to this theorem is also true, and is known as the Kronecker-Weber theorem.
+    It is proven using algebraic number theory techniques.
+\end{remark}
 
 % \begin{theorem}[Kronecker-Weber Theorem]
 %     Any abelian extension of \(\bQ\)
