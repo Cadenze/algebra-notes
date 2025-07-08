@@ -1320,48 +1320,80 @@
     \begin{equation*}
         F = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_n = K
     \end{equation*}
-    of sequential radical extensions.
+    of sequentially simple radical extensions.
 \end{definition}
 \begin{definition}
     Polynomial \(f(x) \in F[x]\) is solvable by radicals
     if the splitting field of \(f(x)\) is contained in a radical extension.
 \end{definition}
-\begin{proposition}
-    Suppose \(E/F\) is a separable radical extension.
-    Suppose \(L \supseteq E\) is the smallest Galois extension of \(F\),
-    so that \(L \subseteq \overline{F}\).
-    Then \(L\) is a radical extension of \(F\).
-\end{proposition}
-\begin{proof}
-    % TODO
-\end{proof}
-\begin{definition}
-    The smallest Galois extension is called a Galois closure.
-\end{definition}
 
-\begin{lemma}
-    Suppose \(F \subseteq L \subseteq M\) is a tower of extensions,
-    with \(M/F\) Galois and \(L/F\) separable.
-    Then the compositum of all conjugate fields of \(L\) in \(M\)
-    is the Galois closure of \(L/F\).
-\end{lemma}
-\begin{proof}
-    % TODO
-\end{proof}
-
-\begin{lemma}
-    Suppose \(F \subseteq L \subseteq M\) is a tower of extensions.
+\begin{lemma}\label{lem:radical-extension-properties}
+    Suppose \(F \subseteq L \subseteq K\) is a tower of extensions.
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item If \(L/F\) and \(M/L\) radical, then \(M/F\) radical.
-        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1\) radical,
+        \item If \(L/F\) and \(K/L\) radical, then \(K/F\) radical.
+        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1\) radical over \(F\),
             then \(K_1K_2/K_2\) is radical.
-        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1,K_2\) radical,
+        \item If \(F \subseteq K_1,K_2 \subseteq L\) and \(K_1,K_2\) radical over \(F\),
             then \(K_1K_2/F\) is radical.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    % TODO
+    The first one is obvious, since \(L/F\) and \(K/L\) radical means
+    there is a chain of simple radical extensions from \(F\) to \(L\), and then from \(L\) to \(K\).
+    Simply concatenate the two chains,
+    and we have statement (a).
+
+    We prove the case of simple radical extensions first.
+    If \(K_1/F\) is simply radical, then \(K_1 = F(a)\), with \(a^n \in F\).
+    Hence \(K_1K_2 = F(a) \cdot K_2 = K_2(a)\), with \(a^n \in F \subseteq K_2\) as desired.
+    Moving on to the general case,
+    if \(K_1/F\) is radical,
+    then \(F = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_m = K_1\) is a chain of simple radical extensions,
+    and thus, \(K_2 = F_0K_2 \subseteq F_1K_2 \subseteq \cdots \subseteq F_m K_2 = K_1K_2\) is a chain of simple radical extensions as desired.
+    This proves statement (b).
+
+    Lastly, statement (c) is proven by combining the previous two statements.
+    Since \(K_1/F\) is radical, \(K_1K_2/K_2\) is radical by statement (b);
+    moreover, since \(K_2/F\) too, \(K_1K_2/F\) is radical by statement (a).
 \end{proof}
+\begin{proposition}
+    Suppose \(E/F\) is a separable radical extension.
+    Suppose \(L \subseteq \overline{F}\) be the Galois closure of \(E/F\).
+    % so that \(L \subseteq \overline{F}\).
+    Then \(L\) is a radical extension of \(F\).
+\end{proposition}
+\begin{proof}
+    Let \(n = [E:F]\).
+    There are \(n\) distinct \(F\)-embeddings \(\func{\sigma_i}{E}{\overline{F}}\)
+    (Theorem~\ref{thm:algebraic-extension-hom-count}),
+    which we shall number \({\{\sigma_i\}}_{i=1}^n\).
+    Then \(L = \prod_{i=1}^n \sigma_i(E) \subseteq \overline{F}\) is our Galois closure.
+    % We shall now prove that this \(L\) is indeed radical over \(F\).
+    % Since \(E/F\) is finite separable,
+    % by the \hyperref[thm:primitive-element-2]{primitive element theorem}, let \(E = F(a)\).
+    % Let \(E = F(a)\). % , where \(a\) is the radical element.
+    % Then the roots of \(f(x) = \min_F(a)\) are \({\{\sigma_i\}}_{i=1}^n\),
+    % and \(L = F(\sigma_1(a),\hdots,\sigma_n(a))\) is the splitting field of \(f\) over \(F\).
+    Observe that as \(\sigma_i(E) \cong E\), \(\sigma_i(E)/F\) is radical,
+    and the compositum of radical extensions \(L\) is also radical
+    using the \hyperref[lem:radical-extension-properties]{lemma above}.
+\end{proof}
+% \begin{definition}
+%     The smallest Galois extension is called a Galois closure.
+% \end{definition}
+
+% \begin{lemma}
+%     Suppose \(F \subseteq L \subseteq K\) is a tower of extensions,
+%     with \(K/F\) Galois and \(L/F\) separable.
+%     Then the compositum of all conjugate fields of \(L\) in \(K\)
+%     is the Galois closure of \(L/F\).
+% \end{lemma}
+% \begin{proof}
+%     Let \(L = F(a)\) using the \hyperref[thm:primitive-element-2]{primitive element theorem}.
+%     let \(f(x) = \min_F(a)\) be the minimal polynomial.
+%     The roots of \(f\) are \({\{\sigma_i\}}_{i=1}^n\)
+%     for the \(n = [L:F]\) distinct \(F\)-embeddings \(E \to K\).
+% \end{proof}
 
 \subsection*{Kummer Extensions}
 
