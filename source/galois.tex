@@ -279,7 +279,7 @@
     which by the \hyperref[prop:galois-group-separable]{proposition above} gives us that \([K:F] = n\).
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{thm:galois-extension-definition}
     Suppose \(K/F\) is a finite field extension.
     Then the following are equivalent:
     \begin{enumerate}[label={(\roman*)}, itemsep=0mm]
@@ -1322,10 +1322,6 @@
     \end{equation*}
     of sequentially simple radical extensions.
 \end{definition}
-\begin{definition}
-    Polynomial \(f(x) \in F[x]\) is solvable by radicals
-    if the splitting field of \(f(x)\) is contained in a radical extension.
-\end{definition}
 
 \begin{lemma}\label{lem:radical-extension-properties}
     Suppose \(F \subseteq L \subseteq K\) is a tower of extensions.
@@ -1356,7 +1352,27 @@
     Since \(K_1/F\) is radical, \(K_1K_2/K_2\) is radical by statement (b);
     moreover, since \(K_2/F\) too, \(K_1K_2/F\) is radical by statement (a).
 \end{proof}
-\begin{proposition}
+\begin{lemma}\label{lem:compositum-galois-closure}
+    Suppose \(F \subseteq L \subseteq K\) is a stack of extensions,
+    with \(E/F\) separable and \(K/F\) Galois.
+    Then the compositum of all conjugate fields of \(E\) in \(K\) is the Galois closure of \(E/F\).
+\end{lemma}
+\begin{proof}
+    Since \(E/F\) is separable, by the \hyperref[thm:primitive-element-2]{primitive element theorem},
+    let \(E = F(\alpha)\).
+    Since \(K/F\) is Galois,
+    the minimal polynomial \(f(x) = \min_F(\alpha)\) is separable and splits completely in \(K\),
+    which allows us to write \(f(x) = (x-\alpha)(x-\alpha_2)\cdots(x-\alpha_r)\).
+    Let \(K' = F(\alpha,\alpha_2,\hdots,\alpha_r) \subseteq K\).
+    Then \(K'/F\) is a Galois extension that contains \(L\).
+    
+    But then the Galois conjugates of \(L\) are exactly \(F(\alpha_i)\),
+    and thus the compositum of all conjugate fields is exactly \(K'\).
+    Notice that as the Galois closure must contain all the conjugate fields,
+    it must also contain the compositum.
+    Hence \(K'\) is exactly the Galois closure.
+\end{proof}
+\begin{proposition}\label{prop:galois-closure-radical}
     Suppose \(E/F\) is a separable radical extension.
     Suppose \(L \subseteq \overline{F}\) be the Galois closure of \(E/F\).
     % so that \(L \subseteq \overline{F}\).
@@ -1367,7 +1383,8 @@
     There are \(n\) distinct \(F\)-embeddings \(\func{\sigma_i}{E}{\overline{F}}\)
     (Theorem~\ref{thm:algebraic-extension-hom-count}),
     which we shall number \({\{\sigma_i\}}_{i=1}^n\).
-    Then \(L = \prod_{i=1}^n \sigma_i(E) \subseteq \overline{F}\) is our Galois closure.
+    Then the compositum \(L = \prod_{i=1}^n \sigma_i(E) \subseteq \overline{F}\) is our Galois closure
+    by the \hyperref[lem:compositum-galois-closure]{lemma above}.
     % We shall now prove that this \(L\) is indeed radical over \(F\).
     % Since \(E/F\) is finite separable,
     % by the \hyperref[thm:primitive-element-2]{primitive element theorem}, let \(E = F(a)\).
@@ -1376,7 +1393,7 @@
     % and \(L = F(\sigma_1(a),\hdots,\sigma_n(a))\) is the splitting field of \(f\) over \(F\).
     Observe that as \(\sigma_i(E) \cong E\), \(\sigma_i(E)/F\) is radical,
     and the compositum of radical extensions \(L\) is also radical
-    using the \hyperref[lem:radical-extension-properties]{lemma above}.
+    using Lemma~\ref{lem:radical-extension-properties}.
 \end{proof}
 % \begin{definition}
 %     The smallest Galois extension is called a Galois closure.
@@ -1430,7 +1447,7 @@
     and \(K\) contains \(\zeta = \zeta_n\),
     then \(L/K\) is a Kummer extension of degree \(n\).
 \end{definition}
-\begin{lemma}
+\begin{lemma}\label{lem:kummer-simple-radical}
     If \(L/K\) is a Kummer extensions of degree \(n\),
     then \(L = K(z)\) with \(z^n \in K\).
 \end{lemma}
@@ -1515,7 +1532,7 @@
 
     Conversely, the conjugates of \(z\) are \({\{\sigma(z)\}}_{\sigma\in\Gal(L/K)}\),
     so the minimal polynomial of \(z\) is
-    \[\min_K(z) = \prod_{\zeta\in\mu_t} (x - z\zeta) = x^t - z^t\]
+    \[\textstyle\min_K(z) = \displaystyle\prod_{\zeta\in\mu_t} (x - z\zeta) = x^t - z^t\]
     so \(z^t \in K\) and thus \(a^t = z^{tn} \in {(K^\times)}^n\), giving us \(m \mid t\).
     Combining the two we get \(m = t = \abs{\Gal(L/K)} = [L:K]\) as desired,
     proving statement (b).
@@ -1527,7 +1544,22 @@
 
 \subsection*{Solvable Extensions}
 
-\begin{lemma}
+\begin{definition}
+    Polynomial \(f(x) \in F[x]\) is solvable by radicals
+    if the splitting field of \(f(x)\) is contained in a radical extension.
+\end{definition}
+\begin{definition}
+    \(L/F\) is a solvable extension if there exists \(K \supseteq L\)
+    such that \(K/F\) is a radical extension.
+\end{definition}
+% \begin{proposition}
+%     \(L/F\) is a solvable extension if and only if \(\Gal(L/F)\) is a solvable group.
+% \end{proposition}
+% \begin{proof}
+%     % TODO
+% \end{proof}
+
+\begin{lemma}\label{lem:solvable-properties}
     Suppose \(L/F\) Galois and \(\zeta = \zeta_m\) is a primitive \(m\)th root of unity.
     Then \(L(\zeta)/F\) and \(L(\zeta)/F(\zeta)\) are also Galois.
     Furthermore, the following are equivalent:
@@ -1538,24 +1570,100 @@
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-    % TODO
-\end{proof}
+    We first see that if \(L/F\) is Galois,
+    then it is a splitting field of some separable polynomial \(f\)
+    (Theorem~\ref{thm:galois-extension-definition}).
+    Adding \(\zeta\) to \(L\) is equivalent to
+    taking the splitting field of the separable polynomial \(x^m - 1\),
+    which is then still normal and separable, so \(L(\zeta)/F\) is Galois.
+    A subextension \(L(\zeta)/F(\zeta)\) is thus still Galois.
 
-\begin{theorem}
-    Suppose \(F\) is a field of characteristic 0.
-    If \(f(x) \in F[x]\) is solvable by radicals,
-    then \(\Gal(f)\) is a solvable group.
-\end{theorem}
-\begin{proof}
-    % TODO
+    % Now suppose \(\Gal(L/F)\) is solvable.
+    Notice that \(H = \Gal(L(\zeta)/L)\) is abelian (Theorem~\ref{thm:cyclotomic-injective}),
+    which means that it is solvable (Lemma~\ref{lem:abelian-solvable}).
+    Then \(G = \Gal(L(\zeta)/F)\) is solvable if and only if \(G/H = \Gal(L/F)\)
+    (Theorem~\ref{thm:normal-subgroup-solvable}),
+    which proves (i) \(\iff\) (ii).
+    
+    Similarly, as \(H = \Gal(F(\zeta)/F)\) is abelian (Theorem~\ref{thm:cyclotomic-injective}),
+    and thus solvable (Lemma~\ref{lem:abelian-solvable}).
+    Then \(G = \Gal(L(\zeta)/F)\) is solvable if and only if \(G/H = \Gal(L(\zeta)/F(\zeta))\)
+    (Theorem~\ref{thm:normal-subgroup-solvable}),
+    which proves (ii) \(\iff\) (iii).
 \end{proof}
-\begin{theorem}[Galois]
-    Suppose \(F\) is a field of characteristic 0,
-    and \(f(x) \in F[x]\).
-    If \(\Gal(f)\) is solvable, then \(f(x)\) is solvable by radicals.
+\begin{theorem}[Galois]\label{thm:solvable-galois}
+    Suppose \(L/F\) is Galois.
+    Then \(L/F\) is a solvable extension if and only if \(\Gal(L/F)\) is solvable.
 \end{theorem}
 \begin{proof}
-    % TODO
+    Suppose \(L/F\) is a solvable extension.
+    Let \(L' \supseteq L\) be a radical extension over \(F\),
+    and let \(M\) be the Galois closure of \(L'/F\).
+    Observe that \(M\) is in fact also radical over \(F\) by Proposition~\ref{prop:galois-closure-radical},
+    which means \(M/F\) is also a solvable extension,
+    and the \hyperref[lem:solvable-properties]{lemma above} implies that \(\Gal(M/F)\) is thus solvable.
+    By the \hyperref[thm:ftgt]{fundamental theorem of Galois theory},
+    \(\Gal(L/F)\) is a quotient of \(\Gal(M/F)\),
+    so it is also solvable (Theorem~\ref{thm:normal-subgroup-solvable}).
+
+    Now suppose \(\Gal(L/F)\) is solvable.
+    We first show that \(L/F\) is radical
+    if the primitive root of unity \(\zeta_p \in F\) for every prime \(p \mid \abs{\Gal(L/F)}\).
+    % \begin{equation*}
+    %     \begin{tikzcd}
+    %         L \arrow[phantom]{r}{\subseteq} & L(\zeta_{p_1}) \arrow[phantom]{r}{\subseteq} &
+    %         L(\zeta_{p_1},\zeta_{p_2}) \arrow[phantom]{r}{\subseteq} & \cdots \arrow[phantom]{r}{\subseteq} &
+    %         L(\zeta_{p_1},\hdots,\zeta_{p_r}) \\
+    %         F \arrow[phantom]{r}{\subseteq} \arrow[phantom]{u}[sloped]{\subseteq} &
+    %         F(\zeta_{p_1}) \arrow[phantom]{r}{\subseteq} \arrow[phantom]{u}[sloped]{\subseteq} &
+    %         F(\zeta_{p_1},\zeta_{p_2}) \arrow[phantom]{r}{\subseteq} \arrow[phantom]{u}[sloped]{\subseteq} &
+    %         \cdots \arrow[phantom]{r}{\subseteq} &
+    %         F(\zeta_{p_1},\hdots,\zeta_{p_r}) \arrow[phantom]{u}[sloped]{\subseteq}
+    %     \end{tikzcd}
+    % \end{equation*}
+    % This is obvious because the two horizontal series are both sequentially simple radical,
+    % and using the \hyperref[lem:solvable-properties]{lemma above},
+    % the rightmost vertical inclusion is 
+    Using the \hyperref[thm:ftgt]{fundamental theorem of Galois theory}, there exists a normal series
+    \begin{equation*}
+        \{1\} = \Gal(L/L) = \Gal(L/F_r) \lhd \Gal(L/F_{r-1}) \lhd \cdots \lhd \Gal(L/F_1) \lhd \Gal(L/F_0) = \Gal(L/F)
+    \end{equation*}
+    where \(\Gal(L/F_{i+1})/\Gal(L/F_i) \cong \Gal(F_{i+1}/F_i)\) is abelian;
+    equivalently, this says that \(F_{i+1}/F_i\) is both Galois and abelian.
+    Without any loss of generality, let these be cyclic,
+    because the \hyperref[thm:structure-divisor]{structure theorem for abelian groups}
+    tells us that these abelian groups split into cyclic factors,
+    and these cyclic factors must correspond to cyclic extensions.
+    It suffices to show that
+    \[F = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_r = L\]
+    is a chain of sequentially simple radical extensions.
+    But by our assumption, \(F_{i+1}/F_i\) is Kummer,
+    and Kummer extensions are simply radical by Lemma~\ref{lem:kummer-simple-radical} as desired.
+
+    Lastly, we return to the general case.
+    Let \(\zeta = \zeta_m\) for \(m = \abs{\Gal(L/F)}\).
+    Using the \hyperref[lem:solvable-properties]{lemma above},
+    since \(L/F\) is Galois by assumption, \(L(\zeta)/F(\zeta)\) is also Galois,
+    and because \(\Gal(L(\zeta)/F(\zeta))\) is already radical,
+    and thus solvable (as proven in the special case above)
+    \(\Gal(L/F)\) is hence solvable as desired.
+\end{proof}
+% \begin{lemma}
+%     % Suppose \(F\) is a field of characteristic 0.
+%     If \(f(x) \in F[x]\) is solvable by radicals,
+%     then \(\Gal(f)\) is a solvable group.
+% \end{lemma}
+% \begin{proof}
+%     % TODO
+% \end{proof}
+\begin{corollary}
+    \(f(x) \in F[x]\) is solvable by radicals if and only if \(\Gal(f)\) is a solvable group.
+    % If \(\Gal(f)\) is solvable, then \(f(x)\) is solvable by radicals.
+\end{corollary}
+\begin{proof}
+    \(f\) is solvable by radicals if and only if its splitting field \(K/F\) is solvable.
+    The \hyperref[thm:solvable-galois]{theorem above} then applies,
+    as \(K/F\) is solvable if and only if \(\Gal(f) = \Gal(K/F)\) is solvable.
 \end{proof}
 \begin{corollary}
     Cubics and quartics over \(\bQ[x]\) are solvable by radicals.
