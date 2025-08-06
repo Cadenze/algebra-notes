@@ -1447,27 +1447,6 @@
     and \(K\) contains \(\zeta = \zeta_n\),
     then \(L/K\) is a Kummer extension of degree \(n\).
 \end{definition}
-\begin{lemma}\label{lem:kummer-simple-radical}
-    If \(L/K\) is a Kummer extensions of degree \(n\),
-    then \(L = K(z)\) with \(z^n \in K\).
-\end{lemma}
-\begin{proof}
-    Consider \(\sigma \in G = \Gal(L/K)\) as a \(K\)-linear homomorphism from \(L \to L\).
-    We can immediately see that \(\sigma^n - \id\) is also \(K\)-linear.
-    Since \(G \cong Z_n\), \(\sigma^n - \id = 0\) is the zero map.
-    By \hyperref[lem:dedekind]{Dedekind's lemma},
-    there does not exist a polynomial of degree less than \(n\) of which \(\sigma\) is a root of.
-    Hence \(x^n - 1\) is the minimal polynomial of \(\sigma\).
-
-    Now, observe that \(\zeta\) is also a root of \(x^n - 1\),
-    so \(\zeta\) is an eigenvalue of \(\sigma\) (Lemma~\ref{lem:eigenvalue-min-poly}),
-    and there exists an eigenvector \(z \in L\) such that \(\sigma(z) = \zeta z\).
-    % which we can then exponentiate to get \(\sigma^n(z) = \zeta^n z = z\)
-    Observe that \[\sigma(z^n) = {(\sigma(z))}^n = {(\zeta z)}^n = z^n\]
-    so \(z^n \in K\) because it is fixed by \(\sigma\).
-    Also, \({\{\sigma^k(z) = \zeta^k z\}}_{k=0}^{n-1}\) is a pairwise distinct set of elements,
-    so \(L = K(z)\) and \([L:K] = n\) as desired.
-\end{proof}
 \begin{proposition}
     Suppose \(K\) is a field containing \(\zeta_n\),
     and \(L/K\) an extension such that \(L = K(z)\) with \(z^n = a \in K\).
@@ -1540,6 +1519,68 @@
     \medskip
 
     Lastly, to prove statement (c), we simply need to take \(b = z^m\).
+\end{proof}
+
+\begin{definition}
+    Suppose \(L/K\) is Kummer of degree \(n\).
+    Let \(\zeta\) denote an \(n\)th root of unity, and let \(\Gal(L/K) = \aqty{\sigma}\).
+    Given some \(\alpha \in K\), the Lagrange resolvent is a pair \((\alpha,\zeta)\),
+    defined as the sum
+    \begin{equation*}
+        (\alpha,\zeta) = \sum_{k=0}^{n-1} \zeta^k \sigma^k(\alpha)
+        = \alpha + \zeta\sigma(\alpha) + \cdots + \zeta^{n-1}\sigma^{n-1}(\alpha)
+    \end{equation*}
+\end{definition}
+\begin{lemma}\label{lem:lagrange-resolvent-properties}
+    The Lagrange resolvent has the following properties:
+    \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
+        \item \(\sigma(\alpha,\zeta) = \zeta^{-1}(\alpha,\zeta)\); and
+        \item \(\pqty{\alpha,\zeta}^n \in K\).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    We compute for (a).
+    \begin{align*}
+        \sigma(\alpha,\zeta) &= \sum_{k=0}^{n-1} \zeta^k \sigma^{k+1}(\alpha)
+        = \zeta^{-1}\sigma^n(\alpha) + \sum_{k=0}^{n-2} \zeta^k \sigma^{k+1}(\alpha)
+        = \zeta^{-1}\alpha + \sum_{k=1}^{n-1} \zeta^{k-1} \sigma^k(\alpha) \\
+        &= \zeta^{-1}\sum_{k=0}^{n-1} \zeta^k \sigma^k(\alpha)
+        = \zeta^{-1}(\alpha,\zeta)
+    \end{align*}
+
+    Using (a), we notice that \(\sigma\pqty{\alpha,\zeta}^n = \zeta^{-n}\pqty{\alpha,\zeta}^n = \pqty{\alpha,\zeta}^n\),
+    so \(\Gal(L/K)\) fixes \(\pqty{\alpha,\zeta}^n\), meaning it must be in the base field.
+    This proves statement (b).
+\end{proof}
+\begin{proposition}\label{prop:kummer-simple-radical}
+    If \(L/K\) is a Kummer extensions of degree \(n\),
+    then \(L = K(z)\) with \(z^n \in K\).
+\end{proposition}
+\begin{proof}
+    % Consider \(\sigma \in G = \Gal(L/K)\) as a \(K\)-linear homomorphism from \(L \to L\).
+    % We can immediately see that \(\sigma^n - \id\) is also \(K\)-linear.
+    % Since \(G \cong Z_n\), \(\sigma^n - \id = 0\) is the zero map.
+    By \hyperref[lem:dedekind]{Dedekind's lemma},
+    % there does not exist a polynomial of degree less than \(n\) of which \(\sigma\) is a root of.
+    % Hence \(x^n - 1\) is the minimal polynomial of \(\sigma\).
+    the \(\sigma^k\) are all linearly independent,
+    so there exists some \(\alpha \in K\) such that the Lagrange resolvent \((\alpha,\zeta) \neq 0\).
+    Using the \hyperref[lem:lagrange-resolvent-properties]{lemma above},
+    we know that \(\sigma^k(\alpha,\zeta) = \zeta^{-k}(\alpha,\zeta)\),
+    so none of the \(\sigma^k\) fixes \((\alpha,\zeta)\),
+    i.e.\ there is no proper subgroup of \(\Gal(L/K)\) that fixes \((\alpha,\zeta)\),
+    meaning that it does not belong to any proper subfield.
+    Hence \(K((\alpha,\zeta))\) is not a proper subfield of \(L\),
+    giving us that \(L = K(z)\), with \(z = (\alpha,\zeta)\).
+    %
+    % Now, observe that \(\zeta\) is also a root of \(x^n - 1\),
+    % so \(\zeta\) is an eigenvalue of \(\sigma\) (Lemma~\ref{lem:eigenvalue-min-poly}),
+    % and there exists an eigenvector \(z \in L\) such that \(\sigma(z) = \zeta z\).
+    % % which we can then exponentiate to get \(\sigma^n(z) = \zeta^n z = z\)
+    % Observe that \[\sigma(z^n) = {(\sigma(z))}^n = {(\zeta z)}^n = z^n\]
+    % so \(z^n \in K\) because it is fixed by \(\sigma\).
+    % Also, \({\{\sigma^k(z) = \zeta^k z\}}_{k=0}^{n-1}\) is a pairwise distinct set of elements,
+    % so \(L = K(z)\) and \([L:K] = n\) as desired.
 \end{proof}
 
 \subsection*{Solvable Extensions}
@@ -1638,7 +1679,7 @@
     \[F = F_0 \subseteq F_1 \subseteq \cdots \subseteq F_r = L\]
     is a chain of sequentially simple radical extensions.
     But by our assumption, \(F_{i+1}/F_i\) is Kummer,
-    and Kummer extensions are simply radical by Lemma~\ref{lem:kummer-simple-radical} as desired.
+    and Kummer extensions are simply radical by Proposition~\ref{prop:kummer-simple-radical} as desired.
 
     Lastly, we return to the general case.
     Let \(\zeta = \zeta_m\) for \(m = \abs{\Gal(L/F)}\).
@@ -1786,32 +1827,35 @@
 
 \subsection*{Quartic Polynomials}
 
-\begin{definition}
-    Suppose \(f(x) = x^4 + ax^3 + bx^2 + cx + d \in F[x]\) is a general quartic.
-    Lagrange's resolvent is defined as
-    \(g(x) = x^3 - bx^2 + (ac-4d)x + (4bd-a^2d-c^2)\).
-\end{definition}
-\begin{proposition}
-    Suppose \({\{\alpha_i\}}_{i=1}^4\) are the roots of a general quartic \(f(x)\).
-    Then the roots of the resolvent \(g(x)\) are
-    \begin{equation*}
-        \beta_1 = \alpha_1\alpha_2 + \alpha_3\alpha_4,\quad
-        \beta_2 = \alpha_1\alpha_3 + \alpha_2\alpha_4,\quad
-        \beta_3 = \alpha_1\alpha_4 + \alpha_2\alpha_3
-    \end{equation*}
-\end{proposition}
+% \begin{definition}
+%     Suppose \(f(x) = x^4 + ax^3 + bx^2 + cx + d \in F[x]\) is a general quartic.
+%     Lagrange's resolvent is defined as
+%     \(g(x) = x^3 - bx^2 + (ac-4d)x + (4bd-a^2d-c^2)\).
+% \end{definition}
+% \begin{proposition}
+%     Suppose \({\{\alpha_i\}}_{i=1}^4\) are the roots of a general quartic \(f(x)\).
+%     Then the roots of the resolvent \(g(x)\) are
+%     \begin{equation*}
+%         \beta_1 = \alpha_1\alpha_2 + \alpha_3\alpha_4,\quad
+%         \beta_2 = \alpha_1\alpha_3 + \alpha_2\alpha_4,\quad
+%         \beta_3 = \alpha_1\alpha_4 + \alpha_2\alpha_3
+%     \end{equation*}
+% \end{proposition}
+% \begin{proof}
+%     % TODO
+% \end{proof}
 
 \begin{definition}
     The depressed quartic is a quartic polynomial without the cubic term,
     \(f(x) = x^4 + px^2 + qx + r\).
 \end{definition}
-\begin{corollary}
-    The resolvent to the depressed quartic is
-    \(g(x) = x^3 - px^2 - 4rx + (4pr-q^2)\).
-\end{corollary}
-\begin{proof}
-    % TODO
-\end{proof}
+% \begin{corollary}
+%     The resolvent to the depressed quartic is
+%     \(g(x) = x^3 - px^2 - 4rx + (4pr-q^2)\).
+% \end{corollary}
+% \begin{proof}
+%     % TODO
+% \end{proof}
 \begin{lemma}
     A general quartic can be transformed into a depressed quartic
     via a translation \(x \mapsto x-\frac{a}{4}\).
@@ -1852,6 +1896,15 @@
 
 \subsection*{Explicit formulae}
 
+\begin{remark}
+    While the solutions to the cubic equation is often called Cardano's formulae,
+    it was first independently discovered by del Ferro and Tartaglia,
+    whom we give credit to here.
+
+    Moreover, the proof has garnered improvements and simplifications from Vieta and Lagrange,
+    and as such, we will be presenting those ideas.
+\end{remark}
+
 \begin{theorem}[Cardano, del Ferro, Tartaglia]
     The roots to the depressed cubic \(f(x) = x^3 + px + q\) are
     \begin{equation*}
@@ -1867,7 +1920,9 @@
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Since the \(x^2\) term has, by definition, coefficient zero,
+    we know that the first elementary symmetric polynomial of the roots thus evaluates to
+    \(s_1 = \alpha + \beta + \gamma = 0\).
 \end{proof}
 
 \begin{theorem}
