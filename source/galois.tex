@@ -1679,35 +1679,76 @@
 \end{proof}
 
 
-\section{Cubic and Quartic Polynomials}
+\section{Galois Groups of Polynomials}
+
+\begin{remark}
+    The same strategies work over fields of positive characteristic,
+    but throughout, we assume that our field is of characteristic 0 in order to simplify calculations.
+\end{remark}
 
 \subsection*{Cubic Polynomials}
 
 \begin{definition}
-    The depressed cubic is a cubic polynomial without the square term,
-    \(f(x) = x^3 + px + q\).
+    The depressed cubic is a cubic polynomial without the square term, \(f(x) = x^3 + px + q\).
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:discriminant-cubic}
     The discriminant of the depressed cubic is \(\mca{D}(f) = -4p^3 - 27q^2\).
 \end{proposition}
 \begin{proof}
-    % TODO
+    Write the depressed cubic in terms of its roots
+    \[f(x) = x^3 + px + q = (x-\alpha)(x-\beta)(x-\gamma)\]
+    so in particular we have
+    \[0 = s_1 = \alpha + \beta + \gamma \qquad p = s_2 = \alpha\beta + \alpha\gamma + \beta\gamma \qquad -q = s_3 = \alpha\beta\gamma\]
+    Observe that the derivative can thus be written as
+    \[f'(x) = 3x^2 + p = (x-\alpha)(x-\beta) + (x-\alpha)(x-\gamma) + (x-\beta)(x-\gamma)\]
+    and that evaluating at each of the roots gives us the difference of roots
+    \begin{equation*}
+        f'(\alpha) = (\alpha-\beta)(\alpha-\gamma) \qquad
+        f'(\beta) = (\beta-\alpha)(\beta-\gamma) \qquad
+        f'(\gamma) = (\gamma-\alpha)(\gamma-\beta)
+    \end{equation*}
+    The product of these derivatives gives us the discriminant
+    \begin{equation*}
+        \mca{D}(f) = -(\alpha-\beta)(\alpha-\gamma)(\beta-\alpha)(\beta-\gamma)(\gamma-\alpha)(\gamma-\beta)
+        = -f'(\alpha)f'(\beta)f'(\gamma)
+    \end{equation*}
+    which evaluates to
+    \begin{align*}
+        -\mca{D}(f) &= (3\alpha^2+p)(3\beta^2+p)(3\gamma^2+p)
+        = 27\alpha^2\beta^2\gamma^2 + 9p(\alpha^2\beta^2+\alpha^2\gamma^2+\beta^2\gamma^2) + 3p^2(\alpha^2+\beta^2+\gamma^2) + p^3 \\
+        &= 27s_3^2 + 9p(-2s_1s_3 + s_2^2) + 3p^2(s_1^2 - 2s^2) + p^3
+        = 27q^2 + 9p^3 - 6p^3 + p^3 = 4p^3 + 27q^2
+    \end{align*}
 \end{proof}
+
 \begin{theorem}[Galois Groups of Cubics]
     Suppose a cubic \(f(x) \in F[x]\) is irreducible and separable
     in a field \(F\) with characteristic not 2 or 3.
     Let \(K\) be the splitting field of \(f(x)\).
     The classification of Galois groups are:
     \begin{enumerate}[label={(\alph*)}, itemsep=0mm]
-        \item \(\Gal(K/F) = S_3 \iff \mca{D} \notin {(F^\ast)}^2\); and
-        \item \(\Gal(K/F) = A_3 \iff \mca{D} \in {(F^\ast)}^2\).
+        \item \(\Gal(K/F) = A_3 \iff \mca{D} \in {(F^\ast)}^2\); and
+        \item \(\Gal(K/F) = S_3 \iff \mca{D} \notin {(F^\ast)}^2\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Firstly, adding a root of \(f\) generates an extension of degree 3,
+    so \(K/F\) has degree divisible by 3.
+    Since we know that \(\Gal(K/F)\) is a subgroup of \(S_3\),
+    that leaves us with two options, either \(S_3\) or \(A_3\).
+
+    % We claim that the splitting field \(K = F(\alpha,\sqrt{\mca{D}})\)
+    % is formed by adjoining a root \(\alpha\) of \(f\) and the square root of the discriminant.
+    If \(\Gal(K/F) = A_3\) is cyclic of order 3, then that means \(\sigma\) generates \(\Gal(K/F)\),
+    where \(\sigma(\alpha) = \beta\) and \(\sigma^2(\alpha) = \gamma\).
+    In that case, that means one is unable to transpose any two roots;
+    observing that \(\sqrt{\mca{D}} = (\alpha-\beta)(\alpha-\gamma)(\beta-\gamma)\),
+    and that transposition changes sign,
+    we can conclude that \(\Gal(K/F) = A_3\) if and only if \(\sqrt{\mca{D}}\) is fixed,
+    i.e.\ if and only if that \(\mca{D}\) is a square.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{lem:depressed-cubic-translation}
     A general cubic \(f(x) = x^3 + ax^2 + bx + c\)
     can be transformed into a depressed cubic
     via a translation \(x \mapsto x-\frac{a}{3}\).
@@ -1718,17 +1759,32 @@
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    % TODO
+    We manually check.
+    \begin{align*}
+        f(x) &= \pqty{x-\frac{a}{3}}^3 + a\pqty{x-\frac{a}{3}}^2 + b\pqty{x-\frac{a}{3}} + c \\
+        &= \pqty{x^3 - ax^2 + \frac{a^2}{3}x - \frac{a^3}{27}}
+        + a\pqty{x^2 - \frac{2a}{3}x + \frac{a^2}{9}} + b\pqty{x-\frac{a}{3}} + c \\
+        &= x^3 - \frac{a^2}{3}x + bx + \frac{2a^3}{27} - \frac{ab}{3} + c
+        = x^3 + \frac{1}{3}(3b-a^2)x + \frac{1}{27}(2a^3 - 9ab + 27)
+    \end{align*}
 \end{proof}
 \begin{proposition}
     The discriminant of the general cubic is
     \(\mca{D}(f) = a^2b^2 - 4b^3 - 4a^3c - 27c^2 + 18abc\).
 \end{proposition}
 \begin{proof}
-    % TODO
+    Since the discriminant is invariant under translations (Proposition~\ref{prop:discriminant-invariant}),
+    it suffices to plug in the values from the \hyperref[lem:depressed-cubic-translation]{lemma above}
+    into the discriminant of the depressed cubic (Proposition~\ref{prop:discriminant-cubic}).
+    \begin{align*}
+        \mca{D} &= -4p^3 - 27q^2 = -\frac{4}{27}\pqty{3b-a^2}^3 - \frac{1}{27}\pqty{2a^3-9ab+27c}^2 \\
+        &= -\frac{4}{27}\pqty{27b^3 - 27a^2b^2 + 9a^4b - a^6}
+        - \frac{1}{27}\pqty{4a^6 + 81a^2b^2 + 27^2c^2 - 36a^4b + 4 \cdot 27a^3c - 18 \cdot 27abc} \\
+        &= a^2b^2 - 4b^3 - 27c^2 - 4a^3c + 18abc
+    \end{align*}
 \end{proof}
-\begin{theorem}[Cardano's Formula]
-    The roots to the depressed cubic \(f(x) = x^3 + px + q\)
+\begin{theorem}[Cardano, del Ferro, Tartaglia]
+    The roots to the depressed cubic \(f(x) = x^3 + px + q\) are
     \begin{equation*}
         \frac{A+B}{3},\quad
         \frac{\zeta^2 A + \zeta B}{3},\quad
@@ -1742,7 +1798,12 @@
     \end{equation*}
 \end{theorem}
 \begin{proof}
-    % TODO
+    % As with completing the square, which wants us to get an expression of the form \(f(x) = {(x+r)}^2 + k\),
+    % here we aim to complete the cube, which gets us an expression of the form \(f(x) = {(x+r)}^3 + k\).
+    % First observe that
+    % \[f(x) = {(x+r)}^3 + k = x^3 + 3rx^2 + 3r^2x + r^3 + k = x^3 + 3r(r+x)x + (r^3+k)\]
+    % % \[f(x) = x^3 + px + q = \pqty{x^3 + \sqrt{3p}x^2 + px + \pqty{\frac{p}{3}}^{3/2}} + \sqrt{3p}x^2 + \pqty{\frac{p}{3}}^{3/2} + q\]
+    % so in essence, we aim to find \(p = 3r(r+x)\) and \(q = r^3 + k\).
 \end{proof}
 
 \subsection*{Quartic Polynomials}
