@@ -1954,13 +1954,7 @@
     The depressed quartic is a quartic polynomial without the cubic term,
     \(f(x) = x^4 + px^2 + qx + r\).
 \end{definition}
-% \begin{corollary}
-%     The resolvent to the depressed quartic is
-%     \(g(x) = x^3 - px^2 - 4rx + (4pr-q^2)\).
-% \end{corollary}
-% \begin{proof}
-%     % TODO
-% \end{proof}
+
 \begin{lemma}
     A general quartic can be transformed into a depressed quartic
     via a translation \(x \mapsto x-\frac{a}{4}\).
@@ -1972,14 +1966,122 @@
     \end{equation*}
 \end{lemma}
 \begin{proof}
-    % TODO
+    We manually check.
+    \begin{align*}
+        f(x) &= \pqty{x-\frac{a}{4}}^4 + a\pqty{x-\frac{a}{4}}^3 + b\pqty{x-\frac{a}{4}}^2 + c\pqty{x-\frac{a}{4}} + d \\
+        &= \pqty{x^4 - ax^3 + \frac{3a^2}{8}x^2 - \frac{a^3}{16}x + \frac{a^4}{256}}
+        + a\pqty{x^3 - \frac{3a}{4}x^2 + \frac{3a^2}{16}x - \frac{a^3}{64}}
+        + b\pqty{x^2 - \frac{a}{2}x + \frac{a^2}{16}} + c\pqty{x-\frac{a}{4}} + d \\
+        &= x^4 + \pqty{b-\frac{3a^2}{8}}x^2 + \pqty{\frac{a^3}{8}-\frac{ab}{2}+c}x
+        + \pqty{-\frac{3a^4}{256}+\frac{a^2b}{16}-\frac{ac}{4}+d} \\
+        &= x^4 + \frac{1}{8}\pqty{8b-3a^2}x^2 + \frac{1}{8}\pqty{a^3-4ab+8c}x
+        + \frac{1}{256}\pqty{-3a^4+64a^2b-64ac+256d}
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    Let \(f(x)\) be a quartic, and denote its four roots as \({\{\alpha_k\}}_{k=1}^4\).
+    Then let
+    % \begin{equation*}
+    %     \beta_1 = (\alpha_1+\alpha_2)(\alpha_3+\alpha_4) \qquad
+    %     \beta_2 = (\alpha_1+\alpha_3)(\alpha_2+\alpha_4) \qquad
+    %     \beta_3 = (\alpha_1+\alpha_4)(\alpha_2+\alpha_3)
+    % \end{equation*}
+    \begin{equation*}
+        \beta_1 = \alpha_1\alpha_2 + \alpha_3\alpha_4 \qquad
+        \beta_2 = \alpha_1\alpha_3 + \alpha_2\alpha_4 \qquad
+        \beta_3 = \alpha_1\alpha_4 + \alpha_2\alpha_3
+    \end{equation*}
+    The resolvent cubic of \(f\) is \(h(t) = (t-\beta_1)(t-\beta_2)(t-\beta_3)\).\footnote{%
+        There are multiple choices of the \(\beta_i\) that work.
+        A different choice would lead to a different resolvent cubic,
+        but we would want it to lead to the same (cubic) discriminant.
+    }
+    % The resolvent cubic of a general quartic is defined through its corresponding depressed quartic.
+\end{definition}
+\begin{remark}
+    Since in general \(\Gal(f) = S_4\), and that the dihedral group of order 8 \(D_4 \lhd S_4\),
+    it suggests that there are elements of which its stabilizer will be \(D_4\) and its conjugates.
+    Since (including itself) there are three such conjugate groups,
+    this suggests that we can potentially find three resolvents that are roots to a cubic.
+    Moreover, notice that \(S_4\) permutes the \(\beta_k\).
+\end{remark}
+\begin{proposition}
+    The resolvent to the depressed quartic is \(h(t) = t^3 - pt^2 - 4rt + (4pr-q^2)\).
+    The resolvent to the general quartic is \(h(t) = t^3 - bt^2 + (ac-4d)t + (4bd-a^2d-c^2)\).
+\end{proposition}
+\begin{proof}
+    Write the depressed cubic in terms of its roots
+    \[f(x) = x^4 + px^2 + qx + r = (x-\alpha_1)(x-\alpha_2)(x-\alpha_3)(x-\alpha_4)\]
+    so in particular we have
+    \begin{align*}
+        0 = s_1 &= \alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 &
+        p = s_2 &= \alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_1\alpha_4 + \alpha_2\alpha_3 + \alpha_2\alpha_4 + \alpha_3\alpha_4 \\
+        -q = s_3 &= \alpha_1\alpha_2\alpha_3 + \alpha_1\alpha_2\alpha_4 + \alpha_1\alpha_3\alpha_4 &
+        r = s_4 &= \alpha_1\alpha_2\alpha_3\alpha_4
+    \end{align*}
+
+    Then we compute the elementary symmetric functions of the \(\beta_k\)
+    in terms of the elementary symmetric functions of the \(\alpha_k\).
+    \begin{align*}
+        \beta_1\beta_2\beta_3 &= s_1^2s_4 - 4s_2s_4 + s_3^2 = -4pr + q^2 \\
+        \beta_1\beta_2 + \beta_1\beta_3 + \beta_2\beta_3 &= s_1s_3 - 4s_4 = -4r \\
+        \beta_1 + \beta_2 + \beta_3 &= s_2 = p
+    \end{align*}
+    For both the depressed and general quartic, simply read off these coefficients to form our cubic.
 \end{proof}
 \begin{proposition}
     The discriminant of a quartic is the discriminant of its resolvent cubic.
 \end{proposition}
 \begin{proof}
-    % TODO
+    Observe that
+    \begin{align*}
+        \mca{D}(h) &= \pqty{b_1-b_2}^2\pqty{b_1-b_3}^2\pqty{b_2-b_3}^2 \\
+        &= \pqty{a_1-a_4}^2\pqty{a_2-a_3}^2\pqty{a_1-a_3}^2\pqty{a_2-a_4}^2\pqty{a_1-a_2}^2\pqty{a_3-a_4}^2
+        = \mca{D}(f)
+    \end{align*}
 \end{proof}
+\begin{corollary}
+    The discriminant of the depressed quartic is
+    \(\mca{D}(f) = 16p^4r - 4p^3q^2 - 128p^2r^2 + 144pq^2r - 27q^4 + 256r^3\).
+\end{corollary}
+% \begin{proof}
+%     Write the depressed cubic in terms of its roots
+%     \[f(x) = x^4 + px^2 + qx + r = (x-\alpha_1)(x-\alpha_2)(x-\alpha_3)(x-\alpha_4)\]
+%     so in particular we have
+%     \begin{align*}
+%         0 = s_1 &= \alpha_1 + \alpha_2 + \alpha_3 + \alpha_4 &
+%         p = s_2 &= \alpha_1\alpha_2 + \alpha_1\alpha_3 + \alpha_1\alpha_4 + \alpha_2\alpha_3 + \alpha_2\alpha_4 + \alpha_3\alpha_4 \\
+%         -q = s_3 &= \alpha_1\alpha_2\alpha_3 + \alpha_1\alpha_2\alpha_4 + \alpha_1\alpha_3\alpha_4 &
+%         r = s_4 &= \alpha_1\alpha_2\alpha_3\alpha_4
+%     \end{align*}
+%     Observe that the derivative can thus be written as
+%     \begin{equation*}
+%         f'(x) = 4x^3 + 2px + q = \sum_{k=1}^4 \prod_{\ell \neq k} (x-\alpha_\ell)
+%     \end{equation*}
+%     and evaluating at each of the roots gives us the product of the difference of roots
+%     \begin{equation*}
+%         f'(\alpha_k) = \prod_{\ell \neq k} (\alpha_k-\alpha_\ell)
+%     \end{equation*}
+%     and the product of these derivatives gives us the discriminant
+%     \begin{equation*}
+%         \mca{D}(f) = \prod_{k=1}^4 \prod_{\ell \neq k} (\alpha_k-\alpha_\ell) = \prod_{k=1}^4 f'(\alpha_k)
+%     \end{equation*}
+%     which evaluates to
+%     \begin{align*}
+%         \mca{D}(f) = \prod_{k=1}^4 (4\alpha_k^3 + 2p\alpha_k + q)
+%         = 16p^4r - 4p^3q^2 - 128p^2r^2 + 144pq^2r - 27q^4 + 256r^3
+%     \end{align*}
+%     which is computed after expanding the expression,
+%     symmetrizing into elementary symmetric polynomials,
+%     substituting the coefficients of our quartic for such polynomials,
+%     and then grouping terms.
+% \end{proof}
+\begin{proof}
+    Simply compute the discriminant of the resolvent cubic.
+    This is tedious computation that is omitted.
+\end{proof}
+
 \begin{theorem}[Galois Groups of Quartics]
     Suppose a depressed quartic \(f(x) \in F[x]\) is irreducible
     in a field \(F\) with characteristic not 2 or 3.
@@ -1989,41 +2091,86 @@
         \item \(\Gal(f) = S_4 \iff g(x)\) irreducible in \(F\) and \(\mca{D} \notin {(F^\ast)}^2\);
         \item \(\Gal(f) = A_4 \iff g(x)\) irreducible in \(F\) and \(\mca{D} \in {(F^\ast)}^2\);
         \item \(\Gal(f) = V_4 \iff g(x)\) splits completely in \(F\);
-        \item \(\Gal(f) = Z_4 \iff g(x)\) has one root \(s \in F\),
+        \item (Kappe, Warren) \(\Gal(f) = Z_4 \iff g(x)\) has one root \(s \in F\),
             and \(x^2 + s\) and \(x^2 + (s-p) + r\) both split in \(F(\sqrt{\mca{D}})\); and
         \item \(\Gal(f) = D_4 \iff g(x)\) has one root \(s \in F\),
             and at least one of \(x^2 + s\) and \(x^2 + (s-p) + r\) irreducible in \(F(\sqrt{\mca{D}})\).
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Observe that if we have the \(\alpha_k\), the roots of \(f\), in the splitting field,
+    then \(\beta_k\) is also in that field.
+    Hence the splitting field of the resolvent cubic \(g\) is a subfield of the splitting field of \(f\),
+    meaning \(\Gal(g)\) is a quotient of \(\Gal(f)\).
+
+    First consider the cases where \(g\) is irreducible.
+    If \(\mca{D}\) is not a square, then using the same logic as the cubic case,
+    \(\Gal(f)\) is not a subgroup of \(A_4\);
+    moreover, \(\Gal(g) = S_3\), so the degree of the splitting field of \(g\) is divisible by 6,
+    which leaves \(\Gal(f) = S_4\).
+    If \(\mca{D}\) is a square, then \(\Gal(f) \subseteq A_4\), \(\Gal(g) = A_3\),
+    meaning the degree of the splitting field of \(g\) is divisible by 3,
+    which leaves \(\Gal(f) = A_4\).
+
+    Now consider the case where \(g\) splits completely.
+    Since all the \(\beta_k \in F\), \(\Gal(f)\) fixes all of these elements,
+    meaning \(G \subseteq V_4\) the Klein 4-group.
+    This leaves \(G = V_4\).
+
+    Lastly, consider the cases where \(g\) splits into a root and a quadratic.
+    Let \(\Gal(f)\) stabilize \(s = \theta_1\) but not the other two roots \(\theta_2,\theta_3\);
+    this means \(G \subseteq D_4\), and \(G \subsetneq V_4\),
+    which leaves us with \(G = D_4\) the dihedral group or \(Z_4\) the cyclic group.\footnote{%
+        See \url{https://kconrad.math.uconn.edu/blurbs/galoistheory/cubicquartic.pdf}.
+    }
+    % The only way to distinguish between these two is to see if \(f\) is irreducible over \(F(\sqrt{\mca{D}})\).
+    % If \(\Gal(f) = D_4\), then (restricting ourselves to even permutations) \(G \cap A_4 = V_4\);
+    % otherwise, if \(\Gal(f) = Z_4\), then \(G \cap A_4 = Z_2\).
+    % In the first case only, \(V_4\) acts transitively on the roots of \(f\),
+    % so \(\Gal(f) = D_4\) if and only if \(f\) is irreducible over \(F(\sqrt{\mca{D}})\).
 \end{proof}
+\begin{remark}
+    Before Kappe and Warren, the classical way to distinguish between \(Z_4\) and \(D_4\)
+    was to see if \(f\) itself is irreducible in \(F(\sqrt{\mca{D}})\).
+\end{remark}
 
-\subsection*{Explicit formulae}
-
+\begin{remark}
+    The first known method of solving the depressed quartic is found by Ferrari,
+    who requires us to complete a square and then reduces the problem into a cubic;
+    but again, the method of resolvents as introduced by Lagrange is the one that we provide here.
+\end{remark}
 \begin{theorem}
     The roots to a depressed quartic \({\{\alpha_i\}}_{i=1}^4\)
     can be expressed in terms of the roots of the resolvent cubic \({\{\beta_j\}}_{j=1}^3\).
     \begin{align*}
-        2\alpha_1 &= + \sqrt{-\beta_1} + \sqrt{-\beta_2} + \sqrt{-\beta_3} \\
-        2\alpha_2 &= + \sqrt{-\beta_1} - \sqrt{-\beta_2} - \sqrt{-\beta_3} \\
-        2\alpha_3 &= -\sqrt{-\beta_1} + \sqrt{-\beta_2} - \sqrt{-\beta_3} \\
-        2\alpha_4 &= -\sqrt{-\beta_1} - \sqrt{-\beta_2} + \sqrt{-\beta_3}
+        2\alpha_1 &= + \sqrt{-\beta_1-\beta_2} + \sqrt{-\beta_2-\beta_3} + \sqrt{-\beta_3-\beta_1} \\
+        2\alpha_2 &= + \sqrt{-\beta_1-\beta_2} - \sqrt{-\beta_2-\beta_3} - \sqrt{-\beta_3-\beta_1} \\
+        2\alpha_3 &= - \sqrt{-\beta_1-\beta_2} + \sqrt{-\beta_2-\beta_3} - \sqrt{-\beta_3-\beta_1} \\
+        2\alpha_4 &= - \sqrt{-\beta_1-\beta_2} - \sqrt{-\beta_2-\beta_3} + \sqrt{-\beta_3-\beta_1}
     \end{align*}
 \end{theorem}
 \begin{proof}
-    % TODO
+    Observe that we have the following equalities.
+    \begin{align*}
+        \beta_2 + \beta_3 - (a_1+a_2)s_1 &= {(a_1+a_2)}^2 &
+        \beta_2 + \beta_3 - (a_3+a_4)s_1 &= {(a_3+a_4)}^2 \\
+        \beta_1 + \beta_3 - (a_1+a_3)s_1 &= {(a_1+a_3)}^2 &
+        \beta_1 + \beta_3 - (a_2+a_4)s_1 &= {(a_2+a_4)}^2 \\
+        \beta_1 + \beta_2 - (a_1+a_4)s_1 &= {(a_1+a_4)}^2 &
+        \beta_1 + \beta_2 - (a_2+a_3)s_1 &= {(a_2+a_3)}^2
+    \end{align*}
+    so once you sum up the correct three square roots, and subtract \(s_1\), you get the desired roots.
 \end{proof}
 
-\subsection*{Other Polynomials}
+% \subsection*{Other Polynomials}
 
-\begin{theorem}
-    Suppose \(f(x) \in \bQ[x]\) be irreducible of prime degree \(p\),
-    with all but two roots in \(\bR\).
-    Then \(\Gal(f) = S_p\).
-\end{theorem}
-\begin{proof}
-    % TODO
-\end{proof}
+% \begin{theorem}
+%     Suppose \(f(x) \in \bQ[x]\) be irreducible of prime degree \(p\),
+%     with all but two roots in \(\bR\).
+%     Then \(\Gal(f) = S_p\).
+% \end{theorem}
+% \begin{proof}
+%     % TODO
+% \end{proof}
 
 % TODO: quintics in the form x^5 + ax + b and x^5 + ax^2 + b spearman and williams
